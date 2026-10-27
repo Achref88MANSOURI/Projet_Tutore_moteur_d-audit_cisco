@@ -96,6 +96,16 @@ class SemanticMapper:
         if rule in direct:
             target,key=direct[rule];fields=target.split('.');owner=obj.ethernet if len(fields)>1 else obj
             self.assign(owner,fields[-1],v[key],path+('/ethernet' if len(fields)>1 else ''),line,[key])
+        elif rule=='if_ipv4':
+            # This observed Cisco form declares a primary address. Restrict the
+            # refinement to v0.2 and this exact address; migration without source
+            # retains an unknown role, and explicit secondary addresses stay true.
+            address=str(ip_address(v['address']));length=prefix_length(v['mask'])
+            for index,item in enumerate(obj.ipv4_addresses):
+                if str(item.address)==address and item.prefix_length==length and item.secondary is None:
+                    item.secondary=False
+                    self.prove(path+f'/ipv4_addresses/{index}/secondary',line,[])
+                    break
         elif rule=='if_speed':
             fields=obj.ethernet.model_dump()
             fields.update(speed_mode='auto' if v['speed']=='auto' else 'fixed',speed_bps=None if v['speed']=='auto' else int(v['speed'])*1000000)
@@ -155,7 +165,7 @@ class SemanticMapper:
         else:items=proc.peer_options;basepath=path+'/peer_options'
         obj=next((p for p in items if p.peer==peer and p.kind==kind),None)
         if obj is None:obj=s.BGPPeerOptions(peer=peer,kind=kind);items.append(obj)
-        fields={'bgp_remote_as':('remote_as',asn(v['remote_as']))} if rule=='bgp_remote_as' else {}
+        fields={'remote_as':asn(v['remote_as'])} if rule=='bgp_remote_as' else {}
         if rule=='bgp_update_source':fields={'update_source':v['source']}
         if rule in ('bgp_activate','bgp_deactivate'):fields={'active':v['enabled']}
         if rule=='bgp_reflector':fields={'route_reflector_client':v['enabled']}
