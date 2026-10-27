@@ -1,0 +1,574 @@
+[
+  {
+    "id": "5dfac81331df",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/atm/command/atm-cr-book.html",
+    "title": "Cisco IOS Asynchronous Transfer Mode Command Reference",
+    "technology": "Cisco IOS Asynchronous Transfer Mode Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "ace1e2acf11f",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/bbdsl/command/bba-cr-book.html",
+    "title": "Cisco IOS Broadband Access Aggregation and DSL Command Reference",
+    "technology": "Cisco IOS Broadband Access Aggregation and DSL Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "c26575a5bcd0",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/bsm/command/bsm-cr-book.html",
+    "title": "Cisco IOS Basic System Management Command Reference",
+    "technology": "Cisco IOS Basic System Management Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "21478f9db43e",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/cether/command/ce-cr-book.html",
+    "title": "Cisco IOS Carrier Ethernet Command Reference",
+    "technology": "Cisco IOS Carrier Ethernet Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "65c1357a8383",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/csa/command/csa-cr-book.html",
+    "title": "Cisco IOS Software Activation Command Reference",
+    "technology": "Cisco IOS Software Activation Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "c7dcd6c81c05",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/esm/command/esm-cr-book.html",
+    "title": "Cisco IOS Embedded Syslog Manager Command Reference",
+    "technology": "Cisco IOS Embedded Syslog Manager Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "flexible-netflow",
+    "kind": "command_book",
+    "technology": "Flexible NetFlow",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fnetflow/command/fnf-cr-book.html",
+    "discovery_seed_ids": [
+      "flexible-netflow"
+    ]
+  },
+  {
+    "id": "6cca955d52ac",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference.html",
+    "title": "Cisco IOS Configuration Fundamentals Command Reference",
+    "technology": "Cisco IOS Configuration Fundamentals Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "fundamentals",
+    "kind": "command_book",
+    "technology": "Configuration fundamentals",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref.html",
+    "discovery_seed_ids": [
+      "fundamentals"
+    ]
+  },
+  {
+    "id": "17623fc8e2d0",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ha/command/ha-cr-book.html",
+    "title": "Cisco IOS High Availability Command Reference",
+    "technology": "Cisco IOS High Availability Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "0970e30e7bf2",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book.html",
+    "title": "Cisco IOS Interface and Hardware Component Command Reference",
+    "technology": "Cisco IOS Interface and Hardware Component Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "isr1000",
+      "isr4000",
+      "asr1000"
+    ]
+  },
+  {
+    "id": "af35d839cf91",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book.html",
+    "title": "Cisco IOS IP Addressing Services Command Reference",
+    "technology": "Cisco IOS IP Addressing Services Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "isr4000",
+      "asr1000"
+    ]
+  },
+  {
+    "id": "c0c370d4b886",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book.html",
+    "title": "Cisco IOS IP Application Services Command Reference",
+    "technology": "Cisco IOS IP Application Services Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "f14df58d9ce6",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp_fhrp/command/fhp-cr-book.html",
+    "title": "Cisco IOS First Hop Redundancy Protocols Command Reference",
+    "technology": "Cisco IOS First Hop Redundancy Protocols Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "2401d65976f8",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipmobility/command/imo-cr-book.html",
+    "title": "Cisco IOS IP Mobility Command Reference",
+    "technology": "Cisco IOS IP Mobility Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "ipv4-multicast",
+    "kind": "command_book",
+    "technology": "IP multicast",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipmulti/command/imc-cr-book.html",
+    "discovery_seed_ids": [
+      "ipv4-multicast"
+    ]
+  },
+  {
+    "id": "db75ad88e928",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book.html",
+    "title": "Cisco IOS IP Routing: BGP Command Reference",
+    "technology": "Cisco IOS IP Routing: BGP Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "1491eee9c0fb",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_eigrp/command/ire-cr-book.html",
+    "title": "Cisco IOS IP Routing: EIGRP Command Reference",
+    "technology": "Cisco IOS IP Routing: EIGRP Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "d696cb71903f",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_isis/command/irs-cr-book.html",
+    "title": "Cisco IOS IP Routing: ISIS Command Reference",
+    "technology": "Cisco IOS IP Routing: ISIS Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "52e834a8cfe9",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_lisp/command/ip-lisp-cr-book.html",
+    "title": "Cisco IOS IP Routing: LISP Command Reference",
+    "technology": "Cisco IOS IP Routing: LISP Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "1167bc5c475a",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_ospf/command/iro-cr-book.html",
+    "title": "Cisco IOS IP Routing OSPF Command Reference",
+    "technology": "Cisco IOS IP Routing OSPF Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "c173cd81b4c0",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/command/iri-cr-book.html",
+    "title": "Cisco IOS IP Routing: Protocol-Independent Command Reference",
+    "technology": "Cisco IOS IP Routing: Protocol-Independent Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "a206e31332e0",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_rip/command/irr-cr-book.html",
+    "title": "Cisco IOS IP Routing: RIP Command Reference",
+    "technology": "Cisco IOS IP Routing: RIP Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "d5d0e9a6f452",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipsla/command/sla-cr-book.html",
+    "title": "Cisco IOS IP SLAs Command Reference",
+    "technology": "Cisco IOS IP SLAs Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "cd599dcfc417",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipswitch/command/isw-cr-book.html",
+    "title": "Cisco IOS IP Switching Command Reference",
+    "technology": "Cisco IOS IP Switching Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "d26c020d1c06",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book.html",
+    "title": "Cisco IOS IPv6 Command Reference",
+    "technology": "Cisco IOS IPv6 Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "1f4562a7948e",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/isg/command/isg-cr-book.html",
+    "title": "Cisco IOS Intelligent Services Gateway Command Reference",
+    "technology": "Cisco IOS Intelligent Services Gateway Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "bcd6ffcda072",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/lanswitch/command/lsw-cr-book.html",
+    "title": "Cisco IOS LAN Switching Command Reference",
+    "technology": "Cisco IOS LAN Switching Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "b7788eccc905",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book.html",
+    "title": "Cisco IOS Multiprotocol Label Switching Command Reference",
+    "technology": "Cisco IOS Multiprotocol Label Switching Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "504c9866bd53",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/pfr/command/pfr-cr-book.html",
+    "title": "Cisco IOS Performance Routing Command Reference",
+    "technology": "Cisco IOS Performance Routing Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "72aa4cc51b35",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/pfrv3/command/pfrv3-cr-book.html",
+    "title": "Cisco IOS Performance Routing Version 3 Command Reference",
+    "technology": "Cisco IOS Performance Routing Version 3 Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "a3a312b00cee",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/prog/command/1712/b_1712_programmability_cr.html",
+    "title": "Programmability Command Reference, Cisco IOS XE Dublin 17.12.x",
+    "technology": "Programmability Command Reference, Cisco IOS XE Dublin 17.12.x",
+    "os_families": [
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "isr4000",
+      "asr1000",
+      "c8200",
+      "c8300",
+      "c8500",
+      "c8000v"
+    ],
+    "release_scope": "17.12.x"
+  },
+  {
+    "id": "b9bee47b8359",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/prog/command/1718/b_1718_programmability_cr.html",
+    "title": "Programmability Command Reference, Cisco IOS XE 17.18.x",
+    "technology": "Programmability Command Reference, Cisco IOS XE 17.18.x",
+    "os_families": [
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000",
+      "c8200",
+      "c8300",
+      "c8500",
+      "c8000v"
+    ],
+    "release_scope": "17.18.x"
+  },
+  {
+    "id": "00b5b64e2772",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book.html",
+    "title": "Cisco IOS Quality of Service Solutions Command Reference",
+    "technology": "Cisco IOS Quality of Service Solutions Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "f449fcda69bb",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book.html",
+    "title": "Cisco IOS Security Command Reference: Commands A to C",
+    "technology": "Cisco IOS Security Command Reference: Commands A to C",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "54967271fac7",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/d1/sec-d1-cr-book.html",
+    "title": "Cisco IOS Security Command Reference: Commands D to L",
+    "technology": "Cisco IOS Security Command Reference: Commands D to L",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "5a6b5769c2c9",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/m1/sec-m1-cr-book.html",
+    "title": "Cisco IOS Security Command Reference: Commands M to R",
+    "technology": "Cisco IOS Security Command Reference: Commands M to R",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "000719fb7926",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/s1/sec-s1-cr-book.html",
+    "title": "Cisco IOS Security Command Reference: Commands S to Z",
+    "technology": "Cisco IOS Security Command Reference: Commands S to Z",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "aa5cd3ba90a3",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/vpdn/command/vpd-cr-book.html",
+    "title": "Cisco IOS VPDN Command Reference",
+    "technology": "Cisco IOS VPDN Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "65fd9b6bb1e3",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book.html",
+    "title": "Cisco IOS Wide-Area Networking Command Reference",
+    "technology": "Cisco IOS Wide-Area Networking Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "29805d32d45b",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/dapr/command/reference/dapr-cr-book.html",
+    "title": "Cisco IOS Dynamic Application Policy Routing Command Reference",
+    "technology": "Cisco IOS Dynamic Application Policy Routing Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "isr4000",
+      "asr1000"
+    ]
+  },
+  {
+    "id": "67d6e1d52808",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/isoclns/command/reference/iso_book.html",
+    "title": "Cisco IOS ISO CLNS Command Reference",
+    "technology": "Cisco IOS ISO CLNS Command Reference",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  },
+  {
+    "id": "fc1030b5e0d5",
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/sbc/command/reference/sbcu_book.html",
+    "title": "Cisco Unified Border Element (SP Edition) Command Reference: Unified Model",
+    "technology": "Cisco Unified Border Element (SP Edition) Command Reference: Unified Model",
+    "os_families": [
+      "IOS",
+      "IOS-XE"
+    ],
+    "discovery_seed_ids": [
+      "asr1000"
+    ]
+  }
+]

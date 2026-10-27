@@ -1,0 +1,95 @@
+[
+  {
+    "source_id":"evidence-isr1000",
+    "evidence_kind":"running_config_output",
+    "example_release":"16.6 (version line in example only)",
+    "start_marker":"Current configuration : 1749 bytes",
+    "end_marker":"wsma agent notify",
+    "entries":[
+      {"command":"hostname","example":"hostname Router","mode":"global","context":[]},
+      {"command":"service timestamps","example":"service timestamps debug datetime msec","mode":"global","context":[]},
+      {"command":"platform qfp utilization monitor load","example":"platform qfp utilization monitor load 80","mode":"global","context":[]},
+      {"command":"aaa new-model","example":"no aaa new-model","mode":"global","context":[]},
+      {"command":"subscriber templating","example":"subscriber templating","mode":"global","context":[]},
+      {"command":"crypto pki trustpoint","example":"crypto pki trustpoint TP-self-signed-4175586959","mode":"global","context":[]},
+      {"command":"enrollment","example":"enrollment selfsigned","mode":"trustpoint","context":["crypto pki trustpoint TP-self-signed-4175586959"]},
+      {"command":"revocation-check","example":"revocation-check none","mode":"trustpoint","context":["crypto pki trustpoint TP-self-signed-4175586959"]},
+      {"command":"interface","example":"interface GigabitEthernet0/0/0","mode":"global","context":[]},
+      {"command":"ip address","example":"no ip address","mode":"interface","context":["interface GigabitEthernet0/0/0"]},
+      {"command":"shutdown","example":"shutdown","mode":"interface","context":["interface GigabitEthernet0/0/0"]},
+      {"command":"negotiation auto","example":"negotiation auto","mode":"interface","context":["interface GigabitEthernet0/0/0"]},
+      {"command":"ip address","example":"ip address negotiated","mode":"interface","context":["interface Cellular0/2/0"]},
+      {"command":"ipv6 enable","example":"ipv6 enable","mode":"interface","context":["interface Cellular0/2/0"]},
+      {"command":"ip http authentication","example":"ip http authentication local","mode":"global","context":[]},
+      {"command":"line","example":"line con 0","mode":"global","context":[]},
+      {"command":"transport input","example":"transport input none","mode":"line","context":["line con 0"]}
+    ]
+  },
+  {
+    "source_id":"evidence-ios-g2",
+    "evidence_kind":"running_config_output",
+    "example_release":"12.4 (version line in historical example only)",
+    "start_marker":"Current configuration : 723 bytes",
+    "end_marker":"scheduler allocate 20000 1000 end",
+    "entries":[
+      {"command":"hostname","example":"hostname Router","mode":"global","context":[]},
+      {"command":"service pad","example":"no service pad","mode":"global","context":[]},
+      {"command":"service password-encryption","example":"no service password-encryption","mode":"global","context":[]},
+      {"command":"ip cef","example":"ip cef","mode":"global","context":[]},
+      {"command":"archive","example":"archive","mode":"global","context":[]},
+      {"command":"log config","example":"log config","mode":"archive","context":["archive"]},
+      {"command":"hidekeys","example":"hidekeys","mode":"archive-log-config","context":["archive","log config"]},
+      {"command":"interface","example":"interface GigabitEthernet0/0","mode":"global","context":[]},
+      {"command":"ip address","example":"no ip address","mode":"interface","context":["interface GigabitEthernet0/0"]},
+      {"command":"shutdown","example":"shutdown","mode":"interface","context":["interface GigabitEthernet0/0"]},
+      {"command":"duplex","example":"duplex auto","mode":"interface","context":["interface GigabitEthernet0/0"]},
+      {"command":"speed","example":"speed auto","mode":"interface","context":["interface GigabitEthernet0/0"]},
+      {"command":"ip http server","example":"no ip http server","mode":"global","context":[]},
+      {"command":"login","example":"login","mode":"line","context":["line vty 0 3"]}
+    ]
+  },
+  {
+    "source_id":"evidence-asr1000",
+    "evidence_kind":"running_config_output",
+    "example_release":null,
+    "start_marker":"Router# show running-config hostname Router",
+    "end_marker":"no subscriber policy recording rules",
+    "entries":[
+      {"command":"hostname","example":"hostname Router","mode":"global","context":[]},
+      {"command":"boot system","example":"boot system bootflash:packages.conf","mode":"global","context":[]},
+      {"command":"aaa new-model","example":"aaa new-model","mode":"global","context":[]},
+      {"command":"aaa authentication ppp","example":"aaa authentication ppp default local","mode":"global","context":[]},
+      {"command":"aaa session-id","example":"aaa session-id common","mode":"global","context":[]},
+      {"command":"ip vrf","example":"ip vrf vrf1","mode":"global","context":[]},
+      {"command":"rd","example":"rd 1:1","mode":"vrf","context":["ip vrf vrf1"]},
+      {"command":"route-target","example":"route-target export 1:1","mode":"vrf","context":["ip vrf vrf1"]},
+      {"command":"route-target","example":"route-target import 1:1","mode":"vrf","context":["ip vrf vrf1"]},
+      {"command":"ip dhcp use vrf connected","example":"no ip dhcp use vrf connected","mode":"global","context":[]}
+    ]
+  },
+  {
+    "source_id":"evidence-c8200-c8300",
+    "evidence_kind":"cli_configuration_example",
+    "example_release":null,
+    "start_marker":"Configure Global Parameters",
+    "end_marker":"Dynamic allocation of cores",
+    "entries":[
+      {"command":"hostname","example":"hostname Router","mode":"global","context":[]},
+      {"command":"ip domain lookup","example":"no ip domain-lookup","mode":"global","context":[],"note":"Hyphenated spelling is printed by the guide; equivalence across releases is not assumed."},
+      {"command":"interface","example":"interface gigabitethernet 0/0/1","mode":"global","context":[]},
+      {"command":"ip address","example":"ip address 192.0.2.2 255.255.255.0","mode":"interface","context":["interface gigabitethernet 0/0/1"]},
+      {"command":"shutdown","example":"no shutdown","mode":"interface","context":["interface gigabitethernet 0/0/1"]}
+    ]
+  },
+  {
+    "source_id":"evidence-c8200-c8300",
+    "evidence_kind":"running_config_output",
+    "example_release":null,
+    "start_marker":"Router# show running-config router eigrp 109",
+    "end_marker":"network 10.10.12.15",
+    "entries":[
+      {"command":"router eigrp","example":"router eigrp 109","mode":"global","context":[]},
+      {"command":"network (EIGRP)","example":"network 192.0.2.8","mode":"router-eigrp","context":["router eigrp 109"]}
+    ]
+  }
+]

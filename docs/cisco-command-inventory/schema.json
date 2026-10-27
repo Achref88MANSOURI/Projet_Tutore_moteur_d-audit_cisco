@@ -1,0 +1,30 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"urn:network-config-normalizer-ttp:cisco-documentary-inventory:1.0.0",
+  "title":"Cisco documentary command occurrence, not a router support allow-list",
+  "type":"object",
+  "required":["id","command","syntaxes","documented_forms","modes","context_path","technology","scope_status","os_families_document_scope","platform_mentions","platform_support","release_history_labels","release_history","release_scope","source","configuration_presence","serialization","confidence","review_status","variants_policy"],
+  "properties":{
+    "id":{"type":"string","pattern":"^[0-9a-f]{16}$"},
+    "command":{"type":"string","minLength":1},
+    "syntaxes":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","minLength":1}},
+    "documented_forms":{"type":"array","minItems":1,"uniqueItems":true,"items":{"enum":["positive","no","default"]}},
+    "modes":{"type":"array","minItems":1,"items":{"type":"string","minLength":1}},
+    "context_path":{"type":"null"},
+    "technology":{"type":"string","minLength":1},
+    "scope_status":{"const":"router_applicability_unverified_shared_reference"},
+    "os_families_document_scope":{"type":"array","minItems":1,"items":{"enum":["IOS","IOS-XE"]}},
+    "platform_mentions":{"type":"array","items":{"type":"string"}},
+    "platform_support":{"const":"unverified_per_command"},
+    "release_history_labels":{"type":"array","items":{"type":"string"}},
+    "release_history":{"type":"array","items":{"type":"object","required":["release","change_kinds","support_inference"],"properties":{"release":{"type":"string"},"change_kinds":{"type":"array","minItems":1,"items":{"type":"string"}},"support_inference":{"const":"none_history_event_only"}},"additionalProperties":false}},
+    "release_scope":{"type":"string"},
+    "source":{"type":"object","required":["book_id","url","sha256","retrieved_at"],"properties":{"book_id":{"type":"string"},"url":{"type":"string","pattern":"^https://www\\.cisco\\.com/"},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},"retrieved_at":{"type":"string","format":"date-time"}},"additionalProperties":false},
+    "configuration_presence":{"const":"candidate_from_documented_configuration_mode"},
+    "serialization":{"const":"unverified_no_device_round_trip"},
+    "confidence":{"type":"object","required":["syntax","configuration_mode","platform_release_support","persistence"],"properties":{"syntax":{"const":"medium_automatic_extraction"},"configuration_mode":{"const":"medium_documented_mode"},"platform_release_support":{"const":"unknown"},"persistence":{"const":"unknown"}},"additionalProperties":false},
+    "review_status":{"const":"needs_review"},
+    "variants_policy":{"type":"string"}
+  },
+  "additionalProperties":false
+}
