@@ -1,0 +1,187 @@
+<group name="if_header*" method="table">
+{{ source_line | DIGIT | to_int }} interface {{ name }}
+</group>
+
+<group name="if_description*" method="table">
+{{ source_line | DIGIT | to_int }} description {{ value | ORPHRASE }}
+</group>
+
+<group name="if_shutdown*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} shutdown
+</group>
+
+<group name="if_no_shutdown*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} no shutdown
+</group>
+
+<group name="if_mtu*" method="table">
+{{ source_line | DIGIT | to_int }} mtu {{ mtu | DIGIT | to_int }}
+</group>
+
+<group name="if_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} vrf forwarding {{ vrf }}
+</group>
+
+<group name="if_legacy_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} ip vrf forwarding {{ vrf }}
+</group>
+
+<group name="if_ipv4*" method="table">
+{{ source_line | DIGIT | to_int }} ip address {{ address | IP }} {{ mask | IP }}
+</group>
+
+<group name="if_ipv4_secondary*" method="table">
+{{ source_line | DIGIT | to_int }} ip address {{ address | IP }} {{ mask | IP }} secondary
+</group>
+
+<group name="if_ipv6*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 address {{ address | IPV6 }}/{{ prefix_length | DIGIT | to_int }}
+</group>
+
+<group name="if_ipv6_qualified*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 address {{ address | IPV6 }}/{{ prefix_length | DIGIT | to_int }} {{ qualifier }}
+</group>
+
+<group name="if_no_ipv4*" method="table" functions="set(True, empty)">
+{{ source_line | DIGIT | to_int }} no ip address
+</group>
+
+<group name="if_unnumbered*" method="table">
+{{ source_line | DIGIT | to_int }} ip unnumbered {{ interface }}
+</group>
+
+<group name="if_acl4*" method="table">
+{{ source_line | DIGIT | to_int }} ip access-group {{ acl }} {{ direction }}
+</group>
+
+<group name="if_acl6*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 traffic-filter {{ acl }} {{ direction }}
+</group>
+
+<group name="if_ospf2*" method="table">
+{{ source_line | DIGIT | to_int }} ip ospf {{ process }} area {{ area }}
+</group>
+
+<group name="if_ospf3*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 ospf {{ process }} area {{ area }}
+</group>
+
+<group name="if_ospf_network*" method="table">
+{{ source_line | DIGIT | to_int }} ip ospf network {{ network_type }}
+</group>
+
+<group name="if_pim*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim {{ mode }}
+</group>
+
+<group name="if_pim_option*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim {{ option }} {{ value | ORPHRASE }}
+</group>
+
+<group name="if_service_policy*" method="table">
+{{ source_line | DIGIT | to_int }} service-policy {{ direction }} {{ policy }}
+</group>
+
+<group name="if_nat_role*" method="table">
+{{ source_line | DIGIT | to_int }} ip nat {{ role }}
+</group>
+
+<group name="if_mpls*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} mpls ip
+</group>
+
+<group name="if_isis*" method="table">
+{{ source_line | DIGIT | to_int }} ip router isis {{ process }}
+</group>
+
+<group name="if_isis_network*" method="table">
+{{ source_line | DIGIT | to_int }} isis network {{ network_type }}
+</group>
+
+<group name="if_switchport*" method="table">
+{{ source_line | DIGIT | to_int }} switchport mode {{ mode }}
+</group>
+
+<group name="if_routed*" method="table" functions="set('routed', mode)">
+{{ source_line | DIGIT | to_int }} no switchport
+</group>
+
+<group name="if_access_vlan*" method="table">
+{{ source_line | DIGIT | to_int }} switchport access vlan {{ vlan | DIGIT | to_int }}
+</group>
+
+<group name="if_native_vlan*" method="table">
+{{ source_line | DIGIT | to_int }} switchport trunk native vlan {{ vlan | DIGIT | to_int }}
+</group>
+
+<group name="if_trunk_vlans*" method="table">
+{{ source_line | DIGIT | to_int }} switchport trunk allowed vlan {{ vlans }}
+</group>
+
+<group name="if_trunk_modify*" method="table">
+{{ source_line | DIGIT | to_int }} switchport trunk allowed vlan {{ operation }} {{ vlans }}
+</group>
+
+<group name="if_lag*" method="table">
+{{ source_line | DIGIT | to_int }} channel-group {{ lag_id | DIGIT | to_int }} mode {{ mode }}
+</group>
+
+<group name="if_dot1q*" method="table">
+{{ source_line | DIGIT | to_int }} encapsulation dot1Q {{ vlan | DIGIT | to_int }}
+</group>
+
+<group name="if_dot1q_lower*" method="table">
+{{ source_line | DIGIT | to_int }} encapsulation dot1q {{ vlan | DIGIT | to_int }}
+</group>
+
+<group name="if_qinq*" method="table">
+{{ source_line | DIGIT | to_int }} encapsulation dot1Q {{ vlan | DIGIT | to_int }} second-dot1q {{ inner_vlan | DIGIT | to_int }}
+</group>
+
+<group name="if_speed*" method="table">
+{{ source_line | DIGIT | to_int }} speed {{ speed }}
+</group>
+
+<group name="if_duplex*" method="table">
+{{ source_line | DIGIT | to_int }} duplex {{ duplex }}
+</group>
+
+<group name="if_negotiation*" method="table">
+{{ source_line | DIGIT | to_int }} negotiation {{ negotiation }}
+</group>
+
+<group name="if_media*" method="table">
+{{ source_line | DIGIT | to_int }} media-type {{ media }}
+</group>
+
+<group name="if_proxyarp*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip proxy-arp
+</group>
+
+<group name="if_redirects*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip redirects
+</group>
+
+<group name="if_mss*" method="table">
+{{ source_line | DIGIT | to_int }} ip tcp adjust-mss {{ mss | DIGIT | to_int }}
+</group>
+
+<group name="if_tunnel_source*" method="table">
+{{ source_line | DIGIT | to_int }} tunnel source {{ source }}
+</group>
+
+<group name="if_tunnel_destination*" method="table">
+{{ source_line | DIGIT | to_int }} tunnel destination {{ destination }}
+</group>
+
+<group name="if_keepalive_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no keepalive
+</group>
+
+<group name="if_flow*" method="table">
+{{ source_line | DIGIT | to_int }} ip flow {{ direction }}
+</group>
+
+<group name="if_ipv6_enable*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ipv6 enable
+</group>

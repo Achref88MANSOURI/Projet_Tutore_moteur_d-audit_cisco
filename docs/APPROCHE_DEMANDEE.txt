@@ -1,0 +1,311 @@
+Construire notre parseur Cisco avec TTP et les templates existants
+La recherche a révélé une piste particulièrement intéressante : le projet officiel ttp_templates, maintenu dans le même écosystème que TTP, fournit déjà des templates Cisco IOS et même des exemples produisant des structures compatibles avec des modèles YANG.
+
+Cela nous permet d'éviter de repartir de zéro. Nous pouvons réutiliser les templates qui existent, les compléter avec les fonctions manquantes, puis développer notre propre couche de normalisation vers NormalizedConfig v0.1.
+
+Il faut cependant distinguer template disponible, fonctionnalité correctement extraite et fonctionnalité normalisée. Ce sont trois niveaux différents, comme l'avait montré notre première expérimentation.
+1. Les dépôts GitHub pertinents identifiés
+
+
+
+
+
+
+
+
+
+1. dmulyalin/ttp_templates
+Prioritaire
+Collection documentée par l'auteur de TTP, contenant les catégories platform, yang et misc. Elle propose des templates Cisco IOS pour certaines sections de configuration, les interfaces, BGP, NAT et des structures YANG.
+
+Source : documentation et dépôt officiel. 
+
+GitHub
++1
+
+
+
+
+
+
+
+2. tbotnz/ios-show-run-ttp
+
+Template communautaire ciblant directement le résultat de show running-config de Cisco IOS, et non simplement une sortie show ip route.
+
+Son auteur indique explicitement qu'il reste en développement. Les demandes ouvertes mentionnent notamment les ACL nommées, les route-policies et les service-policies de sortie.
+
+À exploiter comme source de règles, pas comme garantie d'exhaustivité. 
+
+GitHubHelp
+
+
+
+
+
+
+
+3. consentfactory/ttp-cisco-asa-template
+
+Projet consacré au parsing des configurations Cisco ASA.
+
+Il peut nous aider à comprendre comment traiter une configuration de sécurité complète et des ACL, mais ASA n'est pas IOS/IOS-XE. Les syntaxes ne sont donc pas directement interchangeables. 
+
+GitHub
+
+
+
+
+
+
+
+4. dmulyalin/ttp
+
+Ce n'est pas une bibliothèque de templates prête à couvrir Cisco, mais le moteur lui-même. Son dépôt contient des exemples de parsing de configurations hiérarchiques BGP, de fonctions de transformation, de regroupement de données et de traitement multi-templates.
+
+Référence de développement et de syntaxe. 
+
+GitHub
++1
+
+
+
+
+
+
+Ces dépôts sont les ressources directement pertinentes que j'ai pu identifier et documenter. Je ne prétends pas avoir recensé littéralement tous les dépôts GitHub : beaucoup de templates existent dans des projets privés, des exemples isolés ou des dépôts insuffisamment indexés.
+2. Quels templates pouvons-nous déjà réutiliser ?
+Dans ttp_templates, j'ai identifié plusieurs références concrètes.
+Template / référence	Fonction	Intérêt
+cisco_ios_show_running_config_pipe_section_interface.txt	Extraction des interfaces depuis la configuration	Priorité élevée
+cisco_ios_show_running_config_pipe_section_router_bgp.txt	Extraction des ASN BGP	Utile, mais pas un parseur BGP complet
+cisco_ios_show_running_config_pipe_include_source_static.txt	NAT statique	Contrôle NAT
+ietf-interfaces_cisco_ios.txt via la collection YANG	Production d'une structure compatible IETF Interfaces	Inspiration directe pour notre mapping
+openconfig-lldp_cisco_ios.txt	Sortie LLDP vers modèle OpenConfig	Exemple de normalisation, mais traite une sortie opérationnelle
+
+
+
+GitHub
++3
+
+
+Le template BGP identifié, par exemple, est conçu pour retrouver les numéros d'AS. Il ne faut donc pas lui attribuer automatiquement le parsing des address-family, des route-map, des peer-group et de l'ensemble des politiques de routage.
+
+C'est précisément pourquoi nous devons constituer un catalogue de templates avec leur couverture fonctionnelle, et pas seulement une collection de fichiers.
+3. Découverte importante : la collection officielle possède déjà une logique de normalisation
+En inspectant plus précisément le catalogue, on trouve 127 templates au total, toutes plateformes confondues, dans la documentation actuelle de ttp_templates. Ce chiffre ne correspond donc pas à 127 templates Cisco. 
+
+dmulyalin.github.io
+
+
+
+
+Deux découvertes sont particulièrement intéressantes :
+- Le template d'interfaces Cisco IOS dispose d'un traitement Python complémentaire qui convertit les adresses, VLAN, VRF et autres propriétés en enregistrements structurés, avec validation Pydantic. 
+  
+  TTP Templates Collection
+- Le template VRF produit déjà des objets normalisés comprenant notamment name, description, rd, rt_import, rt_export et les références aux politiques. 
+  
+  TTP Templates Collection
+C'est une architecture que nous pouvons réutiliser : TTP capture les valeurs, puis une couche Python les transforme en objets validés.
+
+Il y a donc deux composants à examiner dans la collection, et pas seulement les fichiers de templates :
+Template TTP Cisco
+
+Règles de reconnaissance des commandes
+
+ttp_templates/utils/
+
+Fonctions Python de transformation et de normalisation
+
+Enregistrements structurés
+
+Interfaces, VRF, ASN, etc.
+
+
+Leurs structures ne sont pas nécessairement identiques à notre contrat NormalizedConfig. Mais elles peuvent nous épargner une partie significative du traitement des valeurs.
+4. Comment traiter un fichier Cisco complet avec TTP ?
+Je propose de conserver exactement la même entrée et les mêmes objectifs de sortie que notre ancienne expérimentation.
+
+Entrée
+
+configs/router01.cfg : un des vingt fichiers Cisco.
+
+Sorties attendues
+- parsed_native.json : les données interprétées par les templates.
+- normalized_config.json : notre contrat NormalizedConfig.
+- coverage_report.json : les fonctionnalités, commandes et paramètres non interprétés.
+L'organisation interne serait la suivante :
+
+network-config-normalizer/
+├── configs/
+│   └── router01.cfg
+├── templates/
+│   └── cisco_ios/
+│       ├── interfaces.ttp
+│       ├── bgp.ttp
+│       ├── ospf.ttp
+│       ├── vrf.ttp
+│       ├── acl.ttp
+│       └── services.ttp
+├── parser/
+│   ├── run_ttp.py
+│   └── coverage.py
+├── normalizer/
+│   ├── mapping.py
+│   └── validation.py
+├── schemas/
+│   └── normalizedconfig.py
+└── outputs/
+
+
+
+Ce découpage ne signifie pas que nous devons analyser manuellement les six sections séparément. Le moteur peut charger le fichier complet une fois et appliquer plusieurs groupes ou templates dans une même exécution.
+
+TTP possède des mécanismes de groupes hiérarchiques et de templates multiples. Ses résultats peuvent ensuite être fusionnés par notre application. 
+
+GitHub
++1
+
+
+
+Étape A — Installer TTP et la collection
+Sur Kali Linux ou Windows avec Python :
+python -m pip install ttp ttp-templates pydantic
+
+
+Nous pouvons charger un template de la collection officielle sans recopier immédiatement son contenu :
+from ttp import ttpfrom ttp_templates import get_templatefrom pathlib import Pathconfig = Path("configs/router01.cfg").read_text(    encoding="utf-8",    errors="replace")template = get_template(    platform="cisco_ios",    command="show running-config | section interface")parser = ttp(data=config, template=template)parser.parse()result = parser.result()print(result)
+
+
+
+C'est un premier essai à valider, car le template est documenté pour une sortie de type show running-config | section interface, alors que nous lui donnons ici un fichier complet. Il faudra vérifier que ses groupes reconnaissent les bonnes sections sans faux positifs, sinon extraire les sections correspondantes avant de les analyser. 
+
+TTP Templates Collection
+
+
+
+Étape B — Réutiliser les templates existants
+Il serait préférable de commencer avec les modèles déjà maintenus, et non de recopier le dépôt communautaire complet.
+
+Pour chaque famille, nous vérifierons le résultat obtenu, puis nous ajouterons uniquement les commandes qui manquent.
+
+Par exemple, pour BGP, le template officiel identifié extrait les numéros d'AS. Pour aller plus loin, nous aurons besoin d'ajouter les règles correspondant aux voisins, address-families, politiques et paramètres de sécurité.
+
+TTP permet de créer des groupes imbriqués, ce qui convient à ce type de configuration. 
+
+GitHub
+
+
+
+Étape C — Construire notre couche de normalisation
+À la sortie de TTP, on obtiendra des dictionnaires dont les champs dépendent des templates.
+
+Notre normaliseur devra effectuer les opérations suivantes :
+Transformation	Exemple
+Conversion des types	ASN "65000" → entier 65000
+Normalisation IP	192.0.2.1 + 255.255.255.0 → 192.0.2.1/24
+Fusion des objets	Plusieurs extractions concernant GigabitEthernet0/0
+Résolution des références	Une route-map BGP renvoyant à une prefix-list
+Mapping commun	Propriété Cisco → propriété NormalizedConfig
+Préservation des inconnues	Commandes reconnues mais non converties
+Validation	Contrôle par le schéma Pydantic existant
+
+Un exemple de transformation Python :
+from ipaddress import IPv4Network, IPv4Interfacedef normalize_ipv4(address, mask):    network = IPv4Network(        f"0.0.0.0/{mask}"    )    prefix = network.prefixlen    return str(IPv4Interface(f"{address}/{prefix}"))
+
+
+
+Le choix des noms de champs et l'instanciation finale devront suivre notre véritable schéma NormalizedConfig v0.1, et non un modèle JSON simplifié.
+Étape D — Garder la traçabilité
+Il ne faut pas calculer la couverture en soustrayant simplement le nombre d'objets JSON du nombre de lignes du fichier.
+
+Un même élément de configuration peut produire plusieurs champs. Inversement, un bloc de certificat peut contenir des dizaines de lignes sans représenter autant de paramètres métier distincts.
+
+Je propose de conserver une représentation de chaque commande source avec son contexte :
+{
+  "source_file": "router01.cfg",
+  "line": 24,
+  "context": "interface GigabitEthernet0/0",
+  "text": "ip pim sparse-mode",
+  "status": "unmapped",
+  "extractor": null
+}
+
+
+Ce JSON est un exemple de structure de diagnostic, pas une sortie native garantie par TTP.
+
+TTP possède un indicateur _line_ permettant de capturer des lignes qui ne correspondent pas aux autres variables, mais sa documentation avertit qu'il peut être coûteux et nécessite une configuration soigneuse. Nous devrons tester ce mécanisme ou utiliser un inventaire externe des lignes sources pour la couverture. 
+
+ttp 0.10.0 documentation
+
+
+
+
+Pour les blocs sensibles et multilignes, notamment PKI, il faudra éviter de considérer chaque ligne comme une commande distincte.
+5. Comment mesurer si TTP fait mieux que notre ancien parseur ?
+Je propose de reprendre exactement les mêmes vingt fichiers Cisco, avec deux niveaux d'évaluation.
+Indicateur	Ancien cisco_config_parser	Nouveau TTP
+Configurations traitées	20/20	À mesurer
+Commandes du corpus	3 051	Même corpus
+Commandes converties	1 224	À mesurer
+Couverture par commande	40,12 %	À mesurer
+Commandes non converties	1 827	À mesurer
+Extraction BGP avancée	Partielle	À mesurer
+Conservation des blocs PKI	Réserves identifiées	À vérifier
+Exactitude des champs	À évaluer	À évaluer
+
+Pour que la comparaison soit valide, il faudra conserver les mêmes critères de comptage, et ajouter une vérification manuelle sur un échantillon de paramètres.
+
+Les tests fonctionnels prioritaires seront :
+- Interfaces : IPv4/IPv6, VRF, VLAN, NAT, PIM, QoS.
+- Routage : BGP avec address-family, OSPFv2/v3, routes statiques.
+- Politiques : ACL, route-maps, prefix-lists et références croisées.
+- Administration : AAA, SNMP, Syslog, NTP, SSH.
+- Fonctions avancées : MPLS, LDP, PKI et blocs multilignes.
+Un paramètre conservé uniquement dans le texte brut doit être compté comme préservé, mais non normalisé.
+6. Quelle stratégie de réutilisation adopter ?
+Étant donné que tu veux éviter les bibliothèques et les dépôts peu fiables, je recommande la politique suivante :
+Source	Utilisation dans notre projet
+dmulyalin/ttp	Moteur TTP principal
+dmulyalin/ttp_templates	Première source de templates et de transformations
+tbotnz/ios-show-run-ttp	Source d'inspiration et de commandes supplémentaires à tester individuellement
+consentfactory/ttp-cisco-asa-template	Exemple pour certaines structures de sécurité, sans supposer une compatibilité IOS
+Nos propres templates	Fonctions non couvertes ou extraction incorrecte
+Pydantic + NormalizedConfig	Validation finale indépendante des templates
+
+Nous devrons figer les versions des bibliothèques et les révisions des templates utilisés, examiner leurs licences, puis conserver des tests de non-régression sur notre corpus Cisco.
+7. La démarche que je retiens
+1
+
+Réutiliser les templates officiels
+
+Commencer par interfaces, VRF, BGP et NAT.
+
+
+2
+
+Tester les cinq configurations représentatives
+
+Vérifier la structure, les valeurs et les commandes manquantes.
+
+
+3
+
+Étendre les templates Cisco
+
+Ajouter uniquement les fonctionnalités absentes ou incorrectement traitées.
+
+
+4
+
+Construire le mapping OpenConfig
+
+Convertir et fusionner les objets vers le contrat NormalizedConfig.
+
+
+5
+
+Valider sur les vingt fichiers
+
+Mesurer couverture, exactitude, provenance et régressions.

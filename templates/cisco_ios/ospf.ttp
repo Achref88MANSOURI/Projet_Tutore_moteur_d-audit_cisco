@@ -1,0 +1,55 @@
+<group name="ospf_header_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} router ospf {{ process }} vrf {{ vrf }}
+</group>
+
+<group name="ospf_header*" method="table">
+{{ source_line | DIGIT | to_int }} router ospf {{ process }}
+</group>
+
+<group name="ospf3_header*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 router ospf {{ process }}
+</group>
+
+<group name="ospf_router_id*" method="table">
+{{ source_line | DIGIT | to_int }} router-id {{ router_id | IP }}
+</group>
+
+<group name="ospf_network*" method="table">
+{{ source_line | DIGIT | to_int }} network {{ address | IP }} {{ wildcard | IP }} area {{ area }}
+</group>
+
+<group name="ospf_passive*" method="table">
+{{ source_line | DIGIT | to_int }} passive-interface {{ interface }}
+</group>
+
+<group name="ospf_no_passive*" method="table">
+{{ source_line | DIGIT | to_int }} no passive-interface {{ interface }}
+</group>
+
+<group name="ospf_cost*" method="table">
+{{ source_line | DIGIT | to_int }} auto-cost reference-bandwidth {{ bandwidth | DIGIT | to_int }}
+</group>
+
+<group name="ospf_area*" method="table">
+{{ source_line | DIGIT | to_int }} area {{ area }} {{ type }}
+</group>
+
+<group name="ospf_virtual_link*" method="table">
+{{ source_line | DIGIT | to_int }} area {{ area }} virtual-link {{ peer | IP }}
+</group>
+
+<group name="ospf_redistribute*" method="table">
+{{ source_line | DIGIT | to_int }} redistribute {{ protocol }} {{ options | ORPHRASE }}
+</group>
+
+<group name="ospf_redistribute_simple*" method="table">
+{{ source_line | DIGIT | to_int }} redistribute {{ protocol }}
+</group>
+
+<group name="ospf_default*" method="table">
+{{ source_line | DIGIT | to_int }} default-information originate {{ options | ORPHRASE }}
+</group>
+
+<group name="ospf_log*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} log-adjacency-changes
+</group>

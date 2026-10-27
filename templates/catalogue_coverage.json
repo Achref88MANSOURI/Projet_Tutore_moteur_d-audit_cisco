@@ -1,0 +1,2450 @@
+[
+  {
+    "family": "interfaces",
+    "id": "if_header",
+    "pattern": "interface {{ name }}",
+    "note": "",
+    "corpus_occurrences": 114,
+    "corpus_mapped_occurrences": 114,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_description",
+    "pattern": "description {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 31,
+    "corpus_mapped_occurrences": 31,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_shutdown",
+    "pattern": "shutdown {{ enabled | set(False) }}",
+    "note": "",
+    "corpus_occurrences": 25,
+    "corpus_mapped_occurrences": 25,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_no_shutdown",
+    "pattern": "no shutdown {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 30,
+    "corpus_mapped_occurrences": 30,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_mtu",
+    "pattern": "mtu {{ mtu | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_vrf",
+    "pattern": "vrf forwarding {{ vrf }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 9,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_legacy_vrf",
+    "pattern": "ip vrf forwarding {{ vrf }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_ipv4",
+    "pattern": "ip address {{ address | IP }} {{ mask | IP }}",
+    "note": "",
+    "corpus_occurrences": 73,
+    "corpus_mapped_occurrences": 73,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_ipv4_secondary",
+    "pattern": "ip address {{ address | IP }} {{ mask | IP }} secondary",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_ipv6",
+    "pattern": "ipv6 address {{ address | IPV6 }}/{{ prefix_length | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 19,
+    "corpus_mapped_occurrences": 19,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_ipv6_qualified",
+    "pattern": "ipv6 address {{ address | IPV6 }}/{{ prefix_length | DIGIT | to_int }} {{ qualifier }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_no_ipv4",
+    "pattern": "no ip address {{ empty | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 29,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_unnumbered",
+    "pattern": "ip unnumbered {{ interface }}",
+    "note": "",
+    "corpus_occurrences": 10,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_acl4",
+    "pattern": "ip access-group {{ acl }} {{ direction }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 6,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_acl6",
+    "pattern": "ipv6 traffic-filter {{ acl }} {{ direction }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_ospf2",
+    "pattern": "ip ospf {{ process }} area {{ area }}",
+    "note": "",
+    "corpus_occurrences": 7,
+    "corpus_mapped_occurrences": 7,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_ospf3",
+    "pattern": "ipv6 ospf {{ process }} area {{ area }}",
+    "note": "",
+    "corpus_occurrences": 14,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_ospf_network",
+    "pattern": "ip ospf network {{ network_type }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_pim",
+    "pattern": "ip pim {{ mode }}",
+    "note": "",
+    "corpus_occurrences": 14,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_pim_option",
+    "pattern": "ip pim {{ option }} {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_service_policy",
+    "pattern": "service-policy {{ direction }} {{ policy }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 4,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_nat_role",
+    "pattern": "ip nat {{ role }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_mpls",
+    "pattern": "mpls ip {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 15,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_isis",
+    "pattern": "ip router isis {{ process }}",
+    "note": "",
+    "corpus_occurrences": 10,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_isis_network",
+    "pattern": "isis network {{ network_type }}",
+    "note": "",
+    "corpus_occurrences": 10,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_switchport",
+    "pattern": "switchport mode {{ mode }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_routed",
+    "pattern": "no switchport {{ mode | set(\"routed\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_access_vlan",
+    "pattern": "switchport access vlan {{ vlan | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_native_vlan",
+    "pattern": "switchport trunk native vlan {{ vlan | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_trunk_vlans",
+    "pattern": "switchport trunk allowed vlan {{ vlans }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_trunk_modify",
+    "pattern": "switchport trunk allowed vlan {{ operation }} {{ vlans }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_lag",
+    "pattern": "channel-group {{ lag_id | DIGIT | to_int }} mode {{ mode }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_dot1q",
+    "pattern": "encapsulation dot1Q {{ vlan | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_dot1q_lower",
+    "pattern": "encapsulation dot1q {{ vlan | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 3,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_qinq",
+    "pattern": "encapsulation dot1Q {{ vlan | DIGIT | to_int }} second-dot1q {{ inner_vlan | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_speed",
+    "pattern": "speed {{ speed }}",
+    "note": "",
+    "corpus_occurrences": 33,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_duplex",
+    "pattern": "duplex {{ duplex }}",
+    "note": "",
+    "corpus_occurrences": 41,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_negotiation",
+    "pattern": "negotiation {{ negotiation }}",
+    "note": "",
+    "corpus_occurrences": 51,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_media",
+    "pattern": "media-type {{ media }}",
+    "note": "",
+    "corpus_occurrences": 19,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_proxyarp",
+    "pattern": "no ip proxy-arp {{ enabled | set(False) }}",
+    "note": "",
+    "corpus_occurrences": 7,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_redirects",
+    "pattern": "no ip redirects {{ enabled | set(False) }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_mss",
+    "pattern": "ip tcp adjust-mss {{ mss | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_tunnel_source",
+    "pattern": "tunnel source {{ source }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_tunnel_destination",
+    "pattern": "tunnel destination {{ destination }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_keepalive_off",
+    "pattern": "no keepalive {{ enabled | set(False) }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_flow",
+    "pattern": "ip flow {{ direction }}",
+    "note": "",
+    "corpus_occurrences": 10,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "interfaces",
+    "id": "if_ipv6_enable",
+    "pattern": "ipv6 enable {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 7,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_header",
+    "pattern": "router bgp {{ local_as }}",
+    "note": "",
+    "corpus_occurrences": 17,
+    "corpus_mapped_occurrences": 17,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_router_id",
+    "pattern": "bgp router-id {{ router_id | IP }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 9,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_af_vrf",
+    "pattern": "address-family {{ afi }} vrf {{ vrf }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 9,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_af_two",
+    "pattern": "address-family {{ afi }} {{ safi }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_af",
+    "pattern": "address-family {{ afi }}",
+    "note": "",
+    "corpus_occurrences": 21,
+    "corpus_mapped_occurrences": 21,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_af_exit",
+    "pattern": "exit-address-family {{ boundary | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 32,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_remote_as",
+    "pattern": "neighbor {{ peer }} remote-as {{ remote_as }}",
+    "note": "",
+    "corpus_occurrences": 51,
+    "corpus_mapped_occurrences": 48,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_description",
+    "pattern": "neighbor {{ peer }} description {{ description | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 4,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_group_definition",
+    "pattern": "neighbor {{ peer }} peer-group",
+    "note": "",
+    "corpus_occurrences": 19,
+    "corpus_mapped_occurrences": 19,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_group_member",
+    "pattern": "neighbor {{ peer }} peer-group {{ group }}",
+    "note": "",
+    "corpus_occurrences": 23,
+    "corpus_mapped_occurrences": 23,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_update_source",
+    "pattern": "neighbor {{ peer }} update-source {{ source }}",
+    "note": "",
+    "corpus_occurrences": 27,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_route_map",
+    "pattern": "neighbor {{ peer }} route-map {{ policy }} {{ direction }}",
+    "note": "",
+    "corpus_occurrences": 32,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_activate",
+    "pattern": "neighbor {{ peer }} activate {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 52,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_deactivate",
+    "pattern": "no neighbor {{ peer }} activate {{ enabled | set(False) }}",
+    "note": "",
+    "corpus_occurrences": 7,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_shutdown",
+    "pattern": "neighbor {{ peer }} shutdown {{ enabled | set(False) }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_no_shutdown",
+    "pattern": "no neighbor {{ peer }} shutdown {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_send_community",
+    "pattern": "neighbor {{ peer }} send-community {{ option | set(\"unspecified\") }}",
+    "note": "",
+    "corpus_occurrences": 11,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_send_community_option",
+    "pattern": "neighbor {{ peer }} send-community {{ option }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_reflector",
+    "pattern": "neighbor {{ peer }} route-reflector-client {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_next_hop",
+    "pattern": "neighbor {{ peer }} next-hop-self {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 5,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_network4",
+    "pattern": "network {{ prefix | IP }} mask {{ mask | IP }}",
+    "note": "",
+    "corpus_occurrences": 17,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_network",
+    "pattern": "network {{ prefix }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_aggregate",
+    "pattern": "aggregate-address {{ prefix | IP }} {{ mask | IP }} {{ option | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_redistribute_map",
+    "pattern": "redistribute {{ protocol }} route-map {{ policy }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_redistribute",
+    "pattern": "redistribute {{ protocol }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_redistribute_process",
+    "pattern": "redistribute {{ protocol }} {{ process }}",
+    "note": "",
+    "corpus_occurrences": 8,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_maximum_paths",
+    "pattern": "maximum-paths {{ type }} {{ count | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 5,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_log_changes",
+    "pattern": "bgp log-neighbor-changes {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 17,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_dampening",
+    "pattern": "bgp dampening {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 5,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_additional_select",
+    "pattern": "bgp additional-paths select {{ selection }}",
+    "note": "",
+    "corpus_occurrences": 5,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_additional_send",
+    "pattern": "bgp additional-paths {{ send }} {{ receive }}",
+    "note": "",
+    "corpus_occurrences": 5,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_header_vrf",
+    "pattern": "router ospf {{ process }} vrf {{ vrf }}",
+    "note": "",
+    "corpus_occurrences": 8,
+    "corpus_mapped_occurrences": 8,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_header",
+    "pattern": "router ospf {{ process }}",
+    "note": "",
+    "corpus_occurrences": 11,
+    "corpus_mapped_occurrences": 11,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf3_header",
+    "pattern": "ipv6 router ospf {{ process }}",
+    "note": "",
+    "corpus_occurrences": 5,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_router_id",
+    "pattern": "router-id {{ router_id | IP }}",
+    "note": "",
+    "corpus_occurrences": 20,
+    "corpus_mapped_occurrences": 17,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_network",
+    "pattern": "network {{ address | IP }} {{ wildcard | IP }} area {{ area }}",
+    "note": "",
+    "corpus_occurrences": 29,
+    "corpus_mapped_occurrences": 29,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_passive",
+    "pattern": "passive-interface {{ interface }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 6,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_no_passive",
+    "pattern": "no passive-interface {{ interface }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_cost",
+    "pattern": "auto-cost reference-bandwidth {{ bandwidth | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_area",
+    "pattern": "area {{ area }} {{ type }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_virtual_link",
+    "pattern": "area {{ area }} virtual-link {{ peer | IP }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_redistribute",
+    "pattern": "redistribute {{ protocol }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 13,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_redistribute_simple",
+    "pattern": "redistribute {{ protocol }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_default",
+    "pattern": "default-information originate {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "ospf",
+    "id": "ospf_log",
+    "pattern": "log-adjacency-changes {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "vrf",
+    "id": "vrf_header",
+    "pattern": "vrf definition {{ name }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 9,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "vrf",
+    "id": "vrf_legacy_header",
+    "pattern": "ip vrf {{ name }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "vrf",
+    "id": "vrf_description",
+    "pattern": "description {{ description | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "vrf",
+    "id": "vrf_rd",
+    "pattern": "rd {{ rd }}",
+    "note": "",
+    "corpus_occurrences": 11,
+    "corpus_mapped_occurrences": 11,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "vrf",
+    "id": "vrf_target",
+    "pattern": "route-target {{ direction }} {{ target }}",
+    "note": "",
+    "corpus_occurrences": 18,
+    "corpus_mapped_occurrences": 18,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "vrf",
+    "id": "vrf_af",
+    "pattern": "address-family {{ afi }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "vrf",
+    "id": "vrf_af_exit",
+    "pattern": "exit-address-family {{ boundary | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_header",
+    "pattern": "route-map {{ name }} {{ action }} {{ sequence | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 54,
+    "corpus_mapped_occurrences": 54,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_match_prefix4",
+    "pattern": "match ip address prefix-list {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 16,
+    "corpus_mapped_occurrences": 16,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_match_prefix6",
+    "pattern": "match ipv6 address prefix-list {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 6,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_match_acl",
+    "pattern": "match ip address {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 11,
+    "corpus_mapped_occurrences": 11,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_match_interface",
+    "pattern": "match interface {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "policies",
+    "id": "policy_match_community",
+    "pattern": "match community {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 7,
+    "corpus_mapped_occurrences": 7,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_match_aspath",
+    "pattern": "match as-path {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "policies",
+    "id": "policy_match_tag",
+    "pattern": "match tag {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "policies",
+    "id": "policy_set_aspath",
+    "pattern": "set as-path prepend {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 5,
+    "corpus_mapped_occurrences": 5,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_set_localpref",
+    "pattern": "set local-preference {{ value | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 14,
+    "corpus_mapped_occurrences": 14,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_set_metric",
+    "pattern": "set metric {{ value | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 21,
+    "corpus_mapped_occurrences": 21,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_set_weight",
+    "pattern": "set weight {{ value | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "policies",
+    "id": "policy_set_community",
+    "pattern": "set community {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 23,
+    "corpus_mapped_occurrences": 23,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "policies",
+    "id": "policy_description",
+    "pattern": "description {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ip_0_113",
+    "pattern": "ip prefix-list {{ name }} {{ action }} {{ prefix }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ip_0_114",
+    "pattern": "ip prefix-list {{ name }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ip_0_115",
+    "pattern": "ip prefix-list {{ name }} {{ action }} {{ prefix }} le {{ le | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 3,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ip_0_116",
+    "pattern": "ip prefix-list {{ name }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }} le {{ le | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ip_1_117",
+    "pattern": "ip prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }}",
+    "note": "",
+    "corpus_occurrences": 10,
+    "corpus_mapped_occurrences": 10,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ip_1_118",
+    "pattern": "ip prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ip_1_119",
+    "pattern": "ip prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} le {{ le | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ip_1_120",
+    "pattern": "ip prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }} le {{ le | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ipv6_0_121",
+    "pattern": "ipv6 prefix-list {{ name }} {{ action }} {{ prefix }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ipv6_0_122",
+    "pattern": "ipv6 prefix-list {{ name }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ipv6_0_123",
+    "pattern": "ipv6 prefix-list {{ name }} {{ action }} {{ prefix }} le {{ le | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ipv6_0_124",
+    "pattern": "ipv6 prefix-list {{ name }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }} le {{ le | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ipv6_1_125",
+    "pattern": "ipv6 prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ipv6_1_126",
+    "pattern": "ipv6 prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ipv6_1_127",
+    "pattern": "ipv6 prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} le {{ le | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 3,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "prefix",
+    "id": "prefix_ipv6_1_128",
+    "pattern": "ipv6 prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }} le {{ le | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_hostname",
+    "pattern": "hostname {{ hostname }}",
+    "note": "",
+    "corpus_occurrences": 20,
+    "corpus_mapped_occurrences": 20,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_version",
+    "pattern": "version {{ version | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 20,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_domain",
+    "pattern": "ip domain-name {{ domain }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_domain_alt",
+    "pattern": "ip domain name {{ domain }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 9,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_dns",
+    "pattern": "ip name-server {{ addresses | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_ntp_prefer",
+    "pattern": "ntp server {{ address }} prefer {{ prefer | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_ntp",
+    "pattern": "ntp server {{ address }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 6,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_ntp_vrf_prefer",
+    "pattern": "ntp server vrf {{ vrf }} {{ address }} prefer {{ prefer | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_ntp_vrf",
+    "pattern": "ntp server vrf {{ vrf }} {{ address }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_ntp_source",
+    "pattern": "ntp source {{ source }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_logging",
+    "pattern": "logging host {{ address }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_logging_legacy",
+    "pattern": "logging {{ address | IP }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_logging_trap",
+    "pattern": "logging trap {{ severity }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_logging_source",
+    "pattern": "logging source-interface {{ interface }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_aaa_on",
+    "pattern": "aaa new-model {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 1,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_aaa_off",
+    "pattern": "no aaa new-model {{ enabled | set(False) }}",
+    "note": "",
+    "corpus_occurrences": 20,
+    "corpus_mapped_occurrences": 20,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_aaa_method",
+    "pattern": "aaa {{ category }} {{ method | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 1,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_user",
+    "pattern": "username {{ username }} privilege {{ privilege | DIGIT | to_int }} {{ credential_type }} {{ credential_format | DIGIT }} {{ _ignore_ }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_user_simple",
+    "pattern": "username {{ username }} {{ credential_type }} {{ credential_format | DIGIT }} {{ _ignore_ }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_snmp_community",
+    "pattern": "snmp-server community {{ _ignore_ }} {{ access }} {{ acl }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_snmp_community_simple",
+    "pattern": "snmp-server community {{ _ignore_ }} {{ access }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_snmp_location",
+    "pattern": "snmp-server location {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_snmp_contact",
+    "pattern": "snmp-server contact {{ value | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_ssh_version",
+    "pattern": "ip ssh version {{ version }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_http_on",
+    "pattern": "ip http server {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_http_off",
+    "pattern": "no ip http server {{ enabled | set(False) }}",
+    "note": "",
+    "corpus_occurrences": 18,
+    "corpus_mapped_occurrences": 18,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_https_on",
+    "pattern": "ip http secure-server {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 8,
+    "corpus_mapped_occurrences": 8,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_https_off",
+    "pattern": "no ip http secure-server {{ enabled | set(False) }}",
+    "note": "",
+    "corpus_occurrences": 12,
+    "corpus_mapped_occurrences": 12,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_line",
+    "pattern": "line {{ name | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 68,
+    "corpus_mapped_occurrences": 68,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_transport",
+    "pattern": "transport input {{ transports | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 29,
+    "corpus_mapped_occurrences": 26,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_timeout",
+    "pattern": "exec-timeout {{ minutes | DIGIT | to_int }} {{ seconds | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 46,
+    "corpus_mapped_occurrences": 46,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_timeout_minutes",
+    "pattern": "exec-timeout {{ minutes | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_access_class",
+    "pattern": "access-class {{ acl }} {{ direction }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 4,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_login",
+    "pattern": "login {{ method | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 20,
+    "corpus_mapped_occurrences": 14,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_login_plain",
+    "pattern": "login {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 26,
+    "corpus_mapped_occurrences": 26,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_banner",
+    "pattern": "banner {{ type }} {{ delimiter }}",
+    "note": "",
+    "corpus_occurrences": 8,
+    "corpus_mapped_occurrences": 4,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "services",
+    "id": "services_tacacs",
+    "pattern": "tacacs server {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_radius",
+    "pattern": "radius server {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_auth_address",
+    "pattern": "address ipv4 {{ address | IP }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_auth_ports",
+    "pattern": "address ipv4 {{ address | IP }} auth-port {{ auth_port | DIGIT | to_int }} acct-port {{ acct_port | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_nat_static",
+    "pattern": "ip nat inside source static {{ inside | IP }} {{ outside | IP }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "services",
+    "id": "services_nat_static_extendable",
+    "pattern": "ip nat inside source static {{ inside | IP }} {{ outside | IP }} extendable {{ extendable | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_0_hop",
+    "pattern": "ip route {{ destination }} {{ mask | IP }} {{ hop }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_0_hop_distance",
+    "pattern": "ip route {{ destination }} {{ mask | IP }} {{ hop }} {{ distance | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 1,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_0_hop_name",
+    "pattern": "ip route {{ destination }} {{ mask | IP }} {{ hop }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_0_hop_distance_name",
+    "pattern": "ip route {{ destination }} {{ mask | IP }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_0_interface_hop",
+    "pattern": "ip route {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_0_interface_hop_distance",
+    "pattern": "ip route {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_0_interface_hop_name",
+    "pattern": "ip route {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_0_interface_hop_distance_name",
+    "pattern": "ip route {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_1_hop",
+    "pattern": "ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ hop }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 2,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_1_hop_distance",
+    "pattern": "ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ hop }} {{ distance | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_1_hop_name",
+    "pattern": "ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ hop }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_1_hop_distance_name",
+    "pattern": "ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_1_interface_hop",
+    "pattern": "ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_1_interface_hop_distance",
+    "pattern": "ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_1_interface_hop_name",
+    "pattern": "ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ip_1_interface_hop_distance_name",
+    "pattern": "ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_0_hop",
+    "pattern": "ipv6 route {{ destination }} {{ hop }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_0_hop_distance",
+    "pattern": "ipv6 route {{ destination }} {{ hop }} {{ distance | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 1,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_0_hop_name",
+    "pattern": "ipv6 route {{ destination }} {{ hop }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_0_hop_distance_name",
+    "pattern": "ipv6 route {{ destination }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_0_interface_hop",
+    "pattern": "ipv6 route {{ destination }} {{ interface }} {{ hop }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_0_interface_hop_distance",
+    "pattern": "ipv6 route {{ destination }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_0_interface_hop_name",
+    "pattern": "ipv6 route {{ destination }} {{ interface }} {{ hop }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_0_interface_hop_distance_name",
+    "pattern": "ipv6 route {{ destination }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_1_hop",
+    "pattern": "ipv6 route vrf {{ vrf }} {{ destination }} {{ hop }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_1_hop_distance",
+    "pattern": "ipv6 route vrf {{ vrf }} {{ destination }} {{ hop }} {{ distance | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_1_hop_name",
+    "pattern": "ipv6 route vrf {{ vrf }} {{ destination }} {{ hop }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_1_hop_distance_name",
+    "pattern": "ipv6 route vrf {{ vrf }} {{ destination }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_1_interface_hop",
+    "pattern": "ipv6 route vrf {{ vrf }} {{ destination }} {{ interface }} {{ hop }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_1_interface_hop_distance",
+    "pattern": "ipv6 route vrf {{ vrf }} {{ destination }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_1_interface_hop_name",
+    "pattern": "ipv6 route vrf {{ vrf }} {{ destination }} {{ interface }} {{ hop }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "routes",
+    "id": "route_ipv6_1_interface_hop_distance_name",
+    "pattern": "ipv6 route vrf {{ vrf }} {{ destination }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_isis",
+    "pattern": "router isis {{ process }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_isis_net",
+    "pattern": "net {{ net }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_isis_passive",
+    "pattern": "passive-interface {{ interface }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_mpls_ldp",
+    "pattern": "mpls ldp router-id {{ interface }} {{ option }}",
+    "note": "",
+    "corpus_occurrences": 3,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_mpls_label",
+    "pattern": "mpls label protocol {{ protocol }}",
+    "note": "",
+    "corpus_occurrences": 3,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_classmap",
+    "pattern": "class-map {{ mode }} {{ name }}",
+    "note": "",
+    "corpus_occurrences": 16,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_policymap",
+    "pattern": "policy-map {{ name }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 4,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_class",
+    "pattern": "class {{ name }}",
+    "note": "",
+    "corpus_occurrences": 14,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_match_protocol",
+    "pattern": "match protocol {{ protocol }}",
+    "note": "",
+    "corpus_occurrences": 5,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_match_dscp",
+    "pattern": "match dscp {{ dscp }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_match_precedence",
+    "pattern": "match ip precedence {{ precedence }}",
+    "note": "",
+    "corpus_occurrences": 3,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_match_acl",
+    "pattern": "match access-group name {{ acl }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_set_dscp",
+    "pattern": "set dscp {{ dscp }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_set_precedence",
+    "pattern": "set ip precedence {{ precedence }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_priority",
+    "pattern": "priority percent {{ percent | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 3,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_qos_fair",
+    "pattern": "fair-queue {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_pim_rp",
+    "pattern": "ip pim rp-address {{ address | IP }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_multicast",
+    "pattern": "ip multicast-routing {{ enabled | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_l2_evpn",
+    "pattern": "l2vpn evpn instance {{ instance | DIGIT | to_int }} {{ type }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_l2_evpn_global",
+    "pattern": "l2vpn evpn {{ declaration | set(True) }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_l2_replication",
+    "pattern": "replication-type {{ type }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_l2_rid",
+    "pattern": "router-id {{ interface }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_l2_bridge",
+    "pattern": "bridge-domain {{ domain | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_l2_member",
+    "pattern": "member {{ member | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 6,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_l2_vfi",
+    "pattern": "l2 vfi {{ vfi | DIGIT | to_int }} {{ mode }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_l2_vpnid",
+    "pattern": "vpn id {{ vpn_id | DIGIT | to_int }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_l2_neighbor",
+    "pattern": "neighbor {{ address | IP }} encapsulation {{ encapsulation }}",
+    "note": "",
+    "corpus_occurrences": 2,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_pki_chain",
+    "pattern": "crypto pki certificate chain {{ name }}",
+    "note": "",
+    "corpus_occurrences": 15,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_pki_trust",
+    "pattern": "crypto pki trustpoint {{ name }}",
+    "note": "",
+    "corpus_occurrences": 15,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_pki_certificate",
+    "pattern": "certificate {{ type }} {{ identifier }}",
+    "note": "",
+    "corpus_occurrences": 14,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_pki_enrollment",
+    "pattern": "enrollment {{ method }}",
+    "note": "",
+    "corpus_occurrences": 15,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_pki_revocation",
+    "pattern": "revocation-check {{ method }}",
+    "note": "",
+    "corpus_occurrences": 15,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_pki_subject",
+    "pattern": "subject-name {{ subject | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_pki_keypair",
+    "pattern": "rsakeypair {{ name }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_vlan",
+    "pattern": "vlan {{ vlan }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_vlan_name",
+    "pattern": "name {{ name | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_0_0_0_0",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }}",
+    "note": "",
+    "corpus_occurrences": 12,
+    "corpus_mapped_occurrences": 12,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_0_0_0_1",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_0_0_1_0",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }}",
+    "note": "",
+    "corpus_occurrences": 1,
+    "corpus_mapped_occurrences": 1,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_0_0_1_1",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_0_1_0_0",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_0_1_0_1",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_0_1_1_0",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_0_1_1_1",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_1_0_0_0",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_1_0_0_1",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_1_0_1_0",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }}",
+    "note": "",
+    "corpus_occurrences": 8,
+    "corpus_mapped_occurrences": 8,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_1_0_1_1",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_1_1_0_0",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_1_1_0_1",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_1_1_1_0",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_0_1_1_1_1",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_1_0_0_0_0",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }}",
+    "note": "",
+    "corpus_occurrences": 22,
+    "corpus_mapped_occurrences": 22,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_1_0_0_0_1",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_1_0_0_1_0",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_1_0_0_1_1",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_1_0_1_0_0",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_1_0_1_0_1",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_1_0_1_1_0",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_extended_1_0_1_1_1",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ protocol }} {{ source | re(\"acl_address\") }} {{ source_port | re(\"acl_port\") }} {{ destination | re(\"acl_address\") }} {{ destination_port | re(\"acl_port\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_standard",
+    "id": "acl_standard_0_0_0_0_0",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ source | re(\"acl_address\") }}",
+    "note": "",
+    "corpus_occurrences": 27,
+    "corpus_mapped_occurrences": 27,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "acl_standard",
+    "id": "acl_standard_0_0_0_0_1",
+    "pattern": "{{ action | re(\"acl_action\") }} {{ source | re(\"acl_address\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_standard",
+    "id": "acl_standard_0_1_0_0_0",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ source | re(\"acl_address\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_standard",
+    "id": "acl_standard_0_1_0_0_1",
+    "pattern": "{{ sequence | DIGIT | to_int }} {{ action | re(\"acl_action\") }} {{ source | re(\"acl_address\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_standard",
+    "id": "acl_standard_1_0_0_0_0",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ source | re(\"acl_address\") }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_standard",
+    "id": "acl_standard_1_0_0_0_1",
+    "pattern": "access-list {{ acl_name }} {{ action | re(\"acl_action\") }} {{ source | re(\"acl_address\") }} {{ options | ORPHRASE }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_header_ext",
+    "pattern": "ip access-list extended {{ name }}",
+    "note": "",
+    "corpus_occurrences": 9,
+    "corpus_mapped_occurrences": 9,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "acl_standard",
+    "id": "acl_header_std",
+    "pattern": "ip access-list standard {{ name }}",
+    "note": "",
+    "corpus_occurrences": 4,
+    "corpus_mapped_occurrences": 4,
+    "coverage_scope": "observed_in_20_configs"
+  },
+  {
+    "family": "acl_extended",
+    "id": "acl_header_ipv6",
+    "pattern": "ipv6 access-list {{ name }}",
+    "note": "",
+    "corpus_occurrences": 0,
+    "corpus_mapped_occurrences": 0,
+    "coverage_scope": "not_exercised_by_20_config_corpus"
+  }
+]

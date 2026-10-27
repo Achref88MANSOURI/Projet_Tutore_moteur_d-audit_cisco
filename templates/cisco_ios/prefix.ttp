@@ -1,0 +1,63 @@
+<group name="prefix_ip_0_113*" method="table">
+{{ source_line | DIGIT | to_int }} ip prefix-list {{ name }} {{ action }} {{ prefix }}
+</group>
+
+<group name="prefix_ip_0_114*" method="table">
+{{ source_line | DIGIT | to_int }} ip prefix-list {{ name }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ip_0_115*" method="table">
+{{ source_line | DIGIT | to_int }} ip prefix-list {{ name }} {{ action }} {{ prefix }} le {{ le | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ip_0_116*" method="table">
+{{ source_line | DIGIT | to_int }} ip prefix-list {{ name }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }} le {{ le | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ip_1_117*" method="table">
+{{ source_line | DIGIT | to_int }} ip prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }}
+</group>
+
+<group name="prefix_ip_1_118*" method="table">
+{{ source_line | DIGIT | to_int }} ip prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ip_1_119*" method="table">
+{{ source_line | DIGIT | to_int }} ip prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} le {{ le | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ip_1_120*" method="table">
+{{ source_line | DIGIT | to_int }} ip prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }} le {{ le | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ipv6_0_121*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 prefix-list {{ name }} {{ action }} {{ prefix }}
+</group>
+
+<group name="prefix_ipv6_0_122*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 prefix-list {{ name }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ipv6_0_123*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 prefix-list {{ name }} {{ action }} {{ prefix }} le {{ le | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ipv6_0_124*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 prefix-list {{ name }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }} le {{ le | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ipv6_1_125*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }}
+</group>
+
+<group name="prefix_ipv6_1_126*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ipv6_1_127*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} le {{ le | DIGIT | to_int }}
+</group>
+
+<group name="prefix_ipv6_1_128*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 prefix-list {{ name }} seq {{ sequence | DIGIT | to_int }} {{ action }} {{ prefix }} ge {{ ge | DIGIT | to_int }} le {{ le | DIGIT | to_int }}
+</group>

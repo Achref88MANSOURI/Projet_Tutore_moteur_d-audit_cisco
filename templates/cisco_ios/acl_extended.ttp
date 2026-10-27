@@ -1,0 +1,109 @@
+<vars>
+acl_action = "permit|deny"
+acl_address = 'any(?:4|6)?|host\\s+\\S+|object-group\\s+\\S+|\\d+\\.\\d+\\.\\d+\\.\\d+(?:\\s+\\d+\\.\\d+\\.\\d+\\.\\d+)?|[0-9A-Fa-f:]+/\\d+'
+acl_port = '(?:eq|neq|lt|gt)\\s+\\S+|range\\s+\\S+\\s+\\S+'
+</vars>
+
+<group name="acl_extended_0_0_0_0_0*" method="table">
+{{ source_line | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }}
+</group>
+
+<group name="acl_extended_0_0_0_0_1*" method="table">
+{{ source_line | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_0_0_0_1_0*" method="table">
+{{ source_line | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }}
+</group>
+
+<group name="acl_extended_0_0_0_1_1*" method="table">
+{{ source_line | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_0_0_1_0_0*" method="table">
+{{ source_line | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }}
+</group>
+
+<group name="acl_extended_0_0_1_0_1*" method="table">
+{{ source_line | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_0_0_1_1_0*" method="table">
+{{ source_line | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }}
+</group>
+
+<group name="acl_extended_0_0_1_1_1*" method="table">
+{{ source_line | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_0_1_0_0_0*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }}
+</group>
+
+<group name="acl_extended_0_1_0_0_1*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_0_1_0_1_0*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }}
+</group>
+
+<group name="acl_extended_0_1_0_1_1*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_0_1_1_0_0*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }}
+</group>
+
+<group name="acl_extended_0_1_1_0_1*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_0_1_1_1_0*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }}
+</group>
+
+<group name="acl_extended_0_1_1_1_1*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_1_0_0_0_0*" method="table">
+{{ source_line | DIGIT | to_int }} access-list {{ acl_name }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }}
+</group>
+
+<group name="acl_extended_1_0_0_0_1*" method="table">
+{{ source_line | DIGIT | to_int }} access-list {{ acl_name }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_1_0_0_1_0*" method="table">
+{{ source_line | DIGIT | to_int }} access-list {{ acl_name }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }}
+</group>
+
+<group name="acl_extended_1_0_0_1_1*" method="table">
+{{ source_line | DIGIT | to_int }} access-list {{ acl_name }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_1_0_1_0_0*" method="table">
+{{ source_line | DIGIT | to_int }} access-list {{ acl_name }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }}
+</group>
+
+<group name="acl_extended_1_0_1_0_1*" method="table">
+{{ source_line | DIGIT | to_int }} access-list {{ acl_name }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_extended_1_0_1_1_0*" method="table">
+{{ source_line | DIGIT | to_int }} access-list {{ acl_name }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }}
+</group>
+
+<group name="acl_extended_1_0_1_1_1*" method="table">
+{{ source_line | DIGIT | to_int }} access-list {{ acl_name }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_header_ext*" method="table">
+{{ source_line | DIGIT | to_int }} ip access-list extended {{ name }}
+</group>
+
+<group name="acl_header_ipv6*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 access-list {{ name }}
+</group>

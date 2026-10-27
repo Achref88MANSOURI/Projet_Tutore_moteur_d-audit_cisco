@@ -1,0 +1,127 @@
+<group name="route_ip_0_hop*" method="table">
+{{ source_line | DIGIT | to_int }} ip route {{ destination }} {{ mask | IP }} {{ hop }}
+</group>
+
+<group name="route_ip_0_hop_distance*" method="table">
+{{ source_line | DIGIT | to_int }} ip route {{ destination }} {{ mask | IP }} {{ hop }} {{ distance | DIGIT | to_int }}
+</group>
+
+<group name="route_ip_0_hop_name*" method="table">
+{{ source_line | DIGIT | to_int }} ip route {{ destination }} {{ mask | IP }} {{ hop }} name {{ name }}
+</group>
+
+<group name="route_ip_0_hop_distance_name*" method="table">
+{{ source_line | DIGIT | to_int }} ip route {{ destination }} {{ mask | IP }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}
+</group>
+
+<group name="route_ip_0_interface_hop*" method="table">
+{{ source_line | DIGIT | to_int }} ip route {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }}
+</group>
+
+<group name="route_ip_0_interface_hop_distance*" method="table">
+{{ source_line | DIGIT | to_int }} ip route {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }}
+</group>
+
+<group name="route_ip_0_interface_hop_name*" method="table">
+{{ source_line | DIGIT | to_int }} ip route {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} name {{ name }}
+</group>
+
+<group name="route_ip_0_interface_hop_distance_name*" method="table">
+{{ source_line | DIGIT | to_int }} ip route {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}
+</group>
+
+<group name="route_ip_1_hop*" method="table">
+{{ source_line | DIGIT | to_int }} ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ hop }}
+</group>
+
+<group name="route_ip_1_hop_distance*" method="table">
+{{ source_line | DIGIT | to_int }} ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ hop }} {{ distance | DIGIT | to_int }}
+</group>
+
+<group name="route_ip_1_hop_name*" method="table">
+{{ source_line | DIGIT | to_int }} ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ hop }} name {{ name }}
+</group>
+
+<group name="route_ip_1_hop_distance_name*" method="table">
+{{ source_line | DIGIT | to_int }} ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}
+</group>
+
+<group name="route_ip_1_interface_hop*" method="table">
+{{ source_line | DIGIT | to_int }} ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }}
+</group>
+
+<group name="route_ip_1_interface_hop_distance*" method="table">
+{{ source_line | DIGIT | to_int }} ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }}
+</group>
+
+<group name="route_ip_1_interface_hop_name*" method="table">
+{{ source_line | DIGIT | to_int }} ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} name {{ name }}
+</group>
+
+<group name="route_ip_1_interface_hop_distance_name*" method="table">
+{{ source_line | DIGIT | to_int }} ip route vrf {{ vrf }} {{ destination }} {{ mask | IP }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}
+</group>
+
+<group name="route_ipv6_0_hop*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route {{ destination }} {{ hop }}
+</group>
+
+<group name="route_ipv6_0_hop_distance*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route {{ destination }} {{ hop }} {{ distance | DIGIT | to_int }}
+</group>
+
+<group name="route_ipv6_0_hop_name*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route {{ destination }} {{ hop }} name {{ name }}
+</group>
+
+<group name="route_ipv6_0_hop_distance_name*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route {{ destination }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}
+</group>
+
+<group name="route_ipv6_0_interface_hop*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route {{ destination }} {{ interface }} {{ hop }}
+</group>
+
+<group name="route_ipv6_0_interface_hop_distance*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route {{ destination }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }}
+</group>
+
+<group name="route_ipv6_0_interface_hop_name*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route {{ destination }} {{ interface }} {{ hop }} name {{ name }}
+</group>
+
+<group name="route_ipv6_0_interface_hop_distance_name*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route {{ destination }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}
+</group>
+
+<group name="route_ipv6_1_hop*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route vrf {{ vrf }} {{ destination }} {{ hop }}
+</group>
+
+<group name="route_ipv6_1_hop_distance*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route vrf {{ vrf }} {{ destination }} {{ hop }} {{ distance | DIGIT | to_int }}
+</group>
+
+<group name="route_ipv6_1_hop_name*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route vrf {{ vrf }} {{ destination }} {{ hop }} name {{ name }}
+</group>
+
+<group name="route_ipv6_1_hop_distance_name*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route vrf {{ vrf }} {{ destination }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}
+</group>
+
+<group name="route_ipv6_1_interface_hop*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route vrf {{ vrf }} {{ destination }} {{ interface }} {{ hop }}
+</group>
+
+<group name="route_ipv6_1_interface_hop_distance*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route vrf {{ vrf }} {{ destination }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }}
+</group>
+
+<group name="route_ipv6_1_interface_hop_name*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route vrf {{ vrf }} {{ destination }} {{ interface }} {{ hop }} name {{ name }}
+</group>
+
+<group name="route_ipv6_1_interface_hop_distance_name*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 route vrf {{ vrf }} {{ destination }} {{ interface }} {{ hop }} {{ distance | DIGIT | to_int }} name {{ name }}
+</group>

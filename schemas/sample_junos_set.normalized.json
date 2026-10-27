@@ -1,0 +1,203 @@
+{
+  "schema_version": "0.1.0",
+  "metadata": {
+    "vendor": "juniper",
+    "os_family": "junos",
+    "os_version": null,
+    "hostname_hint": null,
+    "source_file": "sample_junos_set.conf",
+    "source_sha256": "352cb5bf88dc17396f4bd72f913c8fa67ae700a82db0d38bedd1d43080629f82",
+    "input_format": "junos-set",
+    "source_kind": "candidate",
+    "completeness": "partial",
+    "completeness_basis": "Synthetic set-form subset",
+    "os_detection_method": "explicit",
+    "redacted_secrets": true
+  },
+  "configuration": {
+    "system": {
+      "hostname": "R1",
+      "domain_name": "example.org",
+      "dns_servers": [],
+      "ntp_enabled": null,
+      "ntp_servers": [
+        {
+          "address": "192.0.2.10",
+          "prefer": null,
+          "source_interface": null,
+          "network_instance": null
+        }
+      ],
+      "syslog_destinations": [
+        {
+          "address": "192.0.2.20",
+          "port": null,
+          "transport": null,
+          "severity": null
+        }
+      ],
+      "aaa": null,
+      "snmp": null,
+      "management": null,
+      "login_banner_present": null
+    },
+    "interfaces": [
+      {
+        "name": "ge-0/0/0",
+        "kind": "physical",
+        "parent_interface": null,
+        "subinterface_index": null,
+        "description": "WAN",
+        "admin_enabled": null,
+        "mtu": null,
+        "ipv4_addresses": [],
+        "ipv6_addresses": [],
+        "vrf": null,
+        "switchport_mode": null,
+        "access_vlan": null,
+        "native_vlan": null,
+        "trunk_allowed_vlans": null,
+        "lag": null,
+        "acl_ingress": [],
+        "acl_egress": []
+      },
+      {
+        "name": "ge-0/0/0.0",
+        "kind": "subinterface",
+        "parent_interface": "ge-0/0/0",
+        "subinterface_index": 0,
+        "description": null,
+        "admin_enabled": null,
+        "mtu": null,
+        "ipv4_addresses": [
+          {
+            "address": "192.0.2.2",
+            "prefix_length": 30,
+            "secondary": null
+          }
+        ],
+        "ipv6_addresses": [],
+        "vrf": null,
+        "switchport_mode": null,
+        "access_vlan": null,
+        "native_vlan": null,
+        "trunk_allowed_vlans": null,
+        "lag": null,
+        "acl_ingress": [],
+        "acl_egress": []
+      }
+    ],
+    "layer2": {
+      "vlans": [],
+      "lags": [],
+      "spanning_tree": null
+    },
+    "network_instances": [],
+    "routing": {
+      "static_routes": [
+        {
+          "destination": "0.0.0.0/0",
+          "next_hop": "192.0.2.1",
+          "outgoing_interface": null,
+          "network_instance": null,
+          "admin_distance": null,
+          "description": null
+        }
+      ],
+      "bgp": [],
+      "ospf": [],
+      "routing_policies": [],
+      "prefix_sets": []
+    },
+    "security": {
+      "acl_sets": [],
+      "acl_attachments": []
+    },
+    "nat": [],
+    "vpn_tunnels": [],
+    "qos": {
+      "policy_names": [],
+      "attachments": []
+    }
+  },
+  "evidence": [
+    {
+      "path": "/configuration/system/hostname",
+      "status": "explicit",
+      "source_file": "sample_junos_set.conf",
+      "line_start": 1,
+      "line_end": null,
+      "raw_command": "set system host-name R1",
+      "parser_rule": "junos.system.hostname",
+      "confidence": 1.0,
+      "basis": null
+    },
+    {
+      "path": "/configuration/system/ntp_servers/0/address",
+      "status": "explicit",
+      "source_file": "sample_junos_set.conf",
+      "line_start": 3,
+      "line_end": null,
+      "raw_command": "set system ntp server 192.0.2.10",
+      "parser_rule": "junos.system.ntp",
+      "confidence": 1.0,
+      "basis": null
+    },
+    {
+      "path": "/configuration/interfaces/1/ipv4_addresses/0",
+      "status": "explicit",
+      "source_file": "sample_junos_set.conf",
+      "line_start": 6,
+      "line_end": null,
+      "raw_command": "set interfaces ge-0/0/0 unit 0 family inet address 192.0.2.2/30",
+      "parser_rule": "junos.interface.unit.inet",
+      "confidence": 1.0,
+      "basis": null
+    },
+    {
+      "path": "/configuration/routing/static_routes/0",
+      "status": "explicit",
+      "source_file": "sample_junos_set.conf",
+      "line_start": 7,
+      "line_end": null,
+      "raw_command": "set routing-options static route 0.0.0.0/0 next-hop 192.0.2.1",
+      "parser_rule": "junos.routing.static",
+      "confidence": 1.0,
+      "basis": null
+    }
+  ],
+  "parsing": {
+    "parser_name": "contract-demo-manually-mapped",
+    "parser_version": "0.1.0",
+    "native_tree_file": null,
+    "feature_coverage": [
+      {
+        "feature": "system",
+        "status": "partial",
+        "note": null
+      },
+      {
+        "feature": "interfaces",
+        "status": "partial",
+        "note": null
+      },
+      {
+        "feature": "routing",
+        "status": "partial",
+        "note": null
+      }
+    ],
+    "unknown_commands": [],
+    "diagnostics": [
+      {
+        "severity": "info",
+        "code": "SYNTHETIC_PARTIAL_SOURCE",
+        "message": "Sample input is partial; do not infer absent configuration",
+        "source_line": null,
+        "config_path": null
+      }
+    ],
+    "total_source_lines": 7,
+    "recognized_source_lines": null
+  }
+}

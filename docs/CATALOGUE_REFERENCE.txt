@@ -1,0 +1,1318 @@
+﻿SÉLECTION DE 60 CONFIGURATIONS DE ROUTEURS CISCO
+================================================
+
+PÉRIMÈTRE
+60 fichiers retenus parmi les 149 configurations uniques du catalogue ; 9 domaines et 24 types de configurations.
+Tous sont des configurations textuelles Cisco de routeurs, copiées sans modification. Aucun switch, contrôleur Wi-Fi, fragment, script client ou simple sortie opérationnelle n’est inclus.
+
+CE QUE « RÉEL » SIGNIFIE ICI
+2 exports semblent issus du réseau EMFCamp réel (sauvegardes RANCID, routeurs physiques 7204VXR). Cette provenance est probable d’après les fichiers, pas certifiée par un accès aux équipements.
+58 exports proviennent de laboratoires Cisco : ils contiennent des commandes de configuration de routeurs et des scénarios techniques concrets, mais ne sont pas présentés comme des configurations de production. Il n’y a pas 60 exports de production démontrés dans les 149 fichiers.
+
+CRITÈRES DE CHOIX
+1. Complétude documentaire : export global cohérent, hostname, interfaces et terminaison end ; exclusions précédentes des fichiers partiels/expurgés et dépendances manquantes connues maintenues.
+2. Priorité aux deux exports de réseau réel probable et aux configurations combinant le plus de fonctions réseau/services.
+3. Richesse fonctionnelle plutôt que longueur brute : les bannières, certificats et commandes par défaut ne constituent pas à eux seuls une preuve de richesse.
+4. Diversité des rôles et technologies : BGP/OSPF/IS-IS/RIP, politiques/ACL, IPv6, L3VPN, EVPN/VPLS/VPWS, QoS, multicast, RSVP-TE et Segment Routing.
+5. Certains exports plus ciblés (P multicast, P SR/TE, réflecteurs, politiques AS_PATH) sont conservés pour couvrir un rôle distinct. Des variantes PE ou RR restent utiles lorsque leurs voisins, politiques, interfaces ou rôles diffèrent.
+6. Une seule copie de chaque contenu dans selected après normalisation des fins de ligne et espaces de fin. Les noms préfixés 01 à 60 et les références Fxxxx facilitent le repérage.
+
+VALIDATION ET LIMITES
+Les 60 fichiers ont passé des vérifications de structure et de références simples : route-maps/route-policies liées, policy-maps appliquées, classes QoS référencées et ACL liées aux interfaces ou à l’administration. Aucune référence manquante n’a été détectée par ces contrôles.
+Il ne s’agit pas d’une validation complète de syntaxe ou de fonctionnement : aucun routeur contacté, aucune simulation/Batfish, aucun test de convergence. « Complet » reste donc « export global probable pour son rôle ».
+Une interface shutdown, un protocole configuré ou un filtre défini ne prouvent pas un état opérationnel. Les numéros et preuves décrivent le fichier sauvegardé.
+La sélection privilégie la richesse et la diversité ; ses sous-dossiers ne constituent pas chacun une topologie de laboratoire autonome. D’autres routeurs et dépendances externes peuvent être requis pour rejouer un scénario.
+Les descriptions ne recopient pas les valeurs de mots de passe ou de clés.
+
+DOMAINES
+- 01_Reseaux_reels : 2 fichiers
+- 02_Routage_et_filtrage : 14 fichiers
+- 03_Entreprise_multiservice : 4 fichiers
+- 04_MPLS_L3VPN : 13 fichiers
+- 05_Operateur_BGP : 6 fichiers
+- 06_Services_L2VPN : 8 fichiers
+- 07_Qualite_de_service : 2 fichiers
+- 08_Transport_MPLS_avance : 8 fichiers
+- 09_Multicast : 3 fichiers
+
+CLASSEMENT PAR DOMAINE ET TYPE
+- 01_Reseaux_reels/Bordure_Internet_IOS : 2 fichiers
+- 02_Routage_et_filtrage/Bordures_multi_AS_IOS : 6 fichiers
+- 02_Routage_et_filtrage/Coeur_et_distribution_IOS : 5 fichiers
+- 02_Routage_et_filtrage/Departement_et_ACL_IOS : 1 fichiers
+- 02_Routage_et_filtrage/Politiques_AS_PATH_IOS_XE : 2 fichiers
+- 03_Entreprise_multiservice/PE_L3VPN_RIP_QoS_IOS : 2 fichiers
+- 03_Entreprise_multiservice/Coeur_RR_ABR_ASBR_IOS : 2 fichiers
+- 04_MPLS_L3VPN/PE_OSPF_IOS_XR : 3 fichiers
+- 04_MPLS_L3VPN/RR_OSPF_IOS_XR : 2 fichiers
+- 04_MPLS_L3VPN/PE_ISIS_IOS_XR : 4 fichiers
+- 04_MPLS_L3VPN/PE_ISIS_IOS_XE : 2 fichiers
+- 04_MPLS_L3VPN/RR_ISIS_IOS_XR : 2 fichiers
+- 05_Operateur_BGP/Bordure_et_politiques_IOS_XR : 4 fichiers
+- 05_Operateur_BGP/RR_IPv4_IOS_XR : 1 fichiers
+- 05_Operateur_BGP/PE_Internet_IOS_XR : 1 fichiers
+- 06_Services_L2VPN/EVPN_PE_IOS_XE : 3 fichiers
+- 06_Services_L2VPN/VPLS_PE_IOS_XE : 3 fichiers
+- 06_Services_L2VPN/VPWS_PE_IOS_XR : 2 fichiers
+- 07_Qualite_de_service/PE_L3VPN_QoS_IOS_XE : 2 fichiers
+- 08_Transport_MPLS_avance/RSVP_TE_PE_IOS_XR : 2 fichiers
+- 08_Transport_MPLS_avance/RSVP_TE_Coeur_IOS_XR : 2 fichiers
+- 08_Transport_MPLS_avance/Segment_Routing_PE_IOS_XR : 2 fichiers
+- 08_Transport_MPLS_avance/Segment_Routing_Coeur_IOS_XR : 2 fichiers
+- 09_Multicast/Routeurs_PIM_IGMP_IOS : 3 fichiers
+
+INDEX DES 60 FICHIERS
+01. F0456 — rt1.bsqmk — 01_Reseaux_reels\Bordure_Internet_IOS\01_F0456_rt1.bsqmk.cfg
+02. F0457 — rt1.thdo — 01_Reseaux_reels\Bordure_Internet_IOS\02_F0457_rt1.thdo.cfg
+03. F0001 — as1border1 — 02_Routage_et_filtrage\Bordures_multi_AS_IOS\03_F0001_as1border1.cfg
+04. F0002 — as1border2 — 02_Routage_et_filtrage\Bordures_multi_AS_IOS\04_F0002_as1border2.cfg
+05. F0004 — as2border1 — 02_Routage_et_filtrage\Bordures_multi_AS_IOS\05_F0004_as2border1.cfg
+06. F0005 — as2border2 — 02_Routage_et_filtrage\Bordures_multi_AS_IOS\06_F0005_as2border2.cfg
+07. F0011 — as3border1 — 02_Routage_et_filtrage\Bordures_multi_AS_IOS\07_F0011_as3border1.cfg
+08. F0012 — as3border2 — 02_Routage_et_filtrage\Bordures_multi_AS_IOS\08_F0012_as3border2.cfg
+09. F0003 — as1core1 — 02_Routage_et_filtrage\Coeur_et_distribution_IOS\09_F0003_as1core1.cfg
+10. F0006 — as2core1 — 02_Routage_et_filtrage\Coeur_et_distribution_IOS\10_F0006_as2core1.cfg
+11. F0009 — as2dist1 — 02_Routage_et_filtrage\Coeur_et_distribution_IOS\11_F0009_as2dist1.cfg
+12. F0010 — as2dist2 — 02_Routage_et_filtrage\Coeur_et_distribution_IOS\12_F0010_as2dist2.cfg
+13. F0013 — as3core1 — 02_Routage_et_filtrage\Coeur_et_distribution_IOS\13_F0013_as3core1.cfg
+14. F0008 — as2dept1 — 02_Routage_et_filtrage\Departement_et_ACL_IOS\14_F0008_as2dept1.cfg
+15. F0057 — R-PrivateASN100 — 02_Routage_et_filtrage\Politiques_AS_PATH_IOS_XE\15_F0057_R-PrivateASN100.cfg
+16. F0059 — R-PublicASN111 — 02_Routage_et_filtrage\Politiques_AS_PATH_IOS_XE\16_F0059_R-PublicASN111.cfg
+17. F0049 — R1 — 03_Entreprise_multiservice\PE_L3VPN_RIP_QoS_IOS\17_F0049_R1.cfg
+18. F0051 — R2 — 03_Entreprise_multiservice\PE_L3VPN_RIP_QoS_IOS\18_F0051_R2.cfg
+19. F0053 — R3 — 03_Entreprise_multiservice\Coeur_RR_ABR_ASBR_IOS\19_F0053_R3.cfg
+20. F0055 — R4 — 03_Entreprise_multiservice\Coeur_RR_ABR_ASBR_IOS\20_F0055_R4.cfg
+21. F0133 — PE1 — 04_MPLS_L3VPN\PE_OSPF_IOS_XR\21_F0133_PE1.cfg
+22. F0134 — PE2 — 04_MPLS_L3VPN\PE_OSPF_IOS_XR\22_F0134_PE2.cfg
+23. F0135 — PE3 — 04_MPLS_L3VPN\PE_OSPF_IOS_XR\23_F0135_PE3.cfg
+24. F0136 — RR1 — 04_MPLS_L3VPN\RR_OSPF_IOS_XR\24_F0136_RR1.cfg
+25. F0137 — RR2 — 04_MPLS_L3VPN\RR_OSPF_IOS_XR\25_F0137_RR2.cfg
+26. F0356 — PE-1 — 04_MPLS_L3VPN\PE_ISIS_IOS_XR\26_F0356_PE-1.cfg
+27. F0357 — PE-2 — 04_MPLS_L3VPN\PE_ISIS_IOS_XR\27_F0357_PE-2.cfg
+28. F0395 — PE-1 — 04_MPLS_L3VPN\PE_ISIS_IOS_XR\28_F0395_PE-1.cfg
+29. F0396 — PE-2 — 04_MPLS_L3VPN\PE_ISIS_IOS_XR\29_F0396_PE-2.cfg
+30. F0405 — PE-1 — 04_MPLS_L3VPN\PE_ISIS_IOS_XE\30_F0405_PE-1.cfg
+31. F0406 — PE-2 — 04_MPLS_L3VPN\PE_ISIS_IOS_XE\31_F0406_PE-2.cfg
+32. F0305 — RR1 — 04_MPLS_L3VPN\RR_ISIS_IOS_XR\32_F0305_RR1.cfg
+33. F0358 — RR1 — 04_MPLS_L3VPN\RR_ISIS_IOS_XR\33_F0358_RR1.cfg
+34. F0229 — IE-1 — 05_Operateur_BGP\Bordure_et_politiques_IOS_XR\34_F0229_IE-1.cfg
+35. F0230 — IE-2 — 05_Operateur_BGP\Bordure_et_politiques_IOS_XR\35_F0230_IE-2.cfg
+36. F0259 — IE-1 — 05_Operateur_BGP\Bordure_et_politiques_IOS_XR\36_F0259_IE-1.cfg
+37. F0260 — IE-2 — 05_Operateur_BGP\Bordure_et_politiques_IOS_XR\37_F0260_IE-2.cfg
+38. F0238 — RR1 — 05_Operateur_BGP\RR_IPv4_IOS_XR\38_F0238_RR1.cfg
+39. F0234 — PE-1 — 05_Operateur_BGP\PE_Internet_IOS_XR\39_F0234_PE-1.cfg
+40. F0291 — PE-1 — 06_Services_L2VPN\EVPN_PE_IOS_XE\40_F0291_PE-1.cfg
+41. F0292 — PE-2 — 06_Services_L2VPN\EVPN_PE_IOS_XE\41_F0292_PE-2.cfg
+42. F0293 — PE-3 — 06_Services_L2VPN\EVPN_PE_IOS_XE\42_F0293_PE-3.cfg
+43. F0344 — PE-1 — 06_Services_L2VPN\VPLS_PE_IOS_XE\43_F0344_PE-1.cfg
+44. F0345 — PE-2 — 06_Services_L2VPN\VPLS_PE_IOS_XE\44_F0345_PE-2.cfg
+45. F0346 — PE-3 — 06_Services_L2VPN\VPLS_PE_IOS_XE\45_F0346_PE-3.cfg
+46. F0383 — PE-1 — 06_Services_L2VPN\VPWS_PE_IOS_XR\46_F0383_PE-1.cfg
+47. F0384 — PE-2 — 06_Services_L2VPN\VPWS_PE_IOS_XR\47_F0384_PE-2.cfg
+48. F0371 — PE-1 — 07_Qualite_de_service\PE_L3VPN_QoS_IOS_XE\48_F0371_PE-1.cfg
+49. F0372 — PE-2 — 07_Qualite_de_service\PE_L3VPN_QoS_IOS_XE\49_F0372_PE-2.cfg
+50. F0421 — PE-1 — 08_Transport_MPLS_avance\RSVP_TE_PE_IOS_XR\50_F0421_PE-1.cfg
+51. F0422 — PE-2 — 08_Transport_MPLS_avance\RSVP_TE_PE_IOS_XR\51_F0422_PE-2.cfg
+52. F0419 — P1 — 08_Transport_MPLS_avance\RSVP_TE_Coeur_IOS_XR\52_F0419_P1.cfg
+53. F0420 — P2 — 08_Transport_MPLS_avance\RSVP_TE_Coeur_IOS_XR\53_F0420_P2.cfg
+54. F0433 — PE-1 — 08_Transport_MPLS_avance\Segment_Routing_PE_IOS_XR\54_F0433_PE-1.cfg
+55. F0434 — PE-2 — 08_Transport_MPLS_avance\Segment_Routing_PE_IOS_XR\55_F0434_PE-2.cfg
+56. F0431 — P1 — 08_Transport_MPLS_avance\Segment_Routing_Coeur_IOS_XR\56_F0431_P1.cfg
+57. F0432 — P2 — 08_Transport_MPLS_avance\Segment_Routing_Coeur_IOS_XR\57_F0432_P2.cfg
+58. F0409 — R1 — 09_Multicast\Routeurs_PIM_IGMP_IOS\58_F0409_R1.cfg
+59. F0410 — R2 — 09_Multicast\Routeurs_PIM_IGMP_IOS\59_F0410_R2.cfg
+60. F0411 — R3 — 09_Multicast\Routeurs_PIM_IGMP_IOS\60_F0411_R3.cfg
+
+DESCRIPTIONS INDIVIDUELLES
+=========================
+
+[01/60] F0456 — rt1.bsqmk
+-----------------------------------------------------------------
+Fichier : 01_Reseaux_reels\Bordure_Internet_IOS\01_F0456_rt1.bsqmk.cfg
+Domaine / type : 01_Reseaux_reels / Bordure_Internet_IOS
+Provenance : Réseau réel probable — sauvegarde RANCID EMFCamp
+Constructeur / OS / modèle : Cisco / IOS / 7204VXR
+Version indiquée : 12.2
+Rôle : Routeur de bordure d’un réseau EMFCamp : interconnexion Internet et routage interne double pile.
+Ce que ce fichier décrit : Bordure du site bsqmk : transit BGP IPv4/IPv6, OSPF, politiques Pulsant, multicast/PIM, VLAN et restrictions de gestion. Tunnel0 est présent mais administrativement arrêté (shutdown).
+Fonctions observées : Interfaces ; IPv4 ; IPv6 ; VLAN / 802.1Q ; Routes statiques ; BGP ; OSPFv2 ; OSPFv3 ; Politiques de routage ; VRF ; Multicast / PIM / IGMP ; ACL définies ; ACL administration appliquées ; DNS client / relais ; NTP / SNTP ; SNMP ; Journalisation ; SSH ; Tunnels GRE / IP
+Motif de sélection : Priorité à la provenance de réseau réel et à la combinaison de routage, politiques, segmentation et administration.
+Étendue : export global probable ; 292 lignes, 8 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 13020 ; AS distants explicitement renseignés : 13020, 12703.
+Processus OSPF : 1
+VRF déclarées : mgmt
+Politiques de routage déclarées : pulsant-4-in, pulsant-4-out, pulsant-6-in, pulsant-6-out
+Listes/ensembles de préfixes : Nothing, emfcamp-4-in, emfcamp-4-out, emfcamp-6-in, emfcamp-6-out
+IPv6 : 5 instruction(s) positive(s) d’adresse ; la simple activation globale ne garantit pas une connectivité IPv6.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 06_Bordure_EMFCamp_BGP_OSPF\rt1.bsqmk.cfg
+Source d’origine : rt1.bsqmk.emfcamp.org
+SHA-256 : 472e8f3aa7ed4acd12eda37a5f7cb0af016d277b1900d06f795678edd895c861
+
+[02/60] F0457 — rt1.thdo
+-----------------------------------------------------------------
+Fichier : 01_Reseaux_reels\Bordure_Internet_IOS\02_F0457_rt1.thdo.cfg
+Domaine / type : 01_Reseaux_reels / Bordure_Internet_IOS
+Provenance : Réseau réel probable — sauvegarde RANCID EMFCamp
+Constructeur / OS / modèle : Cisco / IOS / 7204VXR
+Version indiquée : 12.2
+Rôle : Routeur de bordure d’un réseau EMFCamp : interconnexion Internet et routage interne double pile.
+Ce que ce fichier décrit : Bordure du site thdo : politiques distinctes pour Goscomb et LONAP, préférence locale, routage BGP/OSPF double pile, multicast/PIM, VRF et segmentation VLAN.
+Fonctions observées : Interfaces ; IPv4 ; IPv6 ; VLAN / 802.1Q ; Routes statiques ; BGP ; OSPFv2 ; OSPFv3 ; Politiques de routage ; VRF ; Multicast / PIM / IGMP ; ACL définies ; ACL administration appliquées ; DNS client / relais ; NTP / SNTP ; SNMP ; Journalisation ; SSH
+Motif de sélection : Priorité à la provenance de réseau réel et à la combinaison de routage, politiques, segmentation et administration.
+Étendue : export global probable ; 361 lignes, 9 interfaces déclarées, 0 explicitement en shutdown.
+BGP : AS local 13020 ; AS distants explicitement renseignés : 13020, 8550, 8330, 39326, 31459.
+Processus OSPF : 1
+VRF déclarées : mgmt
+Politiques de routage déclarées : goscomb-4-in, goscomb-4-out, goscomb-6-in, goscomb-6-out, lonap-4-in, lonap-4-out, lonap-6-in, lonap-6-out
+Listes/ensembles de préfixes : emfcamp-4-in, emfcamp-4-out, emfcamp-6-in, emfcamp-6-out
+IPv6 : 4 instruction(s) positive(s) d’adresse ; la simple activation globale ne garantit pas une connectivité IPv6.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 06_Bordure_EMFCamp_BGP_OSPF\rt1.thdo.cfg
+Source d’origine : rt1.thdo.emfcamp.org
+SHA-256 : 45371c48731c4ae337688edfd7867571820bd6db1aa0bc50df25922ebe5bfc4b
+
+[03/60] F0001 — as1border1
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Bordures_multi_AS_IOS\03_F0001_as1border1.cfg
+Domaine / type : 02_Routage_et_filtrage / Bordures_multi_AS_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de bordure multi-AS : échanges BGP, IGP OSPF et politiques d’import/export.
+Ce que ce fichier décrit : as1border1, AS BGP 1 : politiques de bordure et échanges inter-AS, avec OSPF ; ACL/prefix-lists servant notamment aux politiques de routage.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; ACL définies ; DNS client / relais
+Motif de sélection : Combinaison de routage inter-AS, IGP et filtrage ; les variantes couvrent des politiques et liaisons différentes.
+Étendue : export global probable ; 190 lignes, 4 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 1 ; AS distants explicitement renseignés : 1, 2, 3, 555, 666.
+Processus OSPF : 1
+Politiques de routage déclarées : as1_to_as2, as2_to_as1, as1_to_as3, as3_to_as1
+Listes/ensembles de préfixes : default_list, inbound_route_filter
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as1border1.cfg
+Source d’origine : batfish-candidate-configs/as1border1.cfg
+SHA-256 : 5d489586a5a4019024ef2d8d68561c532593c58e214fa78a4ff158083999ef87
+
+[04/60] F0002 — as1border2
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Bordures_multi_AS_IOS\04_F0002_as1border2.cfg
+Domaine / type : 02_Routage_et_filtrage / Bordures_multi_AS_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de bordure multi-AS : échanges BGP, IGP OSPF et politiques d’import/export.
+Ce que ce fichier décrit : as1border2, AS BGP 1 : politiques de bordure et échanges inter-AS, avec OSPF ; ACL/prefix-lists servant notamment aux politiques de routage.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; ACL définies ; DNS client / relais ; NTP / SNTP
+Motif de sélection : Combinaison de routage inter-AS, IGP et filtrage ; les variantes couvrent des politiques et liaisons différentes.
+Étendue : export global probable ; 198 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 1 ; AS distants explicitement renseignés : 1, 2, 3, 4.
+Processus OSPF : 1
+Politiques de routage déclarées : as1_to_as2, as2_to_as1, as1_to_as3, as3_to_as1, as1_to_as4, as4_to_as1
+Listes/ensembles de préfixes : as4-prefixes, inbound_route_filter
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as1border2.cfg
+Source d’origine : batfish-candidate-configs/as1border2.cfg
+SHA-256 : b100db3cdb21c95a6aa264e66c2ff9cded6af207c56c1315706c1d0dd6e38868
+
+[05/60] F0004 — as2border1
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Bordures_multi_AS_IOS\05_F0004_as2border1.cfg
+Domaine / type : 02_Routage_et_filtrage / Bordures_multi_AS_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de bordure multi-AS : échanges BGP, IGP OSPF et politiques d’import/export.
+Ce que ce fichier décrit : as2border1, AS BGP 2 : politiques de bordure et échanges inter-AS, avec OSPF ; ACL appliquées aux interfaces de trafic.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; ACL définies ; ACL trafic appliquées ; DNS client / relais ; NTP / SNTP ; AAA / utilisateurs
+Motif de sélection : Combinaison de routage inter-AS, IGP et filtrage ; les variantes couvrent des politiques et liaisons différentes.
+Étendue : export global probable ; 198 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 2 ; AS distants explicitement renseignés : 1, 2, 3.
+Processus OSPF : 1
+Politiques de routage déclarées : as2_to_as1, as1_to_as2, as2_to_as3, as3_to_as2
+Listes/ensembles de préfixes : inbound_route_filter, outbound_routes
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as2border1.cfg
+Source d’origine : batfish-candidate-configs/as2border1.cfg
+SHA-256 : 22f8a52816c5a4f01b870b1fc2c21a667688e0adad8478ac1569f30303878c95
+
+[06/60] F0005 — as2border2
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Bordures_multi_AS_IOS\06_F0005_as2border2.cfg
+Domaine / type : 02_Routage_et_filtrage / Bordures_multi_AS_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de bordure multi-AS : échanges BGP, IGP OSPF et politiques d’import/export.
+Ce que ce fichier décrit : as2border2, AS BGP 2 : politiques de bordure et échanges inter-AS, avec OSPF ; ACL appliquées aux interfaces de trafic.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; ACL définies ; ACL trafic appliquées ; DNS client / relais ; NTP / SNTP
+Motif de sélection : Combinaison de routage inter-AS, IGP et filtrage ; les variantes couvrent des politiques et liaisons différentes.
+Étendue : export global probable ; 194 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 2 ; AS distants explicitement renseignés : 1, 2, 3.
+Processus OSPF : 1
+Politiques de routage déclarées : as2_to_as1, as1_to_as2, as2_to_as3, as3_to_as2
+Listes/ensembles de préfixes : inbound_route_filter, outbound_routes
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as2border2.cfg
+Source d’origine : batfish-candidate-configs/as2border2.cfg
+SHA-256 : 8d34f90dcf7dc054861ef168e19dbaba2dbd7d422474e435369e528e21a9e7a0
+
+[07/60] F0011 — as3border1
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Bordures_multi_AS_IOS\07_F0011_as3border1.cfg
+Domaine / type : 02_Routage_et_filtrage / Bordures_multi_AS_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de bordure multi-AS : échanges BGP, IGP OSPF et politiques d’import/export.
+Ce que ce fichier décrit : as3border1, AS BGP 3 : politiques de bordure et échanges inter-AS, avec OSPF ; ACL/prefix-lists servant notamment aux politiques de routage.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; ACL définies ; DNS client / relais ; NTP / SNTP
+Motif de sélection : Combinaison de routage inter-AS, IGP et filtrage ; les variantes couvrent des politiques et liaisons différentes.
+Étendue : export global probable ; 184 lignes, 4 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 3 ; AS distants explicitement renseignés : 1, 2, 3.
+Processus OSPF : 1
+Politiques de routage déclarées : as3_to_as1, as1_to_as3, as3_to_as2, as2_to_as3
+Listes/ensembles de préfixes : default_list, inbound_route_filter
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as3border1.cfg
+Source d’origine : batfish-candidate-configs/as3border1.cfg
+SHA-256 : 26d51d19f8812a8fd1460d43581d7a168c5bb0fc5f5bfe79e3b003ee84467709
+
+[08/60] F0012 — as3border2
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Bordures_multi_AS_IOS\08_F0012_as3border2.cfg
+Domaine / type : 02_Routage_et_filtrage / Bordures_multi_AS_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de bordure multi-AS : échanges BGP, IGP OSPF et politiques d’import/export.
+Ce que ce fichier décrit : as3border2, AS BGP 3 : politiques de bordure et échanges inter-AS, avec OSPF ; ACL/prefix-lists servant notamment aux politiques de routage.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; ACL définies ; DNS client / relais ; NTP / SNTP
+Motif de sélection : Combinaison de routage inter-AS, IGP et filtrage ; les variantes couvrent des politiques et liaisons différentes.
+Étendue : export global probable ; 177 lignes, 4 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 3 ; AS distants explicitement renseignés : 1, 2, 3.
+Processus OSPF : 1
+Politiques de routage déclarées : as3_to_as1, as1_to_as3, as3_to_as2, as2_to_as3
+Listes/ensembles de préfixes : inbound_route_filter
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as3border2.cfg
+Source d’origine : batfish-candidate-configs/as3border2.cfg
+SHA-256 : faaa9cfa5f1e407f9d34954d893678024268b68810704e2c19c74b9165f8c192
+
+[09/60] F0003 — as1core1
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Coeur_et_distribution_IOS\09_F0003_as1core1.cfg
+Domaine / type : 02_Routage_et_filtrage / Coeur_et_distribution_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de cœur ou de distribution d’un réseau multi-AS : circulation et redistribution des routes.
+Ce que ce fichier décrit : as1core1, AS BGP 1 : routage du cœur, avec OSPF et réflexion iBGP.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Route reflector ; DNS client / relais ; Journalisation
+Motif de sélection : Conserve les rôles de cœur, de distribution et de réflexion de routes dans un scénario BGP/OSPF.
+Étendue : export global probable ; 125 lignes, 4 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 1 ; AS distants explicitement renseignés : 1.
+Processus OSPF : 1
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as1core1.cfg
+Source d’origine : batfish-candidate-configs/as1core1.cfg
+SHA-256 : 9cbb855f763f552cb7a175c2bba7c66557edecacec6aaf890e45320e3b9958d2
+
+[10/60] F0006 — as2core1
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Coeur_et_distribution_IOS\10_F0006_as2core1.cfg
+Domaine / type : 02_Routage_et_filtrage / Coeur_et_distribution_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de cœur ou de distribution d’un réseau multi-AS : circulation et redistribution des routes.
+Ce que ce fichier décrit : as2core1, AS BGP 2 : routage du cœur, avec OSPF et réflexion iBGP ; ACL appliquées aux interfaces de trafic.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Route reflector ; ACL définies ; ACL trafic appliquées ; DNS client / relais ; Journalisation
+Motif de sélection : Conserve les rôles de cœur, de distribution et de réflexion de routes dans un scénario BGP/OSPF.
+Étendue : export global probable ; 145 lignes, 6 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 2 ; AS distants explicitement renseignés : 2.
+Processus OSPF : 1
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as2core1.cfg
+Source d’origine : batfish-candidate-configs/as2core1.cfg
+SHA-256 : 7dea676072e190f1c9400b32402c1688983675dc6a4f8033fffb6dcfa9742bf1
+
+[11/60] F0009 — as2dist1
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Coeur_et_distribution_IOS\11_F0009_as2dist1.cfg
+Domaine / type : 02_Routage_et_filtrage / Coeur_et_distribution_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de cœur ou de distribution d’un réseau multi-AS : circulation et redistribution des routes.
+Ce que ce fichier décrit : as2dist1, AS BGP 2 : routage de distribution et échanges avec le département, avec OSPF ; ACL/prefix-lists servant notamment aux politiques de routage.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; ACL définies ; DNS client / relais
+Motif de sélection : Conserve les rôles de cœur, de distribution et de réflexion de routes dans un scénario BGP/OSPF.
+Étendue : export global probable ; 150 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 2 ; AS distants explicitement renseignés : 2, 65001.
+Processus OSPF : 1
+Politiques de routage déclarées : as2dist_to_dept, dept_to_as2dist
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as2dist1.cfg
+Source d’origine : batfish-candidate-configs/as2dist1.cfg
+SHA-256 : a9e6b904fc6771e44fd349c48270af5bdbabc232a93fa0b23c12c43436cd8647
+
+[12/60] F0010 — as2dist2
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Coeur_et_distribution_IOS\12_F0010_as2dist2.cfg
+Domaine / type : 02_Routage_et_filtrage / Coeur_et_distribution_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de cœur ou de distribution d’un réseau multi-AS : circulation et redistribution des routes.
+Ce que ce fichier décrit : as2dist2, AS BGP 2 : routage de distribution et échanges avec le département, avec OSPF ; ACL/prefix-lists servant notamment aux politiques de routage.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; ACL définies ; DNS client / relais
+Motif de sélection : Conserve les rôles de cœur, de distribution et de réflexion de routes dans un scénario BGP/OSPF.
+Étendue : export global probable ; 150 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 2 ; AS distants explicitement renseignés : 2, 65001.
+Processus OSPF : 1
+Politiques de routage déclarées : as2dist_to_dept, dept_to_as2dist
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as2dist2.cfg
+Source d’origine : batfish-candidate-configs/as2dist2.cfg
+SHA-256 : c40582fd648380e59fe588c9a25add8f8f22578bb921e5070fdbc1ae3d61c336
+
+[13/60] F0013 — as3core1
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Coeur_et_distribution_IOS\13_F0013_as3core1.cfg
+Domaine / type : 02_Routage_et_filtrage / Coeur_et_distribution_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de cœur ou de distribution d’un réseau multi-AS : circulation et redistribution des routes.
+Ce que ce fichier décrit : as3core1, AS BGP 3 : routage du cœur, avec OSPF et réflexion iBGP.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Route reflector ; DNS client / relais ; Journalisation
+Motif de sélection : Conserve les rôles de cœur, de distribution et de réflexion de routes dans un scénario BGP/OSPF.
+Étendue : export global probable ; 134 lignes, 6 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 3 ; AS distants explicitement renseignés : 3.
+Processus OSPF : 1
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as3core1.cfg
+Source d’origine : batfish-candidate-configs/as3core1.cfg
+SHA-256 : 4c0eff956951fbdb4d4f364be2b34f4faf8f65f8937659c6667d0eed9e0f8fc7
+
+[14/60] F0008 — as2dept1
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Departement_et_ACL_IOS\14_F0008_as2dept1.cfg
+Domaine / type : 02_Routage_et_filtrage / Departement_et_ACL_IOS
+Provenance : Laboratoire Cisco — Batfish candidate
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur de département : échanges BGP avec la distribution et restriction des flux des hôtes.
+Ce que ce fichier décrit : as2dept1, AS BGP 65001 : raccordement du département et restriction des flux des hôtes ; ACL appliquées aux interfaces de trafic.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; Politiques de routage ; ACL définies ; ACL trafic appliquées ; DNS client / relais
+Motif de sélection : Exemple complémentaire de filtrage de trafic associé aux politiques de routage BGP.
+Étendue : export global probable ; 156 lignes, 6 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 65001 ; AS distants explicitement renseignés : 2.
+Politiques de routage déclarées : dept_to_as2, as2_to_dept
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 01_Routage_multi_AS_BGP_OSPF_ACL\as2dept1.cfg
+Source d’origine : batfish-candidate-configs/as2dept1.cfg
+SHA-256 : 937ff240822442991f07a9f4dcd6f658d6110477d7004bf363adc8af05709db3
+
+[15/60] F0057 — R-PrivateASN100
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Politiques_AS_PATH_IOS_XE\15_F0057_R-PrivateASN100.cfg
+Domaine / type : 02_Routage_et_filtrage / Politiques_AS_PATH_IOS_XE
+Provenance : Laboratoire Cisco — Batfish lab-validation
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 16.4
+Rôle : Routeur du laboratoire d’AS privés : annonces BGP et préfixage conditionnel AS_PATH.
+Ce que ce fichier décrit : BGP AS 65100 : route-map test-privateASN sélectionnant des préfixes et appliquant un préfixage par AS privé (65101) ou public (25). Ce fichier ne configure pas à lui seul la suppression d’AS privés.
+Fonctions observées : Interfaces ; IPv4 ; STP ; BGP ; Politiques de routage ; SSH ; AAA / utilisateurs
+Motif de sélection : Cas spécialisé : politiques de préfixage par préfixe avec AS public ou privé ; ajoute une couverture précise au filtrage général.
+Étendue : export global probable ; 246 lignes, 8 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 65100 ; AS distants explicitement renseignés : 100.
+Politiques de routage déclarées : test-privateASN
+Listes/ensembles de préfixes : donothing, prependprivate, prependpublic
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 03_BGP_AS_prives_et_AS_PATH\R-PrivateASN100.cfg
+Source d’origine : lab-validation-main/lab-validation-main/snapshots/cisco_private_asn/configs/R-PrivateASN100/show_running-config.txt
+SHA-256 : 2eeaf6cd916bfa6326e8fd4b63a67aad8f0fb4022b34544fb3914cdb84b29f99
+
+[16/60] F0059 — R-PublicASN111
+-----------------------------------------------------------------
+Fichier : 02_Routage_et_filtrage\Politiques_AS_PATH_IOS_XE\16_F0059_R-PublicASN111.cfg
+Domaine / type : 02_Routage_et_filtrage / Politiques_AS_PATH_IOS_XE
+Provenance : Laboratoire Cisco — Batfish lab-validation
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 16.4
+Rôle : Routeur du laboratoire d’AS privés : annonces BGP et préfixage conditionnel AS_PATH.
+Ce que ce fichier décrit : BGP AS 111 : variante côté AS public des annonces et politiques AS_PATH de test ; préfixage privé/public conditionné par des listes de préfixes.
+Fonctions observées : Interfaces ; IPv4 ; STP ; BGP ; Politiques de routage ; SSH ; AAA / utilisateurs
+Motif de sélection : Cas spécialisé : politiques de préfixage par préfixe avec AS public ou privé ; ajoute une couverture précise au filtrage général.
+Étendue : export global probable ; 246 lignes, 8 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 111 ; AS distants explicitement renseignés : 100.
+Politiques de routage déclarées : test-privateASN
+Listes/ensembles de préfixes : donothing, prependprivate, prependpublic
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 03_BGP_AS_prives_et_AS_PATH\R-PublicASN111.cfg
+Source d’origine : lab-validation-main/lab-validation-main/snapshots/cisco_private_asn/configs/R-PublicASN111/show_running-config.txt
+SHA-256 : 70a0dc2da89eba6728789ddae56bd19f6fcfb006465b6de95e5b0840adffab60
+
+[17/60] F0049 — R1
+-----------------------------------------------------------------
+Fichier : 03_Entreprise_multiservice\PE_L3VPN_RIP_QoS_IOS\17_F0049_R1.cfg
+Domaine / type : 03_Entreprise_multiservice / PE_L3VPN_RIP_QoS_IOS
+Provenance : Laboratoire Cisco — Advanced Networking Lab
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur PE d’entreprise : service MPLS L3VPN dans la VRF ENTERPRISE, échanges clients et routage du fournisseur.
+Ce que ce fichier décrit : PE R1 : VRF ENTERPRISE, MP-BGP/VPNv4, OSPF IPv4/IPv6 et MPLS/LDP ; classification et marquage des flux voix/données, avec politiques QoS appliquées.
+Fonctions observées : Interfaces ; IPv4 ; IPv6 ; BGP ; OSPFv2 ; OSPFv3 ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; ACL définies ; QoS
+Motif de sélection : Parmi les exports les plus riches : combine les fonctions de transport, service VPN et routage client, avec QoS ou RIP selon le PE.
+Étendue : export global probable ; 229 lignes, 6 interfaces déclarées, 2 explicitement en shutdown.
+BGP : AS local 2121 ; AS distants explicitement renseignés : 2121, 65010.
+Processus OSPF : 1
+VRF déclarées : ENTERPRISE
+Policy-maps QoS : ENTRY-MARK, OUT-TRAFFIC
+IPv6 : 3 instruction(s) positive(s) d’adresse ; la simple activation globale ne garantit pas une connectivité IPv6.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 02_Entreprise_MPLS_L3VPN_IPv4_IPv6\R1.cfg
+Source d’origine : josebranco13 Advanced-Networking-Topology-Lab main configs/R1/R1.txt
+SHA-256 : 0cbfcc4af27366e1ef8a95371949ed51d5323b6ed99d3a9fc57a13cdf8658ac8
+
+[18/60] F0051 — R2
+-----------------------------------------------------------------
+Fichier : 03_Entreprise_multiservice\PE_L3VPN_RIP_QoS_IOS\18_F0051_R2.cfg
+Domaine / type : 03_Entreprise_multiservice / PE_L3VPN_RIP_QoS_IOS
+Provenance : Laboratoire Cisco — Advanced Networking Lab
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur PE d’entreprise : service MPLS L3VPN dans la VRF ENTERPRISE, échanges clients et routage du fournisseur.
+Ce que ce fichier décrit : PE R2 : VRF ENTERPRISE, redistribution RIP/BGP pour le site CE-BR, MP-BGP/VPNv4, OSPF IPv4/IPv6 et transport MPLS/LDP.
+Fonctions observées : Interfaces ; IPv4 ; IPv6 ; BGP ; OSPFv2 ; OSPFv3 ; RIP ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN
+Motif de sélection : Parmi les exports les plus riches : combine les fonctions de transport, service VPN et routage client, avec QoS ou RIP selon le PE.
+Étendue : export global probable ; 186 lignes, 6 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 2121 ; AS distants explicitement renseignés : 2121.
+Processus OSPF : 1
+VRF déclarées : ENTERPRISE
+IPv6 : 2 instruction(s) positive(s) d’adresse ; la simple activation globale ne garantit pas une connectivité IPv6.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 02_Entreprise_MPLS_L3VPN_IPv4_IPv6\R2.cfg
+Source d’origine : josebranco13 Advanced-Networking-Topology-Lab main configs/R2/R2.txt
+SHA-256 : c47873f3f8b33669de548e87d7ca0e8d54f2e39db4866fc4a08606a2f4062d6f
+
+[19/60] F0053 — R3
+-----------------------------------------------------------------
+Fichier : 03_Entreprise_multiservice\Coeur_RR_ABR_ASBR_IOS\19_F0053_R3.cfg
+Domaine / type : 03_Entreprise_multiservice / Coeur_RR_ABR_ASBR_IOS
+Provenance : Laboratoire Cisco — Advanced Networking Lab
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur du cœur entreprise/fournisseur : OSPF double pile, MPLS et échanges BGP internes ou externes.
+Ce que ce fichier décrit : R3 : route reflector IPv4/VPNv4/IPv6, OSPF ABR avec lien virtuel, MPLS/LDP et préférence locale des routes reçues de l’AS 2122.
+Fonctions observées : Interfaces ; IPv4 ; IPv6 ; BGP ; OSPFv2 ; OSPFv3 ; Politiques de routage ; Route reflector ; MPLS ; LDP ; VPNv4 / L3VPN
+Motif de sélection : Combine plusieurs rôles de routage et des politiques BGP ; complète les PE multiservices.
+Étendue : export global probable ; 214 lignes, 6 interfaces déclarées, 2 explicitement en shutdown.
+BGP : AS local 2121 ; AS distants explicitement renseignés : 2122, 2121.
+Processus OSPF : 1
+Politiques de routage déclarées : PREFER-2122-IN
+IPv6 : 4 instruction(s) positive(s) d’adresse ; la simple activation globale ne garantit pas une connectivité IPv6.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 02_Entreprise_MPLS_L3VPN_IPv4_IPv6\R3.cfg
+Source d’origine : josebranco13 Advanced-Networking-Topology-Lab main configs/R3/R3.txt
+SHA-256 : 0551d53213c3fb089d11443c9ffb8781e94ec8979eb1998664c24824ce82fdda
+
+[20/60] F0055 — R4
+-----------------------------------------------------------------
+Fichier : 03_Entreprise_multiservice\Coeur_RR_ABR_ASBR_IOS\20_F0055_R4.cfg
+Domaine / type : 03_Entreprise_multiservice / Coeur_RR_ABR_ASBR_IOS
+Provenance : Laboratoire Cisco — Advanced Networking Lab
+Constructeur / OS / modèle : Cisco / IOS / Non indiqué
+Version indiquée : 15.2
+Rôle : Routeur du cœur entreprise/fournisseur : OSPF double pile, MPLS et échanges BGP internes ou externes.
+Ce que ce fichier décrit : R4 : cœur/ASBR OSPF, transport MPLS/LDP, BGP double pile et AS_PATH prepending vers l’AS 2123.
+Fonctions observées : Interfaces ; IPv4 ; IPv6 ; BGP ; OSPFv2 ; OSPFv3 ; Politiques de routage ; MPLS ; LDP
+Motif de sélection : Combine plusieurs rôles de routage et des politiques BGP ; complète les PE multiservices.
+Étendue : export global probable ; 175 lignes, 6 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 2121 ; AS distants explicitement renseignés : 2123, 2121.
+Processus OSPF : 1
+Politiques de routage déclarées : PREPEND-OUT
+IPv6 : 3 instruction(s) positive(s) d’adresse ; la simple activation globale ne garantit pas une connectivité IPv6.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 02_Entreprise_MPLS_L3VPN_IPv4_IPv6\R4.cfg
+Source d’origine : josebranco13 Advanced-Networking-Topology-Lab main configs/R4/R4.txt
+SHA-256 : 76347ed82cdcc849f43bd56d8a65f4ed1e61a5f3f2cc6ac8e593eef02dac2753
+
+[21/60] F0133 — PE1
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\PE_OSPF_IOS_XR\21_F0133_PE1.cfg
+Domaine / type : 04_MPLS_L3VPN / PE_OSPF_IOS_XR
+Provenance : Laboratoire Cisco — Batfish lab-validation
+Constructeur / OS / modèle : Cisco / IOS XR / IOS XRv 9000 (virtuel)
+Version indiquée : 6.6.2
+Rôle : Routeur PE IOS XR : VRF clients, MP-BGP/VPNv4 et transport MPLS/LDP piloté par OSPF.
+Ce que ce fichier décrit : PE1 du snapshot IOS XR : VRF red/blue/management, transport OSPF/MPLS/LDP et BGP VPNv4. Comprend des routes statiques en VRF et une politique PASS_ALL pour le routage client.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; OSPFv2 ; Politiques de routage ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Exports riches d’un snapshot IOS/XR : services VRF, protocoles de transport et politiques de redistribution/admission.
+Étendue : export global probable ; 155 lignes, 6 interfaces déclarées, 0 explicitement en shutdown.
+BGP : AS local 65001 ; AS distants explicitement renseignés : 65001, 65102.
+Processus OSPF : 1
+VRF déclarées : red, blue, management
+Politiques de routage déclarées : PASS_ALL
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 04_MPLS_L3VPN_IOS_XR_et_IOS\PE1.cfg
+Source d’origine : lab-validation-main/lab-validation-main/snapshots/cisco_xr_ios_vpnv4/configs/PE1/show_running-config.txt
+SHA-256 : 860d96bc66a8dc309e8ec229d6d5a802149343716332d69cdf822f76c3ac1e6f
+
+[22/60] F0134 — PE2
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\PE_OSPF_IOS_XR\22_F0134_PE2.cfg
+Domaine / type : 04_MPLS_L3VPN / PE_OSPF_IOS_XR
+Provenance : Laboratoire Cisco — Batfish lab-validation
+Constructeur / OS / modèle : Cisco / IOS XR / IOS XRv 9000 (virtuel)
+Version indiquée : 6.6.2
+Rôle : Routeur PE IOS XR : VRF clients, MP-BGP/VPNv4 et transport MPLS/LDP piloté par OSPF.
+Ce que ce fichier décrit : PE2 du snapshot IOS XR : VRF red/blue/management, OSPF, LDP, BGP VPNv4 et redistribution client. Certaines interfaces non utilisées sont administrativement arrêtées.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Exports riches d’un snapshot IOS/XR : services VRF, protocoles de transport et politiques de redistribution/admission.
+Étendue : export global probable ; 136 lignes, 6 interfaces déclarées, 2 explicitement en shutdown.
+BGP : AS local 65001 ; AS distants explicitement renseignés : 65001, 65102.
+Processus OSPF : 1
+VRF déclarées : red, blue, management
+Politiques de routage déclarées : PASS_ALL
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 04_MPLS_L3VPN_IOS_XR_et_IOS\PE2.cfg
+Source d’origine : lab-validation-main/lab-validation-main/snapshots/cisco_xr_ios_vpnv4/configs/PE2/show_running-config.txt
+SHA-256 : ed615340bc30ac0ec6df657168856acca5eb2b9d66e77a59d9507bdadfee3ec9
+
+[23/60] F0135 — PE3
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\PE_OSPF_IOS_XR\23_F0135_PE3.cfg
+Domaine / type : 04_MPLS_L3VPN / PE_OSPF_IOS_XR
+Provenance : Laboratoire Cisco — Batfish lab-validation
+Constructeur / OS / modèle : Cisco / IOS XR / IOS XRv 9000 (virtuel)
+Version indiquée : 6.6.2
+Rôle : Routeur PE IOS XR : VRF clients, MP-BGP/VPNv4 et transport MPLS/LDP piloté par OSPF.
+Ce que ce fichier décrit : PE3 du snapshot IOS XR : VRF red/blue/management, OSPF/MPLS/LDP, BGP VPNv4 et échanges BGP avec le client raccordé à ce PE.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Politiques de routage ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Exports riches d’un snapshot IOS/XR : services VRF, protocoles de transport et politiques de redistribution/admission.
+Étendue : export global probable ; 135 lignes, 6 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 65001 ; AS distants explicitement renseignés : 65001, 65101.
+Processus OSPF : 1
+VRF déclarées : red, blue, management
+Politiques de routage déclarées : PASS_ALL
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 04_MPLS_L3VPN_IOS_XR_et_IOS\PE3.cfg
+Source d’origine : lab-validation-main/lab-validation-main/snapshots/cisco_xr_ios_vpnv4/configs/PE3/show_running-config.txt
+SHA-256 : fb203e071986b289470549f768b20895850372a7dd4844b71f46b5cead154675
+
+[24/60] F0136 — RR1
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\RR_OSPF_IOS_XR\24_F0136_RR1.cfg
+Domaine / type : 04_MPLS_L3VPN / RR_OSPF_IOS_XR
+Provenance : Laboratoire Cisco — Batfish lab-validation
+Constructeur / OS / modèle : Cisco / IOS XR / IOS XRv 9000 (virtuel)
+Version indiquée : 6.6.2
+Rôle : Réflecteur de routes VPNv4 IOS XR dans un cœur OSPF/MPLS.
+Ce que ce fichier décrit : RR1 : réflexion BGP VPNv4 dans l’AS 65001 avec transport OSPF/MPLS/LDP ; point de contrôle du plan de routage VPN, distinct du rôle de PE client.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Route reflector ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Couverture du type route reflector VPNv4 ; les deux équipements ont des interfaces et voisinages distincts.
+Étendue : export global probable ; 106 lignes, 6 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 65001 ; AS distants explicitement renseignés : 65001.
+Processus OSPF : 1
+VRF déclarées : management
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 04_MPLS_L3VPN_IOS_XR_et_IOS\RR1.cfg
+Source d’origine : lab-validation-main/lab-validation-main/snapshots/cisco_xr_ios_vpnv4/configs/RR1/show_running-config.txt
+SHA-256 : 3ac72ee1132017dc0f532a5ad81597ab22298281485a14b80c0ed3bb7d7fa1b5
+
+[25/60] F0137 — RR2
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\RR_OSPF_IOS_XR\25_F0137_RR2.cfg
+Domaine / type : 04_MPLS_L3VPN / RR_OSPF_IOS_XR
+Provenance : Laboratoire Cisco — Batfish lab-validation
+Constructeur / OS / modèle : Cisco / IOS XR / IOS XRv 9000 (virtuel)
+Version indiquée : 6.6.2
+Rôle : Réflecteur de routes VPNv4 IOS XR dans un cœur OSPF/MPLS.
+Ce que ce fichier décrit : RR2 : second réflecteur VPNv4 de l’AS 65001, avec son propre adressage et ses interfaces OSPF/MPLS/LDP.
+Fonctions observées : Interfaces ; IPv4 ; BGP ; OSPFv2 ; Route reflector ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Couverture du type route reflector VPNv4 ; les deux équipements ont des interfaces et voisinages distincts.
+Étendue : export global probable ; 99 lignes, 6 interfaces déclarées, 2 explicitement en shutdown.
+BGP : AS local 65001 ; AS distants explicitement renseignés : 65001.
+Processus OSPF : 1
+VRF déclarées : management
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 04_MPLS_L3VPN_IOS_XR_et_IOS\RR2.cfg
+Source d’origine : lab-validation-main/lab-validation-main/snapshots/cisco_xr_ios_vpnv4/configs/RR2/show_running-config.txt
+SHA-256 : 6824f02b81d99ba492e73a80c1c2bd2e871e22239e1a8003b54b78a6acc79331
+
+[26/60] F0356 — PE-1
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\PE_ISIS_IOS_XR\26_F0356_PE-1.cfg
+Domaine / type : 04_MPLS_L3VPN / PE_ISIS_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : Non indiquée
+Rôle : Routeur PE IOS XR : clients isolés en VRF, OSPF PE-CE et MP-BGP/VPNv4 sur transport IS-IS/MPLS.
+Ce que ce fichier décrit : PE-1 de la variante avec route reflector : VRF CUSTOMER_A/CUSTOMER_B, processus OSPF clients et voisinage VPNv4 vers 5.5.5.5.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; OSPFv2 ; IS-IS ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Deux variantes de conception : voisinage via route reflector ou entre PE ; elles sont conservées pour cette différence de paramétrage.
+Étendue : export global probable ; 152 lignes, 9 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : CUSTOMER_A ; CUSTOMER_B
+VRF déclarées : MGMT, CUSTOMER_A, CUSTOMER_B
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 17_L3VPN_avec_route_reflector\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/L3VPN-With-Route-Reflector.zip!/L3VPN With Route Reflector/PE-1.cfg
+SHA-256 : cc4f808c9593ede47eefcf09cc93e86653fea3a41c91894de1279828decb4ca7
+
+[27/60] F0357 — PE-2
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\PE_ISIS_IOS_XR\27_F0357_PE-2.cfg
+Domaine / type : 04_MPLS_L3VPN / PE_ISIS_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : Non indiquée
+Rôle : Routeur PE IOS XR : clients isolés en VRF, OSPF PE-CE et MP-BGP/VPNv4 sur transport IS-IS/MPLS.
+Ce que ce fichier décrit : PE-2 de la variante avec route reflector : VRF clients et OSPF PE-CE sur IS-IS/MPLS/LDP ; voisinage VPNv4 vers le réflecteur.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; OSPFv2 ; IS-IS ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Deux variantes de conception : voisinage via route reflector ou entre PE ; elles sont conservées pour cette différence de paramétrage.
+Étendue : export global probable ; 152 lignes, 9 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : CUSTOMER_A ; CUSTOMER_B
+VRF déclarées : MGMT, CUSTOMER_A, CUSTOMER_B
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 17_L3VPN_avec_route_reflector\PE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/L3VPN-With-Route-Reflector.zip!/L3VPN With Route Reflector/PE-2.cfg
+SHA-256 : e9967d28397deee77921d18e3048afef06adc26f5966772b29dcb5961b823b0a
+
+[28/60] F0395 — PE-1
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\PE_ISIS_IOS_XR\28_F0395_PE-1.cfg
+Domaine / type : 04_MPLS_L3VPN / PE_ISIS_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : Non indiquée
+Rôle : Routeur PE IOS XR : clients isolés en VRF, OSPF PE-CE et MP-BGP/VPNv4 sur transport IS-IS/MPLS.
+Ce que ce fichier décrit : PE-1 de la variante sans réflecteur central : même architecture de services clients, mais voisinage VPNv4 directement vers 3.3.3.3. Cette différence justifie sa conservation.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; OSPFv2 ; IS-IS ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Deux variantes de conception : voisinage via route reflector ou entre PE ; elles sont conservées pour cette différence de paramétrage.
+Étendue : export global probable ; 152 lignes, 9 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : CUSTOMER_A ; CUSTOMER_B
+VRF déclarées : MGMT, CUSTOMER_A, CUSTOMER_B
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 20_MPLS_L3VPN\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Layer-3-VPN.zip!/Layer 3 VPN/PE-1.cfg
+SHA-256 : a984eef0c6113eeec76b17012e30312171ed2f279cbf926982602bce1cc2d0de
+
+[29/60] F0396 — PE-2
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\PE_ISIS_IOS_XR\29_F0396_PE-2.cfg
+Domaine / type : 04_MPLS_L3VPN / PE_ISIS_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : Non indiquée
+Rôle : Routeur PE IOS XR : clients isolés en VRF, OSPF PE-CE et MP-BGP/VPNv4 sur transport IS-IS/MPLS.
+Ce que ce fichier décrit : PE-2 de la variante L3VPN directe entre PE : VRF clients, OSPF PE-CE, MP-BGP/VPNv4 et transport IS-IS/MPLS/LDP.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; OSPFv2 ; IS-IS ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Deux variantes de conception : voisinage via route reflector ou entre PE ; elles sont conservées pour cette différence de paramétrage.
+Étendue : export global probable ; 152 lignes, 9 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : CUSTOMER_A ; CUSTOMER_B
+VRF déclarées : MGMT, CUSTOMER_A, CUSTOMER_B
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 20_MPLS_L3VPN\PE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Layer-3-VPN.zip!/Layer 3 VPN/PE-2.cfg
+SHA-256 : 2a0a3418d2d18f60bcec847b7dbacaeb105c28d77ffbe7f796399518bc758c50
+
+[30/60] F0405 — PE-1
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\PE_ISIS_IOS_XE\30_F0405_PE-1.cfg
+Domaine / type : 04_MPLS_L3VPN / PE_ISIS_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE CSR1000v : VRF clients, OSPF PE-CE et MP-BGP/VPNv4 sur IS-IS/MPLS/LDP.
+Ce que ce fichier décrit : PE-1 CSR1000v : deux VRF clients, processus OSPF par VRF, redistribution dans MP-BGP/VPNv4 et cœur IS-IS/MPLS/LDP ; implémentation IOS XE du service L3VPN.
+Fonctions observées : Interfaces ; IPv4 ; STP ; BGP ; OSPFv2 ; IS-IS ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; DNS client / relais ; SSH
+Motif de sélection : Permet de comparer un service L3VPN riche sur IOS XE avec son équivalent IOS XR.
+Étendue : export global probable ; 309 lignes, 5 interfaces déclarées, 0 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : 1 vrf CUSTOMER_A ; 2 vrf CUSTOMER_B
+VRF déclarées : CUSTOMER_A, CUSTOMER_B
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 21_MPLS_L3VPN_CSR1000v\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Layer_3_VPN_on_CSR1000v.zip!/Layer_3_VPN_on_CSR1000v/PE-1.cfg
+SHA-256 : 564c3b46124b71a9889a8b727f1acce9d6a69160491f3a8e2d0e53fb26174adf
+
+[31/60] F0406 — PE-2
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\PE_ISIS_IOS_XE\31_F0406_PE-2.cfg
+Domaine / type : 04_MPLS_L3VPN / PE_ISIS_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE CSR1000v : VRF clients, OSPF PE-CE et MP-BGP/VPNv4 sur IS-IS/MPLS/LDP.
+Ce que ce fichier décrit : PE-2 CSR1000v : extrémité complémentaire des deux VPN clients, avec OSPF par VRF et MP-BGP/VPNv4 sur IS-IS/MPLS/LDP.
+Fonctions observées : Interfaces ; IPv4 ; STP ; BGP ; OSPFv2 ; IS-IS ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; SSH
+Motif de sélection : Permet de comparer un service L3VPN riche sur IOS XE avec son équivalent IOS XR.
+Étendue : export global probable ; 308 lignes, 5 interfaces déclarées, 0 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : 1 vrf CUSTOMER_A ; 2 vrf CUSTOMER_B
+VRF déclarées : CUSTOMER_A, CUSTOMER_B
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 21_MPLS_L3VPN_CSR1000v\PE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Layer_3_VPN_on_CSR1000v.zip!/Layer_3_VPN_on_CSR1000v/PE-2.cfg
+SHA-256 : 3dd5b21b08dcd437744f2e8925e1005244405a8bd956533e6a1510d07db36912
+
+[32/60] F0305 — RR1
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\RR_ISIS_IOS_XR\32_F0305_RR1.cfg
+Domaine / type : 04_MPLS_L3VPN / RR_ISIS_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : Non indiquée
+Rôle : Réflecteur de routes VPNv4 IOS XR avec accès au cœur par IS-IS.
+Ce que ce fichier décrit : RR1 du cœur étendu : réflexion VPNv4 pour plusieurs PE, groupes de voisins, accès au transport par IS-IS et VRF de gestion.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; IS-IS ; Route reflector ; VRF ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Deux tailles de scénario et jeux de voisins différents ; ajoute la réflexion VPNv4 sur IS-IS à celle sur OSPF.
+Étendue : export global probable ; 86 lignes, 5 interfaces déclarées, 2 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+VRF déclarées : MGMT
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 13_Coeur_MPLS_etendu_avec_RR\RR1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Extended-Service-Provider-MPLS-Core.zip!/Extended Service Provider MPLS Core/RR1.cfg
+SHA-256 : 7e69aadee8123a077a8f29003dd6eb7de95c297f2ed6565f22b6fb717b52be77
+
+[33/60] F0358 — RR1
+-----------------------------------------------------------------
+Fichier : 04_MPLS_L3VPN\RR_ISIS_IOS_XR\33_F0358_RR1.cfg
+Domaine / type : 04_MPLS_L3VPN / RR_ISIS_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : Non indiquée
+Rôle : Réflecteur de routes VPNv4 IOS XR avec accès au cœur par IS-IS.
+Ce que ce fichier décrit : RR1 du scénario L3VPN à réflecteur : version plus compacte du plan de contrôle VPNv4, avec deux voisins PE et accès IS-IS au cœur.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; IS-IS ; Route reflector ; VRF ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; SSH ; AAA / utilisateurs
+Motif de sélection : Deux tailles de scénario et jeux de voisins différents ; ajoute la réflexion VPNv4 sur IS-IS à celle sur OSPF.
+Étendue : export global probable ; 73 lignes, 5 interfaces déclarées, 2 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+VRF déclarées : MGMT
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 17_L3VPN_avec_route_reflector\RR1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/L3VPN-With-Route-Reflector.zip!/L3VPN With Route Reflector/RR1.cfg
+SHA-256 : cacdcdaaef802b55b7ba37749806b87afbcc857803574e169628ee7e55fd44f3
+
+[34/60] F0229 — IE-1
+-----------------------------------------------------------------
+Fichier : 05_Operateur_BGP\Bordure_et_politiques_IOS_XR\34_F0229_IE-1.cfg
+Domaine / type : 05_Operateur_BGP / Bordure_et_politiques_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur d’Internet edge : eBGP, iBGP, politiques de sortie et accès au cœur IS-IS/MPLS/LDP.
+Ce que ce fichier décrit : IE-1 : politique PREFER_PEER_A appliquant local-preference 200 à l’entrée, eBGP vers le pair A et iBGP vers le fournisseur ; IS-IS/MPLS/LDP pour le transport.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; IS-IS ; Politiques de routage ; VRF ; MPLS ; LDP ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Les quatre configurations ont des politiques effectivement présentes : préférence locale, AS_PATH prepending et/ou filtrage d’annonces.
+Étendue : export global probable ; 108 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500, 300.
+VRF déclarées : MGMT
+Politiques de routage déclarées : PASS_ALL, PREFER_PEER_A
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 07_BGP_AS_PATH_prepending\IE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/BGP_AS_PATH_Prepending.zip!/BGP_AS_PATH_Prepending/IE-1.cfg
+SHA-256 : 8456f19721010d9d928a09b4f5403f3640d659b9b524562ccbf062539dbe88fc
+
+[35/60] F0230 — IE-2
+-----------------------------------------------------------------
+Fichier : 05_Operateur_BGP\Bordure_et_politiques_IOS_XR\35_F0230_IE-2.cfg
+Domaine / type : 05_Operateur_BGP / Bordure_et_politiques_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur d’Internet edge : eBGP, iBGP, politiques de sortie et accès au cœur IS-IS/MPLS/LDP.
+Ce que ce fichier décrit : IE-2 : politique PREPEND_PEER_B allongeant AS_PATH en sortie vers le pair B, avec eBGP/iBGP et transport IS-IS/MPLS/LDP.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; IS-IS ; Politiques de routage ; VRF ; MPLS ; LDP ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Les quatre configurations ont des politiques effectivement présentes : préférence locale, AS_PATH prepending et/ou filtrage d’annonces.
+Étendue : export global probable ; 110 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500, 400.
+VRF déclarées : MGMT
+Politiques de routage déclarées : PASS_ALL, PREPEND_PEER_B
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 07_BGP_AS_PATH_prepending\IE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/BGP_AS_PATH_Prepending.zip!/BGP_AS_PATH_Prepending/IE-2.cfg
+SHA-256 : 07754a82e360d940e50eaf2a69a1696b31a38ccbda6fd0a3debcd033aad5038a
+
+[36/60] F0259 — IE-1
+-----------------------------------------------------------------
+Fichier : 05_Operateur_BGP\Bordure_et_politiques_IOS_XR\36_F0259_IE-1.cfg
+Domaine / type : 05_Operateur_BGP / Bordure_et_politiques_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur d’Internet edge : eBGP, iBGP, politiques de sortie et accès au cœur IS-IS/MPLS/LDP.
+Ce que ce fichier décrit : IE-1 avec filtrage : prefix-set CUSTOMER_ROUTES et politique ADVERTISE_CUSTOMER_ROUTES pour limiter les annonces, plus préférence locale du pair A.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; IS-IS ; Politiques de routage ; VRF ; MPLS ; LDP ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Les quatre configurations ont des politiques effectivement présentes : préférence locale, AS_PATH prepending et/ou filtrage d’annonces.
+Étendue : export global probable ; 121 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500, 300.
+VRF déclarées : MGMT
+Politiques de routage déclarées : PASS_ALL, PREFER_PEER_A, ADVERTISE_CUSTOMER_ROUTES
+Listes/ensembles de préfixes : CUSTOMER_ROUTES
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 09_BGP_Filtrage_des_routes\IE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/BGP_Route_Filtering.zip!/BGP_Route_Filtering/IE-1.cfg
+SHA-256 : 8aac01ed12241971a16466682731e3f88938f6c110c1d9dcbe837c8056ffbbf6
+
+[37/60] F0260 — IE-2
+-----------------------------------------------------------------
+Fichier : 05_Operateur_BGP\Bordure_et_politiques_IOS_XR\37_F0260_IE-2.cfg
+Domaine / type : 05_Operateur_BGP / Bordure_et_politiques_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur d’Internet edge : eBGP, iBGP, politiques de sortie et accès au cœur IS-IS/MPLS/LDP.
+Ce que ce fichier décrit : IE-2 avec filtrage : sélection des routes clientes annoncées au pair B et AS_PATH prepending ; couvre simultanément filtrage et ingénierie des annonces BGP.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; IS-IS ; Politiques de routage ; VRF ; MPLS ; LDP ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Les quatre configurations ont des politiques effectivement présentes : préférence locale, AS_PATH prepending et/ou filtrage d’annonces.
+Étendue : export global probable ; 123 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500, 400.
+VRF déclarées : MGMT
+Politiques de routage déclarées : PASS_ALL, PREPEND_PEER_B, ADVERTISE_CUSTOMER_ROUTES
+Listes/ensembles de préfixes : CUSTOMER_ROUTES
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 09_BGP_Filtrage_des_routes\IE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/BGP_Route_Filtering.zip!/BGP_Route_Filtering/IE-2.cfg
+SHA-256 : 30bf9265d3e0b0e2ee8cd535270b7940775ab477961b16b352073d5316538e74
+
+[38/60] F0238 — RR1
+-----------------------------------------------------------------
+Fichier : 05_Operateur_BGP\RR_IPv4_IOS_XR\38_F0238_RR1.cfg
+Domaine / type : 05_Operateur_BGP / RR_IPv4_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Réflecteur de routes IPv4 unicast pour les routeurs de bordure du fournisseur.
+Ce que ce fichier décrit : RR1 IPv4 : groupes de voisins PE/IE et route-reflector-client pour distribuer les routes Internet ; cet export vise IPv4 unicast, pas une L3VPN client.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; IS-IS ; Route reflector ; VRF ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Conserve un route reflector IPv4 distinct des réflecteurs VPNv4 ; voisinages de groupes PE et IE.
+Étendue : export global probable ; 108 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+VRF déclarées : MGMT
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 07_BGP_AS_PATH_prepending\RR1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/BGP_AS_PATH_Prepending.zip!/BGP_AS_PATH_Prepending/RR1.cfg
+SHA-256 : 1a46df2c7ba2c9f378d139dd97975bd26fa25e164b35c952615239537d3877ff
+
+[39/60] F0234 — PE-1
+-----------------------------------------------------------------
+Fichier : 05_Operateur_BGP\PE_Internet_IOS_XR\39_F0234_PE-1.cfg
+Domaine / type : 05_Operateur_BGP / PE_Internet_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur PE du fournisseur : iBGP et accès au cœur IS-IS/MPLS/LDP.
+Ce que ce fichier décrit : PE-1 Internet : routage iBGP dans l’AS 500, transport IS-IS/MPLS/LDP et VRF MGMT. Absence de preuve de VPNv4/VRF client dans cet export.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; IS-IS ; VRF ; MPLS ; LDP ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Exemple de PE orienté routage Internet ; sa VRF de gestion ne suffit pas à en faire une configuration L3VPN client.
+Étendue : export global probable ; 122 lignes, 9 interfaces déclarées, 4 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+VRF déclarées : MGMT
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 07_BGP_AS_PATH_prepending\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/BGP_AS_PATH_Prepending.zip!/BGP_AS_PATH_Prepending/PE-1 .cfg
+SHA-256 : 848c183ab9b59f6e98e80f6fe9fdfda421c369b8dbefbb149330f8b74cf73691
+
+[40/60] F0291 — PE-1
+-----------------------------------------------------------------
+Fichier : 06_Services_L2VPN\EVPN_PE_IOS_XE\40_F0291_PE-1.cfg
+Domaine / type : 06_Services_L2VPN / EVPN_PE_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE CSR1000v fournissant un service Ethernet EVPN avec BGP, domaines de pont et VLAN.
+Ce que ce fichier décrit : PE-1 EVPN : instance EVPN 100 vlan-aware, domaines de pont 10/20/30, famille BGP l2vpn evpn et transport IS-IS/MPLS/LDP. Le matériel virtuel CSR1000v est un routeur PE, pas un switch client.
+Fonctions observées : Interfaces ; IPv4 ; VLAN / 802.1Q ; Pont / commutation L2 ; STP ; BGP ; IS-IS ; MPLS ; LDP ; Service Ethernet L2VPN ; EVPN ; SSH
+Motif de sélection : Services Ethernet modernes, EVPN/BGP et transport MPLS : couverture riche distincte des switches clients exclus.
+Étendue : export global probable ; 288 lignes, 5 interfaces déclarées, 2 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 12_L2VPN_EVPN_CSR1000v\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/EVPN_on_CSR1000v.zip!/PE-1.cfg
+SHA-256 : 07dade0b405b10aa1a74c0c0a664287f22a59eb72df46e4a3b0405f20330dc68
+
+[41/60] F0292 — PE-2
+-----------------------------------------------------------------
+Fichier : 06_Services_L2VPN\EVPN_PE_IOS_XE\41_F0292_PE-2.cfg
+Domaine / type : 06_Services_L2VPN / EVPN_PE_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE CSR1000v fournissant un service Ethernet EVPN avec BGP, domaines de pont et VLAN.
+Ce que ce fichier décrit : PE-2 EVPN : instance EVPN 100 vlan-aware, domaines de pont 10/20/30, famille BGP l2vpn evpn et transport IS-IS/MPLS/LDP. Le matériel virtuel CSR1000v est un routeur PE, pas un switch client.
+Fonctions observées : Interfaces ; IPv4 ; VLAN / 802.1Q ; Pont / commutation L2 ; STP ; BGP ; IS-IS ; MPLS ; LDP ; Service Ethernet L2VPN ; EVPN ; SSH
+Motif de sélection : Services Ethernet modernes, EVPN/BGP et transport MPLS : couverture riche distincte des switches clients exclus.
+Étendue : export global probable ; 291 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 12_L2VPN_EVPN_CSR1000v\PE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/EVPN_on_CSR1000v.zip!/PE-2.cfg
+SHA-256 : 157a0471f7b16f142966a723033c993b12403b2eac513448b40d9c1c451399ee
+
+[42/60] F0293 — PE-3
+-----------------------------------------------------------------
+Fichier : 06_Services_L2VPN\EVPN_PE_IOS_XE\42_F0293_PE-3.cfg
+Domaine / type : 06_Services_L2VPN / EVPN_PE_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE CSR1000v fournissant un service Ethernet EVPN avec BGP, domaines de pont et VLAN.
+Ce que ce fichier décrit : PE-3 EVPN : instance EVPN 100 vlan-aware, domaines de pont 10/20/30, famille BGP l2vpn evpn et transport IS-IS/MPLS/LDP. Le matériel virtuel CSR1000v est un routeur PE, pas un switch client.
+Fonctions observées : Interfaces ; IPv4 ; VLAN / 802.1Q ; Pont / commutation L2 ; STP ; BGP ; IS-IS ; MPLS ; LDP ; Service Ethernet L2VPN ; EVPN ; SSH
+Motif de sélection : Services Ethernet modernes, EVPN/BGP et transport MPLS : couverture riche distincte des switches clients exclus.
+Étendue : export global probable ; 288 lignes, 5 interfaces déclarées, 2 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 12_L2VPN_EVPN_CSR1000v\PE-3.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/EVPN_on_CSR1000v.zip!/PE-3.cfg
+SHA-256 : ea52d75e7b1bbff88be8912cd61f4a7830f8af715b002bc16d62697a62e5d249
+
+[43/60] F0344 — PE-1
+-----------------------------------------------------------------
+Fichier : 06_Services_L2VPN\VPLS_PE_IOS_XE\43_F0344_PE-1.cfg
+Domaine / type : 06_Services_L2VPN / VPLS_PE_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE CSR1000v fournissant un service Ethernet multipoint VPLS par VFI et domaines de pont.
+Ce que ce fichier décrit : PE-1 VPLS : VFI 100, domaine de pont 100, membres/pseudowires MPLS et transport IS-IS/LDP ; service Ethernet multipoint classique.
+Fonctions observées : Interfaces ; IPv4 ; Pont / commutation L2 ; STP ; IS-IS ; MPLS ; LDP ; VPLS ; SSH
+Motif de sélection : Complète EVPN et VPWS par un service VPLS multipoint ; IS-IS et MPLS/LDP présents.
+Étendue : export global probable ; 267 lignes, 5 interfaces déclarées, 2 explicitement en shutdown.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 16_L2VPN_VPLS\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/L2VPN_VPLS_configs.zip!/PE-1.cfg
+SHA-256 : 3134311f377a301d5ad59de2a5858f44623f1364e28fdd68b942bb0c44a07922
+
+[44/60] F0345 — PE-2
+-----------------------------------------------------------------
+Fichier : 06_Services_L2VPN\VPLS_PE_IOS_XE\44_F0345_PE-2.cfg
+Domaine / type : 06_Services_L2VPN / VPLS_PE_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE CSR1000v fournissant un service Ethernet multipoint VPLS par VFI et domaines de pont.
+Ce que ce fichier décrit : PE-2 VPLS : VFI 100, domaine de pont 100, membres/pseudowires MPLS et transport IS-IS/LDP ; service Ethernet multipoint classique.
+Fonctions observées : Interfaces ; IPv4 ; Pont / commutation L2 ; STP ; IS-IS ; MPLS ; LDP ; VPLS ; SSH
+Motif de sélection : Complète EVPN et VPWS par un service VPLS multipoint ; IS-IS et MPLS/LDP présents.
+Étendue : export global probable ; 262 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 16_L2VPN_VPLS\PE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/L2VPN_VPLS_configs.zip!/PE-2.cfg
+SHA-256 : cda52473353169b6deee56fad24046ea1abba549ebdd9f4f1e2ed0524c2c29e4
+
+[45/60] F0346 — PE-3
+-----------------------------------------------------------------
+Fichier : 06_Services_L2VPN\VPLS_PE_IOS_XE\45_F0346_PE-3.cfg
+Domaine / type : 06_Services_L2VPN / VPLS_PE_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE CSR1000v fournissant un service Ethernet multipoint VPLS par VFI et domaines de pont.
+Ce que ce fichier décrit : PE-3 VPLS : VFI 100, domaine de pont 100, membres/pseudowires MPLS et transport IS-IS/LDP ; service Ethernet multipoint classique.
+Fonctions observées : Interfaces ; IPv4 ; Pont / commutation L2 ; STP ; IS-IS ; MPLS ; LDP ; VPLS ; SSH
+Motif de sélection : Complète EVPN et VPWS par un service VPLS multipoint ; IS-IS et MPLS/LDP présents.
+Étendue : export global probable ; 258 lignes, 5 interfaces déclarées, 2 explicitement en shutdown.
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 16_L2VPN_VPLS\PE-3.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/L2VPN_VPLS_configs.zip!/PE-3.cfg
+SHA-256 : 2f27a9d290bdf835838b897d4f8b037537f07cf3bbcd85caf957d9d8a7ef05a2
+
+[46/60] F0383 — PE-1
+-----------------------------------------------------------------
+Fichier : 06_Services_L2VPN\VPWS_PE_IOS_XR\46_F0383_PE-1.cfg
+Domaine / type : 06_Services_L2VPN / VPWS_PE_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur PE IOS XR fournissant des circuits Ethernet point à point avec xconnect et pseudowires MPLS.
+Ce que ce fichier décrit : PE-1 VPWS : groupes xconnect CUSTOMER_A et CUSTOMER_B, circuits point à point et pseudowires sur MPLS/LDP, avec IS-IS dans le cœur.
+Fonctions observées : Interfaces ; IPv4 ; Pont / commutation L2 ; Routes statiques ; IS-IS ; VRF ; MPLS ; LDP ; L2VPN / VPWS ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Service VPWS sur deux clients, avec transport IS-IS/MPLS/LDP ; les équipements clients conservés ailleurs ne sont pas nécessaires pour lire le rôle du PE.
+Étendue : export global probable ; 121 lignes, 9 interfaces déclarées, 3 explicitement en shutdown.
+VRF déclarées : MGMT
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 19_L2VPN_VPWS\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Layer-2-VPN-VPWS.zip!/Layer 2 VPN (VPWS)/PE-1.cfg
+SHA-256 : 303539df6f14fbd0f4489efed2e4fb7da28ebe402a712ce239fe1e3566dd97c4
+
+[47/60] F0384 — PE-2
+-----------------------------------------------------------------
+Fichier : 06_Services_L2VPN\VPWS_PE_IOS_XR\47_F0384_PE-2.cfg
+Domaine / type : 06_Services_L2VPN / VPWS_PE_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur PE IOS XR fournissant des circuits Ethernet point à point avec xconnect et pseudowires MPLS.
+Ce que ce fichier décrit : PE-2 VPWS : groupes xconnect CUSTOMER_A et CUSTOMER_B, circuits point à point et pseudowires sur MPLS/LDP, avec IS-IS dans le cœur.
+Fonctions observées : Interfaces ; IPv4 ; Pont / commutation L2 ; Routes statiques ; IS-IS ; VRF ; MPLS ; LDP ; L2VPN / VPWS ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Service VPWS sur deux clients, avec transport IS-IS/MPLS/LDP ; les équipements clients conservés ailleurs ne sont pas nécessaires pour lire le rôle du PE.
+Étendue : export global probable ; 121 lignes, 9 interfaces déclarées, 3 explicitement en shutdown.
+VRF déclarées : MGMT
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 19_L2VPN_VPWS\PE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Layer-2-VPN-VPWS.zip!/Layer 2 VPN (VPWS)/PE-2.cfg
+SHA-256 : 3fc12b94d1a4b9a218b902dba6f37e1daa28aa99532d2f6b86d1313550fe65c9
+
+[48/60] F0371 — PE-1
+-----------------------------------------------------------------
+Fichier : 07_Qualite_de_service\PE_L3VPN_QoS_IOS_XE\48_F0371_PE-1.cfg
+Domaine / type : 07_Qualite_de_service / PE_L3VPN_QoS_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE L3VPN CSR1000v : isolation VRF, routage client/fournisseur et traitement QoS du trafic voix/SIP/vidéo.
+Ce que ce fichier décrit : PE-1 L3VPN/QoS : ACL voix/SIP et class-map, politique VOICE-QOS-CUST-A appliquée en entrée, VRF clients, OSPF, BGP VPNv4 et transport IS-IS/MPLS/LDP.
+Fonctions observées : Interfaces ; IPv4 ; STP ; BGP ; OSPFv2 ; IS-IS ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; ACL définies ; QoS ; DNS client / relais ; SSH
+Motif de sélection : Parmi les configurations les plus riches : L3VPN et transport, plus classification ACL/class-map et policy-map appliquée à une interface.
+Étendue : export global probable ; 335 lignes, 5 interfaces déclarées, 0 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : 1 vrf CUSTOMER_A ; 2 vrf CUSTOMER_B
+VRF déclarées : CUSTOMER_A, CUSTOMER_B
+Policy-maps QoS : VOICE-QOS-CUST-A
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 18_L3VPN_et_QoS\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/L3VPN_QoS.zip!/PE-1.cfg
+SHA-256 : ba72988b55a6f0663ccbb2f1ae1ba01a53c71fb8133d5897a73f1e943203b993
+
+[49/60] F0372 — PE-2
+-----------------------------------------------------------------
+Fichier : 07_Qualite_de_service\PE_L3VPN_QoS_IOS_XE\49_F0372_PE-2.cfg
+Domaine / type : 07_Qualite_de_service / PE_L3VPN_QoS_IOS_XE
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XE / CSR1000V
+Version indiquée : 17.3
+Rôle : Routeur PE L3VPN CSR1000v : isolation VRF, routage client/fournisseur et traitement QoS du trafic voix/SIP/vidéo.
+Ce que ce fichier décrit : PE-2 L3VPN/QoS : second PE du service, avec sa classification voix/SIP et sa policy-map appliquée, routage par VRF et MP-BGP/VPNv4.
+Fonctions observées : Interfaces ; IPv4 ; STP ; BGP ; OSPFv2 ; IS-IS ; VRF ; MPLS ; LDP ; VPNv4 / L3VPN ; ACL définies ; QoS ; SSH
+Motif de sélection : Parmi les configurations les plus riches : L3VPN et transport, plus classification ACL/class-map et policy-map appliquée à une interface.
+Étendue : export global probable ; 334 lignes, 5 interfaces déclarées, 0 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : 1 vrf CUSTOMER_A ; 2 vrf CUSTOMER_B
+VRF déclarées : CUSTOMER_A, CUSTOMER_B
+Policy-maps QoS : VOICE-QOS-CUST-A
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 18_L3VPN_et_QoS\PE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/L3VPN_QoS.zip!/PE-2.cfg
+SHA-256 : 3489e5f635b3011df59afbeeb24059dfce31eef904f8c5159c68af9c11e34331
+
+[50/60] F0421 — PE-1
+-----------------------------------------------------------------
+Fichier : 08_Transport_MPLS_avance\RSVP_TE_PE_IOS_XR\50_F0421_PE-1.cfg
+Domaine / type : 08_Transport_MPLS_avance / RSVP_TE_PE_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur PE IOS XR combinant services L3VPN et tunnels MPLS Traffic Engineering signalés par RSVP.
+Ce que ce fichier décrit : PE-1 RSVP-TE : interfaces tunnel-te100/tunnel-te200, politiques TE par client, RSVP, MPLS-TE et services L3VPN. Ce sont des tunnels MPLS-TE, pas une preuve de tunnels GRE/IPsec.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; OSPFv2 ; IS-IS ; Politiques de routage ; VRF ; MPLS ; LDP ; RSVP / MPLS-TE ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Forte richesse : routage client, VRF/VPNv4, politiques TE, IS-IS, MPLS, LDP et RSVP-TE.
+Étendue : export global probable ; 226 lignes, 11 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : CUSTOMER_A ; CUSTOMER_B
+VRF déclarées : MGMT, CUSTOMER_A, CUSTOMER_B
+Politiques de routage déclarées : TE_TUNNEL_100, TE_TUNNEL_200
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 23_MPLS_Traffic_Engineering_RSVP_TE\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/RSVP-TE_IOS_XRd.zip!/PE-1.cfg
+SHA-256 : f2e67fc792bc10f1defba7e7462cad940fdb11f1aa3b2854a5082a2d105a64bc
+
+[51/60] F0422 — PE-2
+-----------------------------------------------------------------
+Fichier : 08_Transport_MPLS_avance\RSVP_TE_PE_IOS_XR\51_F0422_PE-2.cfg
+Domaine / type : 08_Transport_MPLS_avance / RSVP_TE_PE_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur PE IOS XR combinant services L3VPN et tunnels MPLS Traffic Engineering signalés par RSVP.
+Ce que ce fichier décrit : PE-2 RSVP-TE : extrémité complémentaire des tunnels MPLS-TE, avec politiques de service client, OSPF PE-CE, BGP VPNv4, IS-IS et RSVP.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; OSPFv2 ; IS-IS ; Politiques de routage ; VRF ; MPLS ; LDP ; RSVP / MPLS-TE ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Forte richesse : routage client, VRF/VPNv4, politiques TE, IS-IS, MPLS, LDP et RSVP-TE.
+Étendue : export global probable ; 224 lignes, 11 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : CUSTOMER_A ; CUSTOMER_B
+VRF déclarées : MGMT, CUSTOMER_A, CUSTOMER_B
+Politiques de routage déclarées : TE_TUNNEL_100, TE_TUNNEL_200
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 23_MPLS_Traffic_Engineering_RSVP_TE\PE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/RSVP-TE_IOS_XRd.zip!/PE-2.cfg
+SHA-256 : a873a3fb3013bfbc1b0268ea6f25a44e2c9396ddc16f7952742fbe16fe653738
+
+[52/60] F0419 — P1
+-----------------------------------------------------------------
+Fichier : 08_Transport_MPLS_avance\RSVP_TE_Coeur_IOS_XR\52_F0419_P1.cfg
+Domaine / type : 08_Transport_MPLS_avance / RSVP_TE_Coeur_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur P du cœur MPLS : extensions Traffic Engineering d’IS-IS, RSVP et MPLS-TE.
+Ce que ce fichier décrit : P1 RSVP-TE : extensions MPLS-TE dans IS-IS, réservation RSVP sur les liens du cœur et plan de transport MPLS/LDP.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; IS-IS ; VRF ; MPLS ; LDP ; RSVP / MPLS-TE ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Complément de transport aux PE TE ; retenu pour ses fonctions RSVP-TE effectives, pas pour le seul adressage de base.
+Étendue : export global probable ; 106 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+VRF déclarées : MGMT
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 23_MPLS_Traffic_Engineering_RSVP_TE\P1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/RSVP-TE_IOS_XRd.zip!/P1.cfg
+SHA-256 : 327236b3f00a812fb55c2036f9d3d498fcdae3e52992f2a27fe2e4e28ca951fb
+
+[53/60] F0420 — P2
+-----------------------------------------------------------------
+Fichier : 08_Transport_MPLS_avance\RSVP_TE_Coeur_IOS_XR\53_F0420_P2.cfg
+Domaine / type : 08_Transport_MPLS_avance / RSVP_TE_Coeur_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur P du cœur MPLS : extensions Traffic Engineering d’IS-IS, RSVP et MPLS-TE.
+Ce que ce fichier décrit : P2 RSVP-TE : routeur P complémentaire, avec ses liens RSVP et MPLS-TE ; ce rôle porte le transport, sans VRF VPN client configurée dans ce fichier.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; IS-IS ; VRF ; MPLS ; LDP ; RSVP / MPLS-TE ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Complément de transport aux PE TE ; retenu pour ses fonctions RSVP-TE effectives, pas pour le seul adressage de base.
+Étendue : export global probable ; 102 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+VRF déclarées : MGMT
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 23_MPLS_Traffic_Engineering_RSVP_TE\P2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/RSVP-TE_IOS_XRd.zip!/P2.cfg
+SHA-256 : cde9128d35964338bd5eae08bb20900120c649340e25af39e9ad3d58b4d2ce54
+
+[54/60] F0433 — PE-1
+-----------------------------------------------------------------
+Fichier : 08_Transport_MPLS_avance\Segment_Routing_PE_IOS_XR\54_F0433_PE-1.cfg
+Domaine / type : 08_Transport_MPLS_avance / Segment_Routing_PE_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur PE IOS XR : service L3VPN et transport Segment Routing MPLS avec SID et politiques par client.
+Ce que ce fichier décrit : PE-1 Segment Routing : SR-MPLS, prefix-SID, mappage des préfixes connectés, politiques clientes, OSPF PE-CE et BGP VPNv4.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; OSPFv2 ; IS-IS ; Politiques de routage ; VRF ; MPLS ; Segment Routing ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Parmi les exports les plus riches : SR-MPLS, IS-IS, MP-BGP/VPNv4, OSPF client et politiques.
+Étendue : export global probable ; 214 lignes, 9 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : CUSTOMER_A ; CUSTOMER_B
+VRF déclarées : MGMT, CUSTOMER_A, CUSTOMER_B
+Politiques de routage déclarées : CUSTOMER_A, CUSTOMER_B
+Prefix-SID : absolute 16001
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 24_MPLS_Segment_Routing\PE-1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Segment_Routing.zip!/Segment_Routing/PE-1 .cfg
+SHA-256 : 21e7e21a153984e425a4c175d100d0209dd15fdf5f41bde0dcab02b1e3e7ef6e
+
+[55/60] F0434 — PE-2
+-----------------------------------------------------------------
+Fichier : 08_Transport_MPLS_avance\Segment_Routing_PE_IOS_XR\55_F0434_PE-2.cfg
+Domaine / type : 08_Transport_MPLS_avance / Segment_Routing_PE_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur PE IOS XR : service L3VPN et transport Segment Routing MPLS avec SID et politiques par client.
+Ce que ce fichier décrit : PE-2 Segment Routing : seconde extrémité des VPN clients sur transport SR-MPLS/IS-IS, avec son SID et ses politiques clientes.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; BGP ; OSPFv2 ; IS-IS ; Politiques de routage ; VRF ; MPLS ; Segment Routing ; VPNv4 / L3VPN ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Parmi les exports les plus riches : SR-MPLS, IS-IS, MP-BGP/VPNv4, OSPF client et politiques.
+Étendue : export global probable ; 212 lignes, 9 interfaces déclarées, 3 explicitement en shutdown.
+BGP : AS local 500 ; AS distants explicitement renseignés : 500.
+Processus OSPF : CUSTOMER_A ; CUSTOMER_B
+VRF déclarées : MGMT, CUSTOMER_A, CUSTOMER_B
+Politiques de routage déclarées : CUSTOMER_A, CUSTOMER_B
+Prefix-SID : absolute 16003
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 24_MPLS_Segment_Routing\PE-2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Segment_Routing.zip!/Segment_Routing/PE-2.cfg
+SHA-256 : 8819f72510363fe9b782ac0c2fd0e2c88377ffbc0080e4ef2ea3dc21a4488fa8
+
+[56/60] F0431 — P1
+-----------------------------------------------------------------
+Fichier : 08_Transport_MPLS_avance\Segment_Routing_Coeur_IOS_XR\56_F0431_P1.cfg
+Domaine / type : 08_Transport_MPLS_avance / Segment_Routing_Coeur_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur P IOS XR : transport Segment Routing MPLS par IS-IS et prefix-SID.
+Ce que ce fichier décrit : P1 Segment Routing : IS-IS avec segment-routing mpls et prefix-SID absolu 16002 ; exemple ciblé du rôle P dans le plan de transport SR.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; IS-IS ; VRF ; Segment Routing ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Conserve les configurations du plan de transport SR qui complètent les fonctions de service des PE.
+Étendue : export global probable ; 86 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+VRF déclarées : MGMT
+Prefix-SID : absolute 16002
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 24_MPLS_Segment_Routing\P1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Segment_Routing.zip!/Segment_Routing/P1.cfg
+SHA-256 : d7b9541eb5fe03d167685e193bd01940f8fb938cdfb3a391182b371371d7a9ef
+
+[57/60] F0432 — P2
+-----------------------------------------------------------------
+Fichier : 08_Transport_MPLS_avance\Segment_Routing_Coeur_IOS_XR\57_F0432_P2.cfg
+Domaine / type : 08_Transport_MPLS_avance / Segment_Routing_Coeur_IOS_XR
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS XR / XRd (virtuel, défini par CML)
+Version indiquée : 26.1.1
+Rôle : Routeur P IOS XR : transport Segment Routing MPLS par IS-IS et prefix-SID.
+Ce que ce fichier décrit : P2 Segment Routing : IS-IS avec segment-routing mpls et prefix-SID absolu 16004 ; variante de liens/adressage du second routeur P.
+Fonctions observées : Interfaces ; IPv4 ; Routes statiques ; IS-IS ; VRF ; Segment Routing ; Client DHCP ; DNS client / relais ; Journalisation ; SSH ; AAA / utilisateurs
+Motif de sélection : Conserve les configurations du plan de transport SR qui complètent les fonctions de service des PE.
+Étendue : export global probable ; 82 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+VRF déclarées : MGMT
+Prefix-SID : absolute 16004
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 24_MPLS_Segment_Routing\P2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Segment_Routing.zip!/Segment_Routing/P2.cfg
+SHA-256 : 67c6e2963b957df5fa2977da13fb5dcea14716d07057fcfe0d6bce4f54a5efb5
+
+[58/60] F0409 — R1
+-----------------------------------------------------------------
+Fichier : 09_Multicast\Routeurs_PIM_IGMP_IOS\58_F0409_R1.cfg
+Domaine / type : 09_Multicast / Routeurs_PIM_IGMP_IOS
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS / iosv
+Version indiquée : 15.9
+Rôle : Routeur Cisco du laboratoire multicast : OSPF, PIM et raccordement des sources/récepteurs multicast.
+Ce que ce fichier décrit : R1 du laboratoire multicast : interfaces IPv4 et OSPF, routage multicast activé, PIM (sparse-mode, bsr-candidate Loopback0 0, rp-candidate Loopback0). Aucun paramètre IGMP explicite relevé ; ne pas déduire sa configuration du seul titre du laboratoire.
+Fonctions observées : Interfaces ; IPv4 ; OSPFv2 ; Multicast / PIM / IGMP
+Motif de sélection : Couverture d’un domaine spécifique absent de la majorité des autres exports ; le trio représente des rôles et interfaces différents.
+Étendue : export global probable ; 162 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+Processus OSPF : 1
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 22_Routage_multicast_PIM_IGMP\R1.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Multicast_Lab.zip!/R1.cfg
+SHA-256 : 11d86e769c0de79db37250ae32e3bb9e1c12836c4ada438bd848dbee0368e42c
+
+[59/60] F0410 — R2
+-----------------------------------------------------------------
+Fichier : 09_Multicast\Routeurs_PIM_IGMP_IOS\59_F0410_R2.cfg
+Domaine / type : 09_Multicast / Routeurs_PIM_IGMP_IOS
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS / iosv
+Version indiquée : 15.9
+Rôle : Routeur Cisco du laboratoire multicast : OSPF, PIM et raccordement des sources/récepteurs multicast.
+Ce que ce fichier décrit : R2 du laboratoire multicast : interfaces IPv4 et OSPF, routage multicast activé, PIM (sparse-mode). Aucun paramètre IGMP explicite relevé ; ne pas déduire sa configuration du seul titre du laboratoire.
+Fonctions observées : Interfaces ; IPv4 ; OSPFv2 ; Multicast / PIM / IGMP
+Motif de sélection : Couverture d’un domaine spécifique absent de la majorité des autres exports ; le trio représente des rôles et interfaces différents.
+Étendue : export global probable ; 160 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+Processus OSPF : 1
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 22_Routage_multicast_PIM_IGMP\R2.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Multicast_Lab.zip!/R2.cfg
+SHA-256 : 54b15dee0c3e79677bd7a530a5ed11a4568eafc586f27b0815e2e3cbab89ec96
+
+[60/60] F0411 — R3
+-----------------------------------------------------------------
+Fichier : 09_Multicast\Routeurs_PIM_IGMP_IOS\60_F0411_R3.cfg
+Domaine / type : 09_Multicast / Routeurs_PIM_IGMP_IOS
+Provenance : Laboratoire Cisco — Nick Does Labs
+Constructeur / OS / modèle : Cisco / IOS / iosv
+Version indiquée : 15.9
+Rôle : Routeur Cisco du laboratoire multicast : OSPF, PIM et raccordement des sources/récepteurs multicast.
+Ce que ce fichier décrit : R3 du laboratoire multicast : interfaces IPv4 et OSPF, routage multicast activé, PIM (sparse-mode). Aucun paramètre IGMP explicite relevé ; ne pas déduire sa configuration du seul titre du laboratoire.
+Fonctions observées : Interfaces ; IPv4 ; OSPFv2 ; Multicast / PIM / IGMP
+Motif de sélection : Couverture d’un domaine spécifique absent de la majorité des autres exports ; le trio représente des rôles et interfaces différents.
+Étendue : export global probable ; 160 lignes, 5 interfaces déclarées, 1 explicitement en shutdown.
+Processus OSPF : 1
+Contrôle de complétude réalisé : hostname/interfaces/end présents ; références simples vérifiées sans anomalie détectée. Fonctionnement réseau non testé.
+Source dans le catalogue des 149 : 22_Routage_multicast_PIM_IGMP\R3.cfg
+Source d’origine : Nick Does Labs — collection de laboratoires Cisco téléchargeables/Multicast_Lab.zip!/R3.cfg
+SHA-256 : d277b4476e6621bac6525a9f66eac591ec38c63ff72410f53744fe3972734d2d

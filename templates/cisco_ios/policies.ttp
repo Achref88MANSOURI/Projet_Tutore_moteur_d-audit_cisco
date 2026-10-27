@@ -1,0 +1,55 @@
+<group name="policy_header*" method="table">
+{{ source_line | DIGIT | to_int }} route-map {{ name }} {{ action }} {{ sequence | DIGIT | to_int }}
+</group>
+
+<group name="policy_match_prefix4*" method="table">
+{{ source_line | DIGIT | to_int }} match ip address prefix-list {{ value | ORPHRASE }}
+</group>
+
+<group name="policy_match_prefix6*" method="table">
+{{ source_line | DIGIT | to_int }} match ipv6 address prefix-list {{ value | ORPHRASE }}
+</group>
+
+<group name="policy_match_acl*" method="table">
+{{ source_line | DIGIT | to_int }} match ip address {{ value | ORPHRASE }}
+</group>
+
+<group name="policy_match_interface*" method="table">
+{{ source_line | DIGIT | to_int }} match interface {{ value | ORPHRASE }}
+</group>
+
+<group name="policy_match_community*" method="table">
+{{ source_line | DIGIT | to_int }} match community {{ value | ORPHRASE }}
+</group>
+
+<group name="policy_match_aspath*" method="table">
+{{ source_line | DIGIT | to_int }} match as-path {{ value | ORPHRASE }}
+</group>
+
+<group name="policy_match_tag*" method="table">
+{{ source_line | DIGIT | to_int }} match tag {{ value | ORPHRASE }}
+</group>
+
+<group name="policy_set_aspath*" method="table">
+{{ source_line | DIGIT | to_int }} set as-path prepend {{ value | ORPHRASE }}
+</group>
+
+<group name="policy_set_localpref*" method="table">
+{{ source_line | DIGIT | to_int }} set local-preference {{ value | DIGIT | to_int }}
+</group>
+
+<group name="policy_set_metric*" method="table">
+{{ source_line | DIGIT | to_int }} set metric {{ value | DIGIT | to_int }}
+</group>
+
+<group name="policy_set_weight*" method="table">
+{{ source_line | DIGIT | to_int }} set weight {{ value | DIGIT | to_int }}
+</group>
+
+<group name="policy_set_community*" method="table">
+{{ source_line | DIGIT | to_int }} set community {{ value | ORPHRASE }}
+</group>
+
+<group name="policy_description*" method="table">
+{{ source_line | DIGIT | to_int }} description {{ value | ORPHRASE }}
+</group>

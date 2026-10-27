@@ -1,0 +1,143 @@
+<group name="advanced_isis*" method="table">
+{{ source_line | DIGIT | to_int }} router isis {{ process }}
+</group>
+
+<group name="advanced_isis_net*" method="table">
+{{ source_line | DIGIT | to_int }} net {{ net }}
+</group>
+
+<group name="advanced_isis_passive*" method="table">
+{{ source_line | DIGIT | to_int }} passive-interface {{ interface }}
+</group>
+
+<group name="advanced_mpls_ldp*" method="table">
+{{ source_line | DIGIT | to_int }} mpls ldp router-id {{ interface }} {{ option }}
+</group>
+
+<group name="advanced_mpls_label*" method="table">
+{{ source_line | DIGIT | to_int }} mpls label protocol {{ protocol }}
+</group>
+
+<group name="advanced_qos_classmap*" method="table">
+{{ source_line | DIGIT | to_int }} class-map {{ mode }} {{ name }}
+</group>
+
+<group name="advanced_qos_policymap*" method="table">
+{{ source_line | DIGIT | to_int }} policy-map {{ name }}
+</group>
+
+<group name="advanced_qos_class*" method="table">
+{{ source_line | DIGIT | to_int }} class {{ name }}
+</group>
+
+<group name="advanced_qos_match_protocol*" method="table">
+{{ source_line | DIGIT | to_int }} match protocol {{ protocol }}
+</group>
+
+<group name="advanced_qos_match_dscp*" method="table">
+{{ source_line | DIGIT | to_int }} match dscp {{ dscp }}
+</group>
+
+<group name="advanced_qos_match_precedence*" method="table">
+{{ source_line | DIGIT | to_int }} match ip precedence {{ precedence }}
+</group>
+
+<group name="advanced_qos_match_acl*" method="table">
+{{ source_line | DIGIT | to_int }} match access-group name {{ acl }}
+</group>
+
+<group name="advanced_qos_set_dscp*" method="table">
+{{ source_line | DIGIT | to_int }} set dscp {{ dscp }}
+</group>
+
+<group name="advanced_qos_set_precedence*" method="table">
+{{ source_line | DIGIT | to_int }} set ip precedence {{ precedence }}
+</group>
+
+<group name="advanced_qos_priority*" method="table">
+{{ source_line | DIGIT | to_int }} priority percent {{ percent | DIGIT | to_int }}
+</group>
+
+<group name="advanced_qos_fair*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} fair-queue
+</group>
+
+<group name="advanced_pim_rp*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim rp-address {{ address | IP }}
+</group>
+
+<group name="advanced_multicast*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip multicast-routing
+</group>
+
+<group name="advanced_l2_evpn*" method="table">
+{{ source_line | DIGIT | to_int }} l2vpn evpn instance {{ instance | DIGIT | to_int }} {{ type }}
+</group>
+
+<group name="advanced_l2_evpn_global*" method="table" functions="set(True, declaration)">
+{{ source_line | DIGIT | to_int }} l2vpn evpn
+</group>
+
+<group name="advanced_l2_replication*" method="table">
+{{ source_line | DIGIT | to_int }} replication-type {{ type }}
+</group>
+
+<group name="advanced_l2_rid*" method="table">
+{{ source_line | DIGIT | to_int }} router-id {{ interface }}
+</group>
+
+<group name="advanced_l2_bridge*" method="table">
+{{ source_line | DIGIT | to_int }} bridge-domain {{ domain | DIGIT | to_int }}
+</group>
+
+<group name="advanced_l2_member*" method="table">
+{{ source_line | DIGIT | to_int }} member {{ member | ORPHRASE }}
+</group>
+
+<group name="advanced_l2_vfi*" method="table">
+{{ source_line | DIGIT | to_int }} l2 vfi {{ vfi | DIGIT | to_int }} {{ mode }}
+</group>
+
+<group name="advanced_l2_vpnid*" method="table">
+{{ source_line | DIGIT | to_int }} vpn id {{ vpn_id | DIGIT | to_int }}
+</group>
+
+<group name="advanced_l2_neighbor*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ address | IP }} encapsulation {{ encapsulation }}
+</group>
+
+<group name="advanced_pki_chain*" method="table">
+{{ source_line | DIGIT | to_int }} crypto pki certificate chain {{ name }}
+</group>
+
+<group name="advanced_pki_trust*" method="table">
+{{ source_line | DIGIT | to_int }} crypto pki trustpoint {{ name }}
+</group>
+
+<group name="advanced_pki_certificate*" method="table">
+{{ source_line | DIGIT | to_int }} certificate {{ type }} {{ identifier }}
+</group>
+
+<group name="advanced_pki_enrollment*" method="table">
+{{ source_line | DIGIT | to_int }} enrollment {{ method }}
+</group>
+
+<group name="advanced_pki_revocation*" method="table">
+{{ source_line | DIGIT | to_int }} revocation-check {{ method }}
+</group>
+
+<group name="advanced_pki_subject*" method="table">
+{{ source_line | DIGIT | to_int }} subject-name {{ subject | ORPHRASE }}
+</group>
+
+<group name="advanced_pki_keypair*" method="table">
+{{ source_line | DIGIT | to_int }} rsakeypair {{ name }}
+</group>
+
+<group name="advanced_vlan*" method="table">
+{{ source_line | DIGIT | to_int }} vlan {{ vlan }}
+</group>
+
+<group name="advanced_vlan_name*" method="table">
+{{ source_line | DIGIT | to_int }} name {{ name | ORPHRASE }}
+</group>

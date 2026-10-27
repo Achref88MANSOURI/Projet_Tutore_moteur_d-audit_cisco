@@ -1,0 +1,171 @@
+<group name="services_hostname*" method="table">
+{{ source_line | DIGIT | to_int }} hostname {{ hostname }}
+</group>
+
+<group name="services_version*" method="table">
+{{ source_line | DIGIT | to_int }} version {{ version | ORPHRASE }}
+</group>
+
+<group name="services_domain*" method="table">
+{{ source_line | DIGIT | to_int }} ip domain-name {{ domain }}
+</group>
+
+<group name="services_domain_alt*" method="table">
+{{ source_line | DIGIT | to_int }} ip domain name {{ domain }}
+</group>
+
+<group name="services_dns*" method="table">
+{{ source_line | DIGIT | to_int }} ip name-server {{ addresses | ORPHRASE }}
+</group>
+
+<group name="services_ntp_prefer*" method="table" functions="set(True, prefer)">
+{{ source_line | DIGIT | to_int }} ntp server {{ address }} prefer
+</group>
+
+<group name="services_ntp*" method="table">
+{{ source_line | DIGIT | to_int }} ntp server {{ address }}
+</group>
+
+<group name="services_ntp_vrf_prefer*" method="table" functions="set(True, prefer)">
+{{ source_line | DIGIT | to_int }} ntp server vrf {{ vrf }} {{ address }} prefer
+</group>
+
+<group name="services_ntp_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} ntp server vrf {{ vrf }} {{ address }}
+</group>
+
+<group name="services_ntp_source*" method="table">
+{{ source_line | DIGIT | to_int }} ntp source {{ source }}
+</group>
+
+<group name="services_logging*" method="table">
+{{ source_line | DIGIT | to_int }} logging host {{ address }}
+</group>
+
+<group name="services_logging_legacy*" method="table">
+{{ source_line | DIGIT | to_int }} logging {{ address | IP }}
+</group>
+
+<group name="services_logging_trap*" method="table">
+{{ source_line | DIGIT | to_int }} logging trap {{ severity }}
+</group>
+
+<group name="services_logging_source*" method="table">
+{{ source_line | DIGIT | to_int }} logging source-interface {{ interface }}
+</group>
+
+<group name="services_aaa_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} aaa new-model
+</group>
+
+<group name="services_aaa_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no aaa new-model
+</group>
+
+<group name="services_aaa_method*" method="table">
+{{ source_line | DIGIT | to_int }} aaa {{ category }} {{ method | ORPHRASE }}
+</group>
+
+<group name="services_user*" method="table">
+{{ source_line | DIGIT | to_int }} username {{ username }} privilege {{ privilege | DIGIT | to_int }} {{ credential_type }} {{ credential_format | DIGIT }} {{ _ignore_ }}
+</group>
+
+<group name="services_user_simple*" method="table">
+{{ source_line | DIGIT | to_int }} username {{ username }} {{ credential_type }} {{ credential_format | DIGIT }} {{ _ignore_ }}
+</group>
+
+<group name="services_snmp_community*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }} {{ acl }}
+</group>
+
+<group name="services_snmp_community_simple*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }}
+</group>
+
+<group name="services_snmp_location*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server location {{ value | ORPHRASE }}
+</group>
+
+<group name="services_snmp_contact*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server contact {{ value | ORPHRASE }}
+</group>
+
+<group name="services_ssh_version*" method="table">
+{{ source_line | DIGIT | to_int }} ip ssh version {{ version }}
+</group>
+
+<group name="services_http_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip http server
+</group>
+
+<group name="services_http_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip http server
+</group>
+
+<group name="services_https_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip http secure-server
+</group>
+
+<group name="services_https_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip http secure-server
+</group>
+
+<group name="services_line*" method="table">
+{{ source_line | DIGIT | to_int }} line {{ name | ORPHRASE }}
+</group>
+
+<group name="services_transport*" method="table">
+{{ source_line | DIGIT | to_int }} transport input {{ transports | ORPHRASE }}
+</group>
+
+<group name="services_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} exec-timeout {{ minutes | DIGIT | to_int }} {{ seconds | DIGIT | to_int }}
+</group>
+
+<group name="services_timeout_minutes*" method="table">
+{{ source_line | DIGIT | to_int }} exec-timeout {{ minutes | DIGIT | to_int }}
+</group>
+
+<group name="services_access_class*" method="table">
+{{ source_line | DIGIT | to_int }} access-class {{ acl }} {{ direction }}
+</group>
+
+<group name="services_login*" method="table">
+{{ source_line | DIGIT | to_int }} login {{ method | ORPHRASE }}
+</group>
+
+<group name="services_login_plain*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} login
+</group>
+
+<group name="services_banner*" method="table">
+{{ source_line | DIGIT | to_int }} banner {{ type }} {{ delimiter }}
+</group>
+
+<group name="services_tacacs*" method="table">
+{{ source_line | DIGIT | to_int }} tacacs server {{ name }}
+</group>
+
+<group name="services_radius*" method="table">
+{{ source_line | DIGIT | to_int }} radius server {{ name }}
+</group>
+
+<group name="services_auth_address*" method="table">
+{{ source_line | DIGIT | to_int }} address ipv4 {{ address | IP }}
+</group>
+
+<group name="services_auth_ports*" method="table">
+{{ source_line | DIGIT | to_int }} address ipv4 {{ address | IP }} auth-port {{ auth_port | DIGIT | to_int }} acct-port {{ acct_port | DIGIT | to_int }}
+</group>
+
+<group name="services_nat_static*" method="table">
+{{ source_line | DIGIT | to_int }} ip nat inside source static {{ inside | IP }} {{ outside | IP }}
+</group>
+
+<group name="services_nat_static_extendable*" method="table" functions="set(True, extendable)">
+{{ source_line | DIGIT | to_int }} ip nat inside source static {{ inside | IP }} {{ outside | IP }} extendable
+</group>
+
+<group name="services_login_logging*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} login on-success log
+</group>

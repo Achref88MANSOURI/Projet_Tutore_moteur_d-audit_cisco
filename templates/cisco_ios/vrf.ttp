@@ -1,0 +1,27 @@
+<group name="vrf_header*" method="table">
+{{ source_line | DIGIT | to_int }} vrf definition {{ name }}
+</group>
+
+<group name="vrf_legacy_header*" method="table">
+{{ source_line | DIGIT | to_int }} ip vrf {{ name }}
+</group>
+
+<group name="vrf_description*" method="table">
+{{ source_line | DIGIT | to_int }} description {{ description | ORPHRASE }}
+</group>
+
+<group name="vrf_rd*" method="table">
+{{ source_line | DIGIT | to_int }} rd {{ rd }}
+</group>
+
+<group name="vrf_target*" method="table">
+{{ source_line | DIGIT | to_int }} route-target {{ direction }} {{ target }}
+</group>
+
+<group name="vrf_af*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }}
+</group>
+
+<group name="vrf_af_exit*" method="table" functions="set(True, boundary)">
+{{ source_line | DIGIT | to_int }} exit-address-family
+</group>

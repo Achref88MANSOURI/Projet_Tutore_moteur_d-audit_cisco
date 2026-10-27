@@ -1,0 +1,116 @@
+{
+  "dependencies": [
+    {
+      "name": "annotated-types",
+      "version": "0.8.0"
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0"
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.1"
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.26.0"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3"
+    },
+    {
+      "name": "pip",
+      "version": "25.0.1"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.7.0"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.14.1"
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.50.1"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0"
+    },
+    {
+      "name": "pytest",
+      "version": "8.4.2"
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3"
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0"
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.9.1"
+    },
+    {
+      "name": "setuptools",
+      "version": "84.2.1"
+    },
+    {
+      "name": "ttp",
+      "version": "0.10.1"
+    },
+    {
+      "name": "ttp_templates",
+      "version": "0.6.18"
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0"
+    },
+    {
+      "name": "wheel",
+      "version": "0.48.0"
+    }
+  ],
+  "repositories": [
+    {
+      "repository": "ttp",
+      "commit": "c3134c43f5cf5c5cbab343b0607b0f3043f35390",
+      "licenses": [
+        "vendor\\ttp\\LICENSE"
+      ],
+      "usage": "official_reference"
+    },
+    {
+      "repository": "ttp_templates",
+      "commit": "541658a842ea71663f60768202c4f5454d600e80",
+      "licenses": [
+        "vendor\\ttp_templates\\LICENSE"
+      ],
+      "usage": "official_reference"
+    },
+    {
+      "repository": "ios-show-run-ttp",
+      "commit": "128e9461fe9c4607f507f9f6a5e7a3ae8abc2896",
+      "licenses": [],
+      "usage": "reference_only_no_code_imported"
+    }
+  ]
+}

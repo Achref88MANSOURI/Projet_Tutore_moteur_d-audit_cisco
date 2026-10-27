@@ -1,0 +1,34 @@
+[
+  {
+    "id": "interfaces",
+    "source": "dmulyalin/ttp_templates",
+    "installed_version": "0.6.18",
+    "path": "templates/upstream/cisco_ios_show_running_config_pipe_section_interface.txt",
+    "sha256": "f2922fdbbb1a42eb1dcfeba686147391972cf84a2c32755c1d2c44dcabe7affa",
+    "role": "Interface records with default enabled=True; defaults not adopted by mapper."
+  },
+  {
+    "id": "vrfs",
+    "source": "dmulyalin/ttp_templates",
+    "installed_version": "0.6.18",
+    "path": "templates/upstream/cisco_ios_show_running_config_pipe_section_vrf.txt",
+    "sha256": "59b3ea0d80b48cb529de76d3d2022b6c64282eb04777599e506211d5791d2e02",
+    "role": "VRF records; rd reused only with source evidence."
+  },
+  {
+    "id": "bgp_asns",
+    "source": "dmulyalin/ttp_templates",
+    "installed_version": "0.6.18",
+    "path": "templates/upstream/cisco_ios_show_running_config_pipe_section_router_bgp.txt",
+    "sha256": "5b9d7f4e87793671fd1e9ee2dece8ecf0419dc4cb1262f961a37e65689666cc1",
+    "role": "ASN collection only; not a complete BGP parser."
+  },
+  {
+    "id": "nat_static",
+    "source": "dmulyalin/ttp_templates",
+    "installed_version": "0.6.18",
+    "path": "templates/upstream/cisco_ios_show_running_config_pipe_include_source_static.txt",
+    "sha256": "3bc75d12b4f35f235a0548f69ef9935655d31542553c4b7ddca015eea15a076c",
+    "role": "Official forms include extendable, VRF and ports; the unqualified static IP-to-IP form needs our extension. Qualifiers/ports stay native when v0.1 is inadequate."
+  }
+]

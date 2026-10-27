@@ -1,0 +1,123 @@
+<group name="bgp_header*" method="table">
+{{ source_line | DIGIT | to_int }} router bgp {{ local_as }}
+</group>
+
+<group name="bgp_router_id*" method="table">
+{{ source_line | DIGIT | to_int }} bgp router-id {{ router_id | IP }}
+</group>
+
+<group name="bgp_af_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} vrf {{ vrf }}
+</group>
+
+<group name="bgp_af_two*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} {{ safi }}
+</group>
+
+<group name="bgp_af*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }}
+</group>
+
+<group name="bgp_af_exit*" method="table" functions="set(True, boundary)">
+{{ source_line | DIGIT | to_int }} exit-address-family
+</group>
+
+<group name="bgp_remote_as*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} remote-as {{ remote_as }}
+</group>
+
+<group name="bgp_description*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} description {{ description | ORPHRASE }}
+</group>
+
+<group name="bgp_group_definition*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} peer-group
+</group>
+
+<group name="bgp_group_member*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} peer-group {{ group }}
+</group>
+
+<group name="bgp_update_source*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} update-source {{ source }}
+</group>
+
+<group name="bgp_route_map*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} route-map {{ policy }} {{ direction }}
+</group>
+
+<group name="bgp_activate*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} activate
+</group>
+
+<group name="bgp_deactivate*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no neighbor {{ peer }} activate
+</group>
+
+<group name="bgp_shutdown*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} shutdown
+</group>
+
+<group name="bgp_no_shutdown*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} no neighbor {{ peer }} shutdown
+</group>
+
+<group name="bgp_send_community*" method="table" functions="set('unspecified', option)">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} send-community
+</group>
+
+<group name="bgp_send_community_option*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} send-community {{ option }}
+</group>
+
+<group name="bgp_reflector*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} route-reflector-client
+</group>
+
+<group name="bgp_next_hop*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} next-hop-self
+</group>
+
+<group name="bgp_network4*" method="table">
+{{ source_line | DIGIT | to_int }} network {{ prefix | IP }} mask {{ mask | IP }}
+</group>
+
+<group name="bgp_network*" method="table">
+{{ source_line | DIGIT | to_int }} network {{ prefix }}
+</group>
+
+<group name="bgp_aggregate*" method="table">
+{{ source_line | DIGIT | to_int }} aggregate-address {{ prefix | IP }} {{ mask | IP }} {{ option | ORPHRASE }}
+</group>
+
+<group name="bgp_redistribute_map*" method="table">
+{{ source_line | DIGIT | to_int }} redistribute {{ protocol }} route-map {{ policy }}
+</group>
+
+<group name="bgp_redistribute*" method="table">
+{{ source_line | DIGIT | to_int }} redistribute {{ protocol }}
+</group>
+
+<group name="bgp_redistribute_process*" method="table">
+{{ source_line | DIGIT | to_int }} redistribute {{ protocol }} {{ process }}
+</group>
+
+<group name="bgp_maximum_paths*" method="table">
+{{ source_line | DIGIT | to_int }} maximum-paths {{ type }} {{ count | DIGIT | to_int }}
+</group>
+
+<group name="bgp_log_changes*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} bgp log-neighbor-changes
+</group>
+
+<group name="bgp_dampening*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} bgp dampening
+</group>
+
+<group name="bgp_additional_select*" method="table">
+{{ source_line | DIGIT | to_int }} bgp additional-paths select {{ selection }}
+</group>
+
+<group name="bgp_additional_send*" method="table">
+{{ source_line | DIGIT | to_int }} bgp additional-paths {{ send }} {{ receive }}
+</group>
