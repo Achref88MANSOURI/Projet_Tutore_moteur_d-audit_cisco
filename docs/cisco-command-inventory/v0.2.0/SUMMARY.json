@@ -1,0 +1,44 @@
+{
+  "version": "0.2.0",
+  "exhaustive": false,
+  "baseline_candidates_examined_automatically": 7296,
+  "baseline_candidates_with_explicit_disposition": 7296,
+  "baseline_status_counts_by_occurrence": {
+    "uncertain": 7290,
+    "excluded": 4,
+    "documented_config": 2
+  },
+  "baseline_documentary_entries_after_deduplication": 6687,
+  "baseline_alias_occurrences_merged": 609,
+  "new_or_recovered_candidate_occurrences": 185,
+  "catalogue_records": 6969,
+  "catalogue_status_counts": {
+    "uncertain": 6875,
+    "confirmed_config": 70,
+    "documented_config": 21,
+    "excluded": 3
+  },
+  "resolved_records_confirmed_documented_or_excluded": 94,
+  "confirmed_literal_instances": 70,
+  "confirmed_full_parameterized_grammars": 0,
+  "sources_in_registry": 1535,
+  "source_review_counts": {
+    "not_reviewed": 1519,
+    "partially_reviewed": 16
+  },
+  "phase_2_http_attempts": 28,
+  "anomalies_triaged": 261,
+  "anomaly_dispositions": {
+    "non_command_document_section": 11,
+    "uncertain_missing_structured_syntax_or_mode": 136,
+    "resolved_duplicate_already_deduplicated": 7,
+    "documentation_redirect_stub_retained_for_resolution": 20,
+    "non_cli_serialization_marker": 4,
+    "excluded_operational_article": 79,
+    "recovered_candidate_needs_router_qualification": 4
+  },
+  "sources_not_reviewed": 1519,
+  "inaccessible_sources": 5,
+  "ttp_comparison_performed": false,
+  "device_validation_performed": false
+}

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "outputs_byte_identical": 9,
+  "network_forbidden": true,
+  "html_cache_access_forbidden": true,
+  "source_facts_and_proofs_required": true,
+  "output_sha256": {
+    "router_config_commands.jsonl": "1d5bcff45eb75cb259d88aa174b339410ef222d32ee400d0ef4467fe85b53097",
+    "LEGACY_LINKS.jsonl": "234e15f1e3e98fe479c871a554b244cc5b7733957b9207152ed2de6447f0cecb",
+    "EXCLUSIONS_AND_UNCERTAINTIES.csv": "8d8eb03121d91107e97ee5989484998cf270b5866cad50b1b479af782e371323",
+    "SOURCE_REGISTRY.json": "40243d5062194c091b18d93a961e2a49e016549413877063abf6224a659f6b2e",
+    "FRONTIER_RELEVANCE.json": "b6218241e3bb6dd63d01bc17dabaa052958434ca854442aa964444b39cd775a9",
+    "SUMMARY.json": "ff0c5808fcee9d5b618ad374328731857793a8e447ae5c5552d9e5a99d040353",
+    "QUALIFICATION_REPORT.md": "0e02dfa12b8e6edf73a5e27263ad5869467ba1d128baff0b9cb9feb4cb37fd03",
+    "COVERAGE_V02.md": "9d18f925e472d7492ececc6384ac93edbf43e88ac22afa68be00a4e9e7c66182",
+    "VALIDATION_SAMPLES.md": "0f8e3ea2b23e641d13a5852c51611a5f7519ec2c51ccbdbc5a280c0cedba159b"
+  }
+}

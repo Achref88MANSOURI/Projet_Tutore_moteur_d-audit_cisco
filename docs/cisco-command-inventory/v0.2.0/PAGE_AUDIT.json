@@ -1,0 +1,1598 @@
+[
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/atm/command/atm-cr-book/atm-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 46,
+    "legacy_occurrences": 46,
+    "sha256": "63cfde61fe766235f58cf362c9b7c2812735cfe98b2632d9ffc063763b90c76f"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/atm/command/atm-cr-book/atm-a2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 43,
+    "legacy_occurrences": 33,
+    "sha256": "2835773613ee8501179729b97e8c2f9851df44be8d5487ad61a415e7357d6a1b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/atm/command/atm-cr-book/atm-d1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 48,
+    "legacy_occurrences": 46,
+    "sha256": "be272847bcd6438bfca2bb440924c29dddcdde0c050eeaad31761f9cb1d010ad"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/atm/command/atm-cr-book/atm-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 36,
+    "legacy_occurrences": 34,
+    "sha256": "4c83124f231b42f553feb52dddbe8066e8c272df60efcb71b231a59a3f2f8400"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/atm/command/atm-cr-book/atm-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 32,
+    "legacy_occurrences": 5,
+    "sha256": "9963a0aeebe53e595ddb42fabed702a1674514765ae9e95ff78ac02e07847e65"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/atm/command/atm-cr-book/atm-s2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 37,
+    "legacy_occurrences": 18,
+    "sha256": "65bb8d97bb04b3e05ca3c3a59e2f5dcb32fe79849fef5e1943863c4945ff9523"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/bbdsl/command/bba-cr-book/bba-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 46,
+    "legacy_occurrences": 34,
+    "sha256": "492a625f46945819db2c13a99187e58f6b52b142581cbc37b5e6243d2f482c95"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/bbdsl/command/bba-cr-book/bba-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 67,
+    "legacy_occurrences": 67,
+    "sha256": "4354ba2dab7671604ec7458405b1e8722c8136cc52198d37e549193a29c0db6f"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/bbdsl/command/bba-cr-book/bba-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 60,
+    "legacy_occurrences": 20,
+    "sha256": "674bcf0bffb80c05d37856ed7956c9ee0b8a3e34b8bc0799ba004bca303cd3aa"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/bsm/command/bsm-cr-book/m_bsm-cr-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 32,
+    "legacy_occurrences": 26,
+    "sha256": "63229467930c5b8352ef1f9bff3cd2d4d3d18cebf0f6ec0b6b55735c0ef866f7"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/bsm/command/bsm-cr-book/m_bsm-cr-n1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 43,
+    "legacy_occurrences": 31,
+    "sha256": "e9e1e20ba245762e5923c90087e6d07f158834b7df432cd7d9316f650d973ab9"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/cether/command/ce-cr-book/ce-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 54,
+    "legacy_occurrences": 41,
+    "sha256": "e12fef9c0aeaa925ddca06d1c58dc79790158dc94163120bd6ce200c92505147"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/cether/command/ce-cr-book/ce-e1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 77,
+    "legacy_occurrences": 74,
+    "sha256": "63a20ce12c8aa37beaeb0b5d91b62f2440eafe96233c5a5597fef09101fecfb4"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/cether/command/ce-cr-book/ce-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 65,
+    "legacy_occurrences": 55,
+    "sha256": "28e0508c1df51ae308c4ad56083e1f26021094a928aa6b46c31b9e8032475eea"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/cether/command/ce-cr-book/ce-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 67,
+    "legacy_occurrences": 17,
+    "sha256": "955c5696e14e64c38220eda23fe3ab6d248e8fb63c6c058e170fcc5ada4ef084"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/csa/command/csa-cr-book/m_csa-l1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 27,
+    "legacy_occurrences": 12,
+    "sha256": "41f988221eee15e267071a1047e31cfb77ecd979a60b62066ffb6472e54ad1bf"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/csa/command/csa-cr-book/m_csa-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 7,
+    "legacy_occurrences": 2,
+    "sha256": "86456df874d0e192d98f26b6cc27ad62118c7914bc60fec0b67b4c1390171a2c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/eem/command/eem-cr-book/eem-cr-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 40,
+    "legacy_occurrences": 0,
+    "sha256": "cce7bdbf7866554b84d9cd1b48092d4889415b785a53e0616cce51f93ccd8e28"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/eem/command/eem-cr-book/eem-cr-a2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 21,
+    "legacy_occurrences": 0,
+    "sha256": "bf61df22855babc7dca51201c6f4d8b2879ed69899611b7d0a37e08fc9654a8c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/eem/command/eem-cr-book/eem-cr-e1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 26,
+    "legacy_occurrences": 0,
+    "sha256": "178e3f51655bfc0aabfba576d6b94ebd632049ef2c5b61a56abb412d7d2f6d2a"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/eem/command/eem-cr-book/eem-cr-e2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 17,
+    "legacy_occurrences": 0,
+    "sha256": "569e37ea8c240796d534ced1e1bcbd0b3dcbc460b6b10b24f535dbfaacd592e7"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/eem/command/eem-cr-book/eem-cr-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 17,
+    "legacy_occurrences": 0,
+    "sha256": "aa0b9d45fc14f2f37475315b2392c8662469e08a6d3bf5aff6479f3cf7797bff"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/esm/command/esm-cr-book/book_cjab_m_escalate-a-cisco-jabber-group_chapter_00.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 33,
+    "legacy_occurrences": 30,
+    "sha256": "a71f78513ceb7a2ea3806d512b0f8ead478544a2c62d09e647ba84b202debc80"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fnetflow/command/fnf-cr-book/fnf-c1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 73,
+    "legacy_occurrences": 66,
+    "sha256": "4bee89ed9df55230b0d5d862324f27044ff9e9d774b001d4b91cac7073dcc330"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fnetflow/command/fnf-cr-book/fnf-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 44,
+    "legacy_occurrences": 35,
+    "sha256": "10b94f479acbf0fb41505461b733843f6d2744dbf4b3e50d75a42ed9e2f4089c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/ASCII_Character_Set_and_Hexadecimal_Values.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 1,
+    "legacy_occurrences": 0,
+    "sha256": "38169b6efe461059e7d6baad4e912a2ed0fcfb5a56a0c630c39abc7b9f97390d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/A_through_B.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 27,
+    "legacy_occurrences": 20,
+    "sha256": "b71bbd02d41cd9f14ab9b01afe3ff17f745d6962eaa5ca93c6aeece297c8fa32"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/C_commands.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 40,
+    "legacy_occurrences": 4,
+    "sha256": "60c2fa75f32863118086e76088a1f3d7d6fe2d7faeab71d4f9a6f861ee6252e0"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/D_through_E.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 44,
+    "legacy_occurrences": 31,
+    "sha256": "f59143792b3bd05cf3cb707960e3ee8ae38d39cfcd30da3badfc676bd30a62b5"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/F_through_K.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 39,
+    "legacy_occurrences": 31,
+    "sha256": "8c9cf9e8b890f52920ebcd2e5038caf8ff3bb561d97c44de814d5c334f522456"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/Introduction.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 3,
+    "legacy_occurrences": 0,
+    "sha256": "f22e6033b8221be538d143a962239e15007c0a58a85636ecf08ecdcf842a1051"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/L_through_mode.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 58,
+    "legacy_occurrences": 52,
+    "sha256": "36b4ee6537c7051179388ec91d24a0fba1c69e0bdc5f831a6ab4c804626e502e"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/R_through_setup.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 68,
+    "legacy_occurrences": 35,
+    "sha256": "eea5d0098eb81321b5ab2fa3c86f5b34fe95189946885bfc5e26f85b3743057d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/monitor_event-trace_through_Q.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 59,
+    "legacy_occurrences": 37,
+    "sha256": "d1b28b6405ca1beba0eb3393e20848123d71e392f17d5aab476929eec882aa45"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/show_protocols_through_showmon.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 42,
+    "legacy_occurrences": 0,
+    "sha256": "a37842b723f313050f3951554cf5317fca2ed27a7862c4588ef0a9d119717ecc"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/show_through_show_fm_summary.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 69,
+    "legacy_occurrences": 0,
+    "sha256": "5e0651b62bb25b23ff242235207bfae2895bcd95f8d3ecde1856f898b61f8335"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/slave_auto-sync_config_through_terminal-type.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 64,
+    "legacy_occurrences": 17,
+    "sha256": "db0c1aaaa53cb34a7c0d79f592099637030699342b08cf3b32941748c24c0073"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/Cisco_IOS_Configuration_Fundamentals_Command_Reference/test_cable-diagnostics_through_xmodem.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 36,
+    "legacy_occurrences": 6,
+    "sha256": "d3be68850378934e9c67b5ec9bc3e01ea4af2c494dd90c46dd241f2bd5f94c76"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/ASCII_Character_Set_and_Hexadecimal_Values.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 1,
+    "legacy_occurrences": 0,
+    "sha256": "91ae959281ddfdd240bcffbf2cf58bcc5c5ddf6b7698b411e3f4044744089162"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/A_through_B.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 27,
+    "legacy_occurrences": 20,
+    "sha256": "6a4f6a76e15041d4b9c1275e0b1cb5532791b77e9d0b36e82231998d49df51ce"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/C_commands.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 40,
+    "legacy_occurrences": 4,
+    "sha256": "5497affc280a33df5eafbc91e076cc431ea381d74d3bac9c089b10a69ff9c44c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/D_through_E.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 44,
+    "legacy_occurrences": 31,
+    "sha256": "3662dd78a063dd9ad37b2165bf95be4b0073103ff90f433196f43596c0cb4b4d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/F_through_K.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 39,
+    "legacy_occurrences": 31,
+    "sha256": "79b316b553e22351545a93fb570a3c807bdf97da7b7aeb2b0ff4a3611d1027aa"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/Introduction.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 3,
+    "legacy_occurrences": 0,
+    "sha256": "94882fca23df3dab51667a77680d9e125692a791541b8becbd7b4bad2ea1d916"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/L_through_mode.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 58,
+    "legacy_occurrences": 52,
+    "sha256": "a5d637d8e0ee12e3a2d6adc1f04cd458796680d92516457924f92ae6f129332e"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/R_through_setup.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 68,
+    "legacy_occurrences": 35,
+    "sha256": "708f96c5dbd47f07cdf98cf7a6e5bcd2ecb178d1a953bfe38139120a68779613"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/monitor_event-trace_through_Q.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 59,
+    "legacy_occurrences": 37,
+    "sha256": "7438c0e2811199585738a76f9606e315cf8bd3328dacb775e62c61285e78ff40"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/show_protocols_through_showmon.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 42,
+    "legacy_occurrences": 0,
+    "sha256": "5ae7b4fb3676bef009eadf01744d81df9be2e095a840c45dbca990c88fad7b8c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/show_through_show_fm_summary.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 69,
+    "legacy_occurrences": 0,
+    "sha256": "8f097360201d5f30a72a72e93a82220ea159ccd65760ba174663de6527525086"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/slave_auto-sync_config_through_terminal-type.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 64,
+    "legacy_occurrences": 17,
+    "sha256": "6e378fe4c216408e94820fdc0fe702442c0abe6b90ff40c55c82108b5448cdf2"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/command/cf_command_ref/test_cable-diagnostics_through_xmodem.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 36,
+    "legacy_occurrences": 6,
+    "sha256": "ca28e5905c38652ccd86ecca8c21cdea969e4eb44f2ac3297fc7bd20587cb8f0"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ha/command/ha-cr-book/ha-active-through-issu-set-rollback-timer.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 39,
+    "legacy_occurrences": 20,
+    "sha256": "ed37f6625baa5be6361100f70d2019bb92d3a9b8b61a7b29438d91abd519e8e6"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ha/command/ha-cr-book/ha-mail-server-through-service.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 31,
+    "legacy_occurrences": 25,
+    "sha256": "04d7a1cb173afe02cf269f2286f41c537b79a5bc4e7e433a54e216ea78740b42"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ha/command/ha-cr-book/show_call-home_through_vrrp_sso.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 54,
+    "legacy_occurrences": 20,
+    "sha256": "543795e8baf8af0d0ea319af55da4bc9dfe4ee111382a1f5905f7e425f7af590"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 62,
+    "legacy_occurrences": 49,
+    "sha256": "73b99ca05e6977a535bba5b4034f1237b5869b4d5d8a0faa51a62765ad0f3992"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-c1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 49,
+    "legacy_occurrences": 19,
+    "sha256": "a47f62aa823acf3cd9c3803016405502b3832698d6d26ad5b0b347360304a2c4"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-c2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 48,
+    "legacy_occurrences": 39,
+    "sha256": "979972fed63a603c12975ea171cff6ff1aa4f2397ffe39107daffd64ab067ae2"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-d1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 44,
+    "legacy_occurrences": 38,
+    "sha256": "46d3cbc0b138e9308f6217c783f40fa104fcc0f4c81bc8b9b3d103b1ca741dae"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-f1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 84,
+    "legacy_occurrences": 63,
+    "sha256": "811ac3abb0739ab5a88b747f0d2a221bb3317e4f0655aef95b7a8545a1330afe"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 52,
+    "legacy_occurrences": 44,
+    "sha256": "3629ac4339d5eba7b38fe80a653ebf91a5e813efd0e5ea6134c96ee9e4d9a285"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-l1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 54,
+    "legacy_occurrences": 53,
+    "sha256": "a85234cce9001a26462b9a085f349f0bda3320f97baed0c5ae9da0aaa9f022ad"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-l2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 67,
+    "legacy_occurrences": 52,
+    "sha256": "d4216c4c7275775cdbf5b99a20ca7d2a2a769e6f24d51261ae0b0413890b0acb"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-o1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 91,
+    "legacy_occurrences": 77,
+    "sha256": "f5d62b79976404c6c54f8bbfa8287d5aa65ad75309dfd00bce8d7f23a3ec4f2b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 82,
+    "legacy_occurrences": 35,
+    "sha256": "97a7e0af05fc1e86578cad7ff8da1c79f47e08134138cd961e2b53647680713a"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 58,
+    "legacy_occurrences": 8,
+    "sha256": "e173e712e96a8832ffa0e67491ad8c353bf6158a88e6f7f44f51e594ed6e3afb"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 59,
+    "legacy_occurrences": 0,
+    "sha256": "ea10533d1a89e925fe6938718e3367f493f87899283ddbebfc6cae57078ec068"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s5.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 109,
+    "legacy_occurrences": 0,
+    "sha256": "efedc9f32508d9cddacbd38b0a73ad7b65838170dc3ebf29db7f2b130b408dcd"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s6.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 58,
+    "legacy_occurrences": 19,
+    "sha256": "d7934952e296fc1c7eebdd1b7a74037fcff5d041aa15756af3b875cbdea1df2f"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-s7.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 40,
+    "legacy_occurrences": 40,
+    "sha256": "78377692ba31d20fd98f62e1429423415feb78c52a3b286c47b2d3f881f0b8f6"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-t1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 58,
+    "legacy_occurrences": 39,
+    "sha256": "884162c4c71a480b6ca252e540f8076748b0644f88485d74c12edb02663f4d70"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/interface/command/ir-cr-book/ir-t2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 67,
+    "legacy_occurrences": 33,
+    "sha256": "ef69b9751f0cc2139b676b08276cb39a9fc27fae0d2c65704ed2b94ff7910979"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 51,
+    "legacy_occurrences": 31,
+    "sha256": "93d78d736fe9a1ccdc06e79cdc7ff1a798d8f8a5640acd790a47ed88fbb59aea"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-c1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 73,
+    "legacy_occurrences": 51,
+    "sha256": "91554301adcbd53d1bb4ed33bf8d193cde13603a104b535869282ef71ac44e70"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-cr-book_chapter_01000.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 98,
+    "legacy_occurrences": 14,
+    "sha256": "a4ac8df04ca98743f3f1e3715914ea368c57042595cef172f16edab961b7c3af"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 46,
+    "legacy_occurrences": 46,
+    "sha256": "0624265b0d98313d7ebc3c94a9bd853cbfd7396d25bcdcd67149722a1c50f788"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-i2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 41,
+    "legacy_occurrences": 40,
+    "sha256": "9408a43b67a3c9f1c0278529194b57df38672e75f97fe9f8410e059d5d6b0753"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-i3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 55,
+    "legacy_occurrences": 55,
+    "sha256": "b7a436655653efe3a79c14798a298cef34551440a03d8a1f58940fd5d706c429"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-i4.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 79,
+    "legacy_occurrences": 73,
+    "sha256": "0432eb765c612f791f0fbb4ed3817769aba1e76ab2a44396d9aaad72af65c674"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-l1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 85,
+    "legacy_occurrences": 81,
+    "sha256": "6c3e47bd40e857aa2157fe1d8943d82cc9cd84d7c81d18cc5a98ac201bdd2aba"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr/command/ipaddr-cr-book/ipaddr-r1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 50,
+    "legacy_occurrences": 14,
+    "sha256": "7d8c07dc2dfa59da34ab04ea6a550aeb1e3c0bc64e272fc6353be8e3ee903b2e"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 18,
+    "legacy_occurrences": 5,
+    "sha256": "c436000a6a70218862997e371e5dcd6d0ff7ad8520d846986e7c35d64b222a9b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 23,
+    "legacy_occurrences": 23,
+    "sha256": "d42c507b415543a3f3029778bac95867c9a4c9720526f1e80c3cd85bec3e7354"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-i2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 30,
+    "legacy_occurrences": 28,
+    "sha256": "c5d82da2ef42e06cf88c3398ab1fb8513cce7d5f8ccc8be4bbf97d8dce80618b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-intro.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 1,
+    "legacy_occurrences": 0,
+    "sha256": "0907f239c0fcbb1bc1437eb7d2ba8af231eda5e859d3c9c195f7437677489e3d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 4,
+    "legacy_occurrences": 4,
+    "sha256": "199085bc7913bd6e1df1ce4d959341ba3ce6319a8165e49d21c85bc25f50e7a3"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 18,
+    "legacy_occurrences": 1,
+    "sha256": "750c50d87e93a7a05c65d34083526cdd98ed7b35d22b549ee312dffbdefad8dd"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 17,
+    "legacy_occurrences": 0,
+    "sha256": "fa3f0ad3e519712a59a186b5eec0f24d4cc2ba2cec2a5962fbe9cac1ed614b76"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-s3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 13,
+    "legacy_occurrences": 2,
+    "sha256": "0d4762947bd81c1b8252aa5b5eeca16b341cf1c9d77edd73a63fa4569244aeb0"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp/command/iap-cr-book/iap-t1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 14,
+    "legacy_occurrences": 14,
+    "sha256": "13e7db144759a006d6e7c59f224208121a7a32be00c35adf43c72355fb892486"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp_fhrp/command/fhp-cr-book/fhp-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 21,
+    "legacy_occurrences": 21,
+    "sha256": "825f5ef645418c19eadbe40ddf2cee91f12df417c6137d470ee98f562f0b82a1"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp_fhrp/command/fhp-cr-book/fhp-intro.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 1,
+    "legacy_occurrences": 0,
+    "sha256": "9ec5a5f60b58b159c6b11ec84b7f3e4f6e7dafd70b2ba39d7c63c47a25996985"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp_fhrp/command/fhp-cr-book/fhp-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 16,
+    "legacy_occurrences": 1,
+    "sha256": "126bf60dc2b6f76c829db90b165aa2b5acff0408f2bc7c2e13f668bff0b84366"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp_fhrp/command/fhp-cr-book/fhp-s2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 22,
+    "legacy_occurrences": 21,
+    "sha256": "caf98a1038ed9765ddd189293426212d3bf53076b28651126af46e68c123b456"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp_fhrp/command/fhp-cr-book/fhp-v1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 16,
+    "legacy_occurrences": 16,
+    "sha256": "bb3f9591ee55a777d5a6a57ba6a7be0681d734f3b23d992024a84266cd15cadf"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipmobility/command/imo-cr-book/imo-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 73,
+    "legacy_occurrences": 60,
+    "sha256": "ad40b4c336f610c01bed93455aa8f7309b418665c9ff9a0645eb99a210848e7f"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipmobility/command/imo-cr-book/imo-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 63,
+    "legacy_occurrences": 63,
+    "sha256": "02ce77d9f95ecd929388ea55702388cec998a6ba1ac8ab9029240158396ebda7"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipmobility/command/imo-cr-book/imo-n1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 70,
+    "legacy_occurrences": 37,
+    "sha256": "56480b9f9aafc2b9d04d7e368f7d1e35559011bbedd65e7db4cd1a985101cd67"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 79,
+    "legacy_occurrences": 77,
+    "sha256": "707ee653b0e7cdc34a5e439d10ee4ecd4cbde934c7f996c81f75ff0d606f66a5"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-c1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 64,
+    "legacy_occurrences": 34,
+    "sha256": "ab6d00e73eb1ee26e81ce3d996d72041e69a0d3da0f2c7bd7d2b2748d64e4315"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 74,
+    "legacy_occurrences": 73,
+    "sha256": "d45d38dc76835ff5238cee3990afe783c32f88bc4771dc533ad9a47e6fc52764"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-n1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 50,
+    "legacy_occurrences": 27,
+    "sha256": "529f66bfba478a02f5399449ae76708f593b1b93f6ea70ebc7260396e0d150e9"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/command/irg-cr-book/bgp-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 64,
+    "legacy_occurrences": 12,
+    "sha256": "768c1e88f98e7645d3b09279cfccd4be8a016a024d589322a973d4d677eccf1b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_eigrp/command/ire-cr-book/ire-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 36,
+    "legacy_occurrences": 32,
+    "sha256": "85927fa696034e0c6c4a70de4ad629ccdf4feb8a886616cbe34ca4a619fad447"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_eigrp/command/ire-cr-book/ire-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 43,
+    "legacy_occurrences": 43,
+    "sha256": "34c2fc18e6e04ce969433f4cda77d28815c9245e66ae9671cbbd1e38520ef328"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_eigrp/command/ire-cr-book/ire-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 45,
+    "legacy_occurrences": 16,
+    "sha256": "8ea4b0255088d6ed39302551f21a93d55ac56848da68ddd1ea76dff37857ff29"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_isis/command/irs-cr-book/irs-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 48,
+    "legacy_occurrences": 46,
+    "sha256": "988e94c6de82e9925b7a1083e09d9b8617c690b1fe8a86b0ae9666b27f9ce88b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_isis/command/irs-cr-book/irs-l1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 45,
+    "legacy_occurrences": 25,
+    "sha256": "0327d1a1521f67b39a358a954f5a7df0091f6fc592596afc523f0ef18af182e2"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_lisp/command/ip-lisp-cr-book/ip-lisp-cr-book_chapter_01010.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 16,
+    "legacy_occurrences": 16,
+    "sha256": "86ccf11f6b18e0713559a6459fa7ed3f31989b2492b7424671f3d53c1686dce5"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_lisp/command/ip-lisp-cr-book/lisp-ddt-cfg-cmds.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 6,
+    "legacy_occurrences": 5,
+    "sha256": "33c765d2a4cb998adae56219e9f22358b113a652478b61fb891f36930e60d888"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_lisp/command/ip-lisp-cr-book/lisp-global-config-cmds.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 1,
+    "legacy_occurrences": 1,
+    "sha256": "6e11f4cbb7d920de9899819bf3f043e27b27f07d4ce489824f337996955c0dda"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_lisp/command/ip-lisp-cr-book/lisp-if-config-cmds.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 3,
+    "legacy_occurrences": 3,
+    "sha256": "148f0d8fb24ad8825130f3cbb04641526090e62d47b8e3b8be47489c6a6dbbad"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_lisp/command/ip-lisp-cr-book/lisp-rtr-ipv4-config-cmds.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 20,
+    "legacy_occurrences": 20,
+    "sha256": "c48d6d7865aa1d08955f6be64d65b732f8adce67ce1d4168af471dcf68806a12"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_lisp/command/ip-lisp-cr-book/lisp-rtr-ipv6-config-cmds.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 20,
+    "legacy_occurrences": 20,
+    "sha256": "9480bb58eb20a398d84076fe00c47e97797cfc83de2b87c09f2ccbfa28b90277"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_lisp/command/ip-lisp-cr-book/lisp-site_config-cmds.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 5,
+    "legacy_occurrences": 5,
+    "sha256": "f85459e75de14b4eb0523c94b1d6099fca38e909e541c9243af4ac69d665cb3d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_lisp/command/ip-lisp-cr-book/lisp-vm-mob-cmds.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 4,
+    "legacy_occurrences": 4,
+    "sha256": "86adec36ec6ac72bb2d86bc2fa96618289e73cba45bd33796d91523627096e7a"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_ospf/command/iro-cr-book/m_ospf-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 49,
+    "legacy_occurrences": 44,
+    "sha256": "82e76a214b07e1889088dc531fbbf969aa3e247d23b41242fad13a690b7ba1d4"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_ospf/command/iro-cr-book/m_ospf-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 40,
+    "legacy_occurrences": 40,
+    "sha256": "a1a924a9267a41b8ba998a41e1de481b16236ecb8cff99246edb22a8fe2f662a"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_ospf/command/iro-cr-book/m_ospf-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 50,
+    "legacy_occurrences": 24,
+    "sha256": "ded4c1db2cb2d91366e2b72e3253af9bf1de6c868cadbfc0196bf24e95151ffe"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/command/iri-cr-book/iri-cr-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 68,
+    "legacy_occurrences": 68,
+    "sha256": "bed2d2b16b68458131310a57b59c0181783cb800ed59f4d9c23e00ea441b415e"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/command/iri-cr-book/iri-cr-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 63,
+    "legacy_occurrences": 25,
+    "sha256": "0a81e05bea5ed41e26a75fa30e102cebc31c68d73b2704867fe969d5eb36b5b3"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_rip/command/irr-cr-book/irr-cr-rip.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 33,
+    "legacy_occurrences": 28,
+    "sha256": "f02b0fce0736b89adbb1af9bd4055f15b9be4283a5a1b22e30dc6ae2a7fefbf6"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipsla/command/sla-cr-book/sla_a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 69,
+    "legacy_occurrences": 68,
+    "sha256": "10d13e027faf79636527b414359f042122e4a6738f9ffeb1ab024360756dd68d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipsla/command/sla-cr-book/sla_i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 85,
+    "legacy_occurrences": 82,
+    "sha256": "9d9fafacb299584c1c6883c845667b29c2746c179419d0c1a8b328f442906943"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipsla/command/sla-cr-book/sla_r1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 36,
+    "legacy_occurrences": 36,
+    "sha256": "ca0bdc43249540d4ca0f03aad3bb4623e5461c55a70caaae2637a2d28329f0dc"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipsla/command/sla-cr-book/sla_s2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 51,
+    "legacy_occurrences": 50,
+    "sha256": "3d1405b1074294250b72074ab4574f132102f2ca858ba2d60df8b7e2f493e57d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipswitch/command/isw-cr-book/isw-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 22,
+    "legacy_occurrences": 4,
+    "sha256": "b31905237301dd922ea04a1f4b952e2ddd2ad52922fdc441dcf84c81f765af48"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipswitch/command/isw-cr-book/isw-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 42,
+    "legacy_occurrences": 32,
+    "sha256": "0155d1ed3a3dfd70d6cc9684092ca37e83697522ea1fc073c7798348f44467f0"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipswitch/command/isw-cr-book/isw-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 36,
+    "legacy_occurrences": 0,
+    "sha256": "41e6c8d80946596ca250128ede5484cb55598ce6f96e56c464082328e3ce5a04"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipswitch/command/isw-cr-book/isw-s3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 39,
+    "legacy_occurrences": 3,
+    "sha256": "5b1e95187232f8f9d0874d84f358ee18d129117b73f851a2ecf5083fa2305c22"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 43,
+    "legacy_occurrences": 26,
+    "sha256": "3af91f2b25c282c459f41bef73797fcd07749b5dd7bff6186a20521a9a69f4b8"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-c1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 34,
+    "legacy_occurrences": 2,
+    "sha256": "408df9d029127bab671c725ea0360a21acd946f0632536f76454cd4e14cc92d4"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-d2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 51,
+    "legacy_occurrences": 51,
+    "sha256": "4d38c9dfb9a2eb5cce68fc88d67e863652ca06a849f84dee4646780f6ce85b06"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 46,
+    "legacy_occurrences": 45,
+    "sha256": "6dcdf712f0e8e24a7d4ca57fbd74f0164e0df4bc3d30729cedd6eb12cc5c8a0c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-i2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 50,
+    "legacy_occurrences": 50,
+    "sha256": "dcb1da9367d4ca191002698bfa08ed6bcc4d1ca3065e284e0ae02c64aefe379b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-i3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 104,
+    "legacy_occurrences": 104,
+    "sha256": "3b28b7d8a3b7019f554413720a5a1feee35104d2e8ce65209542d8a484d4a713"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-i4.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 57,
+    "legacy_occurrences": 57,
+    "sha256": "e81082d8121bbd7861e34eb6cbe74ce8f720cd6b467e333d011c464791032f7c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-i5.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 50,
+    "legacy_occurrences": 48,
+    "sha256": "fdf42f7aac017f2cf90681bdfa5c9af431b1fe9ae35c690417484e7fbb18c41d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 53,
+    "legacy_occurrences": 52,
+    "sha256": "b15c3fe05f9c0398f78aa3e51dee674244d189f2b37a272d30ee57e7e5f24df1"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-r1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 18,
+    "legacy_occurrences": 10,
+    "sha256": "87b6d6c3bd711957e3a769c5e5e5a19d169ac2ce106cdd3ecebcab7c79e50a30"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-s5.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 46,
+    "legacy_occurrences": 2,
+    "sha256": "090c99adc53f8968dcab7ae37c6d490b491f92049ef0e965e5518122bf3c357c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/command/ipv6-cr-book/ipv6-s6.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 27,
+    "legacy_occurrences": 27,
+    "sha256": "50ab3cba6e4fa1503ee32bfa6fed927ea4f7b963f398c718b6a3d417d0b4bd95"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/isg/command/isg-cr-book/isg_a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 86,
+    "legacy_occurrences": 55,
+    "sha256": "b5f398b44d5a0ecd618915047f2a8cc6845e8e083d7fa2de9e4592ca80221d0c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/isg/command/isg-cr-book/isg_m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 114,
+    "legacy_occurrences": 71,
+    "sha256": "87e27c5189121b1d0bf8f2981d8690bf35b56521e84c2feda482504e7d8bfc7b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/lanswitch/command/lsw-cr-book/lsw-b1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 32,
+    "legacy_occurrences": 19,
+    "sha256": "c528f94ddc891a6ba1744c1f435c4c8f6f5a661641133cda2d8ec72063bea879"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/lanswitch/command/lsw-cr-book/lsw-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 65,
+    "legacy_occurrences": 59,
+    "sha256": "5d244f5221906a4ed9a0d843f25e2994fca54ea2a1feee0e01f4d365de3764fd"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/lanswitch/command/lsw-cr-book/lsw-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 48,
+    "legacy_occurrences": 1,
+    "sha256": "ec0aad4d37d7ad7466bd8ed28182b28845348c0447be0c427ebf7a6d862b47dc"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/lanswitch/command/lsw-cr-book/lsw-s2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 58,
+    "legacy_occurrences": 35,
+    "sha256": "5d28bc6a9439b60a9d2caca423d3d18a2876008a99bbc0b95671c3690c5999db"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/lanswitch/command/lsw-cr-book/lsw-u1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 24,
+    "legacy_occurrences": 22,
+    "sha256": "846bfbf5b3cf5f16d0a95ac9b62bdcd4f5edfff08bff8f9b7d372a77a7156cd6"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book/mp-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 46,
+    "legacy_occurrences": 26,
+    "sha256": "59d015cd4cb12e28b22dd14d4b17f9a55fb06d3b0dd14086596d6830a04a6048"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book/mp-e1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 63,
+    "legacy_occurrences": 60,
+    "sha256": "00266eac2100757ff0c2ecc4dcfe81c3fdf8483ab70027abb08b2e7c88efa6ae"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book/mp-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 50,
+    "legacy_occurrences": 49,
+    "sha256": "c0ba19a95494a99918411958a58ce0c0ec4c2ad11defec360eed4853afb545b9"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book/mp-m2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 40,
+    "legacy_occurrences": 40,
+    "sha256": "e6f33016256cee0d2c5b42d710408d19bdf3f9921d4c8737dbed234e1f91baac"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book/mp-m3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 42,
+    "legacy_occurrences": 41,
+    "sha256": "875fb969a0bdcb907cd003da64c72e9da4938c33a050459364864f3c0c928847"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book/mp-m4.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 70,
+    "legacy_occurrences": 65,
+    "sha256": "53c03abe458e6b08fbc44968e76d285915179edaabd8f1415160c666c079351f"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book/mp-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 54,
+    "legacy_occurrences": 13,
+    "sha256": "e5677713b67513042404d4895040455a17d598222b753a76ed363089b39503b0"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book/mp-s3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 75,
+    "legacy_occurrences": 22,
+    "sha256": "278067e783d65463f455756a1f6835a14824325ed7a13153780e7a610f14f6c6"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/mpls/command/mp-cr-book/mp-t1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 51,
+    "legacy_occurrences": 49,
+    "sha256": "40e9c87e65018c8c15cfd261ced5f93ca3fb13785b272734c7b470930291725e"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/pfr/command/pfr-cr-book/pfr-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 62,
+    "legacy_occurrences": 20,
+    "sha256": "423a38fa36f83c9d5d46a130c1e201bae9667d7d4a86d9e265835c007326d2e7"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/pfr/command/pfr-cr-book/pfr-h1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 57,
+    "legacy_occurrences": 55,
+    "sha256": "203da735a62293a7dd4c4958b10060bb6dd693affbd1afaac47c73083b9f1654"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/pfr/command/pfr-cr-book/pfr-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 72,
+    "legacy_occurrences": 36,
+    "sha256": "1b06a5e7b65ba86ece3d7b3fd87182e64d84920bcac4f38be1e4bef16eac4c1f"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/pfrv3/command/pfrv3-cr-book/pfv3-cmds.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 41,
+    "legacy_occurrences": 32,
+    "sha256": "b1bcb7640303ae13b24fa7b5e50209d42e286d3059bbe85fc50f1ac61faf31da"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/prog/command/1712/b_1712_programmability_cr/programmability.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 110,
+    "legacy_occurrences": 63,
+    "sha256": "e3b8cbb81a4acb037a121a1b1ae3c80870ec8c8e21dca3afd77586b1504e3593"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/prog/command/1718/b_1718_programmability_cr/m_17_18_prog_cr.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 114,
+    "legacy_occurrences": 65,
+    "sha256": "6e73d8647aa2c01b42138ca0b8fb79ba346246821db1ec3fd62e47e87480f5cd"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 44,
+    "legacy_occurrences": 25,
+    "sha256": "c63dac295ec8906c2fe8066f37f9ce41811abbeb5e5ec426c293f6ba9859f660"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-d1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 35,
+    "legacy_occurrences": 34,
+    "sha256": "5d6f9a765e182115155a544eb592ee5882d2ec9de51c271ec8188975a5539002"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 62,
+    "legacy_occurrences": 61,
+    "sha256": "1fc748f0229096d826aaa2cf3719391c09954fc39ce5942664aa68f0a5095338"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-i2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 54,
+    "legacy_occurrences": 53,
+    "sha256": "380ff27020d7e02b3da23639d9d75355cf8a6d17b4ff4ac8c0549665231e876b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 60,
+    "legacy_occurrences": 58,
+    "sha256": "88fc0382b9ce713a65b4c5e218c7237d7b92b35303b08ab3f22640b5d2db11ae"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-m2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 44,
+    "legacy_occurrences": 44,
+    "sha256": "e004a0b41e1c7bb9e8e728ecf2c3157578b407154a89d19d0313f3c37a9cc24f"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-n1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 43,
+    "legacy_occurrences": 39,
+    "sha256": "a6af7e54bb02ab50a9462ed0e37e9f974af5868353d0260f5c279a77f69a515a"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-q1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 44,
+    "legacy_occurrences": 43,
+    "sha256": "dac4567e1a596ff451f73cc1f3089c48376026d654ea17eda4ece552f2afb702"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 42,
+    "legacy_occurrences": 29,
+    "sha256": "43442028aeb2598f98a1b72739ff9c5fe056dd40eda0b412a182d1a85bc0146e"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-s3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 43,
+    "legacy_occurrences": 0,
+    "sha256": "7da9af99fc6ef763529a09ad316f406b3a3f01f0a69446f49394ef8ac16a7cf2"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/qos/command/qos-cr-book/qos-s4.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 78,
+    "legacy_occurrences": 18,
+    "sha256": "783c4af0b73ad5771eed742b8a0f6a8b623e04270aa19b8a799ab702a5c4725a"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book/sec-a1-cr-book_chapter_0111.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 84,
+    "legacy_occurrences": 62,
+    "sha256": "eda5de36f515cb8a61d3f2433381292b861d9a3a6ff8bc7ca76284fef9f6e465"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book/sec-cr-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 61,
+    "legacy_occurrences": 59,
+    "sha256": "2ecf764f37a71a7e4f241b47cc2cc4270959dc895e65cff0e93f36fd0bc57a56"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book/sec-cr-a2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 67,
+    "legacy_occurrences": 63,
+    "sha256": "6ee34c8b86d6c720979075215c2c67ea0e2979c3d60b72fc2c209784d3bfe806"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book/sec-cr-a3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 81,
+    "legacy_occurrences": 80,
+    "sha256": "6df29f4b75d2078cedad9d3477ba098185cb5ee93a2a20fe0e3cf172b8a2b631"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book/sec-cr-c1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 60,
+    "legacy_occurrences": 26,
+    "sha256": "32af4232754a2d4180c5f210c861dc2fb2273ac014b64d5482b1320e3e51c533"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book/sec-cr-c2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 68,
+    "legacy_occurrences": 31,
+    "sha256": "2e68c0cc8990149e798d95fbdbd66a4e5cd417583255514f0cffb68a2c1061dd"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book/sec-cr-c3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 77,
+    "legacy_occurrences": 68,
+    "sha256": "a10ac6efd91dc87cacf1c596042bee3b85e4831a1aa9f02123e06ea0f2bfc579"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/a1/sec-a1-cr-book/sec-cr-c4.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 48,
+    "legacy_occurrences": 46,
+    "sha256": "e05b9b3d475614acd9f97100f21253e4c420321eae00a3e20dbfd5b6a9ca78b8"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/d1/sec-d1-cr-book/sec-cr-d1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 54,
+    "legacy_occurrences": 52,
+    "sha256": "f9ea565902b16b1c2ac25fdb4d70905dc4ffafa8612cab4f42fc50d3c126c7f1"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/d1/sec-d1-cr-book/sec-cr-d2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 42,
+    "legacy_occurrences": 37,
+    "sha256": "840cc2236dfb161a51d2713957d89d3c9803e10332ff0e80a6aa3ff83ad57abf"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/d1/sec-d1-cr-book/sec-cr-e1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 47,
+    "legacy_occurrences": 41,
+    "sha256": "7c2e723c2d230c7801244cd4d907b3973ddd2b442d7e02950dd8d83fa83a81f3"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/d1/sec-d1-cr-book/sec-cr-f1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 38,
+    "legacy_occurrences": 38,
+    "sha256": "a6e9f7eb9055991eb3967aac55e60c471f2a4532efa0016e37495a8e9ffe247e"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/d1/sec-d1-cr-book/sec-cr-i1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 70,
+    "legacy_occurrences": 69,
+    "sha256": "c852e00f467910deea2589fbc4895914155a03a729144dc6c45bd0bd620dad24"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/d1/sec-d1-cr-book/sec-cr-i2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 70,
+    "legacy_occurrences": 70,
+    "sha256": "334517197fef632f3c0042dcd08a08db09734f39a6cb1b6d9eca81bf3ff33899"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/d1/sec-d1-cr-book/sec-cr-i3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 119,
+    "legacy_occurrences": 118,
+    "sha256": "69dccb5582c7e5a0b464c530c89603e1c5d154b0bfac7aac263b0332f895b626"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/d1/sec-d1-cr-book/sec-cr-k1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 62,
+    "legacy_occurrences": 61,
+    "sha256": "a5b97fb0cfd88e1e1b276d8ff17a44721ed8c47e8a0486d5642e5ff8e8ab355d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/m1/sec-m1-cr-book/mab_through_mime_type.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 95,
+    "legacy_occurrences": 93,
+    "sha256": "6ea6f2a4d307451fb5020e44c3a88e754864aafa16109d23e3414575d4b47da8"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/m1/sec-m1-cr-book/mitigation_through_outgoing.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 55,
+    "legacy_occurrences": 51,
+    "sha256": "e5d4ebf8b6f0043cfea0eb6ddf06c6220cafd4d03b1b50132f51fc430041f667"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/m1/sec-m1-cr-book/pac_key_through_port_misuse.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 70,
+    "legacy_occurrences": 70,
+    "sha256": "1a20259408754e4a145ce6c386988c61e5e47d03a3015f1627fd1846f8259059"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/m1/sec-m1-cr-book/ppp_accounting_through_quit.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 44,
+    "legacy_occurrences": 43,
+    "sha256": "ae288b67d593858304c3243ca109f4add5481d3da3b5238e83e31602ae6228dc"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/m1/sec-m1-cr-book/radius_attribute_nas_port_type_through_rd.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 57,
+    "legacy_occurrences": 53,
+    "sha256": "58b3ccb70618b1b710d5a88a9ea7e7d499c5815f943381ce939e24c9df594fee"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/m1/sec-m1-cr-book/reauthentication_time_through_rsa_pubkey.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 52,
+    "legacy_occurrences": 49,
+    "sha256": "4cbfa2d9bf03d0a0b29a0d72eb2250b3a6176b6c6788deee3b9111d379f76720"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/s1/sec-s1-cr-book/sec-cr-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 53,
+    "legacy_occurrences": 50,
+    "sha256": "fa61fc9e4f23eb53dfc8252baded3d3e00a7528c9b1ef21fbf3ade1cc3a7f414"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/s1/sec-s1-cr-book/sec-cr-s2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 52,
+    "legacy_occurrences": 20,
+    "sha256": "23122e74e97538cca2e807bd387b33e8ebb56ae19e1c511097be2d945f2db4a8"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/s1/sec-s1-cr-book/sec-cr-s3.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 92,
+    "legacy_occurrences": 0,
+    "sha256": "1ab5ca55d51274011254e9b8fd4bba2ef5d569eaf0d491cbc4581659bf4cf154"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/s1/sec-s1-cr-book/sec-cr-s4.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 96,
+    "legacy_occurrences": 0,
+    "sha256": "9a4ac994532cd5256612811a0094fbc1ffd2164a1f2d6f9120ddf2ebb746e555"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/s1/sec-s1-cr-book/sec-cr-s5.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 89,
+    "legacy_occurrences": 0,
+    "sha256": "3966fcab3d1e4a68acdccb8eb1436072dd3499b2e88c493c648805efea606c81"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/s1/sec-s1-cr-book/sec-cr-s6.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 74,
+    "legacy_occurrences": 54,
+    "sha256": "cf2a54647cdce9a1eb9ad5e98e7096b464912ff8efb3b47d1e8576db59c36ae1"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/s1/sec-s1-cr-book/sec-cr-t1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 60,
+    "legacy_occurrences": 55,
+    "sha256": "9fec4390a161283e0edb832337540d3dbfae7fa08d2956ca4aebd9a77ca81fca"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/security/s1/sec-s1-cr-book/sec-cr-t2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 80,
+    "legacy_occurrences": 77,
+    "sha256": "f0d1fdf899c82f16998089803d031f8d1c2214f8fdbde043c0d0f4d64cb6898c"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/vpdn/command/vpd-cr-book/m_vpd-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 30,
+    "legacy_occurrences": 21,
+    "sha256": "8c1ca186b42bb2427b6734334ee2d896a3727ac40ee7c62ebeff9012435baa45"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/vpdn/command/vpd-cr-book/m_vpd-l1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 34,
+    "legacy_occurrences": 34,
+    "sha256": "6bbab91890f6e10f53db95a5e737df35dbcc09bc88c1e15f5fc4af513b77c0aa"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/vpdn/command/vpd-cr-book/m_vpd-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 47,
+    "legacy_occurrences": 24,
+    "sha256": "6f7146252cadf78498fb1cabdf439b080327bb7558eef35718d7fbdd2427f785"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/vpdn/command/vpd-cr-book/m_vpd-v1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 38,
+    "legacy_occurrences": 36,
+    "sha256": "254c02892c88de71439acaf3d8c0e942dba4d6af04a370221a55298c6762d1d1"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 48,
+    "legacy_occurrences": 34,
+    "sha256": "3fb2a01f0e77032946eff098246abb49eb2202c76c190532b006311291905057"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-d1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 31,
+    "legacy_occurrences": 23,
+    "sha256": "020a8798f68183bdd90129919a782f16c868b7ec3feba33d961d3b20af515ed7"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-f1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 41,
+    "legacy_occurrences": 41,
+    "sha256": "6c96dcbcff5201d2f025fe245596f8e0d80e82789919a498668165ab30a3ed7e"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-f2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 39,
+    "legacy_occurrences": 39,
+    "sha256": "a759f49ceb0f6cc0dfc60ad2ded258c3be91a7d1ab4f12a21d4d477ddd1e5282"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-h1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 40,
+    "legacy_occurrences": 38,
+    "sha256": "454a868680527315d63c60824c79d79db56454161d896ee283f1393f6b2b92ea"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-intro.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 6,
+    "legacy_occurrences": 0,
+    "sha256": "fb4b3900217ba6538c69233f41ea015022245e39fa54626d0ed30fe5e1925094"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 71,
+    "legacy_occurrences": 70,
+    "sha256": "2926e26b908c097abad1d7745ff6b9382f1cb64e9e73df152e10824e3952755b"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 81,
+    "legacy_occurrences": 9,
+    "sha256": "ea43936ddcc0cead4a5cade9070eb891aa7ef2397eb8a8a72d55c83af67467ad"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-s2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 65,
+    "legacy_occurrences": 25,
+    "sha256": "e801eaac92753f531e09874098720ebf6bcdf146ceb6a0857705fc7817c6dfd4"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-x1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 40,
+    "legacy_occurrences": 39,
+    "sha256": "617c893c6fec4dd5c22f1086fb399b8364ee425bb17af1efe2678a7a4d694dc0"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/wan/command/wan-cr-book/wan-x2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 42,
+    "legacy_occurrences": 39,
+    "sha256": "f44c7d8257fd5336cb701851ea5fa3bee719cac107c13608a4c0ae37db9b7140"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/dapr/command/reference/dapr-cr-book/dapr-cr-book_chapter_01.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 17,
+    "legacy_occurrences": 17,
+    "sha256": "d4125b3cc3b29f577e6137ae287f6680f8cdcb1eb9b91ea1983d5231164becc2"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/isoclns/command/reference/iso_book/iso_a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 54,
+    "legacy_occurrences": 0,
+    "sha256": "77e2fc446ad9f73b5b167112f4ebea05668f5e2080398239994fe06c0faaa7c2"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/isoclns/command/reference/iso_book/iso_m1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 61,
+    "legacy_occurrences": 0,
+    "sha256": "e44498f02e14ea57d0a85a27440b50a151d84901331058b5c87483188abfd963"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/sbc/command/reference/sbcu_book/sbcu_a1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 0,
+    "legacy_occurrences": 0,
+    "sha256": "bc36d5476a18cb1b61128e49740cf69c8bf191c705e0ec6d97822dd61f60d407"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/sbc/command/reference/sbcu_book/sbcu_d1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 0,
+    "legacy_occurrences": 0,
+    "sha256": "a7749ade0b3cf51009de5bb7beeef4990761edf82b77015a72910e159e921d18"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/sbc/command/reference/sbcu_book/sbcu_h1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 0,
+    "legacy_occurrences": 0,
+    "sha256": "4771b1e2a7f5f4cdca7133ff450db88282e59b9a9739abc2f55be12db1c5351d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/sbc/command/reference/sbcu_book/sbcu_p1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 0,
+    "legacy_occurrences": 0,
+    "sha256": "6e0f19a4bd0951240e27287e809c403f139ca5dd362a0e3930f7e003b0990716"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/sbc/command/reference/sbcu_book/sbcu_s1.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 0,
+    "legacy_occurrences": 0,
+    "sha256": "5915ee0110c2be4c7eb686fe59741299c48578ef01ead872d36d9e4506e8838d"
+  },
+  {
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios/sbc/command/reference/sbcu_book/sbcu_s2.html",
+    "status": "automatically_reexamined",
+    "command_articles_detected": 0,
+    "legacy_occurrences": 0,
+    "sha256": "410d61fa3aa9b32298efe3d1860b3c16e59b9a607200d1b72fe96649cb44c3d5"
+  }
+]

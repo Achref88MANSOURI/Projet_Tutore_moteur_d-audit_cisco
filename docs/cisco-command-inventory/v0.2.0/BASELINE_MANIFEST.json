@@ -1,0 +1,28 @@
+{
+  "base_commit": "d6e9bb9",
+  "inventory_version": "0.1.0",
+  "files": {
+    "anomalies.jsonl": "8ab40affa5dac75264246110ebae618d0eb971129f8f3f2fbe62e887405ef48e",
+    "books.json": "30e3b0238c1473d921b9e57c2758df4b22d5d1230db9225b068f3c8f9296c5dd",
+    "CHANGELOG.md": "0749ce6da54a65bd855832d07e5d18c8706735707896108e813c56d578be9427",
+    "collect.py": "683522fec150f7ea19eda5c11f6e6f53de07313526c6be98f4035bc7c63a80a8",
+    "COVERAGE.md": "4ecc458dd5c51e197b5a98388ef491b7f853e087c77dafa7d265343be44971de",
+    "excluded.jsonl": "d0156a67e104f274a47bcc17e73d021460bedfc3484e72387c9017d1cda13f89",
+    "frontier.json": "15e00574a4e58dfaa3fa778fc0750145d58b794bc8b162a20c9697ccc83e9868",
+    "inventory.csv": "0e3add68e0b649f85ac22927bc6d1803935e504b31b662c9bb4dfa1e99cb55a5",
+    "inventory.jsonl": "a693490c6a8a100300bf9a965e535a500b1dbeec5348fd44c4ff0dd00a8ce34f",
+    "README.md": "4c4c215917f31fa790122d5386435c1e901c5afeef0139e0ecfd4ec74025f18f",
+    "review.py": "2077679d93b49979e5985e45e3b24f56f01a956b8ffa051d5113876e4e01337a",
+    "reviewed.jsonl": "069d1603bd05c472d7cef43987d196a41cdca5c7a0574c1bdafbd8939ce0308d",
+    "review_specs.json": "caf98d51f9e987bb48590b396c36d8322b43fb253c316a005fa47f66597c2417",
+    "schema.json": "f4f9d0134cbd3d919115c4f480d62f7ef4ab2e5e9c9db614ba008195d5d10066",
+    "seeds.json": "6deb06498aa3c6f8f470aeee31961ea38a34f62a68fb998836d668a58e468b07",
+    "sources.json": "0eed61ef76a999e19b4ce0bdf97e2c41c6f37e927cabfb17ab6bd2d730717fb8",
+    "summary.json": "6483d6e98c076397e4e448d413bbb35d77a6aa201c7954d29dd739d0bd3153a5",
+    "syntax_groups.jsonl": "7c8d72dd3d01d585b59923fe4fc8a08ee3f6bcd34c363e92b899b0023debf5ee",
+    "TASK.md": "d0ed412fa4b604053c14c93697a63862a87f74400141263eaa325110fa084f32",
+    "test_collect.py": "ba0cfe7ac0f6431ee55ebb4f30f9e4723ee02efd0e5cd8b1343b3960e9f131f8",
+    "validate.py": "d2662ab54c57d91b6f2833a3139b29d39dbaeebafe4e9857dddff62047595e46",
+    "validation.json": "6348b33bd1686037d0561fb8212622dcb0965e73c0028dc8c4306fd06a9afd30"
+  }
+}

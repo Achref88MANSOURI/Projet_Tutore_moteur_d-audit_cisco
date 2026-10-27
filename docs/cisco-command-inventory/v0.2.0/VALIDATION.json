@@ -1,0 +1,242 @@
+{
+  "status": "passed",
+  "baseline_files_unchanged": 22,
+  "legacy_candidates_accounted_for": 7296,
+  "catalogue_records_checked": 6969,
+  "anomalies_accounted_for": 261,
+  "frontier_documents_accounted_for": 1142,
+  "fixed_stratified_expectations_checked": 25,
+  "sample_results": [
+    {
+      "id": "exec-wrapper",
+      "stratum": "administration / operational boundary",
+      "expected": "excluded",
+      "catalogue_ids": [
+        "cmd-31d819eb45521a0262cd"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "switch-only-1712",
+      "stratum": "switch-only / IOS-XE 17.12 document",
+      "expected": "excluded",
+      "catalogue_ids": [
+        "cmd-b199c6e9c8bfee02812a"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "switch-only-1718",
+      "stratum": "switch-only / IOS-XE 17.18 document",
+      "expected": "excluded",
+      "catalogue_ids": [
+        "cmd-705bd633b2ab93bc81b1"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "issu-not-exec",
+      "stratum": "HA / false operational-prefix exclusion",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-61d3168bf3d9389d7746"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "webex-spa",
+      "stratum": "ASR 1000 / hardware condition",
+      "expected": "documented_config",
+      "catalogue_ids": [
+        "cmd-8781d737b4e2256483e2"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "aes-image",
+      "stratum": "ISR 800 / image condition",
+      "expected": "documented_config",
+      "catalogue_ids": [
+        "cmd-9722d28c8c44406de83e"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "protected-not-whole",
+      "stratum": "administration / option-level evidence",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-fb7587b609d245731e8e"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "strict-not-whole",
+      "stratum": "security / release-scoped keyword",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-13286f151f9582618a5a"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "bgp-generic",
+      "stratum": "routing / BGP",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-8501895e8eb3eeb086cc"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "ospf-generic",
+      "stratum": "routing / OSPF",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-831f211850374da74d1f"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "qos-class",
+      "stratum": "QoS / class-map",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-f47bf5c3c0e08c2a689f"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "qos-policy",
+      "stratum": "QoS / policy-map",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-edc4b9e80fe347916fdc"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "mpls",
+      "stratum": "MPLS",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-0da8d8f67be49aa073e4"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "nat",
+      "stratum": "VPN/security / NAT",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-f037b3c4ad46c2aac2c3"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "banner",
+      "stratum": "opaque multiline banner",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-9db2e86a9605886ec626"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "pki",
+      "stratum": "opaque certificate chain",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-1755280b24d851ae54f2"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "flow-modes",
+      "stratum": "NetFlow / multiple modes",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "cmd-3a53f864f9bab1b1f15d"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "isr800-saved",
+      "stratum": "ISR 800 / running-config",
+      "expected": "confirmed_config",
+      "catalogue_ids": [
+        "form-bb3c078389c12ef58d2d"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "isr1k-saved",
+      "stratum": "ISR 1000 / cellular interface",
+      "expected": "confirmed_config",
+      "catalogue_ids": [
+        "form-313750d6a99ab24214a5"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "isr4k-saved",
+      "stratum": "ISR 4000 / running-config",
+      "expected": "confirmed_config",
+      "catalogue_ids": [
+        "form-6bcaf02bc27d6bf97831"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "c8500-saved",
+      "stratum": "Catalyst 8500 / VRF context",
+      "expected": "confirmed_config",
+      "catalogue_ids": [
+        "form-ee059ef89a20cffe8b07"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "snmp-cli",
+      "stratum": "SNMP / router integrated switching",
+      "expected": "documented_config",
+      "catalogue_ids": [
+        "form-00e53937026c454d34f8"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "telemetry-cli",
+      "stratum": "telemetry / CLI versus persistence",
+      "expected": "documented_config",
+      "catalogue_ids": [
+        "form-a7d6d8379c50367741fe"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "pim-no-platform",
+      "stratum": "IPv4 multicast / missing target platform",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "form-67268afefe0aea3e6045"
+      ],
+      "result": "passed"
+    },
+    {
+      "id": "flow-no-platform",
+      "stratum": "NetFlow / exporter context",
+      "expected": "uncertain",
+      "catalogue_ids": [
+        "form-774b5701500204dce8ad"
+      ],
+      "result": "passed"
+    }
+  ],
+  "confirmed_instances_require_running_config_proof": true,
+  "parameterized_grammars_confirmed": 0,
+  "cache_byte_hashes_checked": 368,
+  "cache_verification_requested": true,
+  "runtime_or_templates_changed_in_delivery": false,
+  "device_validation": false
+}

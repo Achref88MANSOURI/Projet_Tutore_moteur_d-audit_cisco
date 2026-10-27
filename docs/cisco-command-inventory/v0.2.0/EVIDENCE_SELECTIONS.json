@@ -1,0 +1,59 @@
+[
+ {"source_id":"isr800-basic","kind":"running_config_output","platforms":["Cisco 881W"],"platform_marker":"for a Cisco 881W","start":"Current configuration : 986 bytes","end":"webvpn cef","configuration_version":"12.4","entries":[
+  ["ip routing","no ip routing","global",[]], ["ip cef","no ip cef","global",[]],
+  ["interface","interface FastEthernet4","global",[]], ["ip address","ip address 10.1.1.1 255.255.255.0","interface",["interface FastEthernet4"]],
+  ["ip route-cache","no ip route-cache","interface",["interface FastEthernet4"]], ["duplex","duplex auto","interface",["interface FastEthernet4"]],
+  ["speed","speed auto","interface",["interface FastEthernet4"]], ["ip unnumbered","ip unnumbered Vlan1","interface",["interface wlan-ap0"]],
+  ["cdp enable","no cdp enable","interface",["interface wlan-ap0"]], ["arp timeout","arp timeout 0","interface",["interface wlan-ap0"]],
+  ["ip route","ip route 0.0.0.0 0.0.0.0 10.1.1.1","global",[]], ["ip http server","no ip http server","global",[]],
+  ["ip http secure-server","no ip http secure-server","global",[]], ["transport input","transport input telnet ssh","line",["line vty 0 4"]],
+  ["archive","archive","global",[]], ["log config","log config","archive",["archive"]], ["hidekeys","hidekeys","archive-log-config",["archive","log config"]]
+ ]},
+ {"source_id":"isr4000-basic","kind":"running_config_output","platforms":["ISR 4000 document example; exact PID not identified"],"platform_marker":"Cisco 4000 Series ISRs Software Configuration Guide","start":"Current configuration : 977 bytes","end":"line vty 0 4","configuration_version":"15.3","entries":[
+  ["vrf definition","vrf definition Mgmt-intf","global",[]],
+  ["address-family","address-family ipv4","vrf-definition",["vrf definition Mgmt-intf"]],
+  ["address-family","address-family ipv6","vrf-definition",["vrf definition Mgmt-intf"]],
+  ["ipv6 multicast rpf use-bgp","ipv6 multicast rpf use-bgp","global",[]],
+  ["redundancy","redundancy","global",[]], ["mode","mode none","redundancy",["redundancy"]],
+  ["vrf forwarding","vrf forwarding Mgmt-intf","interface",["interface GigabitEthernet0"]]
+ ]},
+ {"source_id":"c8500-management","kind":"running_config_output","platforms":["Catalyst 8500/8500L document example; exact PID not identified"],"platform_marker":"Cisco Catalyst 8500 and 8500L Series Edge Platforms Software Configuration Guide","start":"Current configuration : 351 bytes","end":"some output removed for brevity","configuration_version":null,"entries":[
+  ["vrf definition","vrf definition Mgmt-intf","global",[]],
+  ["address-family","address-family ipv4","vrf-definition",["vrf definition Mgmt-intf"]],
+  ["address-family","address-family ipv6","vrf-definition",["vrf definition Mgmt-intf"]]
+ ]},
+ {"source_id":"isr800-snmp","kind":"cli_configuration_example","platforms":["ISR 800 integrated switching; exact model/module not identified"],"platform_marker":"Cisco 800 Series Integrated Services Routers Software Configuration Guide","entries":[
+  ["snmp-server community","snmp-server community public RW","global",[]],
+  ["snmp-server context","snmp-server context bridge-group","global",[]],
+  ["snmp mib community-map","snmp mib community-map public context bridge-group","global",[]]
+ ]},
+ {"source_id":"c8500-management","kind":"cli_configuration_example","platforms":["Catalyst 8500/8500L guide scope; feature/model restrictions still apply"],"platform_marker":"Cisco Catalyst 8500 and 8500L Series Edge Platforms Software Configuration Guide","entries":[
+  ["ip tftp source-interface","ip tftp source-interface gigabitethernet 0","global",[]],
+  ["ip ftp source-interface","ip ftp source-interface gigabitethernet 0","global",[]],
+  ["ntp server","ntp server vrf Mgmt-intf 172.17.1.1","global",[]],
+  ["snmp-server source-interface","snmp-server source-interface traps gigabitEthernet 0","global",[]],
+  ["aaa group server radius","aaa group server radius hello","global",[]],
+  ["ip vrf forwarding","ip vrf forwarding Mgmt-intf","server-group-radius",["aaa group server radius hello"]],
+  ["access-class","access-class 90 in vrf-also","line",["line vty 0 4"]]
+ ]},
+ {"source_id":"c8500-breakout","kind":"cli_configuration_example","platforms":["C8500-12X4QC; Bay 2 must be in 40G mode"],"platform_marker":"Bay 2","entries":[
+  ["hw-module subslot breakout","hw-module subslot 0/2 breakout 10g port native_port_0","global",[]],
+  ["hw-module subslot breakout","hw-module subslot 0/2 breakout none port all","global",[]]
+ ]},
+ {"source_id":"telemetry-1715","kind":"cli_configuration_example","platforms":["ISR 1000","ISR 4000","ASR 1000"],"platform_marker":"Model-Driven Telemetry gRPC Dial-Out","additional_markers":["Cisco IOS XE Gibraltar 16.10.1","Subscription is created as part of the running configuration"],"support_scope":"configured dial-out feature; no option-level support or exact supported-release range inferred","entries":[
+  ["telemetry ietf subscription","telemetry ietf subscription 101","global",[]],
+  ["telemetry ietf subscription","no telemetry ietf subscription 101","global",[]]
+ ]},
+ {"source_id":"pim-basic","kind":"native_example_unidentified_target_platform","platforms":[],"platform_marker":"Configuring Basic IP Multicast","entries":[
+  ["ip multicast-routing","ip multicast-routing","global",[]],
+  ["ip pim autorp listener","ip pim autorp listener","global",[]],
+  ["ip pim sparse-mode","ip pim sparse-mode","interface",["interface GigabitEthernet0/0/0"]],
+  ["ip pim bsr-candidate","ip pim bsr-candidate GigabitEthernet2/0/0 30 10","global",[]]
+ ]},
+ {"source_id":"fnf-guide-62bdb035","kind":"native_example_unidentified_target_platform","platforms":[],"platform_marker":"Flexible NetFlow","entries":[
+  ["flow exporter","flow exporter EXPORTER-1","global",[]],
+  ["destination","destination 172.16.10.2","flow-exporter",["flow exporter EXPORTER-1"]],
+  ["transport udp","transport udp 90","flow-exporter",["flow exporter EXPORTER-1"]],
+  ["ip flow monitor","ip flow monitor FLOW-MONITOR-1 input","interface",["interface GigabitEthernet0/0/0"]]
+ ]}
+]

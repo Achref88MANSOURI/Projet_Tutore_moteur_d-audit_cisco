@@ -1,0 +1,92 @@
+[
+  {
+    "id": "isr800-basic",
+    "kind": "platform_guide",
+    "platform_scope": [
+      "Cisco 881W",
+      "ISR 800"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/routers/access/800/software/configuration/guide/SCG800Guide/SCG800_Guide_BookMap_chapter_010.html"
+  },
+  {
+    "id": "isr800-snmp",
+    "kind": "platform_guide",
+    "platform_scope": [
+      "ISR 800 integrated switch module"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/routers/access/800/software/configuration/guide/SCG800Guide/SCG800_Guide_BookMap_chapter_0110.html"
+  },
+  {
+    "id": "isr4000-basic",
+    "kind": "platform_guide",
+    "platform_scope": [
+      "ISR 4000"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/routers/access/isr4400/software/configuration/xe-17/isr4400-sw-config-xe-17/basic_router_configuration.html"
+  },
+  {
+    "id": "c8500-overview",
+    "kind": "platform_guide",
+    "platform_scope": [
+      "Catalyst 8500 Edge"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/routers/cloud_edge/c8500/software-configuration-guide/c8500-software-config-guide/overview-of-c8500/overview-c8500.html"
+  },
+  {
+    "id": "c8500-cli",
+    "kind": "platform_guide",
+    "platform_scope": [
+      "Catalyst 8500 Edge"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/routers/cloud_edge/c8500/software-configuration-guide/c8500-software-config-guide/software-package-and-architecture/cisco-ios-xe-software.html"
+  },
+  {
+    "id": "pim-basic",
+    "kind": "technology_guide",
+    "platform_scope": [],
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipmulti_pim/configuration/xe-16-6/imc-pim-xe-16-6-book/imc-basic-cfg.html"
+  },
+  {
+    "id": "telemetry-1715",
+    "kind": "technology_guide",
+    "platform_scope": [],
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/prog/configuration/1715/b_1715_programmability_cg/model-driven-telemetry.html"
+  },
+  {
+    "id": "eem-reference",
+    "kind": "command_book",
+    "technology": "EEM",
+    "platform_scope": [],
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/eem/command/eem-cr-book.html"
+  },
+  {
+    "id": "eem-guide",
+    "kind": "guide_book",
+    "technology": "EEM",
+    "platform_scope": [],
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/eem/configuration/xe-16-12/eem-xe-16-12-book.html"
+  },
+  {
+    "id": "fnf-guide",
+    "kind": "guide_book",
+    "technology": "NetFlow",
+    "platform_scope": [],
+    "url": "https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fnetflow/configuration/xe-16-12/fnf-xe-17-book.html"
+  },
+  {
+    "id": "c8500-management",
+    "kind": "platform_guide",
+    "platform_scope": [
+      "Catalyst 8500 Edge"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/routers/cloud_edge/c8500/software-configuration-guide/c8500-software-config-guide/management-ethernet-interface/using-the-management-ethernet-interface.html"
+  },
+  {
+    "id": "c8500-breakout",
+    "kind": "platform_guide",
+    "platform_scope": [
+      "C8500-12X4QC"
+    ],
+    "url": "https://www.cisco.com/c/en/us/td/docs/routers/cloud_edge/c8500/software-configuration-guide/c8500-software-config-guide/overview-of-c8500/breakout-support.html"
+  }
+]
