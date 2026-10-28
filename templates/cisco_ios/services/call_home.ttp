@@ -1,0 +1,24 @@
+<group name="catalogue_call_home*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} call-home
+</group>
+
+<group name="catalogue_call_home_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} service call-home
+</group>
+
+<group name="catalogue_call_home_contact*" method="table">
+{{ source_line | DIGIT | to_int }} contact-email-addr {{ email }}
+</group>
+
+<group name="catalogue_call_home_profile*" method="table">
+{{ source_line | DIGIT | to_int }} profile {{ name }}
+</group>
+
+<group name="catalogue_call_home_active*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} active
+</group>
+
+<group name="catalogue_call_home_destination*" method="table">
+{{ source_line | DIGIT | to_int }} destination transport-method {{ transport }}
+</group>
+

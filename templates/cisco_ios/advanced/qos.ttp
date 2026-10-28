@@ -1,0 +1,44 @@
+<group name="advanced_qos_classmap*" method="table">
+{{ source_line | DIGIT | to_int }} class-map {{ mode }} {{ name }}
+</group>
+
+<group name="advanced_qos_policymap*" method="table">
+{{ source_line | DIGIT | to_int }} policy-map {{ name }}
+</group>
+
+<group name="advanced_qos_class*" method="table">
+{{ source_line | DIGIT | to_int }} class {{ name }}
+</group>
+
+<group name="advanced_qos_match_protocol*" method="table">
+{{ source_line | DIGIT | to_int }} match protocol {{ protocol }}
+</group>
+
+<group name="advanced_qos_match_dscp*" method="table">
+{{ source_line | DIGIT | to_int }} match dscp {{ dscp }}
+</group>
+
+<group name="advanced_qos_match_precedence*" method="table">
+{{ source_line | DIGIT | to_int }} match ip precedence {{ precedence }}
+</group>
+
+<group name="advanced_qos_match_acl*" method="table">
+{{ source_line | DIGIT | to_int }} match access-group name {{ acl }}
+</group>
+
+<group name="advanced_qos_set_dscp*" method="table">
+{{ source_line | DIGIT | to_int }} set dscp {{ dscp }}
+</group>
+
+<group name="advanced_qos_set_precedence*" method="table">
+{{ source_line | DIGIT | to_int }} set ip precedence {{ precedence }}
+</group>
+
+<group name="advanced_qos_priority*" method="table">
+{{ source_line | DIGIT | to_int }} priority percent {{ percent | DIGIT | to_int }}
+</group>
+
+<group name="advanced_qos_fair*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} fair-queue
+</group>
+

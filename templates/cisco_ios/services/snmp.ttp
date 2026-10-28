@@ -1,0 +1,20 @@
+<group name="services_snmp_community*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }} {{ acl }}
+</group>
+
+<group name="services_snmp_community_simple*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }}
+</group>
+
+<group name="services_snmp_location*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server location {{ value | ORPHRASE }}
+</group>
+
+<group name="services_snmp_contact*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server contact {{ value | ORPHRASE }}
+</group>
+
+<group name="catalogue_ifindex*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} snmp ifmib ifindex persist
+</group>
+

@@ -1,0 +1,24 @@
+<group name="catalogue_multilink*" method="table">
+{{ source_line | DIGIT | to_int }} multilink bundle-name {{ naming }}
+</group>
+
+<group name="catalogue_mmi_poll*" method="table">
+{{ source_line | DIGIT | to_int }} mmi polling-interval {{ interval | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_mmi_no_auto*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no mmi auto-configure
+</group>
+
+<group name="catalogue_mmi_no_pvc*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no mmi pvc
+</group>
+
+<group name="catalogue_mmi_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} mmi snmp-timeout {{ timeout | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_subscriber*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} subscriber templating
+</group>
+

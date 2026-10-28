@@ -1,0 +1,44 @@
+<group name="advanced_l2_evpn*" method="table">
+{{ source_line | DIGIT | to_int }} l2vpn evpn instance {{ instance | DIGIT | to_int }} {{ type }}
+</group>
+
+<group name="advanced_l2_evpn_global*" method="table" functions="set(True, declaration)">
+{{ source_line | DIGIT | to_int }} l2vpn evpn
+</group>
+
+<group name="advanced_l2_replication*" method="table">
+{{ source_line | DIGIT | to_int }} replication-type {{ type }}
+</group>
+
+<group name="advanced_l2_rid*" method="table">
+{{ source_line | DIGIT | to_int }} router-id {{ interface }}
+</group>
+
+<group name="advanced_l2_bridge*" method="table">
+{{ source_line | DIGIT | to_int }} bridge-domain {{ domain | DIGIT | to_int }}
+</group>
+
+<group name="advanced_l2_member*" method="table">
+{{ source_line | DIGIT | to_int }} member {{ member | ORPHRASE }}
+</group>
+
+<group name="advanced_l2_vfi*" method="table">
+{{ source_line | DIGIT | to_int }} l2 vfi {{ vfi | DIGIT | to_int }} {{ mode }}
+</group>
+
+<group name="advanced_l2_vpnid*" method="table">
+{{ source_line | DIGIT | to_int }} vpn id {{ vpn_id | DIGIT | to_int }}
+</group>
+
+<group name="advanced_l2_neighbor*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ address | IP }} encapsulation {{ encapsulation }}
+</group>
+
+<group name="advanced_vlan*" method="table">
+{{ source_line | DIGIT | to_int }} vlan {{ vlan }}
+</group>
+
+<group name="advanced_vlan_name*" method="table">
+{{ source_line | DIGIT | to_int }} name {{ name | ORPHRASE }}
+</group>
+

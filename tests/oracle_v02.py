@@ -23,11 +23,11 @@ EMPTY=[('F0456',98,'GigabitEthernet0/2'),('F0457',67,'GigabitEthernet0/1'),('F00
  ('F0055',81,'FastEthernet1/1'),('F0291',201,'GigabitEthernet2'),('F0344',190,'GigabitEthernet2'),('F0409',94,'GigabitEthernet0/3'),('F0410',94,'GigabitEthernet0/3')]
 for fid,line,interface in EMPTY:add(fid,line,'no ip address',{'empty':True},[('interfaces',{'name':interface})],'ipv4_addresses',[])
 BGP=[('routing/bgp',{'local_as':1,'network_instance':None})]
-add('F0001',90,'neighbor 1.10.1.1 update-source Loopback0',{'peer':'1.10.1.1','source':'Loopback0'},BGP+[('peer_options',{'peer':'1.10.1.1','kind':'neighbor'})],'update_source','Loopback0')
-add('F0001',109,'neighbor 1.10.1.1 activate',{'peer':'1.10.1.1','enabled':True},BGP+[('family_options',{'afi':'ipv4'}),('peers',{'peer':'1.10.1.1','kind':'neighbor'})],'active',True)
-add('F0001',104,'neighbor as2 route-map as2_to_as1 in',{'peer':'as2','policy':'as2_to_as1','direction':'in'},BGP+[('family_options',{'afi':'ipv4'}),('peers',{'peer':'as2','kind':'group'})],'import_policies',['as2_to_as1'])
-add('F0001',101,'neighbor as1 send-community',{'peer':'as1','option':'unspecified'},BGP+[('family_options',{'afi':'ipv4'}),('peers',{'peer':'as1','kind':'group'})],'send_community','command_without_option')
-add('F0001',113,'maximum-paths eibgp 5',{'type':'eibgp','count':5},BGP+[('family_options',{'afi':'ipv4'})],'maximum_paths',[{'type':'eibgp','count':5}])
+add('F0001',90,'neighbor 1.10.1.1 update-source Loopback0',{'peer':'1.10.1.1','source':'Loopback0'},BGP+[('neighbors',{'peer':'1.10.1.1','kind':'neighbor'})],'update_source','Loopback0')
+add('F0001',109,'neighbor 1.10.1.1 activate',{'peer':'1.10.1.1','enabled':True},BGP+[('address_families',{'afi':'ipv4'}),('peers',{'peer':'1.10.1.1','kind':'neighbor'})],'active',True)
+add('F0001',104,'neighbor as2 route-map as2_to_as1 in',{'peer':'as2','policy':'as2_to_as1','direction':'in'},BGP+[('address_families',{'afi':'ipv4'}),('peers',{'peer':'as2','kind':'group'})],'import_policies',['as2_to_as1'])
+add('F0001',101,'neighbor as1 send-community',{'peer':'as1','option':'unspecified'},BGP+[('address_families',{'afi':'ipv4'}),('peers',{'peer':'as1','kind':'group'})],'send_community','command_without_option')
+add('F0001',113,'maximum-paths eibgp 5',{'type':'eibgp','count':5},BGP+[('address_families',{'afi':'ipv4'})],'maximum_paths',[{'type':'eibgp','count':5}])
 for version,line in [(2,147),(3,194)]:add('F0049',line,'router-id 121.0.0.1',{'router_id':'121.0.0.1'},[('routing/ospf',{'identifier':'1','version':version})],'router_id','121.0.0.1')
 add('F0049',195,'area 1 virtual-link 121.0.0.3',{'area':'1','peer':'121.0.0.3'},[('routing/ospf',{'identifier':'1','version':3})],'virtual_links',[{'area':'1','peer_router_id':'121.0.0.3'}])
 add('F0049',200,'mpls ldp router-id Loopback0 force',{'interface':'Loopback0','option':'force'},[],'cisco/mpls/ldp/force',True)

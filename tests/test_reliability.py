@@ -3,8 +3,8 @@ from pathlib import Path
 import hashlib
 import json
 import pytest
-from parser.run_ttp import extract, public_native
-from normalizer.mapping import Mapper
+from parser.run_ttp import extract
+from normalizer.engine import NormalizationEngine
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -40,8 +40,8 @@ def test_login_logging_is_global_not_authentication():
 
 def test_redaction_preserves_credential_type_not_credential():
     text='username reader privilege 15 secret 9 CANARY_SECRET_123\n'
-    x=extract(text,official=False);doc=public_native(x)
-    assert doc['records'][0]['values']['credential_type']=='secret'
+    doc=normalize(text).model_dump(mode='json')
+    assert doc['system']['aaa']['local_users'][0]['credential_type']=='secret:9'
     assert 'CANARY_SECRET_123' not in json.dumps(doc)
 
 
@@ -56,7 +56,7 @@ def corpus_native():
 
 
 def test_all_359_previous_constant_losses_recovered(corpus_native):
-    expected=json.loads((ROOT/'baseline/fiabilisation_v01/outputs/diagnostic_pipeline/constant_fields.json').read_text())
+    expected=json.loads((ROOT/'tests/fixtures/constant_fields.json').read_text())
     assert len(expected)==359
     for fact in expected:
         actual=corpus_native[fact['file_id']]['records'][fact['line']]['values'][fact['field']]
@@ -74,55 +74,52 @@ def test_all_six_real_login_logging_lines_reclassified(corpus_native):
 
 def normalize(text):
     x=extract(text,official=False)
-    return Mapper(x,text,'expected.cfg','ios').run()
+    return NormalizationEngine(x,os_family='ios').run()
 
 
 def test_explicit_no_ip_address_is_not_ipv4_disabled():
     result=normalize('interface E1\n no ip address\n ip unnumbered Loopback0\n')
-    assert result.configuration.interfaces[0].ipv4_addresses==[]
-    assert any(e.path=='/configuration/interfaces/0/ipv4_addresses' and e.status=='explicit' and e.line_start==2 for e in result.evidence)
-    assert result.configuration.interfaces[0].admin_enabled is None
+    assert result.interfaces[0].ipv4_addresses==[]
+    assert result.interfaces[0].admin_enabled is None
 
 
 def test_no_address_after_positive_address_has_no_dangling_evidence():
     r=normalize('interface E1\n ip address 192.0.2.1 255.255.255.0\n no ip address\n')
-    assert not r.configuration.interfaces[0].ipv4_addresses
-    assert not any(e.path.endswith('/ipv4_addresses/0') for e in r.evidence)
+    assert not r.interfaces[0].ipv4_addresses
 
 
 def test_tunnel_unknown_technology_and_dual_source_evidence():
     r=normalize('interface Loopback0\n ip address 192.0.2.1 255.255.255.255\ninterface Tunnel0\n tunnel source Loopback0\n tunnel destination 198.51.100.1\n')
-    t=r.configuration.vpn_tunnels[0]
+    t=r.vpn_tunnels[0]
     assert (t.technology,t.local_endpoint,t.remote_endpoint)==('unknown','192.0.2.1','198.51.100.1')
-    assert {e.line_start for e in r.evidence if e.path=='/configuration/vpn_tunnels/0/local_endpoint'}=={2,4}
 
 
 def test_ambiguous_tunnel_source_is_not_resolved():
     r=normalize('interface Loopback0\n ip address 192.0.2.1 255.255.255.255\n ip address 192.0.2.2 255.255.255.255 secondary\ninterface Tunnel0\n tunnel source Loopback0\n tunnel destination 198.51.100.1\n')
-    assert r.configuration.vpn_tunnels[0].local_endpoint is None
+    assert r.vpn_tunnels[0].local_endpoint is None
 
 
 def test_transport_all_is_literal_wildcard_not_enumerated_protocols():
     r=normalize('line vty 0 4\n transport input all\n')
-    assert r.configuration.system.management.lines[0].allowed_transports==['all']
+    assert r.system.management.lines[0].allowed_transports==['all']
 
 
 def test_invalid_bgp_direction_has_no_partial_peer_credit():
     text='router bgp 65000\n neighbor 192.0.2.1 route-map P sideways\n'
     x=extract(text,official=False)
-    m=Mapper(x,text,'t.cfg','ios');r=m.run()
-    assert 2 in m.failed and 2 not in m.mapped
+    m=NormalizationEngine(x,os_family='ios');r=m.run()
+    assert not m.validation[2]['valid'] and 2 not in m.mapped
 
 
 def test_29_real_empty_address_declarations_and_real_tunnel():
     count=0
     for entry in json.loads((ROOT/'configs/manifest.json').read_text(encoding='utf-8')):
         text=(ROOT/entry['config_file']).read_text(encoding='utf-8-sig');x=extract(text,official=False)
-        m=Mapper(x,text,entry['config_file'],entry['os_family']);r=m.run()
+        m=NormalizationEngine(x,os_family=entry['os_family']);r=m.run()
         for rec in x['records'].values():
             if rec['rule']=='if_no_ipv4':
                 assert rec['source_line'] in m.mapped;count+=1
         if entry['id']=='F0456':
-            t=r.configuration.vpn_tunnels[0]
+            t=r.vpn_tunnels[0]
             assert (t.tunnel_interface,t.local_endpoint,t.remote_endpoint,t.technology)==('Tunnel0','94.45.227.2','195.177.253.41','unknown')
     assert count==29

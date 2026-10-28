@@ -1,0 +1,20 @@
+<group name="catalogue_rip*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} router rip
+</group>
+
+<group name="catalogue_rip_network*" method="table">
+{{ source_line | DIGIT | to_int }} network {{ network | IP }}
+</group>
+
+<group name="catalogue_rip_family*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} vrf {{ vrf }}
+</group>
+
+<group name="catalogue_rip_redistribute*" method="table">
+{{ source_line | DIGIT | to_int }} redistribute bgp {{ local_as }} metric {{ metric | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_rip_no_summary*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no auto-summary
+</group>
+

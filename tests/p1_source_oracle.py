@@ -16,7 +16,7 @@ def source_asn(text):
 def check(text,row,doc):
     """Assert literal source values at independently selected contract locations."""
     line=text.splitlines()[row['line']-1].strip();tokens=line.split();rule=row['rule']
-    c=doc['configuration'];x=c['cisco'];parents=row['context']
+    c=doc;x=c['cisco'];parents=row['context']
     def equal(actual,expected):assert actual==expected and type(actual) is type(expected)
     if rule.startswith('policy_'):
         head=parents[0].split();policy=one(c['routing']['routing_policies'],name=head[1])
@@ -30,7 +30,12 @@ def check(text,row,doc):
         }[rule]
         assert line.startswith(prefix)
         value=line[len(prefix):]
-        assert any(o['kind']==kind and o['value']==value for o in statement['matches' if rule.startswith('policy_match') else 'actions'])
+        objects=statement['matches' if rule.startswith('policy_match') else 'actions']
+        if rule.startswith('policy_match'):assert any(o['kind']==kind and o['name']==value for o in objects)
+        elif kind=='as_path_prepend':assert any(o['kind']==kind and o['as_numbers']==[source_asn(t) for t in value.split()] for o in objects)
+        else:
+            tokens=value.split();additive=tokens[-1]=='additive'
+            assert any(o['kind']==kind and o['communities']==(tokens[:-1] if additive else tokens) and o['additive']==additive for o in objects)
         return
     if rule in ('bgp_network','bgp_advertise_additional','bgp_no_auto_summary','bgp_no_sync','catalogue_allowas'):
         asn=source_asn(parents[0].split()[-1]);af=next((p.split() for p in parents if p.startswith('address-family ')),None)
@@ -39,10 +44,10 @@ def check(text,row,doc):
         if rule=='bgp_network':
             first=int(tokens[1].split('.')[0]);length=8 if first<128 else 16 if first<192 else 24
             assert any(n['prefix']==tokens[1]+'/'+str(length) for n in proc['networks']);return
-        owner=one(proc['family_options'],afi=af[1],safi=af[2] if len(af)>2 and af[2]!='vrf' else None) if af else proc
+        owner=one(proc['address_families'],afi=af[1],safi=af[2] if len(af)>2 and af[2]!='vrf' else None) if af else proc
         if rule in ('bgp_no_auto_summary','bgp_no_sync'):equal(owner['auto_summary' if rule=='bgp_no_auto_summary' else 'synchronization'],False)
         else:
-            peer=one(owner['peers'] if af else owner['peer_options'],peer=tokens[1])
+            peer=(one(owner['peers'],peer=tokens[1]) if af else one(owner['peer_groups'],name=tokens[1]) if any(p['name']==tokens[1] for p in owner['peer_groups']) else one(owner['neighbors'],peer=tokens[1]))
             if rule=='bgp_advertise_additional':equal(peer['additional_paths_advertise_selection'],tokens[-1])
             else:equal(peer['allowas_in'],{'enabled':True,'configured_max_occurrences':None})
         return

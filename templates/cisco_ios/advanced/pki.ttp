@@ -1,0 +1,28 @@
+<group name="advanced_pki_chain*" method="table">
+{{ source_line | DIGIT | to_int }} crypto pki certificate chain {{ name }}
+</group>
+
+<group name="advanced_pki_trust*" method="table">
+{{ source_line | DIGIT | to_int }} crypto pki trustpoint {{ name }}
+</group>
+
+<group name="advanced_pki_certificate*" method="table">
+{{ source_line | DIGIT | to_int }} certificate {{ type }} {{ identifier }}
+</group>
+
+<group name="advanced_pki_enrollment*" method="table">
+{{ source_line | DIGIT | to_int }} enrollment {{ method }}
+</group>
+
+<group name="advanced_pki_revocation*" method="table">
+{{ source_line | DIGIT | to_int }} revocation-check {{ method }}
+</group>
+
+<group name="advanced_pki_subject*" method="table">
+{{ source_line | DIGIT | to_int }} subject-name {{ subject | ORPHRASE }}
+</group>
+
+<group name="advanced_pki_keypair*" method="table">
+{{ source_line | DIGIT | to_int }} rsakeypair {{ name }}
+</group>
+

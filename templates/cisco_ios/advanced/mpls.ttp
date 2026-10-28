@@ -1,0 +1,12 @@
+<group name="advanced_mpls_ldp*" method="table">
+{{ source_line | DIGIT | to_int }} mpls ldp router-id {{ interface }} {{ option }}
+</group>
+
+<group name="advanced_mpls_label*" method="table">
+{{ source_line | DIGIT | to_int }} mpls label protocol {{ protocol }}
+</group>
+
+<group name="advanced_mpls_ldp_no_option*" method="table">
+{{ source_line | DIGIT | to_int }} mpls ldp router-id {{ interface }}
+</group>
+

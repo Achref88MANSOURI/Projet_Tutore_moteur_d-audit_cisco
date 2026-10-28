@@ -1,0 +1,84 @@
+<group name="services_ssh_version*" method="table">
+{{ source_line | DIGIT | to_int }} ip ssh version {{ version }}
+</group>
+
+<group name="services_http_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip http server
+</group>
+
+<group name="services_http_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip http server
+</group>
+
+<group name="services_https_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip http secure-server
+</group>
+
+<group name="services_https_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip http secure-server
+</group>
+
+<group name="services_line*" method="table">
+{{ source_line | DIGIT | to_int }} line {{ name | ORPHRASE }}
+</group>
+
+<group name="services_transport*" method="table">
+{{ source_line | DIGIT | to_int }} transport input {{ transports | ORPHRASE }}
+</group>
+
+<group name="services_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} exec-timeout {{ minutes | DIGIT | to_int }} {{ seconds | DIGIT | to_int }}
+</group>
+
+<group name="services_timeout_minutes*" method="table">
+{{ source_line | DIGIT | to_int }} exec-timeout {{ minutes | DIGIT | to_int }}
+</group>
+
+<group name="services_access_class*" method="table">
+{{ source_line | DIGIT | to_int }} access-class {{ acl }} {{ direction }}
+</group>
+
+<group name="services_login*" method="table">
+{{ source_line | DIGIT | to_int }} login {{ method | ORPHRASE }}
+</group>
+
+<group name="services_login_plain*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} login
+</group>
+
+<group name="services_banner*" method="table">
+{{ source_line | DIGIT | to_int }} banner {{ type }} {{ delimiter }}
+</group>
+
+<group name="services_line_synchronous*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} logging synchronous
+</group>
+
+<group name="services_line_privilege*" method="table">
+{{ source_line | DIGIT | to_int }} privilege level {{ level | DIGIT | to_int }}
+</group>
+
+<group name="services_line_stopbits*" method="table">
+{{ source_line | DIGIT | to_int }} stopbits {{ bits | DIGIT | to_int }}
+</group>
+
+<group name="services_line_length*" method="table">
+{{ source_line | DIGIT | to_int }} length {{ length | DIGIT | to_int }}
+</group>
+
+<group name="services_line_preferred*" method="table">
+{{ source_line | DIGIT | to_int }} transport preferred {{ transports | ORPHRASE }}
+</group>
+
+<group name="services_http_auth*" method="table">
+{{ source_line | DIGIT | to_int }} ip http authentication {{ method }}
+</group>
+
+<group name="catalogue_console*" method="table">
+{{ source_line | DIGIT | to_int }} platform console {{ transport }}
+</group>
+
+<group name="catalogue_alias*" method="table">
+{{ source_line | DIGIT | to_int }} alias exec {{ name }} {{ expansion | ORPHRASE }}
+</group>
+

@@ -1,0 +1,64 @@
+<group name="services_nat_static*" method="table">
+{{ source_line | DIGIT | to_int }} ip nat inside source static {{ inside | IP }} {{ outside | IP }}
+</group>
+
+<group name="services_nat_static_extendable*" method="table" functions="set(True, extendable)">
+{{ source_line | DIGIT | to_int }} ip nat inside source static {{ inside | IP }} {{ outside | IP }} extendable
+</group>
+
+<group name="services_source_route_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip source-route
+</group>
+
+<group name="services_ipv6_routing*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ipv6 unicast-routing
+</group>
+
+<group name="services_community_expanded*" method="table">
+{{ source_line | DIGIT | to_int }} ip community-list expanded {{ name }} {{ action }} {{ expression | ORPHRASE }}
+</group>
+
+<group name="catalogue_control_plane*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} control-plane
+</group>
+
+<group name="catalogue_forward_protocol*" method="table">
+{{ source_line | DIGIT | to_int }} ip forward-protocol {{ protocol }}
+</group>
+
+<group name="catalogue_cef*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip cef
+</group>
+
+<group name="catalogue_cef6*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ipv6 cef
+</group>
+
+<group name="catalogue_no_cef6*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ipv6 cef
+</group>
+
+<group name="catalogue_spanning_system_id*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} spanning-tree extend system-id
+</group>
+
+<group name="catalogue_icmp_no_limit*" method="table" functions="set(False, limited)">
+{{ source_line | DIGIT | to_int }} no ip icmp rate-limit unreachable
+</group>
+
+<group name="catalogue_synwait*" method="table">
+{{ source_line | DIGIT | to_int }} ip tcp synwait-time {{ seconds | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_bgp_community_format*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip bgp-community new-format
+</group>
+
+<group name="catalogue_msdp_peer*" method="table">
+{{ source_line | DIGIT | to_int }} ip msdp peer {{ address | IP }} connect-source {{ interface }}
+</group>
+
+<group name="catalogue_msdp_cache*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip msdp cache-sa-state
+</group>
+

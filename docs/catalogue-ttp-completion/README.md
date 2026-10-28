@@ -1,5 +1,7 @@
 # Finalisation du parseur sur catalogue
 
+> Résultats historiques. La maintenance actuelle des templates est décrite dans
+> [le guide des templates](../../templates/README.md) et ne comporte aucune génération préalable.
 
 Branche `feature/catalogue-ttp-completion` ; base préservée `0a94e30`. Sources et inventaires documentaires inchangés.
 
@@ -43,16 +45,13 @@ Aucune migration de schéma. Aucune valeur implicite inventée pour un secret sa
 Sources Cisco pour les ambiguïtés de contexte : [auto-summary BGP](https://www.cisco.com/c/en/us/td/docs/ios/iproute_bgp/command/reference/irg_book/irg_bgp1.html), [synchronization](https://www.cisco.com/c/en/us/td/docs/ios/iproute_bgp/command/reference/irg_book/irg_bgp5.html), [exemples BGP IOS-XE 16.7](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_bgp/configuration/xe-16-7/irg-xe-16-7-book.pdf), [authentification HTTP IOS-XE 17](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/https/configuration/xe-17/https-xe-17-book/HTTP_1-1_Web_Server_and_Client.html). Les autres ajouts transcrivent les syntaxes réellement observées, sans prétendre établir leur compatibilité sur d’autres releases.
 
 
-## Reproduction
+## Maintenance et vérification actuelles
 
-Les sources privées doivent être présentes dans le dossier frère catalogue, et les 20 fixtures historiques dans configs/. Les règles générées sont versionnées. Exécuter avec le Python du projet :
+Les sources privées doivent être présentes dans le dossier frère catalogue, et les fixtures historiques dans configs/. Les règles se maintiennent directement dans les `.ttp`, avec leurs restrictions dans `rule_metadata.json`. La vérification courante utilise dix configurations représentatives :
 
 ```text
-python tools/build_templates.py
-python -m pytest tests -q --junitxml=outputs/catalogue_ttp_completion/final_tests.xml
-python tools/catalogue_audit.py final
-python tools/catalogue_verify.py
-python tools/catalogue_report.py
+python -B tools/validate_normalized.py
+python -B -m pytest tests/test_ttp_loading.py tests/test_catalogue_completion.py -q -p no:cacheprovider --basetemp=outputs/pytest_ttp
 ```
 
 La référence initiale est immuable : ne pas relancer baseline sur les règles corrigées. Pour la reconstituer dans un environnement neuf, utiliser le commit 0a94e30 avec les outils d’audit, sans copier de nouveau code du parseur dans cette référence. Les livrables détaillés locaux sont dans outputs/catalogue_ttp_completion/ ; ils ne sont pas committés car ils indexent le corpus privé. Les métriques agrégées et les contrôles sont versionnés ici.

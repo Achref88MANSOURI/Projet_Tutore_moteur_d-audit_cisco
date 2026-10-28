@@ -1,0 +1,24 @@
+<group name="services_domain*" method="table">
+{{ source_line | DIGIT | to_int }} ip domain-name {{ domain }}
+</group>
+
+<group name="services_domain_alt*" method="table">
+{{ source_line | DIGIT | to_int }} ip domain name {{ domain }}
+</group>
+
+<group name="services_dns*" method="table">
+{{ source_line | DIGIT | to_int }} ip name-server {{ addresses | ORPHRASE }}
+</group>
+
+<group name="services_lookup_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip domain lookup
+</group>
+
+<group name="catalogue_dns_view*" method="table">
+{{ source_line | DIGIT | to_int }} ip dns view vrf {{ vrf }} {{ name }}
+</group>
+
+<group name="catalogue_domain_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip domain lookup source-interface {{ interface }}
+</group>
+

@@ -1,0 +1,12 @@
+<group name="advanced_isis*" method="table">
+{{ source_line | DIGIT | to_int }} router isis {{ process }}
+</group>
+
+<group name="advanced_isis_net*" method="table">
+{{ source_line | DIGIT | to_int }} net {{ net }}
+</group>
+
+<group name="advanced_isis_passive*" method="table">
+{{ source_line | DIGIT | to_int }} passive-interface {{ interface }}
+</group>
+

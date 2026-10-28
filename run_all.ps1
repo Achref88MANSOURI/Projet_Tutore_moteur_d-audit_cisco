@@ -3,12 +3,9 @@ Push-Location $PSScriptRoot
 try {
     $pythonExe = Join-Path $PSScriptRoot '.venv\Scripts\python.exe'
     if (-not (Test-Path -LiteralPath $pythonExe)) { throw 'Run setup.ps1 first.' }
-    & $pythonExe tools\evaluate_twenty.py --pilot
-    if ($LASTEXITCODE -ne 0) { throw 'Pilot evaluation failed.' }
-    & $pythonExe tools\evaluate_twenty.py
+    & $pythonExe -B tools\validate_normalized.py
     if ($LASTEXITCODE -ne 0) { throw 'Corpus evaluation failed.' }
-    & $pythonExe -m pytest tests -q -p no:cacheprovider --junitxml=outputs/tests.xml
+    $testTemp = Join-Path 'outputs' ('pytest_' + [guid]::NewGuid().ToString('N').Substring(0,12))
+    & $pythonExe -B -m pytest tests -q -p no:cacheprovider --basetemp=$testTemp --junitxml=outputs/tests.xml
     if ($LASTEXITCODE -ne 0) { throw 'Behavioral tests failed.' }
-    & $pythonExe tools\build_report.py
-    if ($LASTEXITCODE -ne 0) { throw 'Report generation failed.' }
 } finally { Pop-Location }

@@ -1,0 +1,27 @@
+<group name="advanced_pim_rp*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim rp-address {{ address | IP }}
+</group>
+
+<group name="advanced_multicast*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip multicast-routing
+</group>
+
+<group name="catalogue_pim_autorp*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip pim autorp listener
+</group>
+
+<group name="catalogue_pim_discovery*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim send-rp-discovery scope {{ scope | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_pim_ssm*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim ssm {{ range }}
+</group>
+
+<group name="catalogue_pim_bsr*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim bsr-candidate {{ interface }} {{ hash_mask | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_pim_rp_candidate*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim rp-candidate {{ interface }}
+</group>

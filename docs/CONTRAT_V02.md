@@ -1,3 +1,5 @@
+> Document historique. Le pipeline et le contrat actifs sont décrits dans le README à la racine.
+
 # Contrat actuel : NormalizedConfig 0.2.1
 
 La mission P1 autorisée publie les ajouts sous 0.2.1. La CLI utilise cette version

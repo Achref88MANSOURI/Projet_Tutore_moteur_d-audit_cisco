@@ -1,22 +1,163 @@
 """Execute frozen official templates and source-numbered project TTP groups."""
 from collections import defaultdict
-import hashlib
-from importlib.metadata import version
+from dataclasses import dataclass
 import json
+import logging
 from pathlib import Path
 import re
+from xml.etree import ElementTree
 
 from ttp import ttp
 from ttp_templates import get_template
-from .inventory import inventory, ancestors, redacted
+from .inventory import inventory, ancestors
 
 ROOT = Path(__file__).resolve().parents[1]
+LOGGER = logging.getLogger(__name__)
 OFFICIAL = {
     'interfaces': 'cisco_ios_show_running_config_pipe_section_interface.txt',
     'vrfs': 'cisco_ios_show_running_config_pipe_section_vrf.txt',
     'bgp_asns': 'cisco_ios_show_running_config_pipe_section_router_bgp.txt',
     'nat_static': 'cisco_ios_show_running_config_pipe_include_source_static.txt',
 }
+REQUIRED_OFFICIAL = frozenset({'interfaces', 'vrfs'})
+
+
+class OfficialTemplateError(RuntimeError):
+    """A safe, identifiable failure of an installed or frozen TTP template."""
+
+    def __init__(self, template_id, code, stage, cause_type=None):
+        self.template_id = template_id
+        self.code = code
+        self.stage = stage
+        self.cause_type = cause_type
+        suffix = f' ({cause_type})' if cause_type else ''
+        super().__init__(f'Official TTP template {template_id}: {code} at {stage}{suffix}')
+
+
+def run_official_template(name, filename, text):
+    """Keep template failures distinct from a successfully parsed empty result."""
+    try:
+        template = get_template(path='platform/' + filename)
+    except (OSError, ImportError) as exc:
+        raise OfficialTemplateError(name, 'unavailable', 'load', type(exc).__name__) from None
+    except Exception as exc:
+        raise OfficialTemplateError(name, 'load_error', 'load', type(exc).__name__) from None
+    if not isinstance(template, str) or not template.strip():
+        raise OfficialTemplateError(name, 'unavailable', 'load')
+
+    frozen = ROOT / 'templates/upstream' / filename
+    try:
+        frozen_template = frozen.read_text(encoding='utf-8')
+    except FileNotFoundError as exc:
+        raise OfficialTemplateError(name, 'snapshot_missing', 'snapshot', type(exc).__name__) from None
+    except (OSError, UnicodeError) as exc:
+        raise OfficialTemplateError(name, 'snapshot_unavailable', 'snapshot', type(exc).__name__) from None
+    if frozen_template != template:
+        raise OfficialTemplateError(name, 'version_mismatch', 'snapshot')
+
+    try:
+        engine = ttp(data=text, template=template)
+        engine.parse(one=True)
+    except Exception as exc:
+        raise OfficialTemplateError(name, 'execution_error', 'parse', type(exc).__name__) from None
+    try:
+        result = engine.result()
+    except Exception as exc:
+        raise OfficialTemplateError(name, 'execution_error', 'result', type(exc).__name__) from None
+    if result is None:
+        raise OfficialTemplateError(name, 'execution_error', 'result', 'NoneResult')
+    return result
+
+# Command families emitted by inventory.root_family; directory domains may differ.
+TEMPLATE_FAMILIES = frozenset({
+    'interfaces', 'bgp', 'ospf', 'vrf', 'acl_standard', 'acl_extended',
+    'policies', 'prefix', 'routes', 'advanced', 'services',
+})
+
+
+@dataclass(frozen=True, slots=True)
+class TemplateSource:
+    path: str
+    source: str
+    rule_ids: tuple[str, ...]
+
+
+def template_family(relative_path):
+    """The nearest family directory owns a file; flat files use their stem."""
+    # RIP is still classified as services by the unchanged source inventory.
+    if relative_path.as_posix() == 'routing/rip.ttp':
+        return 'services'
+    for part in reversed(relative_path.parts[:-1]):
+        if part in TEMPLATE_FAMILIES:
+            return part
+    if relative_path.stem in TEMPLATE_FAMILIES:
+        return relative_path.stem
+    raise ValueError(f'No command family associated with template {relative_path.as_posix()}')
+
+
+def load_templates(template_directory=None):
+    """Read rule identities/patterns and the exact source passed to TTP.
+
+    Project groups are flat tables with one numbered capture line. Constants,
+    regex variables and conversion functions remain owned and executed by TTP.
+    Only context restrictions and allowed choices come from the metadata file.
+    Each family owns an ordered tuple of independent template sources. Rule
+    identifiers remain unique across every discovered file and directory.
+    """
+    directory = Path(template_directory) if template_directory is not None else ROOT / 'templates'
+    metadata = json.loads((directory / 'rule_metadata.json').read_text(encoding='utf-8'))
+    if not isinstance(metadata, dict):
+        raise ValueError('Rule metadata must be indexed by rule identifier')
+    for identifier, restrictions in metadata.items():
+        if not isinstance(restrictions, dict) or not restrictions or set(restrictions) - {'scope', 'choices'}:
+            raise ValueError(f'Invalid metadata for rule {identifier}')
+        if 'scope' in restrictions:
+            scope = restrictions['scope']
+            if not isinstance(scope, str) or not (scope == 'global' or scope.startswith('root:') and scope[5:].strip()):
+                raise ValueError(f'Invalid scope for rule {identifier}')
+        if 'choices' in restrictions:
+            choices = restrictions['choices']
+            if not isinstance(choices, dict) or not choices or any(
+                not isinstance(field, str) or not isinstance(allowed, list) or not allowed
+                for field, allowed in choices.items()
+            ):
+                raise ValueError(f'Invalid choices for rule {identifier}')
+
+    definitions, templates = {}, defaultdict(list)
+    prefix = re.compile(r'^{{\s*source_line\s*\|\s*DIGIT\s*\|\s*to_int\s*}}\s+')
+    template_root = directory / 'cisco_ios'
+    paths = sorted(template_root.rglob('*.ttp'), key=lambda path: path.relative_to(template_root).as_posix())
+    for path in paths:
+        relative_path = path.relative_to(template_root)
+        family = template_family(relative_path)
+        source = path.read_text(encoding='utf-8')
+        document = ElementTree.fromstring('<template>' + source + '</template>')
+        groups = document.findall('group')
+        if not groups:
+            raise ValueError(f'No rule groups in {path.name}')
+        identifiers = []
+        for group in groups:
+            name = group.get('name', '')
+            if not re.fullmatch(r'\w+\*', name) or group.get('method') != 'table' or len(group):
+                raise ValueError(f'Expected a flat named table group in {path.name}')
+            identifier = name[:-1]
+            if identifier in definitions:
+                raise ValueError(f'Duplicate TTP rule identifier: {identifier}')
+            lines = [line.strip() for line in (group.text or '').splitlines() if line.strip()]
+            if len(lines) != 1 or not prefix.match(lines[0]):
+                raise ValueError(f'Expected one source-numbered capture line for rule {identifier}')
+            pattern = prefix.sub('', lines[0], count=1)
+            if not pattern:
+                raise ValueError(f'Empty capture pattern for rule {identifier}')
+            definitions[identifier] = {'pattern': pattern, **metadata.get(identifier, {})}
+            identifiers.append(identifier)
+        templates[family].append(TemplateSource(relative_path.as_posix(), source, tuple(identifiers)))
+    if not templates:
+        raise ValueError('No project TTP templates found')
+    unknown = set(metadata) - set(definitions)
+    if unknown:
+        raise ValueError('Metadata refers to unknown TTP rules: ' + ', '.join(sorted(unknown)))
+    return definitions, {family: tuple(sources) for family, sources in templates.items()}
 
 
 def complete_line(pattern,text):
@@ -40,20 +181,6 @@ def scope_allowed(definition,node,nodes):
     return True
 
 
-def clean_json(value, key=''):
-    if isinstance(value, dict):
-        return {k: clean_json(v, k) for k, v in value.items()}
-    if isinstance(value, list):
-        return [clean_json(v, key) for v in value]
-    if isinstance(value, str):
-        if key == 'credential_type' and value in ('secret','password'):
-            return value
-        if key in ('community_secret', 'password', 'secret', 'credential', 'serial'):
-            return '[REDACTED]'
-        return redacted(value)
-    return value
-
-
 def flatten_records(value):
     if isinstance(value, list):
         for item in value:
@@ -68,94 +195,70 @@ def flatten_records(value):
 
 def extract(text, *, official=True):
     nodes = inventory(text)
-    rules = json.loads((ROOT / 'templates/rules.json').read_text(encoding='utf-8'))
-    definitions = {r['id']: r for r in rules}
+    definitions, templates = load_templates()
     grouped = defaultdict(list)
     for node in nodes.values():
         if node.kind == 'command' or node.kind == 'boundary':
             grouped[node.family].append(f'{node.line} {node.text}')
     records, candidates = {}, defaultdict(list)
     for family, data in grouped.items():
-        template = ROOT / 'templates/cisco_ios' / (family + '.ttp')
-        if not template.is_file():
-            continue
-        engine = ttp(data='\n'.join(data) + '\n', template=template.read_text(encoding='utf-8'))
-        engine.parse(one=True)
-        for result in engine.result()[0]:
-            if not isinstance(result, dict):
-                continue
-            for rule, values in result.items():
-                for record in flatten_records(values):
-                    line = record['source_line']
-                    definition = definitions[rule]
-                    if any(record.get(k) not in allowed for k,allowed in definition.get('choices',{}).items()):continue
-                    if not scope_allowed(definition,nodes[line],nodes) or not complete_line(definition['pattern'],nodes[line].text):continue
-                    if rule in ('services_login','services_login_plain'):
-                        if not nodes[nodes[line].root].text.startswith('line '):
-                            continue
-                        if rule=='services_login' and not (record.get('method')=='local' or re.fullmatch(r'authentication \S+',record.get('method',''))):continue
-                    if rule.startswith('services_line_') and not nodes[nodes[line].root].text.startswith('line '):continue
-                    global_rules={'services_login_logging','services_timestamp','services_timestamp_plain','services_console_off','services_source_route_off',
-                        'services_lookup_off','services_password_encryption_off','services_ipv6_routing','services_http_auth','services_community_expanded',
-                        'services_flow_source','services_flow_version','services_flow_timeout'}
-                    if rule in global_rules and nodes[line].parent is not None:continue
-                    if rule in ('if_bridge_domain','if_encap_untagged') and not any(nodes[a.line].text.startswith('service instance ') for a in ancestors(nodes[line],nodes)):continue
-                    # Specific fixed keywords take precedence over greedy text.
-                    literal = re.sub(r'\{\{.*?\}\}', '', definition['pattern'])
-                    score = len(literal.split()) * 20 - definition['pattern'].count('ORPHRASE') * 5
-                    score += 30 * sum(key in record for key in ('source_port', 'destination_port'))
-                    score += 10 * sum(key in record for key in ('distance', 'sequence'))
-                    if family == 'routes' and 'interface' in record:
-                        from ipaddress import ip_address
-                        try:
-                            ip_address(record['interface'])
-                            continue
-                        except ValueError:
-                            pass
-                        try:
-                            ip_address(record['hop'])
-                        except ValueError:
-                            continue
-                    candidates[line].append((score, rule, {k: v for k, v in record.items() if k not in ('source_line','_ignore_')}))
-    selection={}
+        for template in templates.get(family, ()):
+            engine = ttp(data='\n'.join(data) + '\n', template=template.source)
+            engine.parse(one=True)
+            for result in engine.result()[0]:
+                if not isinstance(result, dict):
+                    continue
+                for rule, values in result.items():
+                    for record in flatten_records(values):
+                        line = record['source_line']
+                        definition = definitions[rule]
+                        if any(record.get(k) not in allowed for k,allowed in definition.get('choices',{}).items()):continue
+                        if not scope_allowed(definition,nodes[line],nodes) or not complete_line(definition['pattern'],nodes[line].text):continue
+                        if rule in ('services_login','services_login_plain'):
+                            if not nodes[nodes[line].root].text.startswith('line '):
+                                continue
+                            if rule=='services_login' and not (record.get('method')=='local' or re.fullmatch(r'authentication \S+',record.get('method',''))):continue
+                        if rule.startswith('services_line_') and not nodes[nodes[line].root].text.startswith('line '):continue
+                        global_rules={'services_login_logging','services_timestamp','services_timestamp_plain','services_console_off','services_source_route_off',
+                            'services_lookup_off','services_password_encryption_off','services_ipv6_routing','services_http_auth','services_community_expanded',
+                            'services_flow_source','services_flow_version','services_flow_timeout'}
+                        if rule in global_rules and nodes[line].parent is not None:continue
+                        if rule in ('if_bridge_domain','if_encap_untagged') and not any(nodes[a.line].text.startswith('service instance ') for a in ancestors(nodes[line],nodes)):continue
+                        # Specific fixed keywords take precedence over greedy text.
+                        literal = re.sub(r'\{\{.*?\}\}', '', definition['pattern'])
+                        score = len(literal.split()) * 20 - definition['pattern'].count('ORPHRASE') * 5
+                        score += 30 * sum(key in record for key in ('source_port', 'destination_port'))
+                        score += 10 * sum(key in record for key in ('distance', 'sequence'))
+                        if family == 'routes' and 'interface' in record:
+                            from ipaddress import ip_address
+                            try:
+                                ip_address(record['interface'])
+                                continue
+                            except ValueError:
+                                pass
+                            try:
+                                ip_address(record['hop'])
+                            except ValueError:
+                                continue
+                        candidates[line].append((score, rule, {k: v for k, v in record.items() if k not in ('source_line','_ignore_')}))
+    ambiguous_lines=set()
     for line, items in candidates.items():
         ranked=sorted(items,key=lambda x:(-x[0],x[1]));score, rule, values=ranked[0]
         top=[item for item in ranked if item[0]==score]
         ambiguous=len({json.dumps(item[2],sort_keys=True) for item in top})>1
-        selection[line]={'selected_rule':rule,'candidate_rules':[item[1] for item in ranked],
-            'scores':[item[0] for item in ranked],'ambiguous':ambiguous}
+        if ambiguous:ambiguous_lines.add(line)
         node = nodes[line]
         records[line] = {'rule': rule, 'values': values, 'source_line': line,
                          'root_line': node.root, 'family': node.family,
                          'context_lines': [x.line for x in ancestors(node, nodes)]}
-        if definitions[rule].get('native_domain'):records[line]['native_domain']=definitions[rule]['native_domain']
-    official_results, official_errors, official_hashes = {}, [], {}
+    official_results = {}
     if official:
         for name, filename in OFFICIAL.items():
             try:
-                template = get_template(path='platform/' + filename)
-                official_hashes[name] = hashlib.sha256(template.encode()).hexdigest()
-                frozen = ROOT / 'templates/upstream' / filename
-                if frozen.is_file() and hashlib.sha256(frozen.read_text(encoding='utf-8').encode()).hexdigest() != official_hashes[name]:
-                    raise ValueError('Installed upstream template differs from the frozen snapshot')
-                engine = ttp(data=text, template=template)
-                engine.parse(one=True)
-                official_results[name] = engine.result()
-            except Exception as exc:
-                # Do not echo configurations or validation exception payloads.
-                official_errors.append({'template': name, 'error_type': type(exc).__name__})
+                official_results[name] = run_official_template(name, filename, text)
+            except OfficialTemplateError as exc:
+                if name in REQUIRED_OFFICIAL:
+                    raise
+                LOGGER.warning('%s', exc)
                 official_results[name] = None
-    return {'nodes': nodes, 'records': records, 'official': official_results, 'selection':selection,
-            'official_errors': official_errors, 'official_template_hashes': official_hashes,
-            'versions': {'ttp': version('ttp'), 'ttp_templates': version('ttp-templates')}}
-
-
-def public_native(extracted):
-    return clean_json({
-        'engine': extracted['versions'],
-        'official_templates': extracted['official'], 'official_template_errors': extracted['official_errors'],
-        'official_template_sha256': extracted['official_template_hashes'],
-        'records': list(extracted['records'].values()),
-        'selection':extracted.get('selection',{}),
-        'source_inventory': [node.public() for node in extracted['nodes'].values()],
-    })
+    return {'nodes': nodes, 'records': records, 'official': official_results, 'ambiguous_lines':ambiguous_lines}

@@ -1,0 +1,12 @@
+<group name="catalogue_mgcp*" method="table">
+{{ source_line | DIGIT | to_int }} mgcp profile {{ name }}
+</group>
+
+<group name="catalogue_gatekeeper*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} gatekeeper
+</group>
+
+<group name="catalogue_gatekeeper_shutdown*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} shutdown
+</group>
+

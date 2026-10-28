@@ -1,3 +1,5 @@
+> Document historique. Le pipeline et le contrat actifs sont décrits dans le README à la racine.
+
 # Arrêt demandé après fixation du contrat
 
 La dernière instruction de l’utilisateur prévaut sur la mission initiale :

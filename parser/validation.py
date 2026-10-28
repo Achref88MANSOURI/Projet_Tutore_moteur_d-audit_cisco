@@ -1,7 +1,7 @@
 """Validate captured domains before any semantic mapping; retain raw records."""
 from ipaddress import ip_address,ip_network
 import re
-from normalizer.mapping import asn,prefix_length
+from normalizer.common.addresses import asn,prefix_length
 
 PROTOCOLS={'ip','ipv6','tcp','udp','icmp','icmp6','icmpv6','gre','esp','ahp','ospf','eigrp','igmp','pim','sctp','ipinip'}
 OPAQUE_FIELDS={'options','member','subject','value','method','expression'}

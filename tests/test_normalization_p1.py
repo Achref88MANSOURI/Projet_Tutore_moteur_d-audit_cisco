@@ -5,17 +5,16 @@ import pytest
 from jsonschema import Draft202012Validator
 from .test_v02 import parse,pointer
 from .test_catalogue_completion import CASES,source
-from schemas.normalizedconfig_v02 import NormalizedConfig
-from schemas.migration_v021 import upgrade_v020,project_v020,LEGACY
+from schemas.normalized_config import NormalizedConfig
 from cli import convert_file
 
 ROOT=Path(__file__).resolve().parents[1]
 # All values and paths are reviewed independently of mapper evidence.
 TARGETS={
  'catalogue_password_minimum':('system/aaa/password_policy/minimum_length',1),
- 'bgp_no_auto_summary':('routing/bgp/0/family_options/0/auto_summary',False),
- 'bgp_no_sync':('routing/bgp/0/family_options/0/synchronization',False),
- 'catalogue_allowas':('routing/bgp/1/family_options/0/peers/0/allowas_in/configured_max_occurrences',None),
+ 'bgp_no_auto_summary':('routing/bgp/0/address_families/0/auto_summary',False),
+ 'bgp_no_sync':('routing/bgp/0/address_families/0/synchronization',False),
+ 'catalogue_allowas':('routing/bgp/1/address_families/0/peers/0/allowas_in/configured_max_occurrences',None),
  'catalogue_config_register':('cisco/boot/configuration_register','0x2102'),
  'catalogue_dns_view':('cisco/dns/views/0/network_instance','MGMT'),
  'catalogue_domain_source':('cisco/dns/lookup_source_interface','Loopback0'),
@@ -56,24 +55,23 @@ TARGETS={
 def test_literal_p1_values_and_status(case):
     rule,parents,command,expected=case
     x,n,c=parse(source(parents,command));path,value=TARGETS[rule]
-    actual=pointer(n.model_dump(mode='json')['configuration'],path)
+    actual=pointer(n.model_dump(mode='json'),path)
     assert actual==value and type(actual) is type(value)
-    assert c['commands'][-1]['status']=='fully_normalized'
-    assert not any(o.source_line==len(parents)+1 for o in n.configuration.cisco.observations)
+    assert c.is_complete(max(c.nodes))
 
 
 def test_other_three_p1_families_context_and_relation():
     x,n,c=parse('router bgp 65000\n neighbor G peer-group\n address-family ipv4\n  neighbor G advertise additional-paths all\n')
-    assert n.configuration.routing.bgp[0].family_options[0].peers[0].additional_paths_advertise_selection=='all'
-    assert c['commands'][-1]['status']=='fully_normalized'
+    assert n.routing.bgp[0].address_families[0].peers[0].additional_paths_advertise_selection=='all'
+    assert c.is_complete(max(c.nodes))
     x,n,c=parse('interface E1\n ip pim sparse-mode\n ip pim bsr-border\n')
-    assert n.configuration.interfaces[0].pim_mode=='sparse-mode'
-    assert n.configuration.interfaces[0].pim_bsr_border is True
-    assert c['commands'][-1]['status']=='fully_normalized'
+    assert n.interfaces[0].pim_mode=='sparse-mode'
+    assert n.interfaces[0].pim_bsr_border is True
+    assert c.is_complete(max(c.nodes))
     x,n,c=parse('l2 vfi 100 manual\n vpn id 100\n bridge-domain 777\n')
-    assert n.configuration.cisco.l2vpn.vfis[0].bridge_domain==777
-    assert not n.configuration.cisco.l2vpn.bridge_domains
-    assert c['commands'][-1]['status']=='fully_normalized'
+    assert n.cisco.l2vpn.vfis[0].bridge_domain==777
+    assert not n.cisco.l2vpn.bridge_domains
+    assert c.is_complete(max(c.nodes))
 
 
 @pytest.mark.parametrize('cmd,prefix,kind,value',[
@@ -86,10 +84,15 @@ def test_other_three_p1_families_context_and_relation():
 ])
 def test_existing_policy_no_duplicate_or_semantic_parameter_loss(cmd,prefix,kind,value):
     x,n,c=parse(prefix+'route-map P permit 10\n '+cmd+'\n')
-    statement=n.configuration.routing.routing_policies[0].statements[0]
+    statement=n.routing.routing_policies[0].statements[0]
     objects=statement.matches if cmd.startswith('match ') else statement.actions
-    assert len(objects)==1 and objects[0].kind==kind and objects[0].value==value
-    assert c['commands'][-1]['status']=='fully_normalized'
+    assert len(objects)==1 and objects[0].kind==kind
+    if cmd.startswith('match '):assert objects[0].name==value
+    elif kind=='as_path_prepend':assert objects[0].as_numbers==[65000,65000,65546]
+    else:
+        assert objects[0].communities==['65000:1']
+        assert objects[0].additive is value.endswith(' additive')
+    assert c.is_complete(max(c.nodes))
 
 
 @pytest.mark.parametrize('cmd',[
@@ -98,53 +101,51 @@ def test_existing_policy_no_duplicate_or_semantic_parameter_loss(cmd,prefix,kind
 ])
 def test_unvalidated_policy_not_promoted(cmd):
     x,n,c=parse('ip community-list expanded C permit _1:\nroute-map P permit 10\n '+cmd+'\n')
-    assert c['commands'][-1]['status']=='extracted_unmapped'
-    assert n.configuration.cisco.observations[-1].source_line==3
+    assert not c.is_complete(max(c.nodes))
 
 
 @pytest.mark.parametrize('number,prefix',[('10.0.0.0','10.0.0.0/8'),('172.16.0.0','172.16.0.0/16'),('192.168.10.0','192.168.10.0/24')])
 def test_documented_classful_syntax(number,prefix):
     x,n,c=parse('router bgp 65000\n network '+number+'\n')
-    assert str(n.configuration.routing.bgp[0].networks[0].prefix)==prefix
-    assert c['commands'][-1]['status']=='fully_normalized'
-    assert any(e.line_start==2 and e.basis and 'Natural mask' in e.basis for e in n.evidence)
+    assert str(n.routing.bgp[0].networks[0].prefix)==prefix
+    assert c.is_complete(max(c.nodes))
 
 
 @pytest.mark.parametrize('number',['10.1.0.0','172.16.1.0','127.0.0.0','224.0.0.0','0.0.0.0'])
 def test_non_classful_or_special_form_is_not_invented(number):
     x,n,c=parse('router bgp 65000\n network '+number+'\n')
-    assert not n.configuration.routing.bgp[0].networks
-    assert c['commands'][-1]['status']!='fully_normalized'
+    assert not n.routing.bgp[0].networks
+    assert not c.is_complete(max(c.nodes))
 
 
 def test_rip_scope_and_omitted_operational_properties():
     x,n,c=parse('router rip\n network 192.0.2.0\n address-family ipv4 vrf A\n  network 198.51.100.0\n  redistribute bgp 1.10 metric 1\n  no auto-summary\n exit-address-family\n address-family ipv4 vrf B\n  network 203.0.113.0\n')
-    p=n.configuration.routing.rip[0]
+    p=n.routing.rip[0]
     assert list(map(str,p.network_statements))==['192.0.2.0'] and p.auto_summary is None
     assert [(a.network_instance,list(map(str,a.network_statements))) for a in p.address_families]==[('A',['198.51.100.0']),('B',['203.0.113.0'])]
     assert p.address_families[0].redistributions[0].source_bgp_as==65546
     assert p.address_families[0].redistributions[0].metric==1
     assert p.address_families[1].auto_summary is None
-    assert not n.configuration.routing.bgp
+    assert not n.routing.bgp
 
 
 def test_bgp_af_and_vrf_no_widening_and_unspecified_allowas_count():
     x,n,c=parse('router bgp 65000\n address-family ipv4 vrf A\n  no synchronization\n  no auto-summary\n  neighbor 192.0.2.1 allowas-in\n exit-address-family\n address-family ipv4 vrf B\n  neighbor 192.0.2.1 allowas-in\n')
-    a,b=n.configuration.routing.bgp[1:]
+    a,b=n.routing.bgp[1:]
     assert a.synchronization is None and a.auto_summary is None
-    assert a.family_options[0].synchronization is False and a.family_options[0].auto_summary is False
-    assert b.family_options[0].synchronization is None
-    assert a.family_options[0].peers[0].allowas_in.configured_max_occurrences is None
-    assert all(r['status']=='fully_normalized' for r in c['commands'] if r['line'] in (3,4,5,8))
+    assert a.address_families[0].synchronization is False and a.address_families[0].auto_summary is False
+    assert b.address_families[0].synchronization is None
+    assert a.address_families[0].peers[0].allowas_in.configured_max_occurrences is None
+    assert all(c.is_complete(line) for line in (3,4,5,8))
 
 
 def test_p2_review_native_and_unknown_statuses_unchanged():
     x,n,c=parse('call-home\n contact-email-addr example@example.invalid\n profile P\n  active\n  destination transport-method http\ninterface E1\n ip address dhcp\nlogging synchronous\nmmi polling-interval 60\n')
-    assert c['commands'][1]['status']=='extracted_unmapped'
-    assert c['commands'][-1]['status']=='extracted_unmapped' and c['commands'][-2]['status']=='uninterpreted'
-    assert not hasattr(n.configuration.cisco.call_home.profiles[0],'tls')
-    assert n.configuration.interfaces[0].ipv4_addresses==[]
-    assert n.configuration.cisco.call_home.enabled is None
+    assert not c.is_complete(2)
+    assert not c.is_complete(9) and 8 not in x['records']
+    assert not hasattr(n.cisco.call_home.profiles[0],'tls')
+    assert n.interfaces[0].ipv4_addresses==[]
+    assert n.cisco.call_home.enabled is None
 
 
 @pytest.mark.parametrize('text',[
@@ -157,12 +158,12 @@ def test_p2_review_native_and_unknown_statuses_unchanged():
 ])
 def test_unknown_intermediate_modes_never_widen_new_mappings(text):
     x,n,c=parse(text)
-    assert c['commands'][-1]['status']=='extracted_unmapped'
-    assert not c['commands'][-1]['normalized_paths']
+    assert not c.is_complete(max(c.nodes))
+    assert not c.consumed[max(c.nodes)]
 
 
 def test_all_approved_p1_extension_families_have_literal_tests():
-    decisions=json.loads((ROOT/'docs/cisco-normalization-p1/decisions.json').read_text())
+    decisions=json.loads((ROOT/'tests/fixtures/approved_extensions.json').read_text())
     required={r['family_id'] for r in decisions if r['decision']=='EXTEND_MODEL' and r['priority']=='P1'}
     assert required==set(TARGETS)|{'bgp_advertise_additional','if_pim','advanced_l2_bridge'}
 
@@ -174,19 +175,4 @@ def test_all_approved_p1_extension_families_have_literal_tests():
 ])
 def test_invalid_new_properties_not_fully_normalized(text):
     x,n,c=parse(text)
-    assert c['commands'][-1]['status']!='fully_normalized'
-
-
-def test_v021_schema_upgrade_and_loss_refusal(tmp_path):
-    old=json.loads((ROOT/'outputs/catalogue_ttp_completion/final/C0001/normalized_config.json').read_text())
-    upgraded=upgrade_v020(old)
-    assert upgraded.schema_version=='0.2.1' and project_v020(upgraded.model_dump(mode='json'))==old
-    doc=NormalizedConfig.model_validate(upgraded.model_dump(mode='json'))
-    Draft202012Validator(json.loads((ROOT/'schemas/normalizedconfig_v0_2_1.schema.json').read_text())).validate(doc.model_dump(mode='json'))
-    x,n,c=parse('security passwords min-length 12\n')
-    with pytest.raises(ValueError):project_v020(n.model_dump(mode='json'))
-    source_file=tmp_path/'router.cfg';source_file.write_text('hostname R\ninterface E1\n ip address dhcp\n')
-    legacy,coverage=convert_file(source_file,tmp_path/'legacy',official=False,schema_version='0.2.0')
-    saved=json.loads((tmp_path/'legacy/normalized_config.json').read_text())
-    Draft202012Validator(LEGACY).validate(saved)
-    assert saved['schema_version']=='0.2.0' and coverage['commands'][-1]['status']=='extracted_unmapped'
+    assert not c.is_complete(max(c.nodes))

@@ -1,0 +1,3233 @@
+[
+  {
+    "file_id": "F0456",
+    "line": 33,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 184,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 185,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 43,
+    "rule": "advanced_multicast",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 69,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 98,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 78,
+    "rule": "if_proxyarp",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 99,
+    "rule": "if_proxyarp",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 122,
+    "rule": "if_proxyarp",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 133,
+    "rule": "ospf_log",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 217,
+    "rule": "ospf_log",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 164,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 173,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 159,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 162,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 169,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 170,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0456",
+    "line": 141,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 33,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 224,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 225,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 45,
+    "rule": "advanced_multicast",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 67,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 97,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 68,
+    "rule": "if_proxyarp",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 84,
+    "rule": "if_proxyarp",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 98,
+    "rule": "if_proxyarp",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 111,
+    "rule": "if_proxyarp",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 110,
+    "rule": "if_redirects",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 103,
+    "rule": "if_keepalive_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 141,
+    "rule": "ospf_log",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 256,
+    "rule": "ospf_log",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 194,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 199,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 213,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 186,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 189,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 190,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 191,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 192,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 197,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 206,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 207,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 208,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 209,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 210,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0457",
+    "line": 150,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 14,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 123,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 124,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 187,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 56,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 55,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 114,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 109,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 110,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 111,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 112,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 101,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 103,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 106,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 78,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0001",
+    "line": 96,
+    "rule": "bgp_dampening",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 30,
+    "rule": "services_aaa_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 17,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 127,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 128,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 195,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 61,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 60,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 118,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 114,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 115,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 116,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 106,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 109,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 111,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 88,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0004",
+    "line": 102,
+    "rule": "bgp_dampening",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 17,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 117,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 118,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 181,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 59,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 58,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 108,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 105,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 106,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 97,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 100,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 103,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 80,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0011",
+    "line": 92,
+    "rule": "bgp_dampening",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 17,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 102,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 103,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 122,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 59,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 58,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 97,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 94,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 95,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 91,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 92,
+    "rule": "bgp_reflector",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 79,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0003",
+    "line": 88,
+    "rule": "bgp_dampening",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 14,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 109,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 110,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 153,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 56,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 55,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 102,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 99,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 100,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 96,
+    "rule": "bgp_send_community",
+    "field": "option",
+    "expected": "unspecified",
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 84,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0008",
+    "line": 91,
+    "rule": "bgp_dampening",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 20,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 193,
+    "rule": "services_http_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 195,
+    "rule": "services_https_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 161,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 168,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 175,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 160,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 167,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 174,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0057",
+    "line": 181,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 20,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 186,
+    "rule": "services_http_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 188,
+    "rule": "services_https_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 154,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 161,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 168,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 153,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 160,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 167,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0059",
+    "line": 174,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 27,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 184,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 185,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 225,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 24,
+    "rule": "vrf_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 89,
+    "rule": "advanced_qos_fair",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 136,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 142,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 135,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 141,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 112,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 123,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 111,
+    "rule": "if_ipv6_enable",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 122,
+    "rule": "if_ipv6_enable",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 166,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 171,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 176,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 181,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 165,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 169,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 175,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 180,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 164,
+    "rule": "bgp_deactivate",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0049",
+    "line": 157,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 19,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 169,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 170,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 210,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 91,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 97,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 90,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 96,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 68,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 78,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 67,
+    "rule": "if_ipv6_enable",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 77,
+    "rule": "if_ipv6_enable",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 87,
+    "rule": "if_ipv6_enable",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 144,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 153,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 166,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 133,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 136,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 139,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 142,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 147,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 150,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 157,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 159,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 162,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 164,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 129,
+    "rule": "bgp_deactivate",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 130,
+    "rule": "bgp_deactivate",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 131,
+    "rule": "bgp_deactivate",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 132,
+    "rule": "bgp_deactivate",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 134,
+    "rule": "bgp_reflector",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 137,
+    "rule": "bgp_reflector",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 140,
+    "rule": "bgp_reflector",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 149,
+    "rule": "bgp_reflector",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 152,
+    "rule": "bgp_reflector",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 160,
+    "rule": "bgp_reflector",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 163,
+    "rule": "bgp_reflector",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 165,
+    "rule": "bgp_reflector",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 135,
+    "rule": "bgp_next_hop",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 138,
+    "rule": "bgp_next_hop",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 141,
+    "rule": "bgp_next_hop",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 161,
+    "rule": "bgp_next_hop",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0053",
+    "line": 111,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 20,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 130,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 131,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 171,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 82,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 88,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 94,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 81,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 87,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 93,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 69,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 68,
+    "rule": "if_ipv6_enable",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 78,
+    "rule": "if_ipv6_enable",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 121,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 127,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 117,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 119,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 124,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 126,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 115,
+    "rule": "bgp_deactivate",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 116,
+    "rule": "bgp_deactivate",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 118,
+    "rule": "bgp_next_hop",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0055",
+    "line": 106,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 39,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 261,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 262,
+    "rule": "services_https_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 285,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 289,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 294,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 27,
+    "rule": "vrf_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 35,
+    "rule": "vrf_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 188,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 199,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 210,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 218,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 226,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 195,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 206,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 250,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 254,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 258,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 248,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0405",
+    "line": 243,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 39,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 260,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 261,
+    "rule": "services_https_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 284,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 288,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 293,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 27,
+    "rule": "vrf_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 35,
+    "rule": "vrf_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 187,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 198,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 209,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 217,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 225,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 194,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 205,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 249,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 253,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 257,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 247,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0406",
+    "line": 242,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 22,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 249,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 250,
+    "rule": "services_https_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 273,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 49,
+    "rule": "advanced_l2_evpn_global",
+    "field": "declaration",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 202,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 225,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 187,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 191,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 208,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 201,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 209,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 224,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 195,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 246,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 242,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 244,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0291",
+    "line": 235,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 23,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 219,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 220,
+    "rule": "services_https_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 243,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 247,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 252,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 191,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 209,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 177,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 187,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 204,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 190,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 197,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 208,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0344",
+    "line": 183,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 39,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 281,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 282,
+    "rule": "services_https_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 311,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 315,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 320,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 27,
+    "rule": "vrf_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 35,
+    "rule": "vrf_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 218,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 229,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 238,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 246,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 214,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 225,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 270,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 274,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 278,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 268,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0371",
+    "line": 263,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 39,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 280,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 281,
+    "rule": "services_https_on",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 310,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 314,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 319,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 27,
+    "rule": "vrf_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 35,
+    "rule": "vrf_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 217,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 228,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 237,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 245,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 213,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 224,
+    "rule": "if_mpls",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 269,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 273,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 277,
+    "rule": "bgp_af_exit",
+    "field": "boundary",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 267,
+    "rule": "bgp_activate",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0372",
+    "line": 262,
+    "rule": "bgp_log_changes",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 20,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 112,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 113,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 157,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 39,
+    "rule": "advanced_multicast",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 95,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 70,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 78,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 86,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0409",
+    "line": 94,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 20,
+    "rule": "services_aaa_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 112,
+    "rule": "services_http_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 113,
+    "rule": "services_https_off",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 155,
+    "rule": "services_login_plain",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 39,
+    "rule": "advanced_multicast",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 95,
+    "rule": "if_shutdown",
+    "field": "enabled",
+    "expected": false,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 70,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 78,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 86,
+    "rule": "if_no_shutdown",
+    "field": "enabled",
+    "expected": true,
+    "present": false,
+    "actual": null
+  },
+  {
+    "file_id": "F0410",
+    "line": 94,
+    "rule": "if_no_ipv4",
+    "field": "empty",
+    "expected": true,
+    "present": false,
+    "actual": null
+  }
+]

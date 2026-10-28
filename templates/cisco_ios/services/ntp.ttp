@@ -1,0 +1,20 @@
+<group name="services_ntp_prefer*" method="table" functions="set(True, prefer)">
+{{ source_line | DIGIT | to_int }} ntp server {{ address }} prefer
+</group>
+
+<group name="services_ntp*" method="table">
+{{ source_line | DIGIT | to_int }} ntp server {{ address }}
+</group>
+
+<group name="services_ntp_vrf_prefer*" method="table" functions="set(True, prefer)">
+{{ source_line | DIGIT | to_int }} ntp server vrf {{ vrf }} {{ address }} prefer
+</group>
+
+<group name="services_ntp_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} ntp server vrf {{ vrf }} {{ address }}
+</group>
+
+<group name="services_ntp_source*" method="table">
+{{ source_line | DIGIT | to_int }} ntp source {{ source }}
+</group>
+

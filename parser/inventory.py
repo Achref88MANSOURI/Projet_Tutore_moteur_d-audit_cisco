@@ -4,18 +4,7 @@ PKI bytes and banner bodies are opaque blocks. In particular quit closes a
 certificate; it is never attached to the last line of hex data.
 """
 from dataclasses import dataclass, field
-import hashlib
 import re
-
-
-def redacted(text):
-    if text.startswith('banner '):return ' '.join(text.split()[:2])+' [REDACTED opaque banner]'
-    if text.startswith('license udi '):return re.sub(r'(\bsn\s+)\S+',r'\1[REDACTED]',text)
-    if text.startswith(('ip community-list ', 'ip bgp-community ', 'service password-encryption', 'no service password-encryption')) or re.match(r'(?:no )?neighbor \S+ send-community', text):
-        return text
-    if re.search(r'(?i)\b(?:secret|password|pre-shared-key|key-string|server-key|key)\b|^snmp-server (?:community|host|user)\b', text):
-        return '[REDACTED credential-bearing command]'
-    return text
 
 
 @dataclass
@@ -29,10 +18,6 @@ class Node:
     kind: str = 'command'
     end_line: int | None = None
     children: list[int] = field(default_factory=list)
-    opaque_sha256: str | None = None
-
-    def public(self):
-        return {**self.__dict__, 'text': redacted(self.text)}
 
 
 def root_family(text):
@@ -95,29 +80,25 @@ def inventory(text):
                 remainder = parts[2][len(delimiter):]
                 if delimiter in remainder:
                     node.kind='opaque_banner';node.end_line=node.line
-                    node.opaque_sha256=hashlib.sha256(remainder.encode()).hexdigest()
                 start = i + 1
-                body = []
                 if delimiter not in remainder:
                     while i < len(lines):
-                        body.append(lines[i])
                         i += 1
                         if delimiter in lines[i - 1]:
                             break
-                    if body:
+                    if i>=start:
                         blob = Node(start, '<opaque banner body>', indent + 1, node.line, root, family,
-                                    'opaque_banner', i, opaque_sha256=hashlib.sha256('\n'.join(body).encode()).hexdigest())
+                                    'opaque_banner', i)
                         nodes[start] = blob
                         node.children.append(start)
             continue
         if value.startswith('certificate ') and family == 'advanced':
-            body, start = [], i + 1
+            start = i + 1
             while i < len(lines) and re.fullmatch(r'[0-9A-Fa-f\s]+', lines[i]) and lines[i].strip():
-                body.append(lines[i])
                 i += 1
-            if body:
+            if i>=start:
                 blob = Node(start, '<opaque certificate data>', indent + 1, node.line, root, family,
-                            'opaque_pki', i, opaque_sha256=hashlib.sha256('\n'.join(body).encode()).hexdigest())
+                            'opaque_pki', i)
                 nodes[start] = blob
                 node.children.append(start)
         if kind != 'boundary':

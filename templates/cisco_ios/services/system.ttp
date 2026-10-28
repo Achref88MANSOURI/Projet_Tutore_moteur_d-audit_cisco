@@ -1,0 +1,76 @@
+<group name="services_hostname*" method="table">
+{{ source_line | DIGIT | to_int }} hostname {{ hostname }}
+</group>
+
+<group name="services_version*" method="table">
+{{ source_line | DIGIT | to_int }} version {{ version | ORPHRASE }}
+</group>
+
+<group name="catalogue_redundancy*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} redundancy
+</group>
+
+<group name="catalogue_scheduler_none*" method="table" functions="set(False, configured)">
+{{ source_line | DIGIT | to_int }} no scheduler allocate
+</group>
+
+<group name="catalogue_scheduler*" method="table">
+{{ source_line | DIGIT | to_int }} scheduler allocate {{ interrupt | DIGIT | to_int }} {{ process | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_diagnostic*" method="table">
+{{ source_line | DIGIT | to_int }} diagnostic bootup level {{ level }}
+</group>
+
+<group name="catalogue_memory_low*" method="table">
+{{ source_line | DIGIT | to_int }} memory free low-watermark processor {{ threshold | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_qfp*" method="table">
+{{ source_line | DIGIT | to_int }} platform qfp utilization monitor load {{ percent | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_punt*" method="table" functions="set(True, disabled)">
+{{ source_line | DIGIT | to_int }} platform punt-keepalive disable-kernel-core
+</group>
+
+<group name="catalogue_no_punt*" method="table" functions="set(False, disabled)">
+{{ source_line | DIGIT | to_int }} no platform punt-keepalive disable-kernel-core
+</group>
+
+<group name="catalogue_tftp_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip tftp source-interface {{ interface }}
+</group>
+
+<group name="catalogue_upgrade*" method="table">
+{{ source_line | DIGIT | to_int }} upgrade fpd {{ mode }}
+</group>
+
+<group name="catalogue_virtual_service*" method="table">
+{{ source_line | DIGIT | to_int }} virtual-service {{ name }}
+</group>
+
+<group name="catalogue_config_register*" method="table">
+{{ source_line | DIGIT | to_int }} config-register {{ register }}
+</group>
+
+<group name="catalogue_boot_system*" method="table">
+{{ source_line | DIGIT | to_int }} boot system {{ image }}
+</group>
+
+<group name="catalogue_license*" method="table">
+{{ source_line | DIGIT | to_int }} license udi pid {{ pid }} sn {{ serial }}
+</group>
+
+<group name="catalogue_archive*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} archive
+</group>
+
+<group name="catalogue_archive_log*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} log config
+</group>
+
+<group name="catalogue_archive_hide*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} hidekeys
+</group>
+

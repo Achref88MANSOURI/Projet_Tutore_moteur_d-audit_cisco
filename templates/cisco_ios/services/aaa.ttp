@@ -1,0 +1,47 @@
+<group name="services_aaa_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} aaa new-model
+</group>
+
+<group name="services_aaa_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no aaa new-model
+</group>
+
+<group name="services_aaa_method*" method="table">
+{{ source_line | DIGIT | to_int }} aaa {{ category }} {{ method | ORPHRASE }}
+</group>
+
+<group name="services_user*" method="table">
+{{ source_line | DIGIT | to_int }} username {{ username }} privilege {{ privilege | DIGIT | to_int }} {{ credential_type }} {{ credential_format | DIGIT }} {{ _ignore_ }}
+</group>
+
+<group name="services_user_simple*" method="table">
+{{ source_line | DIGIT | to_int }} username {{ username }} {{ credential_type }} {{ credential_format | DIGIT }} {{ _ignore_ }}
+</group>
+
+<group name="services_tacacs*" method="table">
+{{ source_line | DIGIT | to_int }} tacacs server {{ name }}
+</group>
+
+<group name="services_radius*" method="table">
+{{ source_line | DIGIT | to_int }} radius server {{ name }}
+</group>
+
+<group name="services_auth_address*" method="table">
+{{ source_line | DIGIT | to_int }} address ipv4 {{ address | IP }}
+</group>
+
+<group name="services_auth_ports*" method="table">
+{{ source_line | DIGIT | to_int }} address ipv4 {{ address | IP }} auth-port {{ auth_port | DIGIT | to_int }} acct-port {{ acct_port | DIGIT | to_int }}
+</group>
+
+<group name="services_password_encryption_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no service password-encryption
+</group>
+
+<group name="catalogue_password_minimum*" method="table">
+{{ source_line | DIGIT | to_int }} security passwords min-length {{ length | DIGIT | to_int }}
+</group>
+
+<group name="services_user_no_format*" method="table" functions="set('not_specified', credential_format)">
+{{ source_line | DIGIT | to_int }} username {{ username }} {{ credential_type }} {{ credential }}
+</group>

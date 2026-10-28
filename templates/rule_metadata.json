@@ -1,0 +1,237 @@
+{
+  "if_mop_off": {
+    "choices": {
+      "feature": [
+        "enabled",
+        "sysid"
+      ]
+    }
+  },
+  "services_community_expanded": {
+    "choices": {
+      "action": [
+        "permit",
+        "deny"
+      ]
+    }
+  },
+  "catalogue_multilink": {
+    "scope": "global"
+  },
+  "catalogue_control_plane": {
+    "scope": "global"
+  },
+  "catalogue_forward_protocol": {
+    "scope": "global"
+  },
+  "catalogue_redundancy": {
+    "scope": "global"
+  },
+  "catalogue_cef": {
+    "scope": "global"
+  },
+  "catalogue_cef6": {
+    "scope": "global"
+  },
+  "catalogue_no_cef6": {
+    "scope": "global"
+  },
+  "catalogue_mmi_poll": {
+    "scope": "global"
+  },
+  "catalogue_mmi_no_auto": {
+    "scope": "global"
+  },
+  "catalogue_mmi_no_pvc": {
+    "scope": "global"
+  },
+  "catalogue_mmi_timeout": {
+    "scope": "global"
+  },
+  "catalogue_ioam": {
+    "scope": "global"
+  },
+  "catalogue_scheduler_none": {
+    "scope": "global"
+  },
+  "catalogue_scheduler": {
+    "scope": "global"
+  },
+  "catalogue_subscriber": {
+    "scope": "global"
+  },
+  "catalogue_diagnostic": {
+    "scope": "global"
+  },
+  "catalogue_spanning_system_id": {
+    "scope": "global"
+  },
+  "catalogue_console": {
+    "scope": "global"
+  },
+  "catalogue_icmp_no_limit": {
+    "scope": "global"
+  },
+  "catalogue_synwait": {
+    "scope": "global"
+  },
+  "catalogue_memory_low": {
+    "scope": "global"
+  },
+  "catalogue_call_home": {
+    "scope": "global"
+  },
+  "catalogue_call_home_on": {
+    "scope": "global"
+  },
+  "catalogue_qfp": {
+    "scope": "global"
+  },
+  "catalogue_punt": {
+    "scope": "global"
+  },
+  "catalogue_no_punt": {
+    "scope": "global"
+  },
+  "catalogue_tftp_source": {
+    "scope": "global"
+  },
+  "catalogue_dns_view": {
+    "scope": "global"
+  },
+  "catalogue_no_cdp_log": {
+    "scope": "global"
+  },
+  "catalogue_bgp_community_format": {
+    "scope": "global"
+  },
+  "catalogue_upgrade": {
+    "scope": "global"
+  },
+  "catalogue_mgcp": {
+    "scope": "global"
+  },
+  "catalogue_gatekeeper": {
+    "scope": "global"
+  },
+  "catalogue_virtual_service": {
+    "scope": "global"
+  },
+  "catalogue_config_register": {
+    "scope": "global"
+  },
+  "catalogue_boot_system": {
+    "scope": "global"
+  },
+  "catalogue_password_minimum": {
+    "scope": "global"
+  },
+  "catalogue_flow_aggregation": {
+    "scope": "global"
+  },
+  "catalogue_ifindex": {
+    "scope": "global"
+  },
+  "catalogue_domain_source": {
+    "scope": "global"
+  },
+  "catalogue_license": {
+    "scope": "global"
+  },
+  "catalogue_alias": {
+    "scope": "global"
+  },
+  "catalogue_archive": {
+    "scope": "global"
+  },
+  "catalogue_rip": {
+    "scope": "global"
+  },
+  "catalogue_call_home_contact": {
+    "scope": "root:call-home"
+  },
+  "catalogue_call_home_profile": {
+    "scope": "root:call-home"
+  },
+  "catalogue_call_home_active": {
+    "scope": "root:call-home"
+  },
+  "catalogue_call_home_destination": {
+    "scope": "root:call-home"
+  },
+  "catalogue_gatekeeper_shutdown": {
+    "scope": "root:gatekeeper"
+  },
+  "catalogue_archive_log": {
+    "scope": "root:archive"
+  },
+  "catalogue_archive_hide": {
+    "scope": "root:archive"
+  },
+  "catalogue_cache_entries": {
+    "scope": "root:ip flow-aggregation cache"
+  },
+  "catalogue_cache_timeout": {
+    "scope": "root:ip flow-aggregation cache"
+  },
+  "catalogue_cache_export": {
+    "scope": "root:ip flow-aggregation cache"
+  },
+  "catalogue_cache_enable": {
+    "scope": "root:ip flow-aggregation cache"
+  },
+  "catalogue_rip_network": {
+    "scope": "root:router rip"
+  },
+  "catalogue_rip_family": {
+    "scope": "root:router rip"
+  },
+  "catalogue_rip_redistribute": {
+    "scope": "root:router rip"
+  },
+  "catalogue_rip_no_summary": {
+    "scope": "root:router rip"
+  },
+  "catalogue_msdp_peer": {
+    "scope": "global"
+  },
+  "catalogue_msdp_cache": {
+    "scope": "global"
+  },
+  "catalogue_dhcp4": {
+    "scope": "root:interface"
+  },
+  "catalogue_sap": {
+    "scope": "root:interface"
+  },
+  "catalogue_allowas": {
+    "scope": "root:router bgp"
+  },
+  "catalogue_soft": {
+    "scope": "root:router bgp"
+  },
+  "catalogue_pim_autorp": {
+    "scope": "global"
+  },
+  "catalogue_pim_discovery": {
+    "scope": "global"
+  },
+  "catalogue_pim_ssm": {
+    "scope": "global"
+  },
+  "catalogue_pim_bsr": {
+    "scope": "global"
+  },
+  "catalogue_pim_rp_candidate": {
+    "scope": "global"
+  },
+  "services_user_no_format": {
+    "scope": "global",
+    "choices": {
+      "credential_type": [
+        "secret",
+        "password"
+      ]
+    }
+  }
+}

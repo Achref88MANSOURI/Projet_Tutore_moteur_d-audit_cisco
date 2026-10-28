@@ -1,12 +1,12 @@
-"""Reviewed synthetic source facts, independent of generated patterns/normalizer output.
+"""Reviewed synthetic source facts, independent of templates/normalizer output.
 
 Every added rule has a literal source example and all expected scalar values.
-The private catalogue is additionally audited by tools/catalogue_verify.py.
+Rule coverage is checked against the directly maintained TTP groups.
 """
 import json
 from pathlib import Path
 import pytest
-from parser.run_ttp import extract, public_native
+from parser.run_ttp import extract, load_templates
 from parser.inventory import inventory
 from parser.platform import unsupported_platform
 from .test_v02 import parse
@@ -133,16 +133,8 @@ def test_reviewed_rule_values_context_and_preservation(rule,parents,command,expe
     assert record['rule']==rule and record['values']==expected
     assert {k:type(v) for k,v in record['values'].items()}=={k:type(v) for k,v in expected.items()}
     assert record['context_lines']==list(range(1,line))
-    row=next(r for r in coverage['commands'] if r['line']==line)
-    assert row['status'] not in ('uninterpreted','invalid_or_ambiguous')
-    # Every expected value is mapped with explicit evidence or preserved natively.
-    for field in row['fields']:
-        assert field['normalized_paths'] or field['native_preservation_path']
-        if field['native_preservation_path']:
-            obs=next(o for o in n.configuration.cisco.observations if o.source_line==line)
-            assert obs.scope.ancestors==parents
-            p=next(p for p in obs.parameters if p.name==field['name'])
-            assert p.value==('[REDACTED]' if p.name in ('credential','serial') else expected[p.name])
+    assert coverage.validation[line]['valid']
+
 
 
 @pytest.mark.parametrize('rule,parents,command,expected',CASES,ids=[r[0] for r in CASES])
@@ -154,9 +146,15 @@ def test_no_silent_trailing_parameter_loss(rule,parents,command,expected):
 
 
 def test_all_added_rule_ids_have_reviewed_examples():
-    from tools.catalogue_rules import add_catalogue_rules
-    added=[];add_catalogue_rules(added)
-    assert {r['id'] for r in added}<={r[0] for r in CASES}
+    definitions,_=load_templates()
+    reliability_ids=set(json.loads((ROOT/'tests/fixtures/reliability_rule_ids.json').read_text(encoding='utf-8')))
+    assert len(reliability_ids)==30
+    assert reliability_ids<=set(definitions)
+    added={identifier for identifier in definitions if identifier.startswith('catalogue_')
+        or identifier in reliability_ids or identifier=='services_user_no_format'}
+    reviewed={case[0] for case in CASES}
+    assert added<=reviewed
+    assert reviewed<=set(definitions)
 
 
 # Literal semantic expectations supplement native captures. Paths are independent
@@ -196,7 +194,7 @@ TYPED={
 @pytest.mark.parametrize('case',[r for r in CASES if r[0] in TYPED],ids=lambda r:r[0])
 def test_literal_semantic_contract_values(case):
     rule,parents,command,_=case
-    x,n,c=parse(source(parents,command));target=n.model_dump(mode='json')['configuration']
+    x,n,c=parse(source(parents,command));target=n.model_dump(mode='json')
     path,expected=TYPED[rule]
     for key in path.split('/'):target=target[int(key)] if isinstance(target,list) else target[key]
     assert target==expected and type(target) is type(expected)
@@ -209,29 +207,25 @@ def test_global_rules_rejected_in_terminal_mode(rule,parents,command,expected):
 
 def test_bgp_af_flags_and_vrf_native_properties_never_widen():
     x,n,c=parse('router bgp 65000\n address-family ipv4 vrf A\n  no synchronization\n  no auto-summary\n  neighbor 192.0.2.1 allowas-in\n exit-address-family\n address-family ipv4 vrf B\n  neighbor 192.0.2.1 soft-reconfiguration inbound\n')
-    assert all(p.synchronization is None and p.auto_summary is None for p in n.configuration.routing.bgp)
-    obs=[o for o in n.configuration.cisco.observations if o.source_line in (3,4,5,8)]
-    assert [(o.source_line,o.scope.ancestors[-1]) for o in obs]==[(8,'address-family ipv4 vrf B')]
-    a=next(p for p in n.configuration.routing.bgp if p.network_instance=='A').family_options[0]
+    assert all(p.synchronization is None and p.auto_summary is None for p in n.routing.bgp)
+    a=next(p for p in n.routing.bgp if p.network_instance=='A').address_families[0]
     assert a.synchronization is False and a.auto_summary is False
     assert a.peers[0].allowas_in.enabled is True and a.peers[0].allowas_in.configured_max_occurrences is None
-    assert all(r['status']=='fully_normalized' for r in c['commands'] if r['line'] in (3,4,5))
-    assert next(r for r in c['commands'] if r['line']==8)['status']=='extracted_unmapped'
+    assert all(c.is_complete(line) for line in (3,4,5))
+    assert not c.is_complete(8)
 
 
 def test_one_line_banner_and_export_markers_are_not_commands():
     x,n,c=parse('boot-start-marker\nboot-end-marker\nbanner motd #hostname PRIVATE-TEXT#\nhostname REAL\n')
     assert not {1,2,3}&x['records'].keys()
-    assert n.configuration.system.hostname=='REAL'
-    assert n.configuration.cisco.opaque_blocks[0].line_start==3
-    assert n.configuration.cisco.opaque_blocks[0].line_end==3
-    assert 'PRIVATE-TEXT' not in json.dumps(public_native(x))+n.model_dump_json()+json.dumps(c)
+    assert n.system.hostname=='REAL'
+    assert 'PRIVATE-TEXT' not in n.model_dump_json()
 
 
 def test_privacy_on_new_native_credential_and_serial_paths():
     text='username admin secret SYNTHETIC-CREDENTIAL\nlicense udi pid CSR1000V sn SYNTHETIC-SERIAL\n'
     x,n,c=parse(text)
-    output=json.dumps(public_native(x))+n.model_dump_json()+json.dumps(c)
+    output=n.model_dump_json()
     assert 'SYNTHETIC-CREDENTIAL' not in output and 'SYNTHETIC-SERIAL' not in output
     assert x['records'][1]['values']['credential_format']=='not_specified'
 

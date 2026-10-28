@@ -1,0 +1,36 @@
+<group name="services_flow_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip flow-export source {{ interface }}
+</group>
+
+<group name="services_flow_version*" method="table">
+{{ source_line | DIGIT | to_int }} ip flow-export version {{ version | DIGIT | to_int }} {{ as_mode }}
+</group>
+
+<group name="services_flow_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} ip flow-cache timeout {{ type }} {{ timeout | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_ioam*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ipv6 ioam timestamp
+</group>
+
+<group name="catalogue_flow_aggregation*" method="table">
+{{ source_line | DIGIT | to_int }} ip flow-aggregation cache {{ aggregation }}
+</group>
+
+<group name="catalogue_cache_entries*" method="table">
+{{ source_line | DIGIT | to_int }} cache entries {{ entries | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_cache_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} cache timeout {{ type }} {{ timeout | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_cache_export*" method="table">
+{{ source_line | DIGIT | to_int }} export destination {{ address | IP }} {{ port | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_cache_enable*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} enabled
+</group>
+

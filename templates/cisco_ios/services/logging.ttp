@@ -1,0 +1,36 @@
+<group name="services_logging*" method="table">
+{{ source_line | DIGIT | to_int }} logging host {{ address }}
+</group>
+
+<group name="services_logging_legacy*" method="table">
+{{ source_line | DIGIT | to_int }} logging {{ address | IP }}
+</group>
+
+<group name="services_logging_trap*" method="table">
+{{ source_line | DIGIT | to_int }} logging trap {{ severity }}
+</group>
+
+<group name="services_logging_source*" method="table">
+{{ source_line | DIGIT | to_int }} logging source-interface {{ interface }}
+</group>
+
+<group name="services_login_logging*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} login on-success log
+</group>
+
+<group name="services_timestamp*" method="table">
+{{ source_line | DIGIT | to_int }} service timestamps {{ category }} {{ format }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_timestamp_plain*" method="table">
+{{ source_line | DIGIT | to_int }} service timestamps {{ category }} {{ format }}
+</group>
+
+<group name="services_console_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no logging console
+</group>
+
+<group name="catalogue_no_cdp_log*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no cdp log mismatch duplex
+</group>
+
