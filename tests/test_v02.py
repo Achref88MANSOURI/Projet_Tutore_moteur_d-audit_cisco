@@ -119,10 +119,11 @@ def test_af_options_are_not_widened_to_process():
     assert proc.family_options[0].dampening is True and proc.family_options[0].maximum_paths[0].count==5
 
 
-def test_classful_network_has_no_invented_prefix_length():
+def test_classful_network_has_documented_natural_mask_and_derivation_proof():
     x,n,c=parse('router bgp 65000\n network 10.0.0.0\n')
-    assert not n.configuration.routing.bgp[0].networks
-    assert c['commands'][-1]['status']=='extracted_unmapped'
+    assert str(n.configuration.routing.bgp[0].networks[0].prefix)=='10.0.0.0/8'
+    assert c['commands'][-1]['status']=='fully_normalized'
+    assert any(e.line_start==2 and e.basis and 'Natural mask' in e.basis for e in n.evidence)
 
 
 def test_nonmatching_global_context_is_not_adopted():

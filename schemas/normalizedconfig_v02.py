@@ -9,6 +9,7 @@ from copy import deepcopy
 from ipaddress import ip_network
 from pydantic import Field, model_validator, StrictStr, StrictInt, StrictBool
 from . import normalizedconfig as v1
+from . import cisco_audit_v02 as audit
 
 
 class Ethernet(v1.Contract):
@@ -42,6 +43,9 @@ class OSPFBinding(v1.Contract):
 
 
 class Interface(v1.Interface):
+    ipv4_assignment_method: Literal['dhcp'] | None=None
+    pim_bsr_border: bool | None=None
+    sap_listen_enabled: bool | None=None
     ethernet: Ethernet=Field(default_factory=Ethernet)
     encapsulation: Encapsulation | None=None
     ipv6_enabled: bool | None=None
@@ -67,6 +71,8 @@ class NetworkInstance(v1.NetworkInstance):
 
 
 class BGPPeerOptions(v1.Contract):
+    additional_paths_advertise_selection: Literal['all','best'] | None=None
+    allowas_in: audit.AllowASIn | None=None
     peer: str
     kind: Literal['neighbor','group']
     remote_as: int | None=Field(default=None,ge=1,le=4294967295)
@@ -82,6 +88,8 @@ class BGPPeerOptions(v1.Contract):
 
 
 class BGPAddressFamily(v1.Contract):
+    auto_summary: bool | None=None
+    synchronization: bool | None=None
     afi: Literal['ipv4','ipv6','vpnv4','vpnv6','l2vpn']
     safi: str | None=None
     peers: list[BGPPeerOptions]=Field(default_factory=list)
@@ -190,6 +198,7 @@ class PrefixList(v1.Contract):
 
 
 class Routing(v1.Routing):
+    rip: list[audit.RIPProcess]=Field(default_factory=list)
     bgp: list[BGPProcess]=Field(default_factory=list)
     ospf: list[OSPFProcess]=Field(default_factory=list)
     prefix_lists: list[PrefixList]=Field(default_factory=list)
@@ -238,7 +247,12 @@ class FlowExport(v1.Contract):
     cache_timeout_inactive_seconds: int | None=Field(default=None,ge=1)
 
 
+class AAA(v1.AAA):
+    password_policy: audit.PasswordPolicy=Field(default_factory=audit.PasswordPolicy)
+
+
 class System(v1.System):
+    aaa: AAA | None=None
     management: Management | None=None
     login_success_logging: bool | None=None
     console_logging: bool | None=None
@@ -366,6 +380,11 @@ class IsisProcess(v1.Contract):
 
 
 class Multicast(v1.Contract):
+    auto_rp: audit.AutoRP=Field(default_factory=audit.AutoRP)
+    bsr_candidates: list[audit.BSRCandidate]=Field(default_factory=list)
+    rp_candidates: list[audit.RPCandidate]=Field(default_factory=list)
+    ssm: audit.SSM=Field(default_factory=audit.SSM)
+    msdp: audit.MSDP=Field(default_factory=audit.MSDP)
     routing_enabled: bool | None=None
     rendezvous_points: list[v1.IPvAnyAddress]=Field(default_factory=list)
 
@@ -406,6 +425,7 @@ class VFINeighbor(v1.Contract):
 
 
 class VFI(v1.Contract):
+    bridge_domain: int | None=Field(default=None,ge=1,le=16777215)
     identifier: int=Field(ge=1)
     mode: Literal['manual','autodiscovery']
     vpn_id: int | None=Field(default=None,ge=1)
@@ -422,6 +442,14 @@ class L2VPN(v1.Contract):
 
 
 class CiscoExtensions(v1.Contract):
+    config_archive: audit.ConfigArchive=Field(default_factory=audit.ConfigArchive)
+    call_home: audit.CallHome=Field(default_factory=audit.CallHome)
+    ip_services: audit.IPServices=Field(default_factory=audit.IPServices)
+    dns: audit.DNS=Field(default_factory=audit.DNS)
+    file_transfer: audit.FileTransfer=Field(default_factory=audit.FileTransfer)
+    netflow: audit.NetFlow=Field(default_factory=audit.NetFlow)
+    virtual_services: list[audit.VirtualService]=Field(default_factory=list)
+    boot: audit.Boot=Field(default_factory=audit.Boot)
     observations: list[CiscoObservation]=Field(default_factory=list)
     opaque_blocks: list[OpaqueBlock]=Field(default_factory=list)
     pki: PKI=Field(default_factory=PKI)
@@ -443,13 +471,13 @@ class Configuration(v1.Configuration):
 
 
 class NormalizedConfig(v1.NormalizedConfig):
-    schema_version: Literal['0.2.0']='0.2.0'
+    schema_version: Literal['0.2.0','0.2.1']='0.2.1'
     configuration: Configuration=Field(default_factory=Configuration)
 
 
 def migrate_v01(document:dict,ospf_version:int|None=None)->NormalizedConfig:
     v1.NormalizedConfig.model_validate(document)
-    data=deepcopy(document);data['schema_version']='0.2.0'
+    data=deepcopy(document);data['schema_version']='0.2.1'
     processes=data['configuration']['routing']['ospf']
     if processes and ospf_version is None:
         if document['parsing']['parser_name']=='TTP official templates + source-numbered project extensions':ospf_version=2

@@ -133,12 +133,15 @@ def test_no_address_removal_does_not_reintroduce_a_primary_address():
     assert next(r for r in c['commands'] if r['line']==2)['status']!='fully_normalized'
 
 
-def test_other_partial_semantics_do_not_get_full_status_or_a_guessed_field():
+def test_p1_semantics_have_exact_fields_without_guessing_other_properties():
     n,c=normalize('interface GigabitEthernet1\n ip pim bsr-border\n')
     assert n.configuration.interfaces[0].pim_mode is None
-    assert c['commands'][-1]['status']=='extracted_unmapped'
+    assert n.configuration.interfaces[0].pim_bsr_border is True
+    assert c['commands'][-1]['status']=='fully_normalized'
     n,c=normalize('route-map P permit 10\n set community 65000:1 additive\n')
-    assert c['commands'][-1]['status']=='extracted_unmapped'
+    assert c['commands'][-1]['status']=='fully_normalized'
+    action=n.configuration.routing.routing_policies[0].statements[0].actions[0]
+    assert action.kind=='community' and action.value=='65000:1 additive'
 
 
 def test_original_51_asns_and_73_primary_addresses_from_source():

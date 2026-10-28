@@ -1,4 +1,17 @@
-# Contrat utilisé : NormalizedConfig 0.2.0
+# Contrat actuel : NormalizedConfig 0.2.1
+
+La mission P1 autorisée publie les ajouts sous 0.2.1. La CLI utilise cette version
+par défaut ; `--schema-version 0.2.0` conserve le parcours historique sans les
+mappings P1 et produit le schéma 0.2.0 gelé. Le modèle v0.1 reste inchangé.
+Voir [la livraison P1](cisco-normalization-p1/IMPLEMENTATION_REPORT.md) pour les
+champs, limites, tests et fonctions de migration. `upgrade_v020` valide le
+document historique avant migration ; `project_v020` refuse de supprimer des
+propriétés 0.2.1 renseignées. Les valeurs nulles ne sont pas des valeurs false.
+
+## Archive du point de contrôle 0.2.0
+
+Le texte ci-dessous décrit le point de contrôle historique, avant les missions
+de complétion et P1 ; ses métriques et son ancienne valeur par défaut sont archivées.
 
 Point de contrôle demandé par l’utilisateur : arrêter ici avant tout ajout de
 prise en charge de nouvelles commandes Cisco. Toute extension du catalogue

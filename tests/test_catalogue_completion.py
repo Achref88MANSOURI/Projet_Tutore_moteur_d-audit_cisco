@@ -211,8 +211,12 @@ def test_bgp_af_flags_and_vrf_native_properties_never_widen():
     x,n,c=parse('router bgp 65000\n address-family ipv4 vrf A\n  no synchronization\n  no auto-summary\n  neighbor 192.0.2.1 allowas-in\n exit-address-family\n address-family ipv4 vrf B\n  neighbor 192.0.2.1 soft-reconfiguration inbound\n')
     assert all(p.synchronization is None and p.auto_summary is None for p in n.configuration.routing.bgp)
     obs=[o for o in n.configuration.cisco.observations if o.source_line in (3,4,5,8)]
-    assert [(o.source_line,o.scope.ancestors[-1]) for o in obs]==[(3,'address-family ipv4 vrf A'),(4,'address-family ipv4 vrf A'),(5,'address-family ipv4 vrf A'),(8,'address-family ipv4 vrf B')]
-    assert all(r['status']=='extracted_unmapped' for r in c['commands'] if r['line'] in (3,4,5,8))
+    assert [(o.source_line,o.scope.ancestors[-1]) for o in obs]==[(8,'address-family ipv4 vrf B')]
+    a=next(p for p in n.configuration.routing.bgp if p.network_instance=='A').family_options[0]
+    assert a.synchronization is False and a.auto_summary is False
+    assert a.peers[0].allowas_in.enabled is True and a.peers[0].allowas_in.configured_max_occurrences is None
+    assert all(r['status']=='fully_normalized' for r in c['commands'] if r['line'] in (3,4,5))
+    assert next(r for r in c['commands'] if r['line']==8)['status']=='extracted_unmapped'
 
 
 def test_one_line_banner_and_export_markers_are_not_commands():

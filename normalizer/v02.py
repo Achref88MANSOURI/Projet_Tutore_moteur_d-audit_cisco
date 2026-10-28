@@ -25,7 +25,8 @@ BASE_RULES.add('services_user_no_format')
 
 
 class SemanticMapper:
-    def __init__(self,x,text,source,os_family,raw_hash):
+    def __init__(self,x,text,source,os_family,raw_hash,*,enable_p1=True):
+        self.enable_p1=enable_p1
         self.x=x;self.nodes=x['nodes'];self.records=x['records'];self.validation={line:validate_record(r) for line,r in self.records.items()}
         for line,choice in x.get('selection',{}).items():
             if choice['ambiguous']:
@@ -49,6 +50,7 @@ class SemanticMapper:
         valid=dict(x);valid['records']={k:v for k,v in self.records.items() if self.validation[k]['valid']}
         self.base=Mapper(valid,text,source,os_family,raw_hash)
         self.result=s.migrate_v01(self.base.run().model_dump(mode='json'))
+        if not enable_p1:self.result.schema_version='0.2.0'
         self.c=self.result.configuration;self.evidence=self.result.evidence
         self.consumed=defaultdict(dict);self.extra_invalid={};self.partial_notes={};self.ambiguous=set()
         for line in self.base.mapped:
@@ -384,7 +386,9 @@ class SemanticMapper:
             backup=self.c.model_copy(deep=True);old_evidence=len(self.evidence);old_consumed=deepcopy(self.consumed)
             try:
                 family=r['family']
-                if family=='interfaces':self.interface(r)
+                from .audit_p1 import handle
+                if self.enable_p1 and handle(self,r):pass
+                elif family=='interfaces':self.interface(r)
                 elif family=='bgp':self.bgp(r)
                 elif family=='ospf':self.ospf(r)
                 elif family=='prefix':self.prefix(r)
@@ -406,6 +410,10 @@ class SemanticMapper:
                 self.c=backup;self.result.configuration=backup;del self.evidence[old_evidence:];self.consumed=old_consumed
                 self.extra_invalid[line]='Unsupported or invalid semantic variant; no value guessed.'
                 if 'Duplicate' in str(exc) or 'cannot be guessed' in str(exc):self.ambiguous.add(line)
+        if self.enable_p1:
+            from .audit_p1 import existing_policy,POLICIES
+            for line,r in sorted(self.records.items()):
+                if r['rule'] in POLICIES and self.validation[line]['valid']:existing_policy(self,r)
         # Retain native properties without presenting them as a common semantic
         # model or complete mapping. Every record's remaining parameters are visible.
         for line,r in sorted(self.records.items()):
@@ -430,7 +438,7 @@ class SemanticMapper:
             if n.kind=='command' and (n.line not in self.records or n.line in remaining):
                 unknown.append(UnknownCommand(line_start=n.line,line_end=n.end_line,raw_text=redacted(n.text),
                     parent_context=redacted(self.nodes[n.parent].text) if n.parent else None,reason='unsupported_semantics' if n.line in self.records else 'not_implemented'))
-        self.result.parsing.unknown_commands=unknown;self.result.parsing.parser_version='0.4.0'
+        self.result.parsing.unknown_commands=unknown;self.result.parsing.parser_version='0.5.0' if self.enable_p1 else '0.4.0'
         # Validate relations without silently deleting or repairing references.
         for message in self.result.semantic_warnings():
             if not any(d.message==message for d in self.result.parsing.diagnostics):self.result.parsing.diagnostics.append(Diagnostic(severity='warning',code='UNRESOLVED_REFERENCE',message=message))
