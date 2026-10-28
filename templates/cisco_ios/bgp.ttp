@@ -121,3 +121,39 @@
 <group name="bgp_additional_send*" method="table">
 {{ source_line | DIGIT | to_int }} bgp additional-paths {{ send }} {{ receive }}
 </group>
+
+<group name="bgp_compare_med*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} bgp always-compare-med
+</group>
+
+<group name="bgp_deterministic_med*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} bgp deterministic-med
+</group>
+
+<group name="bgp_no_default_ipv4*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no bgp default ipv4-unicast
+</group>
+
+<group name="bgp_no_sync*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no synchronization
+</group>
+
+<group name="bgp_no_auto_summary*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no auto-summary
+</group>
+
+<group name="bgp_no_enforce_first_as*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no bgp enforce-first-as
+</group>
+
+<group name="bgp_advertise_additional*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} advertise additional-paths {{ selection }}
+</group>
+
+<group name="catalogue_allowas*" method="table" functions="set(True, count_unspecified)">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} allowas-in
+</group>
+
+<group name="catalogue_soft*" method="table" functions="set(True, inbound)">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} soft-reconfiguration inbound
+</group>

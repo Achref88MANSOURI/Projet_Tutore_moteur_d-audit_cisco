@@ -231,6 +231,10 @@ add('acl_extended', 'acl_header_ext', 'ip access-list extended {{ name }}')
 add('acl_standard', 'acl_header_std', 'ip access-list standard {{ name }}')
 add('acl_extended', 'acl_header_ipv6', 'ipv6 access-list {{ name }}')
 
+import sys
+sys.path.insert(0,str(ROOT))
+from tools.catalogue_rules import add_catalogue_rules
+add_catalogue_rules(rules)
 assert len({r['id'] for r in rules})==len(rules)
 target = ROOT / 'templates/cisco_ios'
 target.mkdir(parents=True, exist_ok=True)

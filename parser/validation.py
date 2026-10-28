@@ -52,6 +52,9 @@ def validate_record(record):
             if key=='value' and (not isinstance(value,str) or rule=='if_description' or rule in ('services_snmp_location','services_snmp_contact')):state='validated'
             if key=='options' and rule.startswith('acl_') and value=='log':state='validated'
             if key=='method' and rule=='services_login' and value in ('local','authentication default'):state='validated'
+            if key=='method' and rule=='services_http_auth' and value in ('local','aaa','enable'):state='validated'
+            if key=='method' and rule=='advanced_pki_enrollment' and value in ('selfsigned','terminal','pkcs12'):state='validated'
+            if key=='method' and rule=='advanced_pki_revocation' and value in ('none','crl','ocsp'):state='validated'
             if key=='subject' and '=' in str(value):state='validated'
         except (ValueError,TypeError):
             state='invalid';errors.append(key)

@@ -21,6 +21,9 @@ BASE_RULES={'if_header','if_description','if_mtu','if_vrf','if_legacy_vrf','if_s
  'services_auth_address','services_nat_static','advanced_vlan','advanced_vlan_name','advanced_qos_policymap'}
 
 
+BASE_RULES.add('services_user_no_format')
+
+
 class SemanticMapper:
     def __init__(self,x,text,source,os_family,raw_hash):
         self.x=x;self.nodes=x['nodes'];self.records=x['records'];self.validation={line:validate_record(r) for line,r in self.records.items()}
@@ -133,7 +136,11 @@ class SemanticMapper:
         option_path=path+f'/family_options/{proc.family_options.index(options)}' if af else path
         process_flags={'bgp_log_changes':'log_neighbor_changes','bgp_compare_med':'compare_med','bgp_deterministic_med':'deterministic_med',
             'bgp_no_default_ipv4':'default_ipv4_unicast','bgp_no_sync':'synchronization','bgp_no_auto_summary':'auto_summary','bgp_no_enforce_first_as':'enforce_first_as'}
-        if rule in process_flags:self.assign(proc,process_flags[rule],v['enabled'],path,line,list(v));return
+        if rule in process_flags:
+            # v0.2 has these flags only at process scope. Preserve AF-local
+            # commands with their exact native scope rather than widening them.
+            if af:return
+            self.assign(proc,process_flags[rule],v['enabled'],path,line,list(v));return
         if rule=='bgp_dampening':self.assign(options,'dampening',v['enabled'],option_path,line,list(v));return
         if rule=='bgp_additional_select':self.assign(options,'additional_paths_selection',v['selection'],option_path,line,list(v));return
         if rule=='bgp_additional_send':
@@ -407,11 +414,12 @@ class SemanticMapper:
             prefix=r['rule'].split('_')[0];domain={'if':'interface','advanced':'services','services':'services','route':'routing','policy':'policy','acl':'acl','prefix':'prefix'}.get(prefix,prefix)
             for marker in ('qos','pki','mpls','pim','isis','l2'):
                 if marker in r['rule']:domain={'pim':'multicast','l2':'l2vpn'}.get(marker,marker)
+            domain=r.get('native_domain',domain)
             if domain not in s.CiscoObservation.model_fields['domain'].annotation.__args__:domain='services'
             scope=s.Scope(root_line=r['root_line'],root_command=redacted(self.nodes[r['root_line']].text),
                 ancestors=[redacted(self.nodes[n].text) for n in r['context_lines']],ancestor_lines=r['context_lines'])
             self.c.cisco.observations.append(s.CiscoObservation(domain=domain,rule=r['rule'],source_line=line,scope=scope,
-                parameters=[s.NativeParameter(name=k,value=v,validation='validated' if self.validation[line]['fields'][k]=='validated' else 'unvalidated') for k,v in remaining],
+                parameters=[s.NativeParameter(name=k,value='[REDACTED]' if k in ('credential','secret','password','community_secret','serial') else v,validation='validated' if self.validation[line]['fields'][k]=='validated' else 'unvalidated') for k,v in remaining],
                 justification='Native Cisco parameters preserved because their complete common-model semantics or relation handling is not implemented. Not credited as fully normalized.'))
         for n in self.nodes.values():
             if n.kind.startswith('opaque'):
@@ -422,7 +430,7 @@ class SemanticMapper:
             if n.kind=='command' and (n.line not in self.records or n.line in remaining):
                 unknown.append(UnknownCommand(line_start=n.line,line_end=n.end_line,raw_text=redacted(n.text),
                     parent_context=redacted(self.nodes[n.parent].text) if n.parent else None,reason='unsupported_semantics' if n.line in self.records else 'not_implemented'))
-        self.result.parsing.unknown_commands=unknown;self.result.parsing.parser_version='0.3.0'
+        self.result.parsing.unknown_commands=unknown;self.result.parsing.parser_version='0.4.0'
         # Validate relations without silently deleting or repairing references.
         for message in self.result.semantic_warnings():
             if not any(d.message==message for d in self.result.parsing.diagnostics):self.result.parsing.diagnostics.append(Diagnostic(severity='warning',code='UNRESOLVED_REFERENCE',message=message))

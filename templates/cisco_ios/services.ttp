@@ -169,3 +169,319 @@
 <group name="services_login_logging*" method="table" functions="set(True, enabled)">
 {{ source_line | DIGIT | to_int }} login on-success log
 </group>
+
+<group name="services_timestamp*" method="table">
+{{ source_line | DIGIT | to_int }} service timestamps {{ category }} {{ format }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_timestamp_plain*" method="table">
+{{ source_line | DIGIT | to_int }} service timestamps {{ category }} {{ format }}
+</group>
+
+<group name="services_line_synchronous*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} logging synchronous
+</group>
+
+<group name="services_line_privilege*" method="table">
+{{ source_line | DIGIT | to_int }} privilege level {{ level | DIGIT | to_int }}
+</group>
+
+<group name="services_line_stopbits*" method="table">
+{{ source_line | DIGIT | to_int }} stopbits {{ bits | DIGIT | to_int }}
+</group>
+
+<group name="services_line_length*" method="table">
+{{ source_line | DIGIT | to_int }} length {{ length | DIGIT | to_int }}
+</group>
+
+<group name="services_line_preferred*" method="table">
+{{ source_line | DIGIT | to_int }} transport preferred {{ transports | ORPHRASE }}
+</group>
+
+<group name="services_console_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no logging console
+</group>
+
+<group name="services_source_route_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip source-route
+</group>
+
+<group name="services_lookup_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip domain lookup
+</group>
+
+<group name="services_password_encryption_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no service password-encryption
+</group>
+
+<group name="services_ipv6_routing*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ipv6 unicast-routing
+</group>
+
+<group name="services_http_auth*" method="table">
+{{ source_line | DIGIT | to_int }} ip http authentication {{ method }}
+</group>
+
+<group name="services_community_expanded*" method="table">
+{{ source_line | DIGIT | to_int }} ip community-list expanded {{ name }} {{ action }} {{ expression | ORPHRASE }}
+</group>
+
+<group name="services_flow_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip flow-export source {{ interface }}
+</group>
+
+<group name="services_flow_version*" method="table">
+{{ source_line | DIGIT | to_int }} ip flow-export version {{ version | DIGIT | to_int }} {{ as_mode }}
+</group>
+
+<group name="services_flow_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} ip flow-cache timeout {{ type }} {{ timeout | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_multilink*" method="table">
+{{ source_line | DIGIT | to_int }} multilink bundle-name {{ naming }}
+</group>
+
+<group name="catalogue_control_plane*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} control-plane
+</group>
+
+<group name="catalogue_forward_protocol*" method="table">
+{{ source_line | DIGIT | to_int }} ip forward-protocol {{ protocol }}
+</group>
+
+<group name="catalogue_redundancy*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} redundancy
+</group>
+
+<group name="catalogue_cef*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip cef
+</group>
+
+<group name="catalogue_cef6*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ipv6 cef
+</group>
+
+<group name="catalogue_no_cef6*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ipv6 cef
+</group>
+
+<group name="catalogue_mmi_poll*" method="table">
+{{ source_line | DIGIT | to_int }} mmi polling-interval {{ interval | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_mmi_no_auto*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no mmi auto-configure
+</group>
+
+<group name="catalogue_mmi_no_pvc*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no mmi pvc
+</group>
+
+<group name="catalogue_mmi_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} mmi snmp-timeout {{ timeout | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_ioam*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ipv6 ioam timestamp
+</group>
+
+<group name="catalogue_scheduler_none*" method="table" functions="set(False, configured)">
+{{ source_line | DIGIT | to_int }} no scheduler allocate
+</group>
+
+<group name="catalogue_scheduler*" method="table">
+{{ source_line | DIGIT | to_int }} scheduler allocate {{ interrupt | DIGIT | to_int }} {{ process | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_subscriber*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} subscriber templating
+</group>
+
+<group name="catalogue_diagnostic*" method="table">
+{{ source_line | DIGIT | to_int }} diagnostic bootup level {{ level }}
+</group>
+
+<group name="catalogue_spanning_system_id*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} spanning-tree extend system-id
+</group>
+
+<group name="catalogue_console*" method="table">
+{{ source_line | DIGIT | to_int }} platform console {{ transport }}
+</group>
+
+<group name="catalogue_icmp_no_limit*" method="table" functions="set(False, limited)">
+{{ source_line | DIGIT | to_int }} no ip icmp rate-limit unreachable
+</group>
+
+<group name="catalogue_synwait*" method="table">
+{{ source_line | DIGIT | to_int }} ip tcp synwait-time {{ seconds | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_memory_low*" method="table">
+{{ source_line | DIGIT | to_int }} memory free low-watermark processor {{ threshold | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_call_home*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} call-home
+</group>
+
+<group name="catalogue_call_home_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} service call-home
+</group>
+
+<group name="catalogue_qfp*" method="table">
+{{ source_line | DIGIT | to_int }} platform qfp utilization monitor load {{ percent | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_punt*" method="table" functions="set(True, disabled)">
+{{ source_line | DIGIT | to_int }} platform punt-keepalive disable-kernel-core
+</group>
+
+<group name="catalogue_no_punt*" method="table" functions="set(False, disabled)">
+{{ source_line | DIGIT | to_int }} no platform punt-keepalive disable-kernel-core
+</group>
+
+<group name="catalogue_tftp_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip tftp source-interface {{ interface }}
+</group>
+
+<group name="catalogue_dns_view*" method="table">
+{{ source_line | DIGIT | to_int }} ip dns view vrf {{ vrf }} {{ name }}
+</group>
+
+<group name="catalogue_no_cdp_log*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no cdp log mismatch duplex
+</group>
+
+<group name="catalogue_bgp_community_format*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip bgp-community new-format
+</group>
+
+<group name="catalogue_upgrade*" method="table">
+{{ source_line | DIGIT | to_int }} upgrade fpd {{ mode }}
+</group>
+
+<group name="catalogue_mgcp*" method="table">
+{{ source_line | DIGIT | to_int }} mgcp profile {{ name }}
+</group>
+
+<group name="catalogue_gatekeeper*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} gatekeeper
+</group>
+
+<group name="catalogue_virtual_service*" method="table">
+{{ source_line | DIGIT | to_int }} virtual-service {{ name }}
+</group>
+
+<group name="catalogue_config_register*" method="table">
+{{ source_line | DIGIT | to_int }} config-register {{ register }}
+</group>
+
+<group name="catalogue_boot_system*" method="table">
+{{ source_line | DIGIT | to_int }} boot system {{ image }}
+</group>
+
+<group name="catalogue_password_minimum*" method="table">
+{{ source_line | DIGIT | to_int }} security passwords min-length {{ length | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_flow_aggregation*" method="table">
+{{ source_line | DIGIT | to_int }} ip flow-aggregation cache {{ aggregation }}
+</group>
+
+<group name="catalogue_ifindex*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} snmp ifmib ifindex persist
+</group>
+
+<group name="catalogue_domain_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip domain lookup source-interface {{ interface }}
+</group>
+
+<group name="catalogue_license*" method="table">
+{{ source_line | DIGIT | to_int }} license udi pid {{ pid }} sn {{ serial }}
+</group>
+
+<group name="catalogue_alias*" method="table">
+{{ source_line | DIGIT | to_int }} alias exec {{ name }} {{ expansion | ORPHRASE }}
+</group>
+
+<group name="catalogue_archive*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} archive
+</group>
+
+<group name="catalogue_rip*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} router rip
+</group>
+
+<group name="catalogue_call_home_contact*" method="table">
+{{ source_line | DIGIT | to_int }} contact-email-addr {{ email }}
+</group>
+
+<group name="catalogue_call_home_profile*" method="table">
+{{ source_line | DIGIT | to_int }} profile {{ name }}
+</group>
+
+<group name="catalogue_call_home_active*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} active
+</group>
+
+<group name="catalogue_call_home_destination*" method="table">
+{{ source_line | DIGIT | to_int }} destination transport-method {{ transport }}
+</group>
+
+<group name="catalogue_gatekeeper_shutdown*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} shutdown
+</group>
+
+<group name="catalogue_archive_log*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} log config
+</group>
+
+<group name="catalogue_archive_hide*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} hidekeys
+</group>
+
+<group name="catalogue_cache_entries*" method="table">
+{{ source_line | DIGIT | to_int }} cache entries {{ entries | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_cache_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} cache timeout {{ type }} {{ timeout | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_cache_export*" method="table">
+{{ source_line | DIGIT | to_int }} export destination {{ address | IP }} {{ port | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_cache_enable*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} enabled
+</group>
+
+<group name="catalogue_rip_network*" method="table">
+{{ source_line | DIGIT | to_int }} network {{ network | IP }}
+</group>
+
+<group name="catalogue_rip_family*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} vrf {{ vrf }}
+</group>
+
+<group name="catalogue_rip_redistribute*" method="table">
+{{ source_line | DIGIT | to_int }} redistribute bgp {{ local_as }} metric {{ metric | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_rip_no_summary*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no auto-summary
+</group>
+
+<group name="catalogue_msdp_peer*" method="table">
+{{ source_line | DIGIT | to_int }} ip msdp peer {{ address | IP }} connect-source {{ interface }}
+</group>
+
+<group name="catalogue_msdp_cache*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip msdp cache-sa-state
+</group>
+
+<group name="services_user_no_format*" method="table" functions="set('not_specified', credential_format)">
+{{ source_line | DIGIT | to_int }} username {{ username }} {{ credential_type }} {{ credential }}
+</group>

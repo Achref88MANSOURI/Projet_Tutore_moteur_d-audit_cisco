@@ -9,6 +9,8 @@ import re
 
 
 def redacted(text):
+    if text.startswith('banner '):return ' '.join(text.split()[:2])+' [REDACTED opaque banner]'
+    if text.startswith('license udi '):return re.sub(r'(\bsn\s+)\S+',r'\1[REDACTED]',text)
     if text.startswith(('ip community-list ', 'ip bgp-community ', 'service password-encryption', 'no service password-encryption')) or re.match(r'(?:no )?neighbor \S+ send-community', text):
         return text
     if re.search(r'(?i)\b(?:secret|password|pre-shared-key|key-string|server-key|key)\b|^snmp-server (?:community|host|user)\b', text):
@@ -78,7 +80,8 @@ def inventory(text):
         parent = stack[-1] if stack else None
         root = nodes[parent].root if parent else i
         family = nodes[parent].family if parent else root_family(value)
-        kind = 'boundary' if value in ('quit', 'exit-address-family', 'exit') else 'command'
+        kind = 'boundary' if value in ('quit', 'exit-address-family', 'exit','exit-af-interface','exit-af-topology') else 'command'
+        if value in ('boot-start-marker','boot-end-marker'):kind='metadata'
         if value.startswith(('Building configuration', 'Current configuration')):
             kind = 'wrapper'
         node = Node(i, value, indent, parent, root, family, kind)
@@ -90,6 +93,9 @@ def inventory(text):
             if len(parts) == 3:
                 delimiter = '^C' if parts[2].startswith('^C') else parts[2][:1]
                 remainder = parts[2][len(delimiter):]
+                if delimiter in remainder:
+                    node.kind='opaque_banner';node.end_line=node.line
+                    node.opaque_sha256=hashlib.sha256(remainder.encode()).hexdigest()
                 start = i + 1
                 body = []
                 if delimiter not in remainder:

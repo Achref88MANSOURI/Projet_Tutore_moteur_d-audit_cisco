@@ -185,3 +185,31 @@
 <group name="if_ipv6_enable*" method="table" functions="set(True, enabled)">
 {{ source_line | DIGIT | to_int }} ipv6 enable
 </group>
+
+<group name="if_cdp_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no cdp enable
+</group>
+
+<group name="if_mop_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no mop {{ feature }}
+</group>
+
+<group name="if_service_instance*" method="table">
+{{ source_line | DIGIT | to_int }} service instance {{ instance | DIGIT | to_int }} ethernet
+</group>
+
+<group name="if_bridge_domain*" method="table">
+{{ source_line | DIGIT | to_int }} bridge-domain {{ domain | DIGIT | to_int }}
+</group>
+
+<group name="if_encap_untagged*" method="table" functions="set('untagged', kind)">
+{{ source_line | DIGIT | to_int }} encapsulation untagged
+</group>
+
+<group name="catalogue_dhcp4*" method="table" functions="set('dhcp', method)">
+{{ source_line | DIGIT | to_int }} ip address dhcp
+</group>
+
+<group name="catalogue_sap*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip sap listen
+</group>

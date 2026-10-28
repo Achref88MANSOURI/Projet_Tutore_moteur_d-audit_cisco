@@ -19,6 +19,27 @@ OFFICIAL = {
 }
 
 
+def complete_line(pattern,text):
+    """A TTP prefix match must not hide an unparsed option at line end."""
+    pattern=re.sub(r'{{\s*\w+\s*\|\s*set\(.*?\)\s*}}','',pattern).strip()
+    parts=[];start=0
+    for match in re.finditer(r'{{(.*?)}}',pattern):
+        parts.append(re.escape(pattern[start:match.start()]))
+        parts.append('.+?' if 'ORPHRASE' in match[1] or 're(' in match[1] else r'\S+')
+        start=match.end()
+    parts.append(re.escape(pattern[start:]))
+    return bool(re.fullmatch(re.sub(r'(?:\\ )+',r'\\s+',''.join(parts)),text))
+
+
+def scope_allowed(definition,node,nodes):
+    scope=definition.get('scope')
+    if scope=='global':return node.parent is None
+    if scope and scope.startswith('root:'):
+        prefix=scope[5:];root=nodes[node.root].text
+        return root==prefix or root.startswith(prefix+' ')
+    return True
+
+
 def clean_json(value, key=''):
     if isinstance(value, dict):
         return {k: clean_json(v, k) for k, v in value.items()}
@@ -27,7 +48,7 @@ def clean_json(value, key=''):
     if isinstance(value, str):
         if key == 'credential_type' and value in ('secret','password'):
             return value
-        if key in ('community_secret', 'password', 'secret', 'credential'):
+        if key in ('community_secret', 'password', 'secret', 'credential', 'serial'):
             return '[REDACTED]'
         return redacted(value)
     return value
@@ -67,6 +88,8 @@ def extract(text, *, official=True):
                 for record in flatten_records(values):
                     line = record['source_line']
                     definition = definitions[rule]
+                    if any(record.get(k) not in allowed for k,allowed in definition.get('choices',{}).items()):continue
+                    if not scope_allowed(definition,nodes[line],nodes) or not complete_line(definition['pattern'],nodes[line].text):continue
                     if rule in ('services_login','services_login_plain'):
                         if not nodes[nodes[line].root].text.startswith('line '):
                             continue
@@ -105,6 +128,7 @@ def extract(text, *, official=True):
         records[line] = {'rule': rule, 'values': values, 'source_line': line,
                          'root_line': node.root, 'family': node.family,
                          'context_lines': [x.line for x in ancestors(node, nodes)]}
+        if definitions[rule].get('native_domain'):records[line]['native_domain']=definitions[rule]['native_domain']
     official_results, official_errors, official_hashes = {}, [], {}
     if official:
         for name, filename in OFFICIAL.items():

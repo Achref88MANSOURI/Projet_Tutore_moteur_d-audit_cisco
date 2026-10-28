@@ -141,3 +141,27 @@
 <group name="advanced_vlan_name*" method="table">
 {{ source_line | DIGIT | to_int }} name {{ name | ORPHRASE }}
 </group>
+
+<group name="advanced_mpls_ldp_no_option*" method="table">
+{{ source_line | DIGIT | to_int }} mpls ldp router-id {{ interface }}
+</group>
+
+<group name="catalogue_pim_autorp*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip pim autorp listener
+</group>
+
+<group name="catalogue_pim_discovery*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim send-rp-discovery scope {{ scope | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_pim_ssm*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim ssm {{ range }}
+</group>
+
+<group name="catalogue_pim_bsr*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim bsr-candidate {{ interface }} {{ hash_mask | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_pim_rp_candidate*" method="table">
+{{ source_line | DIGIT | to_int }} ip pim rp-candidate {{ interface }}
+</group>

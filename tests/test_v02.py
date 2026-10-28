@@ -31,7 +31,7 @@ def pointer(value,path):
     return value
 
 
-@pytest.mark.parametrize('fact',[f for f in FACTS if not f.get('deferred')],ids=lambda f:f'{f["file_id"]}-L{f["line"]}-{f["field"]}')
+@pytest.mark.parametrize('fact',FACTS,ids=lambda f:f'{f["file_id"]}-L{f["line"]}-{f["field"]}')
 def test_independent_original_line_native_and_semantic_value(corpus,fact):
     text,x,doc=corpus[fact['file_id']]
     assert text.splitlines()[fact['line']-1].strip()==fact['source']
@@ -84,16 +84,18 @@ def test_context_guard_not_global_vty_or_physical_service():
     assert 1 not in extract('logging synchronous\n',official=False)['records']
     x,n,c=parse('interface E1\n service instance 100 ethernet\n  encapsulation dot1q 10\n  bridge-domain 100\n')
     assert n.configuration.interfaces[0].encapsulation is None
-    assert not n.configuration.cisco.ethernet_services
-    assert any(u.line_start==2 and 'service instance' in u.raw_text for u in n.parsing.unknown_commands)
+    service,=n.configuration.cisco.ethernet_services
+    assert (service.interface,service.instance,service.encapsulation.kind,service.encapsulation.outer_vlan,service.bridge_domain)==('E1',100,'dot1q',10,100)
+    assert all(r['status']=='fully_normalized' for r in c['commands'])
 
 
-def test_previously_uninterpreted_examples_remain_preserved(corpus):
+def test_previously_deferred_facts_now_have_explicit_evidence(corpus):
     for fact in FACTS:
         if not fact.get('deferred'):continue
         text,x,doc=corpus[fact['file_id']]
-        assert fact['line'] not in x['records']
-        assert any(u['line_start']==fact['line'] and u['raw_text']==fact['source'] for u in doc['parsing']['unknown_commands'])
+        assert fact['line'] in x['records']
+        assert not any(u['line_start']==fact['line'] for u in doc['parsing']['unknown_commands'])
+        assert any(e['line_start']==fact['line'] and e['status']=='explicit' for e in doc['evidence'])
 
 
 def test_migration_and_ospf_downgrade_refusal():

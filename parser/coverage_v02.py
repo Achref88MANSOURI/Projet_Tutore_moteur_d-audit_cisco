@@ -14,6 +14,7 @@ def build_coverage(x,mapper,legacy_lines=None):
         validation=mapper.validation.get(line,{'valid':False,'fields':{},'invalid_fields':[]})
         if node.kind.startswith('opaque'):status='opaque_preserved'
         elif node.kind in ('wrapper','footer'):status='export_wrapper'
+        elif node.kind=='metadata':status='structure_or_metadata'
         elif node.kind=='boundary' or line in mapper.base.structural:status='structure_or_metadata'
         elif record is None:status='uninterpreted'
         elif not validation['valid'] or line in mapper.base.failed or line in mapper.ambiguous:status='invalid_or_ambiguous'

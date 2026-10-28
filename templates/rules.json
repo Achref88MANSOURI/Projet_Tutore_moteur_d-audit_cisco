@@ -1979,5 +1979,971 @@
     "pattern": "ipv6 access-list {{ name }}",
     "note": "",
     "constants": {}
+  },
+  {
+    "family": "interfaces",
+    "id": "if_cdp_off",
+    "pattern": "no cdp enable {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "interfaces",
+    "id": "if_mop_off",
+    "pattern": "no mop {{ feature }} {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "choices": {
+      "feature": [
+        "enabled",
+        "sysid"
+      ]
+    },
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "interfaces",
+    "id": "if_service_instance",
+    "pattern": "service instance {{ instance | DIGIT | to_int }} ethernet",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "interfaces",
+    "id": "if_bridge_domain",
+    "pattern": "bridge-domain {{ domain | DIGIT | to_int }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "interfaces",
+    "id": "if_encap_untagged",
+    "pattern": "encapsulation untagged {{ kind | set('untagged') }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "kind": "untagged"
+    }
+  },
+  {
+    "family": "advanced",
+    "id": "advanced_mpls_ldp_no_option",
+    "pattern": "mpls ldp router-id {{ interface }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_timestamp",
+    "pattern": "service timestamps {{ category }} {{ format }} {{ options | ORPHRASE }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_timestamp_plain",
+    "pattern": "service timestamps {{ category }} {{ format }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_line_synchronous",
+    "pattern": "logging synchronous {{ enabled | set(True) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "services_line_privilege",
+    "pattern": "privilege level {{ level | DIGIT | to_int }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_line_stopbits",
+    "pattern": "stopbits {{ bits | DIGIT | to_int }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_line_length",
+    "pattern": "length {{ length | DIGIT | to_int }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_line_preferred",
+    "pattern": "transport preferred {{ transports | ORPHRASE }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_console_off",
+    "pattern": "no logging console {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "services_source_route_off",
+    "pattern": "no ip source-route {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "services_lookup_off",
+    "pattern": "no ip domain lookup {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "services_password_encryption_off",
+    "pattern": "no service password-encryption {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "services_ipv6_routing",
+    "pattern": "ipv6 unicast-routing {{ enabled | set(True) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "services_http_auth",
+    "pattern": "ip http authentication {{ method }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_community_expanded",
+    "pattern": "ip community-list expanded {{ name }} {{ action }} {{ expression | ORPHRASE }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "choices": {
+      "action": [
+        "permit",
+        "deny"
+      ]
+    },
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_flow_source",
+    "pattern": "ip flow-export source {{ interface }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_flow_version",
+    "pattern": "ip flow-export version {{ version | DIGIT | to_int }} {{ as_mode }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_flow_timeout",
+    "pattern": "ip flow-cache timeout {{ type }} {{ timeout | DIGIT | to_int }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_compare_med",
+    "pattern": "bgp always-compare-med {{ enabled | set(True) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_deterministic_med",
+    "pattern": "bgp deterministic-med {{ enabled | set(True) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_no_default_ipv4",
+    "pattern": "no bgp default ipv4-unicast {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_no_sync",
+    "pattern": "no synchronization {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_no_auto_summary",
+    "pattern": "no auto-summary {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_no_enforce_first_as",
+    "pattern": "no bgp enforce-first-as {{ enabled | set(False) }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "bgp",
+    "id": "bgp_advertise_additional",
+    "pattern": "neighbor {{ peer }} advertise additional-paths {{ selection }}",
+    "note": "Activated for catalogue completion; native-only fields never earn semantic credit.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_multilink",
+    "pattern": "multilink bundle-name {{ naming }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_control_plane",
+    "pattern": "control-plane {{ declared | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "declared": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_forward_protocol",
+    "pattern": "ip forward-protocol {{ protocol }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_redundancy",
+    "pattern": "redundancy {{ declared | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "declared": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_cef",
+    "pattern": "ip cef {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_cef6",
+    "pattern": "ipv6 cef {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_no_cef6",
+    "pattern": "no ipv6 cef {{ enabled | set(False) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_mmi_poll",
+    "pattern": "mmi polling-interval {{ interval | DIGIT | to_int }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_mmi_no_auto",
+    "pattern": "no mmi auto-configure {{ enabled | set(False) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_mmi_no_pvc",
+    "pattern": "no mmi pvc {{ enabled | set(False) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_mmi_timeout",
+    "pattern": "mmi snmp-timeout {{ timeout | DIGIT | to_int }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_ioam",
+    "pattern": "ipv6 ioam timestamp {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_scheduler_none",
+    "pattern": "no scheduler allocate {{ configured | set(False) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "configured": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_scheduler",
+    "pattern": "scheduler allocate {{ interrupt | DIGIT | to_int }} {{ process | DIGIT | to_int }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_subscriber",
+    "pattern": "subscriber templating {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_diagnostic",
+    "pattern": "diagnostic bootup level {{ level }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_spanning_system_id",
+    "pattern": "spanning-tree extend system-id {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_console",
+    "pattern": "platform console {{ transport }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_icmp_no_limit",
+    "pattern": "no ip icmp rate-limit unreachable {{ limited | set(False) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "limited": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_synwait",
+    "pattern": "ip tcp synwait-time {{ seconds | DIGIT | to_int }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_memory_low",
+    "pattern": "memory free low-watermark processor {{ threshold | DIGIT | to_int }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_call_home",
+    "pattern": "call-home {{ declared | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "declared": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_call_home_on",
+    "pattern": "service call-home {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_qfp",
+    "pattern": "platform qfp utilization monitor load {{ percent | DIGIT | to_int }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_punt",
+    "pattern": "platform punt-keepalive disable-kernel-core {{ disabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "disabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_no_punt",
+    "pattern": "no platform punt-keepalive disable-kernel-core {{ disabled | set(False) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "disabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_tftp_source",
+    "pattern": "ip tftp source-interface {{ interface }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_dns_view",
+    "pattern": "ip dns view vrf {{ vrf }} {{ name }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_no_cdp_log",
+    "pattern": "no cdp log mismatch duplex {{ enabled | set(False) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_bgp_community_format",
+    "pattern": "ip bgp-community new-format {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_upgrade",
+    "pattern": "upgrade fpd {{ mode }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_mgcp",
+    "pattern": "mgcp profile {{ name }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_gatekeeper",
+    "pattern": "gatekeeper {{ declared | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "declared": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_virtual_service",
+    "pattern": "virtual-service {{ name }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_config_register",
+    "pattern": "config-register {{ register }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_boot_system",
+    "pattern": "boot system {{ image }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_password_minimum",
+    "pattern": "security passwords min-length {{ length | DIGIT | to_int }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_flow_aggregation",
+    "pattern": "ip flow-aggregation cache {{ aggregation }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_ifindex",
+    "pattern": "snmp ifmib ifindex persist {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_domain_source",
+    "pattern": "ip domain lookup source-interface {{ interface }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_license",
+    "pattern": "license udi pid {{ pid }} sn {{ serial }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_alias",
+    "pattern": "alias exec {{ name }} {{ expansion | ORPHRASE }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_archive",
+    "pattern": "archive {{ declared | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "declared": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_rip",
+    "pattern": "router rip {{ declared | set(True) }}",
+    "scope": "global",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "declared": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_call_home_contact",
+    "pattern": "contact-email-addr {{ email }}",
+    "scope": "root:call-home",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_call_home_profile",
+    "pattern": "profile {{ name }}",
+    "scope": "root:call-home",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_call_home_active",
+    "pattern": "active {{ enabled | set(True) }}",
+    "scope": "root:call-home",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_call_home_destination",
+    "pattern": "destination transport-method {{ transport }}",
+    "scope": "root:call-home",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_gatekeeper_shutdown",
+    "pattern": "shutdown {{ enabled | set(False) }}",
+    "scope": "root:gatekeeper",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_archive_log",
+    "pattern": "log config {{ declared | set(True) }}",
+    "scope": "root:archive",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "declared": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_archive_hide",
+    "pattern": "hidekeys {{ enabled | set(True) }}",
+    "scope": "root:archive",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_cache_entries",
+    "pattern": "cache entries {{ entries | DIGIT | to_int }}",
+    "scope": "root:ip flow-aggregation cache",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_cache_timeout",
+    "pattern": "cache timeout {{ type }} {{ timeout | DIGIT | to_int }}",
+    "scope": "root:ip flow-aggregation cache",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_cache_export",
+    "pattern": "export destination {{ address | IP }} {{ port | DIGIT | to_int }}",
+    "scope": "root:ip flow-aggregation cache",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_cache_enable",
+    "pattern": "enabled {{ enabled | set(True) }}",
+    "scope": "root:ip flow-aggregation cache",
+    "native_domain": "services",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_rip_network",
+    "pattern": "network {{ network | IP }}",
+    "scope": "root:router rip",
+    "native_domain": "routing",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_rip_family",
+    "pattern": "address-family {{ afi }} vrf {{ vrf }}",
+    "scope": "root:router rip",
+    "native_domain": "routing",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_rip_redistribute",
+    "pattern": "redistribute bgp {{ local_as }} metric {{ metric | DIGIT | to_int }}",
+    "scope": "root:router rip",
+    "native_domain": "routing",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_rip_no_summary",
+    "pattern": "no auto-summary {{ enabled | set(False) }}",
+    "scope": "root:router rip",
+    "native_domain": "routing",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": false
+    }
+  },
+  {
+    "family": "services",
+    "id": "catalogue_msdp_peer",
+    "pattern": "ip msdp peer {{ address | IP }} connect-source {{ interface }}",
+    "scope": "global",
+    "native_domain": "multicast",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "catalogue_msdp_cache",
+    "pattern": "ip msdp cache-sa-state {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "multicast",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "interfaces",
+    "id": "catalogue_dhcp4",
+    "pattern": "ip address dhcp {{ method | set(\"dhcp\") }}",
+    "scope": "root:interface",
+    "native_domain": "interface",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "method": "dhcp"
+    }
+  },
+  {
+    "family": "interfaces",
+    "id": "catalogue_sap",
+    "pattern": "ip sap listen {{ enabled | set(True) }}",
+    "scope": "root:interface",
+    "native_domain": "multicast",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "bgp",
+    "id": "catalogue_allowas",
+    "pattern": "neighbor {{ peer }} allowas-in {{ count_unspecified | set(True) }}",
+    "scope": "root:router bgp",
+    "native_domain": "bgp",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "count_unspecified": true
+    }
+  },
+  {
+    "family": "bgp",
+    "id": "catalogue_soft",
+    "pattern": "neighbor {{ peer }} soft-reconfiguration inbound {{ inbound | set(True) }}",
+    "scope": "root:router bgp",
+    "native_domain": "bgp",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "inbound": true
+    }
+  },
+  {
+    "family": "advanced",
+    "id": "catalogue_pim_autorp",
+    "pattern": "ip pim autorp listener {{ enabled | set(True) }}",
+    "scope": "global",
+    "native_domain": "multicast",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {
+      "enabled": true
+    }
+  },
+  {
+    "family": "advanced",
+    "id": "catalogue_pim_discovery",
+    "pattern": "ip pim send-rp-discovery scope {{ scope | DIGIT | to_int }}",
+    "scope": "global",
+    "native_domain": "multicast",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "advanced",
+    "id": "catalogue_pim_ssm",
+    "pattern": "ip pim ssm {{ range }}",
+    "scope": "global",
+    "native_domain": "multicast",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "advanced",
+    "id": "catalogue_pim_bsr",
+    "pattern": "ip pim bsr-candidate {{ interface }} {{ hash_mask | DIGIT | to_int }}",
+    "scope": "global",
+    "native_domain": "multicast",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "advanced",
+    "id": "catalogue_pim_rp_candidate",
+    "pattern": "ip pim rp-candidate {{ interface }}",
+    "scope": "global",
+    "native_domain": "multicast",
+    "note": "Observed corpus syntax; explicitly scoped TTP capture with native preservation when no typed model exists.",
+    "constants": {}
+  },
+  {
+    "family": "services",
+    "id": "services_user_no_format",
+    "pattern": "username {{ username }} {{ credential_type }} {{ credential }} {{ credential_format | set(\"not_specified\") }}",
+    "choices": {
+      "credential_type": [
+        "secret",
+        "password"
+      ]
+    },
+    "scope": "global",
+    "note": "Encoding absent in source; never guessed as 0/5/7/9.",
+    "constants": {
+      "credential_format": "not_specified"
+    }
   }
 ]

@@ -20,7 +20,8 @@ def convert_file(source, output, *, os_family='ios', legacy_lines=None, official
     if output.resolve()==source.resolve() or output.resolve() in source.resolve().parents:
         raise ValueError('Output must not replace an input file or its parent')
     raw=source.read_bytes();text=raw.decode('utf-8-sig')
-    if any(line.startswith(('!! IOS XR','!Command:','feature ')) for line in text.splitlines()):
+    from parser.platform import unsupported_platform
+    if unsupported_platform(text):
         raise ValueError('Unsupported non-IOS platform signature')
     extracted=extract(text,official=official)
     if schema_version=='0.2.0':
