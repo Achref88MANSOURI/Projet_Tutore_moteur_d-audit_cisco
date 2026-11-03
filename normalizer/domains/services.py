@@ -56,7 +56,11 @@ def handle(state, r):
         'services_banner', 'services_banner_remove',
         'services_banner_incoming', 'services_banner_incoming_remove',
         'services_line_exec_banner', 'services_line_exec_banner_remove',
-        'services_line_motd_banner', 'services_line_motd_banner_remove'):
+        'services_line_motd_banner', 'services_line_motd_banner_remove',
+        'services_source_route_on', 'services_source_route_off', 'services_source_route_reset',
+        'services_ipv6_urpf_rx', 'services_ipv6_urpf_rx_params',
+        'services_ipv6_urpf_any', 'services_ipv6_urpf_any_params',
+        'services_ipv6_urpf_off', 'services_ipv6_urpf_reset'):
         state.defer(r)
         return
 
@@ -159,6 +163,16 @@ def handle(state, r):
             system.management.ssh.rsa_keypair_name = v['name']
         else:
             system.management.ssh.rsa_keypair_name = None
+    elif rule == 'services_source_route_on':
+        system.ip_services.source_routing = True
+        state.bind('system/ip_services/source_routing', line, list(v))
+    elif rule == 'services_source_route_off':
+        system.ip_services.source_routing = False
+        state.bind('system/ip_services/source_routing', line, list(v))
+    elif rule == 'services_source_route_reset':
+        # default ip source-route restores the default (enabled on Cisco IOS)
+        system.ip_services.source_routing = True
+        state.bind('system/ip_services/source_routing', line, list(v))
     elif rule in ('services_ssh_source', 'services_ssh_source_remove'):
         if rule == 'services_ssh_source':
             system.management.ssh.source_interface = v['interface']
@@ -568,8 +582,14 @@ def resolve(state, r):
             banners = system.identity.banners or []
             for i, b in enumerate(banners):
                 if b.type == name:
-                    banners.pop(i)
+                    # Unbind the specific banner
                     state.unbind(f'system/identity/banners/{i}')
+                    # Remove from list
+                    banners.pop(i)
+                    # Rebind subsequent banners to update their indices
+                    for j in range(i, len(banners)):
+                        banner = banners[j]
+                        state.bind(f'system/identity/banners/{j}', line, ['type', 'text_present'])
                     break
         else:
             # Banner body is opaque; inventory provides only header + text_present
@@ -698,6 +718,16 @@ def resolve(state, r):
             system.management.ssh.rsa_keypair_name = v['name']
         else:
             system.management.ssh.rsa_keypair_name = None
+    elif rule == 'services_source_route_on':
+        system.ip_services.source_routing = True
+        state.bind('system/ip_services/source_routing', line, list(v))
+    elif rule == 'services_source_route_off':
+        system.ip_services.source_routing = False
+        state.bind('system/ip_services/source_routing', line, list(v))
+    elif rule == 'services_source_route_reset':
+        # default ip source-route restores the default (enabled on Cisco IOS)
+        system.ip_services.source_routing = True
+        state.bind('system/ip_services/source_routing', line, list(v))
     elif rule in ('services_ssh_source', 'services_ssh_source_remove'):
         if rule == 'services_ssh_source':
             system.management.ssh.source_interface = v['interface']

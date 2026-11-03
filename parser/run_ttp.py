@@ -10,6 +10,10 @@ from xml.etree import ElementTree
 from ttp import ttp
 from ttp_templates import get_template
 from .inventory import inventory, ancestors
+from .routing_secrets import redact_routing_secrets
+from .admin_secrets import redact_admin_secrets
+from .admin_context import allowed as admin_context_allowed
+from .eigrp_context import allowed as eigrp_context_allowed
 
 ROOT = Path(__file__).resolve().parents[1]
 LOGGER = logging.getLogger(__name__)
@@ -36,6 +40,7 @@ class OfficialTemplateError(RuntimeError):
 
 def run_official_template(name, filename, text):
     """Keep template failures distinct from a successfully parsed empty result."""
+    text = redact_admin_secrets(redact_routing_secrets(text))
     try:
         template = get_template(path='platform/' + filename)
     except (OSError, ImportError) as exc:
@@ -71,7 +76,7 @@ def run_official_template(name, filename, text):
 # Command families emitted by inventory.root_family; directory domains may differ.
 TEMPLATE_FAMILIES = frozenset({
     'interfaces', 'bgp', 'ospf', 'vrf', 'acl_standard', 'acl_extended',
-    'policies', 'prefix', 'routes', 'advanced', 'services',
+    'policies', 'prefix', 'routes', 'advanced', 'services', 'eigrp',
 })
 
 
@@ -85,7 +90,7 @@ class TemplateSource:
 def template_family(relative_path):
     """The nearest family directory owns a file; flat files use their stem."""
     # RIP is still classified as services by the unchanged source inventory.
-    if relative_path.as_posix() == 'routing/rip.ttp':
+    if relative_path.as_posix() in ('routing/rip.ttp', 'routing/key_chains.ttp'):
         return 'services'
     for part in reversed(relative_path.parts[:-1]):
         if part in TEMPLATE_FAMILIES:
@@ -181,6 +186,33 @@ def scope_allowed(definition,node,nodes):
     return True
 
 
+def routing_auth_context(rule, node, nodes):
+    """Exact immediate contexts; unknown nesting cannot inherit a valid root."""
+    if not rule.startswith('auth_'):
+        return True
+    parents = ancestors(node, nodes)
+    if rule == 'auth_key_chain':
+        return not parents
+    if rule.startswith('auth_key_'):
+        if not parents or re.fullmatch(r'key chain \S+', parents[0].text) is None:
+            return False
+        if rule == 'auth_key_id':
+            return len(parents) == 1
+        return len(parents) == 2 and re.fullmatch(r'key \d+', parents[1].text) is not None
+    if len(parents) != 1:
+        return False
+    root_text = parents[0].text
+    if rule.startswith('auth_if_'):
+        return root_text.startswith('interface ')
+    if rule.startswith('auth_bgp_'):
+        return root_text.startswith('router bgp ')
+    if rule.startswith('auth_ospf_'):
+        return root_text.startswith('router ospf ')
+    if rule.startswith('auth_isis_'):
+        return root_text == 'router isis' or root_text.startswith('router isis ')
+    return False
+
+
 def flatten_records(value):
     if isinstance(value, list):
         for item in value:
@@ -194,6 +226,7 @@ def flatten_records(value):
 
 
 def extract(text, *, official=True):
+    text = redact_admin_secrets(redact_routing_secrets(text))
     nodes = inventory(text)
     definitions, templates = load_templates()
     grouped = defaultdict(list)
@@ -214,7 +247,10 @@ def extract(text, *, official=True):
                         definition = definitions[rule]
                         if any(record.get(k) not in allowed for k,allowed in definition.get('choices',{}).items()):continue
                         if not scope_allowed(definition,nodes[line],nodes) or not complete_line(definition['pattern'],nodes[line].text):continue
-                        if rule in ('services_login','services_login_plain'):
+                        if not routing_auth_context(rule,nodes[line],nodes):continue
+                        if not admin_context_allowed(rule,nodes[line],nodes,record):continue
+                        if not eigrp_context_allowed(rule,nodes[line],nodes,record):continue
+                        if rule in ('services_login','services_login_plain','services_login_authentication_remove','services_login_authentication_remove_args'):
                             if not nodes[nodes[line].root].text.startswith('line '):
                                 continue
                             if rule=='services_login' and not (record.get('method')=='local' or re.fullmatch(r'authentication \S+',record.get('method',''))):continue
@@ -248,6 +284,7 @@ def extract(text, *, official=True):
         ambiguous=len({json.dumps(item[2],sort_keys=True) for item in top})>1
         if ambiguous:ambiguous_lines.add(line)
         node = nodes[line]
+        values = {k: v for k, v in record.items() if k not in ('source_line','_ignore_')}
         records[line] = {'rule': rule, 'values': values, 'source_line': line,
                          'root_line': node.root, 'family': node.family,
                          'context_lines': [x.line for x in ancestors(node, nodes)]}

@@ -10,6 +10,14 @@
 {{ source_line | DIGIT | to_int }} no ip source-route
 </group>
 
+<group name="services_source_route_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip source-route
+</group>
+
+<group name="services_source_route_reset*" method="table" functions="set(None, enabled)">
+{{ source_line | DIGIT | to_int }} default ip source-route
+</group>
+
 <group name="services_ipv6_routing*" method="table" functions="set(True, enabled)">
 {{ source_line | DIGIT | to_int }} ipv6 unicast-routing
 </group>

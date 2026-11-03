@@ -62,6 +62,10 @@
 {{ source_line | DIGIT | to_int }} ip ospf {{ process }} area {{ area }}
 </group>
 
+<group name="if_ospf2_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ospf {{ process }} area {{ area }}
+</group>
+
 <group name="if_ospf3*" method="table">
 {{ source_line | DIGIT | to_int }} ipv6 ospf {{ process }} area {{ area }}
 </group>
@@ -158,6 +162,14 @@
 {{ source_line | DIGIT | to_int }} no ip proxy-arp
 </group>
 
+<group name="if_proxyarp_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip proxy-arp
+</group>
+
+<group name="if_proxyarp_reset*" method="table" functions="set(None, enabled)">
+{{ source_line | DIGIT | to_int }} default ip proxy-arp
+</group>
+
 <group name="if_redirects*" method="table" functions="set(False, enabled)">
 {{ source_line | DIGIT | to_int }} no ip redirects
 </group>
@@ -174,8 +186,92 @@
 {{ source_line | DIGIT | to_int }} tunnel destination {{ destination }}
 </group>
 
+<group name="if_tunnel_mode*" method="table">
+{{ source_line | DIGIT | to_int }} tunnel mode {{ mode }}
+</group>
+
+<group name="if_tunnel_mode_off*" method="table" functions="set(None, mode)">
+{{ source_line | DIGIT | to_int }} default tunnel mode
+</group>
+
+<group name="if_tunnel_protection*" method="table">
+{{ source_line | DIGIT | to_int }} tunnel protection ipsec profile {{ profile }}
+</group>
+
+<group name="if_tunnel_protection_off*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no tunnel protection ipsec profile
+</group>
+
+<group name="if_tunnel_path_mtu*" method="table">
+{{ source_line | DIGIT | to_int }} tunnel path-mtu-discovery {{ enable }}
+</group>
+
+<group name="if_tunnel_path_mtu_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no tunnel path-mtu-discovery
+</group>
+
 <group name="if_keepalive_off*" method="table" functions="set(False, enabled)">
 {{ source_line | DIGIT | to_int }} no keepalive
+</group>
+
+<!-- uRPF (IPv4) -->
+<group name="if_urpf_rx*" method="table" functions="set('rx', mode)">
+{{ source_line | DIGIT | to_int }} ip verify unicast source reachable-via rx
+</group>
+
+<group name="if_urpf_rx_params*" method="table" functions="set('rx', mode)">
+{{ source_line | DIGIT | to_int }} ip verify unicast source reachable-via rx {{ rest | ORPHRASE }}
+</group>
+
+<group name="if_urpf_any*" method="table" functions="set('any', mode)">
+{{ source_line | DIGIT | to_int }} ip verify unicast source reachable-via any
+</group>
+
+<group name="if_urpf_any_params*" method="table" functions="set('any', mode)">
+{{ source_line | DIGIT | to_int }} ip verify unicast source reachable-via any {{ rest | ORPHRASE }}
+</group>
+
+<group name="if_urpf_off*" method="table" functions="set(False, mode)">
+{{ source_line | DIGIT | to_int }} no ip verify unicast source reachable-via
+</group>
+
+<group name="if_urpf_reset*" method="table" functions="set(None, mode)">
+{{ source_line | DIGIT | to_int }} default ip verify unicast source reachable-via
+</group>
+
+<!-- Legacy uRPF -->
+<group name="if_urpf_legacy*" method="table" functions="set('legacy', mode)">
+{{ source_line | DIGIT | to_int }} ip verify unicast reverse-path {{ rest | ORPHRASE }}
+</group>
+
+<group name="if_urpf_legacy_off*" method="table" functions="set(False, mode)">
+{{ source_line | DIGIT | to_int }} no ip verify unicast reverse-path
+</group>
+
+<!-- uRPF parameters (handled by main rx/any rules via rest parsing) -->
+
+<group name="if_ipv6_urpf_rx*" method="table" functions="set('rx', mode)">
+{{ source_line | DIGIT | to_int }} ipv6 verify unicast source reachable-via rx
+</group>
+
+<group name="if_ipv6_urpf_rx_params*" method="table" functions="set('rx', mode)">
+{{ source_line | DIGIT | to_int }} ipv6 verify unicast source reachable-via rx {{ rest | ORPHRASE }}
+</group>
+
+<group name="if_ipv6_urpf_any*" method="table" functions="set('any', mode)">
+{{ source_line | DIGIT | to_int }} ipv6 verify unicast source reachable-via any
+</group>
+
+<group name="if_ipv6_urpf_any_params*" method="table" functions="set('any', mode)">
+{{ source_line | DIGIT | to_int }} ipv6 verify unicast source reachable-via any {{ rest | ORPHRASE }}
+</group>
+
+<group name="if_ipv6_urpf_off*" method="table" functions="set(False, mode)">
+{{ source_line | DIGIT | to_int }} no ipv6 verify unicast source reachable-via
+</group>
+
+<group name="if_ipv6_urpf_reset*" method="table" functions="set(None, mode)">
+{{ source_line | DIGIT | to_int }} default ipv6 verify unicast source reachable-via
 </group>
 
 <group name="if_flow*" method="table">
@@ -212,4 +308,104 @@
 
 <group name="catalogue_sap*" method="table" functions="set(True, enabled)">
 {{ source_line | DIGIT | to_int }} ip sap listen
+</group>
+
+<group name="auth_if_ospf_plain*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip ospf authentication
+</group>
+
+<group name="auth_if_ospf_digest*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip ospf authentication message-digest
+</group>
+
+<group name="auth_if_ospf_null*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip ospf authentication null
+</group>
+
+<group name="auth_if_ospf_chain*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip ospf authentication key-chain {{ key_chain }}
+</group>
+
+<group name="auth_if_ospf_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ospf authentication
+</group>
+
+<group name="auth_if_ospf_key*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} ip ospf authentication-key __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_if_ospf_key_format*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} ip ospf authentication-key {{ credential_format }} __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_if_ospf_key_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ospf authentication-key
+</group>
+
+<group name="auth_if_ospf_md5_key*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} ip ospf message-digest-key {{ key_id | DIGIT | to_int }} md5 __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_if_ospf_md5_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ospf message-digest-key {{ key_id | DIGIT | to_int }}
+</group>
+
+<group name="auth_if_isis_mode*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} isis authentication mode {{ mode }}
+</group>
+
+<group name="auth_if_isis_mode_level*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} isis authentication mode {{ mode }} {{ level }}
+</group>
+
+<group name="auth_if_isis_chain*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} isis authentication key-chain {{ key_chain }}
+</group>
+
+<group name="auth_if_isis_chain_level*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} isis authentication key-chain {{ key_chain }} {{ level }}
+</group>
+
+<group name="auth_if_isis_send*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} isis authentication send-only
+</group>
+
+<group name="auth_if_isis_send_level*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} isis authentication send-only {{ level }}
+</group>
+
+<group name="auth_if_isis_mode_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no isis authentication mode
+</group>
+
+<group name="auth_if_isis_send_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no isis authentication send-only
+</group>
+
+<group name="auth_if_isis_chain_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no isis authentication key-chain {{ key_chain }}
+</group>
+
+<group name="auth_if_isis_chain_remove_level*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no isis authentication key-chain {{ key_chain }} {{ level }}
+</group>
+
+<group name="auth_if_rip_mode*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip rip authentication mode {{ mode }}
+</group>
+
+<group name="auth_if_rip_mode_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip rip authentication mode
+</group>
+
+<group name="auth_if_rip_chain*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip rip authentication key-chain {{ key_chain }}
+</group>
+
+<group name="auth_if_rip_chain_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip rip authentication key-chain
+</group>
+
+<group name="auth_if_rip_chain_remove_name*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip rip authentication key-chain {{ key_chain }}
 </group>

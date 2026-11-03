@@ -7,11 +7,13 @@ prevents constructor defaults from becoming configured facts.
 from collections import defaultdict
 from copy import deepcopy
 from parser.validation import validate_record
-from schemas import normalized_config as s
+from schemas import router_contract_v1 as s
+from pydantic import ValidationError
+from .common.absence import AbsenceResolver
 from .common.addresses import flat_official
 from .common.contexts import root, address_family, at
 from .common.configured import Binding, leaves, select_configured, validate_targets
-from .common.validation import validate
+from .common.validation import validate, validate_preserved_references
 from .domains import handler_for, DECLARATIONS
 from .domains import policies
 
@@ -33,7 +35,13 @@ class NormalizationEngine:
             invalid_parent = any(not self.validation.get(n, {'valid': True})['valid'] for n in record['context_lines'])
             if duplicate or invalid_parent or line in extracted.get('ambiguous_lines', set()):
                 self.validation[line] = dict(valid=False, invalid_fields=list(record['values']), fields={k: 'invalid' for k in record['values']})
-        self.c = s.NormalizedConfig(system=s.System(aaa=s.AAA(), snmp=s.SNMP(), management=s.Management()))
+        self.c = s.RouterContractV1(
+            contract_version='1.0.0', device={}, system={}, interfaces=None,
+            interface_aggregations=None, network_instances=None, routing={},
+            routing_policies={}, security={}, nat={}, vpn={}, qos={}, mpls={},
+            multicast={}, pki={}, extensions={})
+        self._empty_document = self.c.model_dump(mode='json')
+        self.absences = AbsenceResolver()
         self.bindings = []
         self.consumed = defaultdict(set)
         self.mapped, self.structural, self.failed, self.ambiguous = set(), set(), set(), set()
@@ -67,12 +75,20 @@ class NormalizationEngine:
                 continue
             self.bindings[:] = [b for b in self.bindings if b.path != pointer]
             self.bindings.append(Binding(pointer, line))
+            # Also bind parent paths to make list items eligible
+            parent = pointer.rsplit('/', 1)[0]
+            while parent and parent != '/':
+                self.bindings[:] = [b for b in self.bindings if b.path != parent]
+                self.bindings.append(Binding(parent, line))
+                parent = parent.rsplit('/', 1)[0]
         values = self.records[line]['values']
         fields = list(values) if fields is None else fields
-        self.consumed[line].update(k for k in fields if not (k == 'options' and values.get(k) == 'log-input'))
+        self.consumed[line].update(fields)
         self.mapped.add(line)
 
-    def assign(self, obj, field, value, path, line, fields=None):
+    def assign(self, obj, field, value, path, line, fields=None, *, explicit_empty=False):
+        if value == [] and explicit_empty:
+            self.absences.confirm(path + '/' + field, explicit=True)
         setattr(obj, field, value)
         self.bind(path + '/' + field, line, fields)
 
@@ -103,15 +119,22 @@ class NormalizationEngine:
         line = record['source_line']
         if not self.validation[line]['valid']:
             return False
+        if not self.in_scope(record):
+            return False
         previous = self.c.model_copy(deep=True)
+        old_absences = set(self.absences.confirmed_empty)
         old_bindings = list(self.bindings)
         old_consumed = deepcopy(self.consumed)
         old_entities, old_pending = dict(self.entities), dict(self.pending)
         self._before = dict(leaves(self.c.model_dump(mode='json')))
         try:
             return handler(self, record)
+        except ValidationError:
+            # A broken canonical mapping must fail the export, never drop its object.
+            raise
         except (ValueError, KeyError, IndexError, StopIteration, TypeError) as exc:
             self.c = previous
+            self.absences.confirmed_empty = old_absences
             self.bindings = old_bindings
             self.consumed = old_consumed
             self.entities, self.pending = old_entities, old_pending
@@ -119,6 +142,20 @@ class NormalizationEngine:
             if 'Duplicate' in str(exc) or 'cannot be guessed' in str(exc):
                 self.ambiguous.add(line)
             return False
+
+    def in_scope(self, record):
+        rules = [record] + [self.records[n] for n in record['context_lines'] if n in self.records]
+        for item in rules:
+            rule = item['rule']
+            if rule.startswith(('advanced_l2_', 'advanced_vlan')) or rule in {
+                'if_service_instance', 'if_bridge_domain', 'if_encap_untagged',
+                'if_switchport', 'if_access_vlan', 'if_native_vlan',
+                'if_trunk_vlans', 'if_trunk_modify',
+            }:
+                return False
+            if rule.startswith('bgp_af') and item['values'].get('afi') == 'l2vpn':
+                return False
+        return True
 
     def run(self):
         if self._result is not None:
@@ -139,6 +176,7 @@ class NormalizationEngine:
             self._apply(record, domain.resolve)
         validate_targets(self.c, self.bindings)
         configured = select_configured(self, policies.blocked_objects(self))
+        validate_preserved_references(self.c.model_dump(mode='json'), configured)
         self._result = validate(configured)
         return self._result
 

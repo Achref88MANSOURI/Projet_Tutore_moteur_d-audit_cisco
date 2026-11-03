@@ -163,7 +163,7 @@ Clôturer le diagnostic D034 (résolution `network` → interface→area) et cr�
 |---------|----------:|--------:|--------:|-----------|
 | F05 SNMP | 10 | 78 | **78** | **TERMINÉ** (G1: communauté, host/traps/group/user/engine/view, v3, negations, VRF, traps, engineID, trap-source, server enable/disable) |
 | F03 Bannières | 3 | 47 | **47** | **TERMINÉ** (G4: exec/login/motd/incoming declaration, removal, multiline, delimiters, dynamic tokens; line-level exec-banner/motd-banner enable/disable; incoming banner; display order & distinctions) |
-| F11 Routage IP | 4 | 43 | 8 | **G12** (uRPF, tunnels, ppp) |
+| F11 Routage IP | 4 | 43 | **28** | **PARTIEL** (G12: uRPF IPv4/IPv6, source-route, proxy-ARP, tunnels - tunnels non implémentés, IPv6 uRPF partiel) |
 | F07 Services globaux | 7 | 48 | 1 | **G7** (cdp, dhcp, pad, finger, bootp, keepalives) |
 
 ### Décisions de contrat préalables (avant code)
@@ -231,7 +231,7 @@ Clôturer le diagnostic D034 (résolution `network` → interface→area) et cr�
 | 3 | F01 | ⬜ À faire | - | - | - |
 | 4 | F05 | ✅ **TERMINÉ** | 78/78 | 236/236 audit + 66 pipeline + 66 normalized_only | F05-R021 PARTIAL (business rule), F05-R022 UNVERIFIED (operational) |
 | 4 | F03 | ✅ **TERMINÉ** | 47/47 | 236/236 audit + 66 pipeline + 66 normalized_only | F03-036 PARTIAL (no exec structural) |
-| 4 | F11 | ⬜ À faire | - | - | - |
+| 4 | F11 | ⚠️ **PARTIEL** | 28/43 | 236/236 audit + 66 pipeline + 66 normalized_only | Tunnels non implémentés, IPv6 uRPF partiel, source-route/proxy-ARP/uRPF v4 OK |
 | 4 | F07 | ⬜ À faire | - | - | - |
 
 ---

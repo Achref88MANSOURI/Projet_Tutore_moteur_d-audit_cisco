@@ -757,6 +757,21 @@ class ACLObjectGroup(Contract):
     name: StrictStr = Field(min_length=1)
 
 
+class URPF(Contract):
+    mode: Literal['rx', 'any', 'legacy', 'off'] | None = None
+    allow_default: StrictBool | None = None
+    allow_self_ping: StrictBool | None = None
+    acl: StrictStr | None = None
+    l2_src: StrictBool | None = None
+
+
+class IPv6URPF(Contract):
+    mode: Literal['rx', 'any', 'off'] | None = None
+    allow_default: StrictBool | None = None
+    allow_self_ping: StrictBool | None = None
+    acl: StrictStr | None = None
+
+
 class Interface(Contract):
     bandwidth_kbps: Annotated[StrictInt, Field(ge=1, le=4294967295)] | None = None
     delay_tens_of_microseconds: Annotated[StrictInt, Field(ge=1, le=16777215)] | None = None
@@ -790,6 +805,8 @@ class Interface(Contract):
     cdp_enabled: StrictBool | None = None
     mop_enabled: StrictBool | None = None
     mop_sysid: StrictBool | None = None
+    urpf: URPF = Field(default_factory=URPF)
+    ipv6_urpf: IPv6URPF = Field(default_factory=IPv6URPF)
     ipv4: InterfaceIPv4 = Field(default_factory=lambda: InterfaceIPv4())
     ipv6: InterfaceIPv6 = Field(default_factory=lambda: InterfaceIPv6())
 
