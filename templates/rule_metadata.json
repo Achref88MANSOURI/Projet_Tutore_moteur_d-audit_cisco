@@ -816,6 +816,12 @@
   "services_password_encryption_on": {
     "scope": "global"
   },
+  "services_aaa_on": {
+    "scope": "global"
+  },
+  "services_aaa_off": {
+    "scope": "global"
+  },
   "services_radius_source": {
     "scope": "global"
   },

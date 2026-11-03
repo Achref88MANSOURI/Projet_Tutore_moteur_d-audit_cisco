@@ -257,7 +257,8 @@ def extract(text, *, official=True):
                         if rule.startswith('services_line_') and not nodes[nodes[line].root].text.startswith('line '):continue
                         global_rules={'services_login_logging','services_timestamp','services_timestamp_plain','services_console_off','services_source_route_off',
                             'services_lookup_off','services_password_encryption_off','services_ipv6_routing','services_http_auth','services_community_expanded',
-                            'services_flow_source','services_flow_version','services_flow_timeout'}
+                            'services_flow_source','services_flow_version','services_flow_timeout',
+                            'services_aaa_on','services_aaa_off'}
                         if rule in global_rules and nodes[line].parent is not None:continue
                         if rule in ('if_bridge_domain','if_encap_untagged') and not any(nodes[a.line].text.startswith('service instance ') for a in ancestors(nodes[line],nodes)):continue
                         # Specific fixed keywords take precedence over greedy text.
@@ -284,7 +285,6 @@ def extract(text, *, official=True):
         ambiguous=len({json.dumps(item[2],sort_keys=True) for item in top})>1
         if ambiguous:ambiguous_lines.add(line)
         node = nodes[line]
-        values = {k: v for k, v in record.items() if k not in ('source_line','_ignore_')}
         records[line] = {'rule': rule, 'values': values, 'source_line': line,
                          'root_line': node.root, 'family': node.family,
                          'context_lines': [x.line for x in ancestors(node, nodes)]}

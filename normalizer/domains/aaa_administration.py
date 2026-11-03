@@ -200,21 +200,12 @@ def handle(state, record):
         if not any(ref.name == name for ref in refs):
             refs.append(s.AAAServerReference(name=name))
         _publish(state, path, record)
-    if rule in ('services_aaa_group_server_private',):
-        entry = state.entity(record['source_line'])
-        if entry is None or not isinstance(entry[0], s.AAAServerGroup):return
-        group, path = entry
-        # server-private adds a server with a private key
-        name = record['values']['name']
-        key = record['values'].get('key', '')
-        refs = collection(group, 'servers')
-        if not any(ref.name == name for ref in refs):
-            refs.append(s.AAAServerReference(name=name))
-        _publish(state, path, record)
     if rule in ('services_aaa_authentication_enable_remove',):
         state.c.system.aaa.authentication_enable = None
         state.unbind('system/aaa/authentication_enable')
     if rule in ('services_auth_address', 'services_auth_ports'):
+        return server_update(state, record)
+    if rule in ('admin_server_key_format', 'admin_server_key', 'admin_server_key_remove', 'admin_server_key_remove_format'):
         return server_update(state, record)
     if rule in ('services_user', 'services_user_simple', 'services_user_no_format'):
         v = record['values']

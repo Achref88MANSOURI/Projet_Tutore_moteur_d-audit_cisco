@@ -50,7 +50,6 @@ def handle(state, r):
         'services_snmp_trap_source', 'services_snmp_trap_source_vrf', 'services_snmp_trap_source_remove',
         'services_snmp_server_enable', 'services_snmp_server_disable',
         'services_snmp_community_view_acl', 'services_snmp_community_view_acl_simple',
-        'services_aaa_on', 'services_aaa_off',
         'services_login', 'services_login_plain',
         'services_login_authentication_remove', 'services_login_authentication_remove_args',
         'services_banner', 'services_banner_remove',
@@ -305,8 +304,6 @@ def resolve(state, r):
         state.unbind('system/ntp/source_interface')
     elif rule == 'services_logging_trap':
         state.assign(system.logging, 'trap_severity', v['severity'], 'system/logging', line)
-    elif rule in ('services_aaa_on', 'services_aaa_off'):
-        state.assign(system.aaa, 'enabled', v['enabled'], 'system/aaa', line, list(v))
     elif rule in ('services_ntp_authenticate', 'services_ntp_authenticate_remove'):
         state.assign(system.ntp, 'authentication_enabled', v.get('enabled', True), 'system/ntp', line)
     elif rule in ('services_ntp_auth_key', 'services_ntp_auth_key_format'):
