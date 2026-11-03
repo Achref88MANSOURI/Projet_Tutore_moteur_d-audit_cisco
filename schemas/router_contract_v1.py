@@ -277,6 +277,15 @@ class IPServices(Contract):
     source_routing: StrictBool | None = None
     ipv6_unicast_routing: StrictBool | None = None
     password_encryption_service: StrictBool | None = None
+    cdp_enabled: StrictBool | None = None
+    bootp_server_enabled: StrictBool | None = None
+    dhcp_service_enabled: StrictBool | None = None
+    dhcp_bootp_ignore: StrictBool | None = None
+    ident_enabled: StrictBool | None = None
+    finger_enabled: StrictBool | None = None
+    pad_enabled: StrictBool | None = None
+    tcp_keepalives_in: StrictBool | None = None
+    tcp_keepalives_out: StrictBool | None = None
 
 
 class DNSView(Contract):

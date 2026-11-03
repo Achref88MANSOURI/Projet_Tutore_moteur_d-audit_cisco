@@ -74,3 +74,84 @@
 {{ source_line | DIGIT | to_int }} hidekeys
 </group>
 
+<!-- F07 Global Services -->
+<group name="services_cdp_run*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} cdp run
+</group>
+
+<group name="services_cdp_run_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no cdp run
+</group>
+
+<group name="services_cdp_enable*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} cdp enable
+</group>
+
+<group name="services_cdp_enable_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no cdp enable
+</group>
+
+<group name="services_bootp_server*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip bootp server
+</group>
+
+<group name="services_bootp_server_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip bootp server
+</group>
+
+<group name="services_dhcp_bootp_ignore*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip dhcp bootp ignore
+</group>
+
+<group name="services_dhcp_bootp_ignore_off*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip dhcp bootp ignore
+</group>
+
+<group name="services_dhcp*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} service dhcp
+</group>
+
+<group name="services_dhcp_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no service dhcp
+</group>
+
+<group name="services_ident*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip identd
+</group>
+
+<group name="services_ident_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip identd
+</group>
+
+<group name="services_finger*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip finger
+</group>
+
+<group name="services_finger_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip finger
+</group>
+
+<group name="services_pad*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} service pad
+</group>
+
+<group name="services_pad_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no service pad
+</group>
+
+<group name="services_tcp_keepalives_in*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} service tcp-keepalives-in
+</group>
+
+<group name="services_tcp_keepalives_in_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no service tcp-keepalives-in
+</group>
+
+<group name="services_tcp_keepalives_out*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} service tcp-keepalives-out
+</group>
+
+<group name="services_tcp_keepalives_out_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no service tcp-keepalives-out
+</group>
+

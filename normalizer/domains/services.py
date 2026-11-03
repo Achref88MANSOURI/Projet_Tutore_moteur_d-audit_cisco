@@ -59,7 +59,12 @@ def handle(state, r):
         'services_source_route_on', 'services_source_route_off', 'services_source_route_reset',
         'services_ipv6_urpf_rx', 'services_ipv6_urpf_rx_params',
         'services_ipv6_urpf_any', 'services_ipv6_urpf_any_params',
-        'services_ipv6_urpf_off', 'services_ipv6_urpf_reset'):
+        'services_ipv6_urpf_off', 'services_ipv6_urpf_reset',
+        'services_cdp_run', 'services_cdp_run_off', 'services_cdp_enable', 'services_cdp_enable_off',
+        'services_bootp_server', 'services_bootp_server_off', 'services_dhcp_bootp_ignore', 'services_dhcp_bootp_ignore_off',
+        'services_dhcp', 'services_dhcp_off', 'services_ident', 'services_ident_off',
+        'services_finger', 'services_finger_off', 'services_pad', 'services_pad_off',
+        'services_tcp_keepalives_in', 'services_tcp_keepalives_in_off', 'services_tcp_keepalives_out', 'services_tcp_keepalives_out_off'):
         state.defer(r)
         return
 
@@ -172,6 +177,40 @@ def handle(state, r):
         # default ip source-route restores the default (enabled on Cisco IOS)
         system.ip_services.source_routing = True
         state.bind('system/ip_services/source_routing', line, list(v))
+    # F07 Global Services
+    elif rule in ('services_cdp_run', 'services_cdp_run_off'):
+        system.ip_services.cdp_enabled = v['enabled']
+        state.bind('system/ip_services/cdp_enabled', line, list(v))
+    elif rule in ('services_cdp_enable', 'services_cdp_enable_off'):
+        # Per-interface CDP handled in interfaces.py via if_cdp_off
+        pass
+    elif rule in ('services_bootp_server', 'services_bootp_server_off'):
+        system.ip_services.bootp_server_enabled = v['enabled']
+        state.bind('system/ip_services/bootp_server_enabled', line, list(v))
+    elif rule in ('services_dhcp_bootp_ignore', 'services_dhcp_bootp_ignore_off'):
+        if rule == 'services_dhcp_bootp_ignore':
+            system.ip_services.dhcp_bootp_ignore = True
+        else:
+            system.ip_services.dhcp_bootp_ignore = None
+        state.bind('system/ip_services/dhcp_bootp_ignore', line, list(v))
+    elif rule in ('services_dhcp', 'services_dhcp_off'):
+        system.ip_services.dhcp_service_enabled = v['enabled']
+        state.bind('system/ip_services/dhcp_service_enabled', line, list(v))
+    elif rule in ('services_ident', 'services_ident_off'):
+        system.ip_services.ident_enabled = v['enabled']
+        state.bind('system/ip_services/ident_enabled', line, list(v))
+    elif rule in ('services_finger', 'services_finger_off'):
+        system.ip_services.finger_enabled = v['enabled']
+        state.bind('system/ip_services/finger_enabled', line, list(v))
+    elif rule in ('services_pad', 'services_pad_off'):
+        system.ip_services.pad_enabled = v['enabled']
+        state.bind('system/ip_services/pad_enabled', line, list(v))
+    elif rule in ('services_tcp_keepalives_in', 'services_tcp_keepalives_in_off'):
+        system.ip_services.tcp_keepalives_in = v['enabled']
+        state.bind('system/ip_services/tcp_keepalives_in', line, list(v))
+    elif rule in ('services_tcp_keepalives_out', 'services_tcp_keepalives_out_off'):
+        system.ip_services.tcp_keepalives_out = v['enabled']
+        state.bind('system/ip_services/tcp_keepalives_out', line, list(v))
     elif rule in ('services_ssh_source', 'services_ssh_source_remove'):
         if rule == 'services_ssh_source':
             system.management.ssh.source_interface = v['interface']
@@ -728,6 +767,40 @@ def resolve(state, r):
         # default ip source-route restores the default (enabled on Cisco IOS)
         system.ip_services.source_routing = True
         state.bind('system/ip_services/source_routing', line, list(v))
+    # F07 Global Services
+    elif rule in ('services_cdp_run', 'services_cdp_run_off'):
+        system.ip_services.cdp_enabled = v['enabled']
+        state.bind('system/ip_services/cdp_enabled', line, list(v))
+    elif rule in ('services_cdp_enable', 'services_cdp_enable_off'):
+        # Per-interface CDP handled in interfaces.py via if_cdp_off
+        pass
+    elif rule in ('services_bootp_server', 'services_bootp_server_off'):
+        system.ip_services.bootp_server_enabled = v['enabled']
+        state.bind('system/ip_services/bootp_server_enabled', line, list(v))
+    elif rule in ('services_dhcp_bootp_ignore', 'services_dhcp_bootp_ignore_off'):
+        if rule == 'services_dhcp_bootp_ignore':
+            system.ip_services.dhcp_bootp_ignore = True
+        else:
+            system.ip_services.dhcp_bootp_ignore = None
+        state.bind('system/ip_services/dhcp_bootp_ignore', line, list(v))
+    elif rule in ('services_dhcp', 'services_dhcp_off'):
+        system.ip_services.dhcp_service_enabled = v['enabled']
+        state.bind('system/ip_services/dhcp_service_enabled', line, list(v))
+    elif rule in ('services_ident', 'services_ident_off'):
+        system.ip_services.ident_enabled = v['enabled']
+        state.bind('system/ip_services/ident_enabled', line, list(v))
+    elif rule in ('services_finger', 'services_finger_off'):
+        system.ip_services.finger_enabled = v['enabled']
+        state.bind('system/ip_services/finger_enabled', line, list(v))
+    elif rule in ('services_pad', 'services_pad_off'):
+        system.ip_services.pad_enabled = v['enabled']
+        state.bind('system/ip_services/pad_enabled', line, list(v))
+    elif rule in ('services_tcp_keepalives_in', 'services_tcp_keepalives_in_off'):
+        system.ip_services.tcp_keepalives_in = v['enabled']
+        state.bind('system/ip_services/tcp_keepalives_in', line, list(v))
+    elif rule in ('services_tcp_keepalives_out', 'services_tcp_keepalives_out_off'):
+        system.ip_services.tcp_keepalives_out = v['enabled']
+        state.bind('system/ip_services/tcp_keepalives_out', line, list(v))
     elif rule in ('services_ssh_source', 'services_ssh_source_remove'):
         if rule == 'services_ssh_source':
             system.management.ssh.source_interface = v['interface']

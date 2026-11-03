@@ -911,5 +911,68 @@
   },
   "if_tunnel_path_mtu_off": {
     "scope": "root:interface"
+  },
+  "if_cdp_on": {
+    "scope": "root:interface"
+  },
+  "services_cdp_run": {
+    "scope": "global"
+  },
+  "services_cdp_run_off": {
+    "scope": "global"
+  },
+  "services_cdp_enable": {
+    "scope": "root:interface"
+  },
+  "services_cdp_enable_off": {
+    "scope": "root:interface"
+  },
+  "services_bootp_server": {
+    "scope": "global"
+  },
+  "services_bootp_server_off": {
+    "scope": "global"
+  },
+  "services_dhcp_bootp_ignore": {
+    "scope": "global"
+  },
+  "services_dhcp_bootp_ignore_off": {
+    "scope": "global"
+  },
+  "services_dhcp": {
+    "scope": "global"
+  },
+  "services_dhcp_off": {
+    "scope": "global"
+  },
+  "services_ident": {
+    "scope": "global"
+  },
+  "services_ident_off": {
+    "scope": "global"
+  },
+  "services_finger": {
+    "scope": "global"
+  },
+  "services_finger_off": {
+    "scope": "global"
+  },
+  "services_pad": {
+    "scope": "global"
+  },
+  "services_pad_off": {
+    "scope": "global"
+  },
+  "services_tcp_keepalives_in": {
+    "scope": "global"
+  },
+  "services_tcp_keepalives_in_off": {
+    "scope": "global"
+  },
+  "services_tcp_keepalives_out": {
+    "scope": "global"
+  },
+  "services_tcp_keepalives_out_off": {
+    "scope": "global"
   }
 }

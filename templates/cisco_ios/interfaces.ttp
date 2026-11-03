@@ -282,6 +282,10 @@
 {{ source_line | DIGIT | to_int }} ipv6 enable
 </group>
 
+<group name="if_cdp_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} cdp enable
+</group>
+
 <group name="if_cdp_off*" method="table" functions="set(False, enabled)">
 {{ source_line | DIGIT | to_int }} no cdp enable
 </group>
