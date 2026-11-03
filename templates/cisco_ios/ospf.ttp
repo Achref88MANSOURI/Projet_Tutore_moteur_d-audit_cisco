@@ -53,3 +53,19 @@
 <group name="ospf_log*" method="table" functions="set(True, enabled)">
 {{ source_line | DIGIT | to_int }} log-adjacency-changes
 </group>
+
+<group name="auth_ospf_area_plain*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} area {{ area }} authentication
+</group>
+
+<group name="auth_ospf_area_remove_plain*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no area {{ area }} authentication
+</group>
+
+<group name="auth_ospf_area_digest*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} area {{ area }} authentication message-digest
+</group>
+
+<group name="auth_ospf_area_remove_digest*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no area {{ area }} authentication message-digest
+</group>

@@ -1,6 +1,7 @@
 """Static IPv4/IPv6 routes and next-hop validation."""
 from ipaddress import IPv4Network, ip_address, ip_network
-from schemas import normalized_config as s
+from normalizer.common.collections import collection
+from schemas import router_contract_v1 as s
 from normalizer.common.addresses import prefix_length
 
 
@@ -21,6 +22,6 @@ def handle(state,r):
             raise ValueError('Invalid route next-hop')
         interface, hop = (hop, None)
     route = s.StaticRoute(destination=destination, next_hop=hop, outgoing_interface=interface, network_instance=v.get('vrf'), admin_distance=v.get('distance'), description=v.get('name'))
-    state.c.routing.static_routes.append(route)
-    state.bind(f'routing/static_routes/{len(state.c.routing.static_routes) - 1}', line)
+    collection(state.c.routing, 'static_routes').append(route)
+    state.bind(f'routing/static_routes/{len((state.c.routing.static_routes or [])) - 1}', line)
 

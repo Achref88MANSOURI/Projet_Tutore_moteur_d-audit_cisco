@@ -1,5 +1,6 @@
 """PKI metadata and references; certificate bodies are never normalized."""
-from schemas import normalized_config as s
+from normalizer.common.collections import collection
+from schemas import router_contract_v1 as s
 
 
 def handle(state,r):
@@ -9,14 +10,14 @@ def handle(state,r):
     line = r['source_line']
     if root is None:
         return
-    pki = state.c.cisco.pki
+    pki = state.c.pki
     if root['rule'] == 'advanced_pki_trust':
         name = root['values']['name']
-        obj = next((t for t in pki.trustpoints if t.name == name), None)
+        obj = next((t for t in (pki.trustpoints or []) if t.name == name), None)
         if obj is None:
             obj = s.Trustpoint(name=name)
-            pki.trustpoints.append(obj)
-        path = f'cisco/pki/trustpoints/{pki.trustpoints.index(obj)}'
+            collection(pki, 'trustpoints').append(obj)
+        path = f'pki/trustpoints/{(pki.trustpoints or []).index(obj)}'
         if rule == 'advanced_pki_trust':
             state.bind(path, line, list(v))
             return
@@ -25,14 +26,14 @@ def handle(state,r):
             state.assign(obj, field[0], v[field[1]], path, line, list(v))
     elif root['rule'] == 'advanced_pki_chain':
         name = root['values']['name']
-        obj = next((c for c in pki.chains if c.name == name), None)
+        obj = next((c for c in (pki.certificate_chains or []) if c.name == name), None)
         if obj is None:
             obj = s.CertificateChain(name=name)
-            pki.chains.append(obj)
-        path = f'cisco/pki/chains/{pki.chains.index(obj)}'
+            collection(pki, 'certificate_chains').append(obj)
+        path = f'pki/certificate_chains/{(pki.certificate_chains or []).index(obj)}'
         if rule == 'advanced_pki_chain':
             state.bind(path, line, list(v))
         elif rule == 'advanced_pki_certificate':
-            obj.certificates.append(s.Certificate(type=v['type'], identifier=v['identifier']))
+            collection(obj, 'certificates').append(s.Certificate(type=v['type'], identifier=v['identifier']))
             state.bind(path + '/certificates', line, list(v))
 

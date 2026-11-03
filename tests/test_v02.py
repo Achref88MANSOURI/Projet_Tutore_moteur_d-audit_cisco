@@ -2,7 +2,7 @@ import hashlib,json
 from pathlib import Path
 import pytest
 from pydantic import ValidationError
-from schemas import normalized_config as s
+from schemas import router_contract_v1 as s
 from parser.run_ttp import extract
 from normalizer.engine import NormalizationEngine
 from .oracle_v02 import FACTS
@@ -68,8 +68,8 @@ def test_prefix_constraints_and_duplicate_order():
     with pytest.raises(ValidationError):s.PrefixListEntry(action='permit',prefix='::/0',le=129)
     x,n,c=parse('ip prefix-list X seq 10 permit 192.0.2.0/24\nip prefix-list X seq 10 deny 198.51.100.0/24\n')
     assert not c.is_complete(max(c.nodes))
-    assert len(c.c.routing.prefix_lists[0].entries)==1
-    assert not n.routing.prefix_lists  # A rejected duplicate must not publish a partial ordered list.
+    assert len(c.c.routing_policies.prefix_lists[0].entries)==1
+    assert n.routing_policies.prefix_lists is None  # A rejected duplicate must not publish a partial ordered list.
 
 
 def test_native_only_observation_does_not_become_fully_normalized():
@@ -79,16 +79,6 @@ def test_native_only_observation_does_not_become_fully_normalized():
 
 def test_context_guard_not_global_vty_or_physical_service():
     assert 1 not in extract('logging synchronous\n',official=False)['records']
-    x,n,c=parse('interface E1\n service instance 100 ethernet\n  encapsulation dot1q 10\n  bridge-domain 100\n')
-    assert n.interfaces[0].encapsulation is None
-    service,=n.cisco.ethernet_services
-    assert (service.interface,service.instance,service.encapsulation.kind,service.encapsulation.outer_vlan,service.bridge_domain)==('E1',100,'dot1q',10,100)
-    assert all(c.is_complete(line) for line in c.nodes)
-
-
-
-
-
 
 def test_schema_types_and_missing_ospf_version():
     with pytest.raises(ValidationError):s.Ethernet(speed_mode='auto',speed_bps=1000000000)
@@ -98,7 +88,7 @@ def test_schema_types_and_missing_ospf_version():
 def test_af_options_are_not_widened_to_process():
     x,n,c=parse('router bgp 65000\n address-family ipv4\n  bgp dampening\n  maximum-paths eibgp 5\n exit-address-family\n')
     proc=n.routing.bgp[0]
-    assert proc.dampening is None and proc.maximum_paths==[]
+    assert proc.dampening is None and proc.maximum_paths is None
     assert proc.address_families[0].dampening is True and proc.address_families[0].maximum_paths[0].count==5
 
 

@@ -42,7 +42,7 @@ def validate_targets(model, bindings):
 
 def select_configured(state, blocked):
     """Project eligible leaves, preserving explicit false, zero and empty lists."""
-    eligible = {b.path for b in state.bindings if state.eligible(b.record)}
+    eligible = {b.path.lstrip('/') for b in state.bindings if state.eligible(b.record)}
 
     def select(value, path):
         if any(path == p or path.startswith(p + '/') for p in blocked):
@@ -60,10 +60,13 @@ def select_configured(state, blocked):
             result = [select(item, child(path, i)) for i, item in enumerate(value)]
             result = [item for item in result if item is not None]
             return result or None
-        if path not in eligible:
+        if value == [] and not state.absences.permits(path):
             return None
-        if value == 'unknown' and path.rsplit('/', 1)[-1] in ('kind', 'technology', 'family', 'decision', 'access'):
+        # For leaf values, check eligibility (strip leading slash for comparison)
+        if path.lstrip('/') not in eligible:
             return None
         return value
 
-    return select(state.c.model_dump(mode='json'), '') or {}
+    selected = select(state.c.model_dump(mode='json'), '') or {}
+    # Fixed V1 roots; nested unknowns are restored by the same canonical models.
+    return {**state._empty_document, **selected}

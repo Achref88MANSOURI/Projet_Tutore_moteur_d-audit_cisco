@@ -22,6 +22,10 @@
 {{ source_line | DIGIT | to_int }} match ip precedence {{ precedence }}
 </group>
 
+<group name="advanced_qos_match_precedence_both*" method="table">
+{{ source_line | DIGIT | to_int }} match precedence {{ precedence }}
+</group>
+
 <group name="advanced_qos_match_acl*" method="table">
 {{ source_line | DIGIT | to_int }} match access-group name {{ acl }}
 </group>

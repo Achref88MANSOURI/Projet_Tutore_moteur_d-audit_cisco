@@ -100,6 +100,38 @@ acl_port = '(?:eq|neq|lt|gt)\\s+\\S+|range\\s+\\S+\\s+\\S+'
 {{ source_line | DIGIT | to_int }} access-list {{ acl_name }} {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ source_port | re("acl_port") }} {{ destination | re("acl_address") }} {{ destination_port | re("acl_port") }} {{ options | ORPHRASE }}
 </group>
 
+<group name="acl_remark*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} remark {{ text | ORPHRASE }}
+</group>
+
+<group name="acl_remark_no_seq*" method="table">
+{{ source_line | DIGIT | to_int }} remark {{ text | ORPHRASE }}
+</group>
+
+<group name="acl_resequence*" method="table">
+{{ source_line | DIGIT | to_int }} ip access-list resequence {{ acl_name }} {{ start | DIGIT | to_int }} {{ increment | DIGIT | to_int }}
+</group>
+
+<group name="acl_no_seq*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no {{ sequence | DIGIT | to_int }}
+</group>
+
+<group name="acl_no_ace*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }}
+</group>
+
+<group name="acl_no_ace_options*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="acl_no_extended*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip access-list extended {{ acl_name }}
+</group>
+
+<group name="acl_no_numbered*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no access-list {{ acl_name | DIGIT }}
+</group>
+
 <group name="acl_header_ext*" method="table">
 {{ source_line | DIGIT | to_int }} ip access-list extended {{ name }}
 </group>

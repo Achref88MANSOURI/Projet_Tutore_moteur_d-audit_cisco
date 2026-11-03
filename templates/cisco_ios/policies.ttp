@@ -42,6 +42,10 @@
 {{ source_line | DIGIT | to_int }} set metric {{ value | DIGIT | to_int }}
 </group>
 
+<group name="policy_set_eigrp_metric*" method="table">
+{{ source_line | DIGIT | to_int }} set metric {{ bandwidth | DIGIT | to_int }} {{ delay | DIGIT | to_int }} {{ reliability | DIGIT | to_int }} {{ load | DIGIT | to_int }} {{ mtu | DIGIT | to_int }}
+</group>
+
 <group name="policy_set_weight*" method="table">
 {{ source_line | DIGIT | to_int }} set weight {{ value | DIGIT | to_int }}
 </group>

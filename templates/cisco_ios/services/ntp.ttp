@@ -6,6 +6,22 @@
 {{ source_line | DIGIT | to_int }} ntp server {{ address }}
 </group>
 
+<group name="services_ntp_source*" method="table">
+{{ source_line | DIGIT | to_int }} ntp server {{ address }} source {{ source }}
+</group>
+
+<group name="services_ntp_key*" method="table">
+{{ source_line | DIGIT | to_int }} ntp server {{ address }} key {{ key_id | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_vrf_key*" method="table">
+{{ source_line | DIGIT | to_int }} ntp server vrf {{ vrf }} {{ address }} key {{ key_id | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_key_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp server {{ address }} key {{ key_id | DIGIT | to_int }}
+</group>
+
 <group name="services_ntp_vrf_prefer*" method="table" functions="set(True, prefer)">
 {{ source_line | DIGIT | to_int }} ntp server vrf {{ vrf }} {{ address }} prefer
 </group>
@@ -14,7 +30,95 @@
 {{ source_line | DIGIT | to_int }} ntp server vrf {{ vrf }} {{ address }}
 </group>
 
-<group name="services_ntp_source*" method="table">
+<group name="services_ntp_vrf_source*" method="table">
+{{ source_line | DIGIT | to_int }} ntp server vrf {{ vrf }} {{ address }} source {{ source }}
+</group>
+
+<group name="services_ntp_peer_prefer*" method="table" functions="set(True, prefer)">
+{{ source_line | DIGIT | to_int }} ntp peer {{ address }} prefer
+</group>
+
+<group name="services_ntp_peer*" method="table">
+{{ source_line | DIGIT | to_int }} ntp peer {{ address }}
+</group>
+
+<group name="services_ntp_peer_source*" method="table">
+{{ source_line | DIGIT | to_int }} ntp peer {{ address }} source {{ source }}
+</group>
+
+<group name="services_ntp_peer_key*" method="table">
+{{ source_line | DIGIT | to_int }} ntp peer {{ address }} key {{ key_id | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_peer_vrf_key*" method="table">
+{{ source_line | DIGIT | to_int }} ntp peer vrf {{ vrf }} {{ address }} key {{ key_id | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_peer_key_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp peer {{ address }} key {{ key_id | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_peer_vrf_prefer*" method="table" functions="set(True, prefer)">
+{{ source_line | DIGIT | to_int }} ntp peer vrf {{ vrf }} {{ address }} prefer
+</group>
+
+<group name="services_ntp_peer_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} ntp peer vrf {{ vrf }} {{ address }}
+</group>
+
+<group name="services_ntp_peer_vrf_source*" method="table">
+{{ source_line | DIGIT | to_int }} ntp peer vrf {{ vrf }} {{ address }} source {{ source }}
+</group>
+
+<group name="services_ntp_global_source*" method="table">
 {{ source_line | DIGIT | to_int }} ntp source {{ source }}
+</group>
+
+<group name="services_ntp_global_source_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp source
+</group>
+
+<group name="services_ntp_authenticate*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ntp authenticate
+</group>
+
+<group name="services_ntp_authenticate_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp authenticate
+</group>
+
+<group name="services_ntp_auth_key*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} ntp authentication-key {{ identifier | DIGIT | to_int }} md5 __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="services_ntp_auth_key_format*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} ntp authentication-key {{ identifier | DIGIT | to_int }} md5 {{ credential_format }} __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="services_ntp_auth_key_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp authentication-key {{ identifier | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_trusted_key*" method="table">
+{{ source_line | DIGIT | to_int }} ntp trusted-key {{ start | DIGIT | to_int }} - {{ end | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_trusted_key_single*" method="table">
+{{ source_line | DIGIT | to_int }} ntp trusted-key {{ identifier | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_trusted_key_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp trusted-key {{ identifier | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_master*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ntp master {{ stratum | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_master_no_stratum*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ntp master
+</group>
+
+<group name="services_ntp_master_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp master
 </group>
 

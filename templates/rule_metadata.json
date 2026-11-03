@@ -233,5 +233,653 @@
         "password"
       ]
     }
+  },
+  "auth_bgp_password": {
+    "scope": "root:router bgp"
+  },
+  "auth_bgp_password_format": {
+    "scope": "root:router bgp",
+    "choices": {
+      "credential_format": [
+        "0",
+        "7"
+      ]
+    }
+  },
+  "auth_bgp_password_remove": {
+    "scope": "root:router bgp"
+  },
+  "auth_ospf_area_plain": {
+    "scope": "root:router ospf"
+  },
+  "auth_ospf_area_remove_plain": {
+    "scope": "root:router ospf"
+  },
+  "auth_ospf_area_digest": {
+    "scope": "root:router ospf"
+  },
+  "auth_ospf_area_remove_digest": {
+    "scope": "root:router ospf"
+  },
+  "auth_if_ospf_plain": {
+    "scope": "root:interface"
+  },
+  "auth_if_ospf_digest": {
+    "scope": "root:interface"
+  },
+  "auth_if_ospf_null": {
+    "scope": "root:interface"
+  },
+  "auth_if_ospf_chain": {
+    "scope": "root:interface"
+  },
+  "auth_if_ospf_remove": {
+    "scope": "root:interface"
+  },
+  "auth_if_ospf_key": {
+    "scope": "root:interface"
+  },
+  "auth_if_ospf_key_format": {
+    "scope": "root:interface",
+    "choices": {
+      "credential_format": [
+        "0",
+        "7"
+      ]
+    }
+  },
+  "auth_if_ospf_key_remove": {
+    "scope": "root:interface"
+  },
+  "auth_if_ospf_md5_key": {
+    "scope": "root:interface"
+  },
+  "auth_if_ospf_md5_remove": {
+    "scope": "root:interface"
+  },
+  "auth_isis_mode": {
+    "scope": "root:router isis",
+    "choices": {
+      "mode": [
+        "md5",
+        "text"
+      ]
+    }
+  },
+  "auth_isis_mode_level": {
+    "scope": "root:router isis",
+    "choices": {
+      "mode": [
+        "md5",
+        "text"
+      ],
+      "level": [
+        "level-1",
+        "level-2"
+      ]
+    }
+  },
+  "auth_isis_chain": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_chain_level": {
+    "scope": "root:router isis",
+    "choices": {
+      "level": [
+        "level-1",
+        "level-2"
+      ]
+    }
+  },
+  "auth_isis_send": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_send_level": {
+    "scope": "root:router isis",
+    "choices": {
+      "level": [
+        "level-1",
+        "level-2"
+      ]
+    }
+  },
+  "auth_isis_mode_remove": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_send_remove": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_chain_remove": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_chain_remove_level": {
+    "scope": "root:router isis",
+    "choices": {
+      "level": [
+        "level-1",
+        "level-2"
+      ]
+    }
+  },
+  "auth_if_isis_mode": {
+    "scope": "root:interface",
+    "choices": {
+      "mode": [
+        "md5",
+        "text"
+      ]
+    }
+  },
+  "auth_if_isis_mode_level": {
+    "scope": "root:interface",
+    "choices": {
+      "mode": [
+        "md5",
+        "text"
+      ],
+      "level": [
+        "level-1",
+        "level-2"
+      ]
+    }
+  },
+  "auth_if_isis_chain": {
+    "scope": "root:interface"
+  },
+  "auth_if_isis_chain_level": {
+    "scope": "root:interface",
+    "choices": {
+      "level": [
+        "level-1",
+        "level-2"
+      ]
+    }
+  },
+  "auth_if_isis_send": {
+    "scope": "root:interface"
+  },
+  "auth_if_isis_send_level": {
+    "scope": "root:interface",
+    "choices": {
+      "level": [
+        "level-1",
+        "level-2"
+      ]
+    }
+  },
+  "auth_if_isis_mode_remove": {
+    "scope": "root:interface"
+  },
+  "auth_if_isis_send_remove": {
+    "scope": "root:interface"
+  },
+  "auth_if_isis_chain_remove": {
+    "scope": "root:interface"
+  },
+  "auth_if_isis_chain_remove_level": {
+    "scope": "root:interface",
+    "choices": {
+      "level": [
+        "level-1",
+        "level-2"
+      ]
+    }
+  },
+  "auth_isis_area_key": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_area_remove": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_area_remove_value": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_domain_key": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_domain_remove": {
+    "scope": "root:router isis"
+  },
+  "auth_isis_domain_remove_value": {
+    "scope": "root:router isis"
+  },
+  "advanced_isis_unnamed": {
+    "scope": "global"
+  },
+  "auth_if_rip_mode": {
+    "scope": "root:interface",
+    "choices": {
+      "mode": [
+        "text",
+        "md5"
+      ]
+    }
+  },
+  "auth_if_rip_mode_remove": {
+    "scope": "root:interface"
+  },
+  "auth_if_rip_chain": {
+    "scope": "root:interface"
+  },
+  "auth_if_rip_chain_remove": {
+    "scope": "root:interface"
+  },
+  "auth_if_rip_chain_remove_name": {
+    "scope": "root:interface"
+  },
+  "auth_key_chain": {
+    "scope": "global"
+  },
+  "auth_key_id": {
+    "scope": "root:key chain"
+  },
+  "auth_key_string": {
+    "scope": "root:key chain"
+  },
+  "auth_key_string_format": {
+    "scope": "root:key chain",
+    "choices": {
+      "credential_format": [
+        "0",
+        "6",
+        "7"
+      ]
+    }
+  },
+  "auth_key_algorithm": {
+    "scope": "root:key chain",
+    "choices": {
+      "algorithm": [
+        "md5",
+        "hmac-sha-1",
+        "hmac-sha-256",
+        "hmac-sha-384",
+        "hmac-sha-512"
+      ]
+    }
+  },
+  "admin_authentication_login": {
+    "scope": "global"
+  },
+  "admin_authentication_login_remove": {
+    "scope": "global"
+  },
+  "admin_authentication_enable": {
+    "scope": "global"
+  },
+  "admin_authentication_enable_remove": {
+    "scope": "global"
+  },
+  "admin_authorization_exec": {
+    "scope": "global"
+  },
+  "admin_authorization_commands": {
+    "scope": "global"
+  },
+  "admin_accounting_exec": {
+    "scope": "global",
+    "choices": {
+      "accounting_mode": [
+        "start-stop",
+        "stop-only",
+        "none"
+      ]
+    }
+  },
+  "admin_accounting_exec_none": {
+    "scope": "global"
+  },
+  "admin_accounting_commands": {
+    "scope": "global",
+    "choices": {
+      "accounting_mode": [
+        "start-stop",
+        "stop-only",
+        "none"
+      ]
+    }
+  },
+  "admin_accounting_commands_none": {
+    "scope": "global"
+  },
+  "admin_accounting_system": {
+    "scope": "global",
+    "choices": {
+      "accounting_mode": [
+        "start-stop",
+        "stop-only",
+        "none"
+      ]
+    }
+  },
+  "admin_accounting_system_none": {
+    "scope": "global"
+  },
+  "admin_aaa_group": {
+    "scope": "global",
+    "choices": {
+      "protocol": [
+        "radius",
+        "tacacs+"
+      ]
+    }
+  },
+  "admin_server_key_format": {
+    "choices": {
+      "credential_format": [
+        "0",
+        "6",
+        "7"
+      ]
+    }
+  },
+  "admin_server_key_remove_format": {
+    "choices": {
+      "credential_format": [
+        "0",
+        "6",
+        "7"
+      ]
+    }
+  },
+  "admin_ssh_timeout": {
+    "scope": "global"
+  },
+  "admin_ssh_retries": {
+    "scope": "global"
+  },
+  "admin_ssh_version_remove": {
+    "scope": "global"
+  },
+  "eigrp_af_001": {
+    "choices": {
+      "afi": [
+        "ipv4",
+        "ipv6"
+      ]
+    }
+  },
+  "eigrp_af_010": {
+    "choices": {
+      "afi": [
+        "ipv4",
+        "ipv6"
+      ]
+    }
+  },
+  "eigrp_af_011": {
+    "choices": {
+      "afi": [
+        "ipv4",
+        "ipv6"
+      ]
+    }
+  },
+  "eigrp_af_101": {
+    "choices": {
+      "afi": [
+        "ipv4",
+        "ipv6"
+      ],
+      "safi": [
+        "unicast",
+        "multicast"
+      ]
+    }
+  },
+  "eigrp_af_110": {
+    "choices": {
+      "afi": [
+        "ipv4",
+        "ipv6"
+      ],
+      "safi": [
+        "unicast",
+        "multicast"
+      ]
+    }
+  },
+  "eigrp_af_111": {
+    "choices": {
+      "afi": [
+        "ipv4",
+        "ipv6"
+      ],
+      "safi": [
+        "unicast",
+        "multicast"
+      ]
+    }
+  },
+  "eigrp_topology": {
+    "choices": {
+      "name": [
+        "base"
+      ]
+    }
+  },
+  "eigrp_redistribute": {
+    "choices": {
+      "protocol": [
+        "connected",
+        "static",
+        "bgp",
+        "ospf",
+        "isis",
+        "eigrp",
+        "rip"
+      ]
+    }
+  },
+  "eigrp_redistribute_options": {
+    "choices": {
+      "protocol": [
+        "connected",
+        "static",
+        "bgp",
+        "ospf",
+        "isis",
+        "eigrp",
+        "rip"
+      ]
+    }
+  },
+  "eigrp_filter_acl": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_acl_interface": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_prefix": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_prefix_interface": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_route_map": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_acl_remove": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_acl_interface_remove": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_prefix_remove": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_prefix_interface_remove": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_route_map_remove": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_authentication_sha": {
+    "choices": {
+      "credential_format": [
+        "0",
+        "7"
+      ]
+    }
+  },
+  "eigrp_filter_prefix_list": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_prefix_list_interface": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_prefix_list_remove": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "eigrp_filter_prefix_list_interface_remove": {
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "policy_set_eigrp_metric": {
+    "scope": "root:route-map"
+  },
+  "advanced_qos_match_precedence_both": {
+    "scope": "root:class-map"
+  },
+  "services_version": {
+    "scope": "global"
+  },
+  "services_password_encryption_on": {
+    "scope": "global"
+  },
+  "services_radius_source": {
+    "scope": "global"
+  },
+  "services_radius_source_remove": {
+    "scope": "global"
+  },
+  "services_tacacs_source": {
+    "scope": "global"
+  },
+  "services_tacacs_source_remove": {
+    "scope": "global"
+  },
+  "admin_aaa_group_radius_source": {
+    "scope": "root:aaa group server radius"
+  },
+  "admin_aaa_group_radius_source_remove": {
+    "scope": "root:aaa group server radius"
+  },
+  "admin_aaa_group_tacacs_source": {
+    "scope": "root:aaa group server tacacs+"
+  },
+  "admin_aaa_group_tacacs_source_remove": {
+    "scope": "root:aaa group server tacacs+"
+  },
+  "services_ntp_global_source": {
+    "scope": "global"
+  },
+  "services_ntp_source": {
+    "scope": "global"
+  },
+  "services_ntp_vrf_source": {
+    "scope": "global"
+  },
+  "services_ntp_peer": {
+    "scope": "global"
+  },
+  "services_ntp_peer_prefer": {
+    "scope": "global"
+  },
+  "services_ntp_peer_source": {
+    "scope": "global"
+  },
+  "services_ntp_peer_vrf": {
+    "scope": "global"
+  },
+  "services_ntp_peer_vrf_prefer": {
+    "scope": "global"
+  },
+  "services_ntp_peer_vrf_source": {
+    "scope": "global"
+  },
+  "services_ntp_global_source": {
+    "scope": "global"
+  },
+  "services_ntp_global_source_remove": {
+    "scope": "global"
+  },
+  "eigrp_af_interface_remove": {
+    "scope": "root:router eigrp"
+  },
+  "eigrp_af_interface_auth_key_chain_remove": {
+    "scope": "root:router eigrp"
+  },
+  "eigrp_af_interface_auth_mode_remove": {
+    "scope": "root:router eigrp"
   }
 }

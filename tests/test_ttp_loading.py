@@ -31,12 +31,14 @@ def project(tmp_path, monkeypatch, groups, metadata=None):
 def test_all_project_groups_have_the_exact_metadata_association():
     definitions, templates = parsing.load_templates()
     metadata = json.loads((parsing.ROOT / 'templates/rule_metadata.json').read_text(encoding='utf-8'))
-    assert len(templates) == 11
-    assert sum(len(sources) for sources in templates.values()) == 28
-    assert len(definitions) == 374
-    assert len(metadata) == 73
-    assert sum('scope' in value for value in metadata.values()) == 71
-    assert sum('choices' in value for value in metadata.values()) == 3
+    assert len(templates) == 12
+    assert sum(len(sources) for sources in templates.values()) == 31
+    # Phase 2A adds eight source-numbered Syslog/transport event forms.
+    # Phase 2E adds two source-numbered VTY login-authentication negation forms.
+    assert len(definitions) == 590
+    assert len(metadata) == 173
+    assert sum('scope' in value for value in metadata.values()) == 145
+    assert sum('choices' in value for value in metadata.values()) == 48
     for identifier, definition in definitions.items():
         assert {key: value for key, value in definition.items() if key != 'pattern'} == metadata.get(identifier, {})
         assert set(metadata.get(identifier, {})) <= {'scope', 'choices'}
@@ -45,7 +47,7 @@ def test_all_project_groups_have_the_exact_metadata_association():
     assert definitions['services_community_expanded']['choices'] == {'action': ['permit', 'deny']}
     assert definitions['services_user_no_format']['choices'] == {'credential_type': ['secret', 'password']}
     owned = [identifier for sources in templates.values() for template in sources for identifier in template.rule_ids]
-    assert len(owned) == len(set(owned)) == 374
+    assert len(owned) == len(set(owned)) == 590
     assert set(owned) == set(definitions)
 
 

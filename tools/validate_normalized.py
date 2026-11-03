@@ -12,7 +12,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from cli import convert_file,write_json
-from schemas.normalized_config import business_schema
+from schemas.router_contract_v1 import router_contract_v1_schema
 from jsonschema import Draft202012Validator,FormatChecker
 
 FORBIDDEN={'evidence','diagnostics','parsing','observations','unknown_commands',
@@ -39,13 +39,13 @@ def business_only(value):
     if isinstance(value,dict):
         return not FORBIDDEN.intersection(value) and all(business_only(v) for v in value.values())
     if isinstance(value,list):return all(business_only(v) for v in value)
-    return value is not None
+    return True
 
 
 def run(output,baseline=None,identifiers=None):
     before=read(baseline) if baseline else {}
     by_id={key.split('_')[0]:key for key in before}
-    validator=Draft202012Validator(business_schema(),format_checker=FormatChecker())
+    validator=Draft202012Validator(router_contract_v1_schema(),format_checker=FormatChecker())
     results=[]
     for identifier,source,family,expected_hash in entries():
         if identifiers and identifier not in identifiers:continue

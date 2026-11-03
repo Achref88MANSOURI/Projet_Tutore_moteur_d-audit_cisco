@@ -89,3 +89,33 @@ sans dupliquer leurs motifs ou leurs constantes.
 `catalogue_coverage.json` reste une référence historique et n'est pas chargé par
 le parseur. Les quatre templates officiels restent indépendants de ce document
 et des métadonnées des extensions du projet.
+
+## EIGRP
+
+`cisco_ios/routing/eigrp.ttp` appartient à la famille `eigrp` ajoutée à l'inventaire
+et au loader. `cisco_ios/interfaces/eigrp.ttp` appartient à la famille `interfaces`.
+La règle de métrique composite des route-maps est dans `cisco_ios/policies.ttp`.
+
+`parser/eigrp_context.py` et `parser/eigrp_commands.py` vérifient portée immédiate et
+opérandes. Une même syntaxe ne s'applique pas indifféremment au processus, à l'AF,
+à la topologie ou à l'interface.
+
+La [matrice et les références Cisco](../docs/eigrp/README.md) décrivent les 129 règles
+ajoutées et les syntaxes volontairement non prises en charge. Les anciens templates
+amont restent inchangés.
+
+## Correction des lacunes Cisco
+
+La règle `advanced_qos_match_precedence_both` reconnaît `match precedence` sans
+le mot-clé `ip`, sous une class-map. Le mapping conserve la distinction de famille
+avec la règle existante `match ip precedence`. L'inventaire est désormais de
+580 règles dans 31 fichiers et 12 familles ; les 173 associations de métadonnées
+comprennent 145 restrictions de portée et 48 ensembles de valeurs autorisées.
+
+Les pertes `match community`, `established`, version, boot et cache NetFlow
+reposaient sur des captures déjà présentes : elles ont été corrigées dans les
+mappings et les modèles, sans dupliquer les templates. Les bannières transmettent
+au parsing un en-tête sûr et un indicateur interne de présence, sans leur texte.
+
+La règle globale `services_password_encryption_on` complète désormais la forme
+`no service password-encryption`, sans collecter de credential.

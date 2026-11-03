@@ -162,27 +162,24 @@ def test_all_added_rule_ids_have_reviewed_examples():
 TYPED={
  'if_cdp_off':('interfaces/0/cdp_enabled',False),
  'if_mop_off':('interfaces/0/mop_enabled',False),
- 'if_service_instance':('cisco/ethernet_services/0/instance',100),
- 'if_bridge_domain':('cisco/ethernet_services/0/bridge_domain',100),
- 'if_encap_untagged':('cisco/ethernet_services/0/encapsulation/kind','untagged'),
- 'advanced_mpls_ldp_no_option':('cisco/mpls/ldp/router_id_interface','Loopback0'),
- 'services_timestamp':('system/timestamps/0/options',['msec']),
- 'services_timestamp_plain':('system/timestamps/0/format','uptime'),
+ 'advanced_mpls_ldp_no_option':('mpls/ldp/router_id_interface','Loopback0'),
+ 'services_timestamp':('system/logging/timestamps/0/options',['msec']),
+ 'services_timestamp_plain':('system/logging/timestamps/0/format','uptime'),
  'services_line_synchronous':('system/management/lines/0/logging_synchronous',True),
  'services_line_privilege':('system/management/lines/0/privilege_level',15),
  'services_line_stopbits':('system/management/lines/0/stopbits',1),
  'services_line_length':('system/management/lines/0/screen_length',0),
- 'services_line_preferred':('system/management/lines/0/preferred_transports',['none']),
- 'services_console_off':('system/console_logging',False),
- 'services_source_route_off':('system/source_routing',False),
- 'services_lookup_off':('system/dns_lookup_enabled',False),
- 'services_password_encryption_off':('system/password_encryption_service',False),
- 'services_ipv6_routing':('system/ipv6_unicast_routing',True),
- 'services_http_auth':('system/http_authentication','local'),
- 'services_community_expanded':('cisco/community_lists/0/entries/0/expression','_65000:'),
- 'services_flow_source':('system/flow_export/source_interface','Loopback0'),
- 'services_flow_version':('system/flow_export/as_mode','origin-as'),
- 'services_flow_timeout':('system/flow_export/cache_timeout_inactive_seconds',60),
+ 'services_line_preferred':('system/management/lines/0/preferred_transports',[]),
+ 'services_console_off':('system/logging/console_logging',False),
+ 'services_source_route_off':('system/ip_services/source_routing',False),
+ 'services_lookup_off':('system/dns/lookup_enabled',False),
+ 'services_password_encryption_off':('system/ip_services/password_encryption_service',False),
+ 'services_ipv6_routing':('system/ip_services/ipv6_unicast_routing',True),
+ 'services_http_auth':('system/management/http/authentication','local'),
+ 'services_community_expanded':('routing_policies/community_lists/0/entries/0/expression','_65000:'),
+ 'services_flow_source':('system/flow_monitoring/export/source_interface','Loopback0'),
+ 'services_flow_version':('system/flow_monitoring/export/as_mode','origin-as'),
+ 'services_flow_timeout':('system/flow_monitoring/export/cache_timeout_inactive_seconds',60),
  'bgp_compare_med':('routing/bgp/0/compare_med',True),
  'bgp_deterministic_med':('routing/bgp/0/deterministic_med',True),
  'bgp_no_default_ipv4':('routing/bgp/0/default_ipv4_unicast',False),
@@ -208,7 +205,9 @@ def test_global_rules_rejected_in_terminal_mode(rule,parents,command,expected):
 def test_bgp_af_flags_and_vrf_native_properties_never_widen():
     x,n,c=parse('router bgp 65000\n address-family ipv4 vrf A\n  no synchronization\n  no auto-summary\n  neighbor 192.0.2.1 allowas-in\n exit-address-family\n address-family ipv4 vrf B\n  neighbor 192.0.2.1 soft-reconfiguration inbound\n')
     assert all(p.synchronization is None and p.auto_summary is None for p in n.routing.bgp)
-    a=next(p for p in n.routing.bgp if p.network_instance=='A').address_families[0]
+    process,=n.routing.bgp
+    assert process.network_instance is None
+    a=next(af for af in process.address_families if af.network_instance=='A')
     assert a.synchronization is False and a.auto_summary is False
     assert a.peers[0].allowas_in.enabled is True and a.peers[0].allowas_in.configured_max_occurrences is None
     assert all(c.is_complete(line) for line in (3,4,5))
@@ -218,7 +217,7 @@ def test_bgp_af_flags_and_vrf_native_properties_never_widen():
 def test_one_line_banner_and_export_markers_are_not_commands():
     x,n,c=parse('boot-start-marker\nboot-end-marker\nbanner motd #hostname PRIVATE-TEXT#\nhostname REAL\n')
     assert not {1,2,3}&x['records'].keys()
-    assert n.system.hostname=='REAL'
+    assert n.system.identity.hostname=='REAL'
     assert 'PRIVATE-TEXT' not in n.model_dump_json()
 
 

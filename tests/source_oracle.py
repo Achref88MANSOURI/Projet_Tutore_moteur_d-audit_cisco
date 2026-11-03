@@ -29,13 +29,13 @@ def expected(text):
 
 def check_result(result, source, manifest):
     truth=expected(source);c=result
-    actual4=sorted((i.name,str(a.address),a.prefix_length,bool(a.secondary)) for i in c.interfaces for a in i.ipv4_addresses)
-    actual6=sorted((i.name,str(a.address),a.prefix_length) for i in c.interfaces for a in i.ipv6_addresses)
+    actual4=sorted((i.name,str(a.address),a.prefix_length,bool(a.secondary)) for i in c.interfaces for a in (i.ipv4.addresses or []))
+    actual6=sorted((i.name,str(a.address),a.prefix_length) for i in c.interfaces for a in (i.ipv6.addresses or []))
     return {
-        'hostname_source_and_description':c.system.hostname==truth['hostname']==manifest['hostname_description'],
+        'hostname_source_and_description':c.system.identity.hostname==truth['hostname']==manifest['hostname_description'],
         'interfaces_source_and_description':len(c.interfaces)==manifest['description_interface_count'] and {i.name for i in c.interfaces}==set(truth['interfaces']),
         'explicit_admin_states_no_template_defaults':{i.name:i.admin_enabled for i in c.interfaces}==truth['interfaces'],
         'all_static_ipv4_values':actual4==truth['ipv4'],
         'all_unqualified_static_ipv6_values':actual6==truth['ipv6'],
-        'bgp_local_as':sorted({p.local_as for p in c.routing.bgp})==truth['asns'],
+        'bgp_local_as':sorted({p.local_as for p in (c.routing.bgp or [])})==truth['asns'],
     }

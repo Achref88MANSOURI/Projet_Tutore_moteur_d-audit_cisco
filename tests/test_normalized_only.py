@@ -1,4 +1,5 @@
 """Single-output API and semantic safeguards, with literal source expectations."""
+from .contract_fixtures import expected_config
 from dataclasses import fields
 import json
 import pytest
@@ -7,7 +8,7 @@ from normalizer.common.configured import Binding,validate_targets
 from normalizer.engine import NormalizationEngine
 from normalizer.serialization import to_dict
 from parser.run_ttp import extract
-from schemas.normalized_config import NormalizedConfig
+from schemas.router_contract_v1 import RouterContractV1
 
 
 def test_no_provenance_or_report_buffers_are_built():
@@ -19,11 +20,11 @@ def test_no_provenance_or_report_buffers_are_built():
         assert not {'evidence','diagnostics','metadata','partial_notes','extra_invalid'}.intersection(vars(owner))
     assert {f.name for f in fields(Binding)}=={'path','record'}
     assert not {'official_errors','official_template_hashes','versions','selection'}.intersection(x)
-    assert set(to_dict(model))=={'interfaces'}
+    assert to_dict(model) == expected_config(interfaces=[{'name':'E1','kind':'physical','ipv4':{'addresses':[{'address':'192.0.2.1','prefix_length':24,'secondary':False}]}}])
 
 
 def test_field_integrity_remains_enforced():
-    model=NormalizedConfig(interfaces=[{'name':'E1'}])
+    model=RouterContractV1.model_validate(expected_config(interfaces=[{'name':'E1','kind':'physical'}]))
     validate_targets(model,[Binding('/interfaces/0/name',1)])
     with pytest.raises(ValueError):validate_targets(model,[Binding('/interfaces/1/name',1)])
     with pytest.raises(ValueError):validate_targets(model,[Binding('/interfaces/0/mtu',1)])
@@ -34,7 +35,7 @@ def test_conflicting_capture_is_not_adopted():
     x['ambiguous_lines'].add(2)
     m=NormalizationEngine(x);model=m.run()
     assert not m.is_complete(2)
-    assert to_dict(model)=={'interfaces':[{'name':'E1','kind':'physical'}]}
+    assert to_dict(model)==expected_config(interfaces=[{'name':'E1','kind':'physical'}])
 
 
 @pytest.mark.parametrize('command',[
@@ -43,25 +44,25 @@ def test_conflicting_capture_is_not_adopted():
 ])
 def test_invalid_parameter_does_not_leak_a_guessed_fact(command):
     result=cli.normalize('interface E1\n '+command+'\n',official=False)
-    assert result=={'interfaces':[{'name':'E1','kind':'physical'}]}
+    assert result==expected_config(interfaces=[{'name':'E1','kind':'physical'}])
 
 
 def test_incomplete_acl_blocks_its_route_map_dependency():
     result=cli.normalize('ip access-list extended A\n permit ip any any\n permit ip any any UNKNOWN\n'
         'route-map P permit 10\n match ip address A\n set metric 0\n',official=False)
-    assert not result.get('security',{}).get('acl_sets')
-    assert not result.get('routing',{}).get('routing_policies')
+    assert result['security']['acls'] is None
+    assert result['routing_policies']['route_maps'] is None
 
 
 def test_partial_qos_policy_does_not_become_executable():
     result=cli.normalize('class-map match-any C\n match protocol http\n'
         'policy-map P\n class C\n  future-action 7\n',official=False)
-    assert not result.get('qos',{}).get('policy_maps')
+    assert result['qos']['policy_maps'] is None
 
 
 def test_python_text_api_has_no_file_side_effects(tmp_path,monkeypatch):
     monkeypatch.chdir(tmp_path)
-    assert cli.normalize('hostname R\n',official=False)=={'system':{'hostname':'R'}}
+    assert cli.normalize('hostname R\n',official=False)==expected_config(system={'identity':{'hostname':'R'}})
     assert list(tmp_path.iterdir())==[]
 
 
@@ -80,7 +81,7 @@ def test_opaque_and_credentials_are_not_business_data():
     result=cli.normalize(text,official=False)
     assert secret not in json.dumps(result)
     assert '0123456789ABCDEF' not in json.dumps(result)
-    assert result['system']['hostname']=='REAL'
+    assert result['system']['identity']['hostname']=='REAL'
     assert result['system']['aaa']['local_users'][0]['credential_configured'] is True
 
 
@@ -88,5 +89,5 @@ def test_unknown_mode_does_not_change_ospf_or_bgp_context():
     text=('router bgp 65000\n address-family ipv4 vrf A\n  unknown-mode\n'
         '   neighbor UNDECLARED allowas-in\nrouter ospf 1\n router-id 192.0.2.1\n')
     result=cli.normalize(text,official=False)
-    assert not any(af.get('peers') for p in result['routing']['bgp'] for af in p.get('address_families',[]))
+    assert not any(af.get('peers') for p in result['routing']['bgp'] for af in (p.get('address_families') or []))
     assert result['routing']['ospf'][0]['router_id']=='192.0.2.1'

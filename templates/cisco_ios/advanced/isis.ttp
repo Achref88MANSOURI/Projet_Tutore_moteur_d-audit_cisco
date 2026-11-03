@@ -10,3 +10,71 @@
 {{ source_line | DIGIT | to_int }} passive-interface {{ interface }}
 </group>
 
+
+<group name="auth_isis_mode*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} authentication mode {{ mode }}
+</group>
+
+<group name="auth_isis_mode_level*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} authentication mode {{ mode }} {{ level }}
+</group>
+
+<group name="auth_isis_chain*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} authentication key-chain {{ key_chain }}
+</group>
+
+<group name="auth_isis_chain_level*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} authentication key-chain {{ key_chain }} {{ level }}
+</group>
+
+<group name="auth_isis_send*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} authentication send-only
+</group>
+
+<group name="auth_isis_send_level*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} authentication send-only {{ level }}
+</group>
+
+<group name="auth_isis_mode_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no authentication mode
+</group>
+
+<group name="auth_isis_send_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no authentication send-only
+</group>
+
+<group name="auth_isis_chain_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no authentication key-chain {{ key_chain }}
+</group>
+
+<group name="auth_isis_chain_remove_level*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no authentication key-chain {{ key_chain }} {{ level }}
+</group>
+
+<group name="auth_isis_area_key*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} area-password __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_isis_area_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no area-password
+</group>
+
+<group name="auth_isis_area_remove_value*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no area-password __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_isis_domain_key*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} domain-password __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_isis_domain_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no domain-password
+</group>
+
+<group name="auth_isis_domain_remove_value*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no domain-password __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="advanced_isis_unnamed*" method="table" functions="set(True, declared)">
+{{ source_line | DIGIT | to_int }} router isis
+</group>

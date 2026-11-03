@@ -38,10 +38,118 @@
 {{ source_line | DIGIT | to_int }} no service password-encryption
 </group>
 
+<group name="services_password_encryption_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} service password-encryption
+</group>
+
 <group name="catalogue_password_minimum*" method="table">
 {{ source_line | DIGIT | to_int }} security passwords min-length {{ length | DIGIT | to_int }}
 </group>
 
 <group name="services_user_no_format*" method="table" functions="set('not_specified', credential_format)">
 {{ source_line | DIGIT | to_int }} username {{ username }} {{ credential_type }} {{ credential }}
+</group>
+
+<group name="admin_authentication_login*" method="table">
+{{ source_line | DIGIT | to_int }} aaa authentication login {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authentication_login_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no aaa authentication login {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authentication_enable*" method="table">
+{{ source_line | DIGIT | to_int }} aaa authentication enable {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authentication_enable_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no aaa authentication enable {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authorization_exec*" method="table">
+{{ source_line | DIGIT | to_int }} aaa authorization exec {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_authorization_commands*" method="table">
+{{ source_line | DIGIT | to_int }} aaa authorization commands {{ level | DIGIT | to_int }} {{ name }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_accounting_exec*" method="table">
+{{ source_line | DIGIT | to_int }} aaa accounting exec {{ name }} {{ accounting_mode }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_accounting_exec_none*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} aaa accounting exec {{ name }} none
+</group>
+
+<group name="admin_accounting_commands*" method="table">
+{{ source_line | DIGIT | to_int }} aaa accounting commands {{ level | DIGIT | to_int }} {{ name }} {{ accounting_mode }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_accounting_commands_none*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} aaa accounting commands {{ level | DIGIT | to_int }} {{ name }} none
+</group>
+
+<group name="admin_accounting_system*" method="table">
+{{ source_line | DIGIT | to_int }} aaa accounting system {{ name }} {{ accounting_mode }} {{ methods | ORPHRASE }}
+</group>
+
+<group name="admin_accounting_system_none*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} aaa accounting system {{ name }} none
+</group>
+
+<group name="admin_aaa_group*" method="table">
+{{ source_line | DIGIT | to_int }} aaa group server {{ protocol }} {{ name }}
+</group>
+
+<group name="admin_aaa_group_member*" method="table">
+{{ source_line | DIGIT | to_int }} server name {{ name }}
+</group>
+
+<group name="admin_server_key*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} key __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="admin_server_key_format*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} key {{ credential_format }} __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="admin_server_key_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no key __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="admin_server_key_remove_format*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no key {{ credential_format }} __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="services_radius_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip radius source-interface {{ interface }}
+</group>
+
+<group name="services_radius_source_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip radius source-interface
+</group>
+
+<group name="services_tacacs_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip tacacs source-interface {{ interface }}
+</group>
+
+<group name="services_tacacs_source_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip tacacs source-interface
+</group>
+
+<group name="admin_aaa_group_radius_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip radius source-interface {{ interface }}
+</group>
+
+<group name="admin_aaa_group_radius_source_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip radius source-interface
+</group>
+
+<group name="admin_aaa_group_tacacs_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip tacacs source-interface {{ interface }}
+</group>
+
+<group name="admin_aaa_group_tacacs_source_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip tacacs source-interface
 </group>

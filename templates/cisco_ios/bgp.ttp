@@ -157,3 +157,15 @@
 <group name="catalogue_soft*" method="table" functions="set(True, inbound)">
 {{ source_line | DIGIT | to_int }} neighbor {{ peer }} soft-reconfiguration inbound
 </group>
+
+<group name="auth_bgp_password*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} password __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_bgp_password_format*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} password {{ credential_format }} __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_bgp_password_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no neighbor {{ peer }} password
+</group>

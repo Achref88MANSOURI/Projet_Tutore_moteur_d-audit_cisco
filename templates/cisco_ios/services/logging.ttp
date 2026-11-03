@@ -2,6 +2,38 @@
 {{ source_line | DIGIT | to_int }} logging host {{ address }}
 </group>
 
+<group name="services_logging_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} logging host {{ address }} vrf {{ vrf }}
+</group>
+
+<group name="services_logging_vrf_transport*" method="table">
+{{ source_line | DIGIT | to_int }} logging host {{ address }} vrf {{ vrf }} transport {{ transport }}
+</group>
+
+<group name="services_logging_transport*" method="table">
+{{ source_line | DIGIT | to_int }} logging host {{ address }} transport {{ transport }}
+</group>
+
+<group name="services_logging_port*" method="table">
+{{ source_line | DIGIT | to_int }} logging host {{ address }} transport {{ transport }} port {{ port | DIGIT | to_int }}
+</group>
+
+<group name="services_logging_vrf_port*" method="table">
+{{ source_line | DIGIT | to_int }} logging host {{ address }} vrf {{ vrf }} transport {{ transport }} port {{ port | DIGIT | to_int }}
+</group>
+
+<group name="services_logging_update*" method="table">
+{{ source_line | DIGIT | to_int }} logging host {{ target | ORPHRASE }}
+</group>
+
+<group name="services_logging_remove*" method="table">
+{{ source_line | DIGIT | to_int }} no logging host {{ target | ORPHRASE }}
+</group>
+
+<group name="services_logging_legacy_remove*" method="table">
+{{ source_line | DIGIT | to_int }} no logging {{ address | IP }}
+</group>
+
 <group name="services_logging_legacy*" method="table">
 {{ source_line | DIGIT | to_int }} logging {{ address | IP }}
 </group>
@@ -14,8 +46,48 @@
 {{ source_line | DIGIT | to_int }} logging source-interface {{ interface }}
 </group>
 
+<group name="services_logging_source_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} logging source-interface {{ interface }} vrf {{ vrf }}
+</group>
+
+<group name="services_logging_on*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} logging on
+</group>
+
+<group name="services_logging_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no logging on
+</group>
+
+<group name="services_logging_buffered*" method="table">
+{{ source_line | DIGIT | to_int }} logging buffered {{ size | DIGIT | to_int }} {{ severity }}
+</group>
+
+<group name="services_logging_buffered_severity*" method="table">
+{{ source_line | DIGIT | to_int }} logging buffered {{ severity }}
+</group>
+
+<group name="services_logging_buffered_discriminator*" method="table">
+{{ source_line | DIGIT | to_int }} logging buffered discriminator {{ name }} {{ severity }}
+</group>
+
+<group name="services_logging_buffered_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no logging buffered
+</group>
+
+<group name="services_logging_console*" method="table">
+{{ source_line | DIGIT | to_int }} logging console {{ severity }}
+</group>
+
+<group name="services_console_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no logging console
+</group>
+
 <group name="services_login_logging*" method="table" functions="set(True, enabled)">
 {{ source_line | DIGIT | to_int }} login on-success log
+</group>
+
+<group name="catalogue_no_cdp_log*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no cdp log mismatch duplex
 </group>
 
 <group name="services_timestamp*" method="table">
@@ -24,13 +96,5 @@
 
 <group name="services_timestamp_plain*" method="table">
 {{ source_line | DIGIT | to_int }} service timestamps {{ category }} {{ format }}
-</group>
-
-<group name="services_console_off*" method="table" functions="set(False, enabled)">
-{{ source_line | DIGIT | to_int }} no logging console
-</group>
-
-<group name="catalogue_no_cdp_log*" method="table" functions="set(False, enabled)">
-{{ source_line | DIGIT | to_int }} no cdp log mismatch duplex
 </group>
 

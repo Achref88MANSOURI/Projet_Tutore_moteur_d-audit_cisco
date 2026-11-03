@@ -1,31 +1,29 @@
 """Canonical BGP processes, neighbors, groups and address-family scopes."""
+from . import authentication
 from ipaddress import IPv4Address, ip_address, ip_network
-from schemas import normalized_config as s
+from normalizer.common.collections import collection
+from schemas import router_contract_v1 as s
 from normalizer.common.addresses import asn, prefix_length
 
 
 def process(state, r):
     family = r['values'] if r['rule'].startswith('bgp_af') and 'afi' in r['values'] else state.af(r)
-    vrf = family.get('vrf') if family else None
     root = r if r['rule'] == 'bgp_header' else state.root(r)
     local = asn(root['values']['local_as'])
-    obj = next((p for p in state.c.routing.bgp if p.local_as == local and p.network_instance == vrf), None)
+    obj = next((p for p in (state.c.routing.bgp or []) if p.local_as == local and p.network_instance is None), None)
     if obj is None:
-        obj = s.BGPProcess(local_as=local, network_instance=vrf)
-        state.c.routing.bgp.append(obj)
-        path = f'routing/bgp/{state.c.routing.bgp.index(obj)}'
+        obj = s.BGPProcess(local_as=local)
+        collection(state.c.routing, 'bgp').append(obj)
+        path = f'routing/bgp/{(state.c.routing.bgp or []).index(obj)}'
         state.bind(path + '/local_as', root['source_line'], list(root['values']))
-        if vrf:
-            family_line = r['source_line'] if r['rule'].startswith('bgp_af') else next(n for n in reversed(r['context_lines']) if state.records.get(n, {}).get('values', {}).get('vrf') == vrf)
-            state.bind(path + '/network_instance', family_line, list(state.records[family_line]['values']))
-    return obj, f'routing/bgp/{state.c.routing.bgp.index(obj)}', family
+    return obj, f'routing/bgp/{(state.c.routing.bgp or []).index(obj)}', family
 
 
 def family(proc, values):
-    obj = next((a for a in proc.address_families if a.afi == values['afi'] and a.safi == values.get('safi')), None)
+    obj = next((a for a in (proc.address_families or []) if a.afi == values['afi'] and a.safi == values.get('safi') and a.network_instance == values.get('vrf')), None)
     if obj is None:
-        obj = s.BGPAddressFamily(afi=values['afi'], safi=values.get('safi'))
-        proc.address_families.append(obj)
+        obj = s.BGPAddressFamily(afi=values['afi'], safi=values.get('safi'), network_instance=values.get('vrf'))
+        collection(proc, 'address_families').append(obj)
     return obj
 
 
@@ -46,21 +44,21 @@ def peer(state, r, proc, path, af):
             raise ValueError('A native peer identity cannot be guessed to be a group')
     if af:
         owner = family(proc, af)
-        items = owner.peers
-        path += f'/address_families/{proc.address_families.index(owner)}/peers'
+        items = collection(owner, 'peers')
+        path += f'/address_families/{(proc.address_families or []).index(owner)}/peers'
         obj = next((p for p in items if p.peer == identity and p.kind == kind), None)
         if obj is None:
             obj = s.BGPPeer(peer=identity, kind=kind)
             items.append(obj)
     elif kind == 'group':
-        items = proc.peer_groups
+        items = collection(proc, 'peer_groups')
         path += '/peer_groups'
         obj = next((p for p in items if p.name == identity), None)
         if obj is None:
             obj = s.BGPPeerGroup(name=identity)
             items.append(obj)
     else:
-        items = proc.neighbors
+        items = collection(proc, 'neighbors')
         path += '/neighbors'
         obj = next((p for p in items if p.peer == identity), None)
         if obj is None:
@@ -72,26 +70,29 @@ def peer(state, r, proc, path, af):
 def handle(state, r):
     proc, path, af = process(state, r)
     values, rule, line = r['values'], r['rule'], r['source_line']
+    if rule.startswith('auth_bgp_'):
+        authentication.bgp(state, r, proc, path, peer)
+        return
     if rule.startswith('bgp_af'):
         if 'afi' not in values:
             state.structural.add(line)
             return
         obj = family(proc, values)
-        state.bind(path + f'/address_families/{proc.address_families.index(obj)}', line, list(values))
+        state.bind(path + f'/address_families/{(proc.address_families or []).index(obj)}', line, list(values))
         return
     if rule == 'bgp_router_id':
         state.assign(proc, 'router_id', IPv4Address(values['router_id']), path, line)
         return
     if rule == 'bgp_group_definition':
         # Declaration is global to this process. Address-family options live separately.
-        obj = next((g for g in proc.peer_groups if g.name == values['peer']), None)
+        obj = next((g for g in (proc.peer_groups or []) if g.name == values['peer']), None)
         if obj is None:
             obj = s.BGPPeerGroup(name=values['peer'])
-            proc.peer_groups.append(obj)
-        state.bind(path + f'/peer_groups/{proc.peer_groups.index(obj)}/name', line)
+            collection(proc, 'peer_groups').append(obj)
+        state.bind(path + f'/peer_groups/{(proc.peer_groups or []).index(obj)}/name', line)
         return
     options = family(proc, af) if af else proc
-    option_path = path + f'/address_families/{proc.address_families.index(options)}' if af else path
+    option_path = path + f'/address_families/{(proc.address_families or []).index(options)}' if af else path
     flags = {'bgp_log_changes': 'log_neighbor_changes', 'bgp_compare_med': 'compare_med', 'bgp_deterministic_med': 'deterministic_med',
         'bgp_no_default_ipv4': 'default_ipv4_unicast', 'bgp_no_sync': 'synchronization', 'bgp_no_auto_summary': 'auto_summary', 'bgp_no_enforce_first_as': 'enforce_first_as'}
     if rule in flags:
@@ -111,15 +112,15 @@ def handle(state, r):
         state.assign(options, 'additional_paths_send', True, option_path, line, list(values))
         state.assign(options, 'additional_paths_receive', True, option_path, line, list(values))
     elif rule == 'bgp_maximum_paths':
-        options.maximum_paths.append(s.MaximumPaths(type=values['type'], count=values['count']))
+        collection(options, 'maximum_paths').append(s.MaximumPaths(type=values['type'], count=values['count']))
         state.bind(option_path + '/maximum_paths', line, list(values))
     elif rule == 'bgp_aggregate':
         prefix = ip_network(values['prefix'] + '/' + str(prefix_length(values['mask'])), strict=False)
-        proc.aggregates.append(s.Aggregate(prefix=prefix, options=values['option'].split(), afi=af.get('afi') if af else None, safi=af.get('safi') if af else None))
+        collection(proc, 'aggregates').append(s.Aggregate(prefix=prefix, options=values['option'].split(), afi=af.get('afi') if af else None, safi=af.get('safi') if af else None, network_instance=af.get('vrf') if af else None))
         state.validation[line]['fields']['option'] = 'validated'
         state.bind(path + '/aggregates', line, list(values))
     elif rule.startswith('bgp_redistribute'):
-        proc.redistributions.append(s.Redistribution(protocol=values['protocol'], process=values.get('process'), route_map=values.get('policy'), afi=af.get('afi') if af else None, safi=af.get('safi') if af else None))
+        collection(proc, 'redistributions').append(s.Redistribution(protocol=values['protocol'], process=values.get('process'), route_map=values.get('policy'), afi=af.get('afi') if af else None, safi=af.get('safi') if af else None, network_instance=af.get('vrf') if af else None))
         state.bind(path + '/redistributions', line, list(values))
     elif rule in ('bgp_network', 'bgp_network4'):
         if 'mask' in values:
@@ -133,7 +134,7 @@ def handle(state, r):
             if length is None:
                 raise ValueError('Unsupported classful network')
             prefix = ip_network(f'{address}/{length}', strict=True)
-        proc.networks.append(s.BGPNetwork(prefix=prefix, afi=af.get('afi') if af else None, safi=af.get('safi') if af else None))
+        collection(proc, 'networks').append(s.BGPNetwork(prefix=prefix, afi=af.get('afi') if af else ('ipv4' if prefix.version == 4 else 'ipv6'), safi=af.get('safi') if af else None, network_instance=af.get('vrf') if af else None))
         state.bind(path + '/networks', line, list(values))
     elif rule in PEER_RULES:
         if rule in ('bgp_advertise_additional', 'catalogue_allowas'):

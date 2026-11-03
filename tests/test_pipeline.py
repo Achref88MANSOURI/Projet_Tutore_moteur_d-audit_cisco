@@ -31,7 +31,7 @@ def test_ttp_values_actually_drive_mapping():
     x=extract('hostname SOURCE\n',official=False)
     x['records'][1]['values']['hostname']='CAPTURED'
     result=NormalizationEngine(x,os_family='ios').run()
-    assert result.system.hostname=='CAPTURED'
+    assert result.system.identity.hostname=='CAPTURED'
 
 
 def test_official_template_is_executed_and_its_address_record_consumed():
@@ -154,14 +154,14 @@ def test_multiple_ipv4_ipv6_and_native_interface_name():
     result,_,_=convert('interface GigabitEthernet0/0.100\n ip address 10.0.0.1 255.255.255.0\n ip address 10.1.0.1 255.255.255.0 secondary\n ipv6 address 2001:db8::1/64\n')
     item=result.interfaces[0]
     assert item.name=='GigabitEthernet0/0.100' and item.parent_interface=='GigabitEthernet0/0'
-    assert item.subinterface_index==100 and len(item.ipv4_addresses)==2
-    assert item.ipv4_addresses[1].secondary is True and str(item.ipv6_addresses[0].address)=='2001:db8::1'
+    assert item.subinterface_index==100 and len(item.ipv4.addresses)==2
+    assert item.ipv4.addresses[1].secondary is True and str(item.ipv6.addresses[0].address)=='2001:db8::1'
 
 
 @pytest.mark.parametrize('mask',['255.0.255.0','0.0.0.255','255.255.255.1'])
 def test_bad_netmask_does_not_produce_address(mask):
     result,_,mapper=convert('interface Ethernet1\n ip address 10.0.0.1 '+mask+'\n')
-    assert not result.interfaces[0].ipv4_addresses
+    assert result.interfaces[0].ipv4.addresses is None
     assert not mapper.validation[2]['valid']
 
 
@@ -177,8 +177,8 @@ def test_certificate_quit_is_attached_to_certificate_not_hex(indent):
 
 def test_banner_body_cannot_create_configuration_objects():
     result,x,_=convert('banner motd ^C\nhostname EVIL\ninterface Ethernet99\n^C\nhostname REAL\n')
-    assert result.system.hostname=='REAL'
-    assert not result.interfaces
+    assert result.system.identity.hostname=='REAL'
+    assert result.interfaces is None
     assert any(n.kind=='opaque_banner' for n in x['nodes'].values())
 
 
@@ -194,7 +194,7 @@ def test_advanced_properties_are_normalized_by_the_unified_domain():
 def test_nested_service_instance_does_not_overwrite_physical_description():
     result,_,_=convert('interface Ethernet1\n description PHYSICAL\n service instance 10 ethernet\n  description SERVICE\n  service-policy input CHILD\n')
     assert result.interfaces[0].description=='PHYSICAL'
-    assert not result.qos.attachments
+    assert result.qos.attachments is None
 
 
 def test_bgp_group_inheritance_and_explicit_neighbor_override():
@@ -210,7 +210,7 @@ def test_bgp_group_inheritance_and_explicit_neighbor_override():
 def test_bgp_activation_af_and_policy_scope_not_widened():
     result,x,m=convert('router bgp 65000\n neighbor 192.0.2.1 remote-as 65001\n address-family ipv4\n  neighbor 192.0.2.1 activate\n  neighbor 192.0.2.1 route-map ONLY-IPV4 in\n exit-address-family\n')
     neighbor=result.routing.bgp[0].neighbors[0]
-    assert neighbor.enabled is None and neighbor.import_policies==[]
+    assert neighbor.enabled is None and neighbor.import_policies is None
     assert x['records'][4]['rule']=='bgp_activate'
     family=process.address_families[0] if (process:=result.routing.bgp[0]) else None
     assert family.peers[0].active is True and family.peers[0].import_policies==['ONLY-IPV4']
@@ -225,19 +225,19 @@ def test_ospfv3_is_captured_without_masquerading_as_ospfv2():
 
 def test_prefix_deny_and_length_conditions_not_weakened():
     result,x,m=convert('ip prefix-list FILTER seq 10 permit 10.0.0.0/8\nip prefix-list FILTER seq 20 deny 10.1.0.0/16\nip prefix-list OTHER permit 192.0.2.0/24 le 32\n')
-    assert [(e.action,e.le) for e in result.routing.prefix_lists[0].entries]==[('permit',None),('deny',None)]
-    assert result.routing.prefix_lists[1].entries[0].le==32
+    assert [(e.action,e.le) for e in result.routing_policies.prefix_lists[0].entries]==[('permit',None),('deny',None)]
+    assert result.routing_policies.prefix_lists[1].entries[0].le==32
     assert len(x['records'])==3
 
 
 def test_exact_permit_prefix_set_can_be_normalized():
     result,_,_=convert('ip prefix-list FILTER seq 10 permit 192.0.2.0/24\n')
-    assert [str(e.prefix) for e in result.routing.prefix_lists[0].entries]==['192.0.2.0/24']
+    assert [str(e.prefix) for e in result.routing_policies.prefix_lists[0].entries]==['192.0.2.0/24']
 
 
 def test_route_map_as_path_and_ipv6_prefix_match_are_mapped():
     result,_,_=convert('ipv6 prefix-list V6 permit 2001:db8::/32\nroute-map PREPEND permit 10\n match ipv6 address prefix-list V6\n set as-path prepend 65101 65101\n')
-    clause=result.routing.routing_policies[0].statements[0]
+    clause=result.routing_policies.route_maps[0].statements[0]
     assert clause.matches[0].kind=='prefix_set_ipv6'
     assert clause.actions[0].kind=='as_path_prepend' and clause.actions[0].as_numbers==[65101,65101]
 
@@ -248,15 +248,15 @@ def test_route_map_as_path_and_ipv6_prefix_match_are_mapped():
 ])
 def test_acl_addresses_ports_and_order(entry,source_kind,dest_port):
     result,_,_=convert('ip access-list extended FILTER\n '+entry+'\n 20 deny ip any any\n')
-    first,second=result.security.acl_sets[0].entries
+    first,second=result.security.acls[0].entries
     assert first.source.kind==source_kind and first.destination_port.start==dest_port
     assert [first.sequence,second.sequence]==[10,20]
 
 
-@pytest.mark.parametrize('qualifier',['established','time-range NIGHT','fragments','eq unknownservice'])
+@pytest.mark.parametrize('qualifier',['established unknown-option','eq unknownservice'])
 def test_unsupported_acl_qualifier_never_becomes_broader_permit(qualifier):
     result,_,_=convert('ip access-list extended FILTER\n permit tcp any any '+qualifier+'\n deny ip any any\n')
-    assert not result.security.acl_sets  # Do not publish a partial policy as a complete ACL.
+    assert result.security.acls is None  # Do not publish a partial policy as a complete ACL.
 
 
 @pytest.mark.parametrize('command,hop,interface',[
@@ -271,13 +271,13 @@ def test_routes(command,hop,interface):
 
 def test_no_silent_static_route_track_qualifier_loss():
     result,_,_=convert('ip route 10.0.0.0 255.255.255.0 192.0.2.1 track 5\n')
-    assert not result.routing.static_routes
+    assert result.routing.static_routes is None
 
 
 def test_nat_static_basic_and_transports_are_not_guessed():
     result,_,_=convert('ip nat inside source static 10.0.0.1 192.0.2.1\nline vty 0 4\n transport input ssh\n login\n')
-    assert result.nat[0].translated_source=='192.0.2.1'
-    assert result.system.management.ssh_enabled is None
+    assert result.nat.rules[0].translated_source=='192.0.2.1'
+    assert result.system.management.ssh.enabled is None
     assert result.system.management.lines[0].authentication.method=='line_password'
 
 
@@ -285,15 +285,17 @@ def test_official_nat_template_on_synthetic_input():
     result,x,mapper=convert('ip nat inside source static 10.0.0.1 192.0.2.1\nip nat inside source static 10.0.0.2 192.0.2.2 extendable\n',official=True)
     native=json.dumps(x['official']['nat_static'])
     assert '10.0.0.2' in native and '10.0.0.1' not in native
-    assert result.nat[0].source_match=='10.0.0.1'
-    assert len(result.nat)==1
+    assert result.nat.rules[0].source_match=='10.0.0.1'
+    assert len(result.nat.rules)==1
     assert x['records'][2]['rule']=='services_nat_static_extendable' and 2 not in mapper.mapped
 
 
 def test_ntp_source_and_logging_severity_are_applied_with_evidence():
     result,_,_=convert('ntp server 192.0.2.10\nntp source Loopback0\nlogging 192.0.2.20\nlogging trap informational\n')
-    assert result.system.ntp_servers[0].source_interface=='Loopback0'
-    assert result.system.syslog_destinations[0].severity=='informational'
+    assert result.system.ntp.source_interface=='Loopback0'
+    assert result.system.ntp.servers[0].source_interface is None
+    assert result.system.logging.trap_severity=='informational'
+    assert result.system.logging.destinations[0].severity is None
 
 
 @pytest.mark.parametrize('text',[

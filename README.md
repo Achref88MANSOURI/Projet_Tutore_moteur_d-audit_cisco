@@ -1,89 +1,91 @@
-# Normalisation Cisco avec TTP
+# Patch Config Studio — liaison frontend ↔ moteur local
 
-Le moteur produit uniquement `normalized.json`, une configuration métier alignée
-sur les concepts OpenConfig, avec des extensions Cisco explicites. Le contrat
-unique est `schemas/normalized_config.py` ; son schéma public est
-`schemas/normalized_export_v1.schema.json`.
+L’interface utilise `cli.normalize` dans un processus isolé et restitue exclusivement
+`RouterContractV1`. Le parsing TTP et les mappings métier sont ceux du pipeline
+de production. Aucune dépendance externe supplémentaire n’est nécessaire.
 
-## Exécution
+## Installation
+1. Avant de copier, sauvegarder votre éventuel `webapp.py` et votre HTML existants.
+2. Copier `webapp.py` à la RACINE du dépôt `network-config-normalizer-ttp`, au même niveau que `cli.py`.
+3. Copier `web/index.html` dans le sous-dossier `web` du même dépôt.
+
+## Lancement dans PowerShell (Windows)
+```powershell
+cd "C:\Users\achre\.codex\.chatgpt-projects\g-p-6ac119134e18819194cd3163ddeeb560\network-config-normalizer-ttp"
+.\.venv\Scripts\python.exe .\webapp.py
+```
+Le lanceur `.\run_ui.ps1` utilise également l’environnement Python du dépôt.
+Si l'environnement .venv n'existe pas, utilisez l'interpréteur Python avec lequel le CLI fonctionne déjà.
+
+Ouvrir dans Chrome/Edge : http://127.0.0.1:8000
+NE PAS utiliser `file:///.../index.html`, Live Server ou l'aperçu ChatGPT :
+la route relative `/api/normalize` doit être servie depuis la MÊME origine HTTP.
+
+## Tests simples
+```powershell
+Invoke-RestMethod http://127.0.0.1:8000/api/health
+```
+Doit renvoyer status `ok`, ready `True` et contract `RouterContractV1`.
 
 ```powershell
-.\.venv\Scripts\python.exe cli.py configs\01_F0456_rt1.bsqmk.cfg --output outputs\mon_routeur --os-family ios
+$body = @{ configuration = "hostname LAB-R01`ninterface Loopback0`n ip address 192.0.2.1 255.255.255.255`n!"; os_family = 'ios' } | ConvertTo-Json
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/normalize -Method Post -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($body))
+```
+Doit renvoyer `normalized` et `duration_ms`.
+
+Dans la page, « Charger un exemple » permet de tester les interfaces, AAA, SSH,
+l’authentification d’aire OSPF et les valeurs `null`, `false` et `[]`.
+Les vues Code et Arborescence, la copie et le téléchargement conservent le même
+contrat V1. Le téléchargement s’appelle `normalized.json`.
+
+## Si erreur
+- 404 `/api/normalize` : l'interface n'est pas ouverte depuis le serveur Python de ce patch.
+- Connection refused : le script n'est pas en cours d'exécution, ou le port est occupé.
+- 422 : la configuration correspond à une plateforme non prise en charge.
+- 429 : une autre normalisation est en cours ; réessayer après son achèvement.
+- 500 : exécuter séparément `cli.py` pour diagnostiquer la configuration ; les détails internes ne sont pas renvoyés par le Web.
+- 504 : le parseur a dépassé la limite de 120 s.
+- Ne fermez pas la fenêtre PowerShell pendant que vous utilisez l'interface.
+
+`webapp.py` écoute UNIQUEMENT sur 127.0.0.1 (pas d'exposition Internet).
+La configuration et le résultat transitent en mémoire, sans fichier temporaire.
+Les requêtes du navigateur doivent venir de la même origine locale.
+
+Tests Web uniquement :
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q --tb=short --basetemp .pytest_cache/web-check tests/test_webapp.py
 ```
 
-```python
-from cli import normalize, convert_file
-configuration = normalize(texte_cisco)
-configuration = convert_file("routeur.cfg", "outputs/routeur", os_family="ios")
-```
+## EIGRP dans le pipeline canonique
 
-Ces fonctions retournent un dictionnaire métier. `export_file` est un alias de
-`convert_file`. Le fichier produit est un JSON compact. Les anciennes options
-`--legacy`, `--output-format`, `--schema-version` et `--strict` restent retirées.
+Le dépôt original comprend le parsing et le mapping EIGRP classique IPv4/IPv6 et
+nommé, avec portées AF/VRF, af-interface et topologies. Les métriques composites,
+références de politiques, paramètres d'interface et authentification reconnus
+alimentent directement `RouterContractV1`.
 
-## Architecture active
-
-Lecture et identification → inventaire structurel → captures TTP → moteur unique
-→ modèle métier validé → sérialisation JSON.
-
-- `parser/` lit directement les identifiants et motifs des 28 fichiers `.ttp`.
-  `templates/rule_metadata.json` porte uniquement les restrictions `scope` et
-  `choices`. Les quatre templates officiels figés restent disponibles pour les
-  captures concordantes. Les templates se maintiennent directement, sans
-  génération préalable.
-- `normalizer/engine.py` valide les captures et leurs contextes, établit les
-  identités, appelle le domaine propriétaire et résout les références différées.
-  Une affectation échouée est annulée avant la commande suivante.
-- `normalizer/domains/` construit directement les objets métier : interfaces,
-  VLAN, ACL, politiques, services, NAT, VPN, QoS, PKI et extensions Cisco.
-  Le sous-dossier `routing/` contient BGP, OSPF, RIP, routes statiques, VRF
-  et prefix-lists. Chaque capture possède un seul domaine propriétaire.
-- `normalizer/common/` contient les conversions et contextes partagés, la
-  validation du contrat et la sélection des valeurs explicitement configurées.
-  Les associations temporaires portent seulement un champ et un indice de capture.
-- `schemas/normalized_config.py` définit un seul modèle actif, sans héritage
-  de versions historiques. BGP utilise directement voisins, groupes et familles
-  d'adresses ; les ACL et actions de politiques sont typées dès leur construction.
-- `normalizer/serialization.py` transforme le modèle final en dictionnaire ou
-  JSON. Il ne connaît ni les captures TTP ni les commandes Cisco.
-
-Les valeurs `false`, `0` et les listes explicitement vides sont conservées.
-Les défauts de constructeurs et les valeurs inconnues sont omis. Les secrets
-restent masqués. Une ACL, prefix-list ou politique ordonnée incomplète et ses
-dépendances ne sont pas publiées comme une configuration exploitable complète.
-L'absence d'une propriété ne prouve pas son absence sur le routeur.
-
-Aucun moteur historique, export de preuves ou diagnostics n'est conservé dans
-le pipeline. Les archives `baseline/`, anciens résultats `outputs/` et documents
-historiques ne sont pas des points d'entrée actifs et ne sont pas empaquetés.
-
-## Vérification
+La [documentation EIGRP](docs/eigrp/README.md) contient les sources Cisco officielles,
+la matrice des règles, les décisions de modélisation, les limites et les commandes
+de vérification. Exemple synthétique à importer dans le Web ou à exécuter en CLI :
 
 ```powershell
-.\.venv\Scripts\python.exe -B tools\validate_normalized.py --ids C0001 F0456 F0057
-.\.venv\Scripts\python.exe -B -m pytest tests -q -p no:cacheprovider --basetemp=outputs\pytest_local
+.\.venv\Scripts\python.exe cli.py tests/fixtures/eigrp/named_dualstack.cfg --output outputs/eigrp-demo --os-family iosxe
 ```
 
-Sans `--ids`, la validation traite dix configurations représentatives.
-`--all` permet de demander explicitement les 105 configurations disponibles. Le manifeste et les attentes indépendantes sont conservés sous
-`tests/fixtures/`, sans dépendance aux anciens rapports. Les tests comparent
-les dix sorties sélectionnées à leur référence avant refactorisation et vérifient les
-corrections explicites d'anciens artefacts de projection.
+Le JSON Schema est régénéré ; les consommateurs utilisant un ancien schéma fermé
+doivent l'actualiser. Le dossier `à exporter` n'est pas synchronisé par cette
+intervention. Un serveur Web déjà lancé doit être redémarré pour charger les modèles
+Python mis à jour.
 
-`run_all.ps1` lance la validation des dix équipements et les tests. Le validateur écrit
-un bilan JSON et une sortie `normalized.json` par équipement, aucun rapport Markdown.
-`tools/build_export_schemas.py` régénère le schéma public depuis le modèle unique.
+## Stabilisation après le diagnostic Cisco
 
-## Réinstallation
+Les corrections des pertes démontrées (conditions `match community`, ACL TCP
+`established`, variantes QoS de précédence, métadonnées, NetFlow et aires OSPF)
+sont décrites dans le [bilan de correction](docs/diagnostic_17_tests/CORRECTIONS_ET_VALIDATION.md).
+Une définition reconnue puis retirée comme incomplète ne peut plus rester la cible
+d'une référence publiée : le pipeline refuse alors l'export. Une référence externe
+dont la définition n'est pas fournie reste conservée, sans objet inventé.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\setup.ps1
-```
-
-L'installation locale utilise `.venv` et les roues figées de `wheelhouse`
-(Windows x64 / CPython 3.12). Python de base reste un prérequis système.
-Pour une autre plateforme, utiliser un Python compatible et `requirements.lock`.
-Les versions et licences sont documentées sous `docs/`.
-
-TTP et ttp-templates restent les dépendances de parsing. Le modèle métier
-s'inspire d'OpenConfig ; il ne représente pas une instance YANG/RFC7951 complète.
+Le JSON Schema a été actualisé avec les champs typés nécessaires. Le contrat
+conserve son nom et sa version `RouterContractV1` / `1.0.0` ; les consommateurs
+utilisant une copie antérieure du schéma doivent adopter le schéma généré courant.
+Le dossier `à exporter` reste inchangé par cette stabilisation.

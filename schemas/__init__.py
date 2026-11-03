@@ -1,1 +1,1 @@
-"""Frozen original NormalizedConfig v0.1.0 contract; no schema extension."""
+"""RouterContractV1 is the sole active business contract."""

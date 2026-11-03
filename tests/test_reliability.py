@@ -79,24 +79,24 @@ def normalize(text):
 
 def test_explicit_no_ip_address_is_not_ipv4_disabled():
     result=normalize('interface E1\n no ip address\n ip unnumbered Loopback0\n')
-    assert result.interfaces[0].ipv4_addresses==[]
+    assert result.interfaces[0].ipv4.addresses==[]
     assert result.interfaces[0].admin_enabled is None
 
 
 def test_no_address_after_positive_address_has_no_dangling_evidence():
     r=normalize('interface E1\n ip address 192.0.2.1 255.255.255.0\n no ip address\n')
-    assert not r.interfaces[0].ipv4_addresses
+    assert r.interfaces[0].ipv4.addresses == []
 
 
 def test_tunnel_unknown_technology_and_dual_source_evidence():
     r=normalize('interface Loopback0\n ip address 192.0.2.1 255.255.255.255\ninterface Tunnel0\n tunnel source Loopback0\n tunnel destination 198.51.100.1\n')
-    t=r.vpn_tunnels[0]
-    assert (t.technology,t.local_endpoint,t.remote_endpoint)==('unknown','192.0.2.1','198.51.100.1')
+    t=r.vpn.tunnels[0]
+    assert (t.technology,str(t.local_endpoint),str(t.remote_endpoint))==('unknown','192.0.2.1','198.51.100.1')
 
 
 def test_ambiguous_tunnel_source_is_not_resolved():
     r=normalize('interface Loopback0\n ip address 192.0.2.1 255.255.255.255\n ip address 192.0.2.2 255.255.255.255 secondary\ninterface Tunnel0\n tunnel source Loopback0\n tunnel destination 198.51.100.1\n')
-    assert r.vpn_tunnels[0].local_endpoint is None
+    assert r.vpn.tunnels[0].local_endpoint is None
 
 
 def test_transport_all_is_literal_wildcard_not_enumerated_protocols():
@@ -120,6 +120,6 @@ def test_29_real_empty_address_declarations_and_real_tunnel():
             if rec['rule']=='if_no_ipv4':
                 assert rec['source_line'] in m.mapped;count+=1
         if entry['id']=='F0456':
-            t=r.vpn_tunnels[0]
-            assert (t.tunnel_interface,t.local_endpoint,t.remote_endpoint,t.technology)==('Tunnel0','94.45.227.2','195.177.253.41','unknown')
+            t=r.vpn.tunnels[0]
+            assert (t.tunnel_interface,str(t.local_endpoint),str(t.remote_endpoint),t.technology)==('Tunnel0','94.45.227.2','195.177.253.41','unknown')
     assert count==29
