@@ -26,6 +26,26 @@
 {{ source_line | DIGIT | to_int }} transport input {{ transports | ORPHRASE }}
 </group>
 
+<group name="services_transport_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no transport input
+</group>
+
+<group name="services_transport_remove_args*" method="table">
+{{ source_line | DIGIT | to_int }} no transport input {{ transports | ORPHRASE }}
+</group>
+
+<group name="services_transport_default*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default transport input
+</group>
+
+<group name="services_transport_default_args*" method="table">
+{{ source_line | DIGIT | to_int }} default transport input {{ transports | ORPHRASE }}
+</group>
+
+<group name="services_transport_incomplete*" method="table" functions="set(True, incomplete)">
+{{ source_line | DIGIT | to_int }} transport input
+</group>
+
 <group name="services_timeout*" method="table">
 {{ source_line | DIGIT | to_int }} exec-timeout {{ minutes | DIGIT | to_int }} {{ seconds | DIGIT | to_int }}
 </group>
@@ -34,9 +54,26 @@
 {{ source_line | DIGIT | to_int }} exec-timeout {{ minutes | DIGIT | to_int }}
 </group>
 
-<group name="services_access_class*" method="table">
-{{ source_line | DIGIT | to_int }} access-class {{ acl }} {{ direction }}
+<group name="services_timeout_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no exec-timeout
 </group>
+
+<group name="services_timeout_default*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default exec-timeout
+</group>
+
+<group name="services_access_class_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} access-class {{ acl }} in vrf-also
+</group>
+
+<group name="services_access_class_out*" method="table">
+{{ source_line | DIGIT | to_int }} access-class {{ acl }} out
+</group>
+
+<group name="services_access_class*" method="table">
+{{ source_line | DIGIT | to_int }} access-class {{ acl }} in
+</group>
+
 
 <group name="services_login*" method="table">
 {{ source_line | DIGIT | to_int }} login {{ method | ORPHRASE }}
@@ -46,8 +83,44 @@
 {{ source_line | DIGIT | to_int }} login
 </group>
 
+<group name="services_login_authentication_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no login authentication
+</group>
+
+<group name="services_login_authentication_remove_args*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no login authentication {{ methods | ORPHRASE }}
+</group>
+
 <group name="services_banner*" method="table">
 {{ source_line | DIGIT | to_int }} banner {{ type }} {{ delimiter }}
+</group>
+
+<group name="services_banner_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no banner {{ type }}
+</group>
+
+<group name="services_banner_incoming*" method="table">
+{{ source_line | DIGIT | to_int }} banner incoming {{ delimiter }}
+</group>
+
+<group name="services_banner_incoming_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no banner incoming
+</group>
+
+<group name="services_line_exec_banner*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} exec-banner
+</group>
+
+<group name="services_line_exec_banner_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no exec-banner
+</group>
+
+<group name="services_line_motd_banner*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} motd-banner
+</group>
+
+<group name="services_line_motd_banner_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no motd-banner
 </group>
 
 <group name="services_line_synchronous*" method="table" functions="set(True, enabled)">
@@ -82,3 +155,292 @@
 {{ source_line | DIGIT | to_int }} alias exec {{ name }} {{ expansion | ORPHRASE }}
 </group>
 
+
+<group name="admin_ssh_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} ip ssh time-out {{ seconds | DIGIT | to_int }}
+</group>
+
+<group name="admin_ssh_retries*" method="table">
+{{ source_line | DIGIT | to_int }} ip ssh authentication-retries {{ retries | DIGIT | to_int }}
+</group>
+
+<group name="admin_ssh_version_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ssh version
+</group>
+
+<group name="services_enable_secret*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} enable secret {{ credential }}
+</group>
+
+<group name="services_enable_secret_type*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} enable secret {{ secret_type | DIGIT }} {{ credential }}
+</group>
+
+<group name="services_enable_secret_level*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} enable secret level {{ level | DIGIT | to_int }} {{ credential }}
+</group>
+
+<group name="services_enable_secret_algorithm*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} enable algorithm-type {{ algorithm_type }} secret {{ credential }}
+</group>
+
+<group name="services_enable_secret_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no enable secret
+</group>
+
+<group name="services_enable_secret_level_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no enable secret level {{ level | DIGIT | to_int }}
+</group>
+
+<group name="services_enable_secret_default*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} default enable secret
+</group>
+
+<group name="services_enable_password*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} enable password {{ credential }}
+</group>
+
+<group name="services_enable_password_level*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} enable password level {{ level | DIGIT | to_int }} {{ credential }}
+</group>
+
+<group name="services_enable_password_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no enable password
+</group>
+
+<group name="services_user_algorithm*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} username {{ username }} algorithm-type {{ algorithm_type }} secret {{ credential }}
+</group>
+
+<group name="services_user_nopassword*" method="table" functions="set(True, nopassword)">
+{{ source_line | DIGIT | to_int }} username {{ username }} nopassword
+</group>
+
+<group name="services_user_access_class*" method="table">
+{{ source_line | DIGIT | to_int }} username {{ username }} access-class {{ acl }}
+</group>
+
+<group name="services_user_view*" method="table">
+{{ source_line | DIGIT | to_int }} username {{ username }} view {{ view_name }}
+</group>
+
+<group name="services_exec_off*" method="table" functions="set(False, exec_shell_enabled)">
+{{ source_line | DIGIT | to_int }} no exec
+</group>
+
+<group name="services_exec_on*" method="table" functions="set(True, exec_shell_enabled)">
+{{ source_line | DIGIT | to_int }} exec
+</group>
+
+<group name="services_exec_default*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default exec
+</group>
+
+<group name="services_login_off*" method="table" functions="set(False, login_disabled)">
+{{ source_line | DIGIT | to_int }} no login
+</group>
+
+
+
+<group name="services_transport_output*" method="table">
+{{ source_line | DIGIT | to_int }} transport output {{ transports | ORPHRASE }}
+</group>
+
+<group name="services_transport_output_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no transport output
+</group>
+
+
+<group name="services_access_class_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no access-class {{ acl }} {{ direction }}
+</group>
+
+<group name="services_access_class_remove_all*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no access-class
+</group>
+
+<group name="services_privilege_exec*" method="table">
+{{ source_line | DIGIT | to_int }} privilege exec level {{ level | DIGIT | to_int }} {{ command | ORPHRASE }}
+</group>
+
+
+<group name="services_hostname_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no hostname
+</group>
+
+<group name="services_domain_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip domain-name
+</group>
+
+
+
+<group name="services_domain_list*" method="table">
+{{ source_line | DIGIT | to_int }} ip domain-list {{ domain }}
+</group>
+
+<group name="services_domain_list_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip domain-list {{ domain }}
+</group>
+
+<group name="services_crypto_key_generate_rsa*" method="table">
+{{ source_line | DIGIT | to_int }} crypto key generate rsa {{ modulus | DIGIT | to_int }}
+</group>
+
+<group name="services_crypto_key_generate_rsa_general*" method="table">
+{{ source_line | DIGIT | to_int }} crypto key generate rsa general-keys {{ modulus | DIGIT | to_int }}
+</group>
+
+<group name="services_crypto_key_generate_rsa_usage*" method="table">
+{{ source_line | DIGIT | to_int }} crypto key generate rsa usage-keys {{ modulus | DIGIT | to_int }}
+</group>
+
+<group name="services_crypto_key_generate_rsa_label*" method="table">
+{{ source_line | DIGIT | to_int }} crypto key generate rsa label {{ name }} {{ modulus | DIGIT | to_int }}
+</group>
+
+<group name="services_crypto_key_zeroize_rsa*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} crypto key zeroize rsa
+</group>
+
+<group name="services_crypto_key_zeroize_rsa_label*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} crypto key zeroize rsa label {{ name }}
+</group>
+
+<group name="services_ssh_rsa_keypair*" method="table">
+{{ source_line | DIGIT | to_int }} ip ssh rsa keypair-name {{ name }}
+</group>
+
+<group name="services_ssh_rsa_keypair_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ssh rsa keypair-name
+</group>
+
+<group name="services_ssh_timeout*" method="table">
+{{ source_line | DIGIT | to_int }} ip ssh timeout {{ seconds | DIGIT | to_int }}
+</group>
+
+<group name="services_ssh_timeout_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ssh timeout
+</group>
+
+<group name="admin_ssh_retries_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ssh authentication-retries
+</group>
+
+<group name="services_ssh_version_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ssh version
+</group>
+
+<group name="services_ssh_source*" method="table">
+{{ source_line | DIGIT | to_int }} ip ssh source-interface {{ interface }}
+</group>
+
+<group name="services_ssh_source_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ssh source-interface
+</group>
+
+<group name="services_ssh_pubkey_chain*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip ssh pubkey-chain
+</group>
+
+<group name="services_ssh_pubkey_chain_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ssh pubkey-chain
+</group>
+
+<group name="services_login_block*" method="table">
+{{ source_line | DIGIT | to_int }} login block-for {{ seconds | DIGIT | to_int }} attempts {{ attempts | DIGIT | to_int }} within {{ within | DIGIT | to_int }}
+</group>
+
+<group name="services_login_block_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no login block-for
+</group>
+
+<group name="services_domain_lookup*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ip domain-lookup
+</group>
+
+<group name="services_domain_lookup_remove*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ip domain-lookup
+</group>
+
+<group name="services_acl_resequence*" method="table">
+{{ source_line | DIGIT | to_int }} ip access-list resequence {{ acl_name }} {{ start | DIGIT | to_int }} {{ increment | DIGIT | to_int }}
+</group>
+
+<group name="services_acl_remark*" method="table">
+{{ source_line | DIGIT | to_int }} {{ sequence | DIGIT | to_int }} remark {{ text | ORPHRASE }}
+</group>
+
+<group name="services_acl_remark_no_seq*" method="table">
+{{ source_line | DIGIT | to_int }} remark {{ text | ORPHRASE }}
+</group>
+
+<group name="services_acl_no_seq*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no {{ sequence | DIGIT | to_int }}
+</group>
+
+<group name="services_acl_no_ace*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }}
+</group>
+
+<group name="services_acl_no_ace_options*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no {{ action | re("acl_action") }} {{ protocol }} {{ source | re("acl_address") }} {{ destination | re("acl_address") }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_acl_no_extended*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip access-list extended {{ acl_name }}
+</group>
+
+
+<!-- F01 AAA Rules -->
+
+<group name="services_accounting_commands*" method="table">
+{{ source_line | DIGIT | to_int }} accounting commands {{ privilege | DIGIT | to_int }} {{ method_list | ORPHRASE }}
+</group>
+
+<group name="services_accounting_connection*" method="table">
+{{ source_line | DIGIT | to_int }} accounting connection {{ method_list | ORPHRASE }}
+</group>
+
+<group name="services_accounting_exec*" method="table">
+{{ source_line | DIGIT | to_int }} accounting exec {{ method_list | ORPHRASE }}
+</group>
+
+<group name="services_accounting_network*" method="table">
+{{ source_line | DIGIT | to_int }} accounting network {{ method_list | ORPHRASE }}
+</group>
+
+<group name="services_accounting_system*" method="table">
+{{ source_line | DIGIT | to_int }} accounting system {{ method_list | ORPHRASE }}
+</group>
+
+<group name="services_aaa_authentication_enable_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no aaa authentication enable default
+</group>
+
+<group name="services_aaa_group_member*" method="table">
+{{ source_line | DIGIT | to_int }} server name {{ name }}
+</group>
+
+<group name="services_aaa_group_server_private*" method="table">
+{{ source_line | DIGIT | to_int }} server-private {{ name }} {{ key | ORPHRASE }}
+</group>
+
+<group name="services_line_accounting_commands*" method="table">
+{{ source_line | DIGIT | to_int }} accounting commands {{ privilege | DIGIT | to_int }} {{ method_list | ORPHRASE }}
+</group>
+
+<group name="services_line_accounting_connection*" method="table">
+{{ source_line | DIGIT | to_int }} accounting connection {{ method_list | ORPHRASE }}
+</group>
+
+<group name="services_line_accounting_exec*" method="table">
+{{ source_line | DIGIT | to_int }} accounting exec {{ method_list | ORPHRASE }}
+</group>
+
+<group name="services_line_accounting_system*" method="table">
+{{ source_line | DIGIT | to_int }} accounting system {{ method_list | ORPHRASE }}
+</group>
+
+<group name="services_acl_no_numbered*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no access-list {{ acl_name | DIGIT }}
+</group>

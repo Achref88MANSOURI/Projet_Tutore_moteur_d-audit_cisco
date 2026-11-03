@@ -52,7 +52,11 @@ def handle(state, r):
         'services_snmp_community_view_acl', 'services_snmp_community_view_acl_simple',
         'services_aaa_on', 'services_aaa_off',
         'services_login', 'services_login_plain',
-        'services_login_authentication_remove', 'services_login_authentication_remove_args'):
+        'services_login_authentication_remove', 'services_login_authentication_remove_args',
+        'services_banner', 'services_banner_remove',
+        'services_banner_incoming', 'services_banner_incoming_remove',
+        'services_line_exec_banner', 'services_line_exec_banner_remove',
+        'services_line_motd_banner', 'services_line_motd_banner_remove'):
         state.defer(r)
         return
 
@@ -558,6 +562,47 @@ def resolve(state, r):
         state.bind('system/snmp/enabled', line, list(v))
     elif rule in ('services_snmp_location', 'services_snmp_contact'):
         state.assign(system.snmp, 'location' if rule.endswith('location') else 'contact', v['value'], 'system/snmp', line)
+    elif rule in ('services_banner', 'services_banner_remove'):
+        if rule == 'services_banner_remove':
+            name = v['type']
+            banners = system.identity.banners or []
+            for i, b in enumerate(banners):
+                if b.type == name:
+                    banners.pop(i)
+                    state.unbind(f'system/identity/banners/{i}')
+                    break
+        else:
+            # Banner body is opaque; inventory provides only header + text_present
+            text_present = v.get('text_present', True)
+            collection(system.identity, 'banners').append(s.Banner(type=v['type'], text_present=text_present))
+            state.bind(f'system/identity/banners/{len((system.identity.banners or [])) - 1}', line, list(v))
+    elif rule in ('services_banner_incoming', 'services_banner_incoming_remove'):
+        if rule == 'services_banner_incoming_remove':
+            name = 'incoming'
+            banners = system.identity.banners or []
+            for i, b in enumerate(banners):
+                if b.type == 'incoming':
+                    banners.pop(i)
+                    state.unbind(f'system/identity/banners/{i}')
+                    break
+        else:
+            text_present = v.get('text_present', True)
+            collection(system.identity, 'banners').append(s.Banner(type='incoming', text_present=text_present))
+            state.bind(f'system/identity/banners/{len((system.identity.banners or [])) - 1}', line, list(v))
+    elif rule in ('services_line_exec_banner', 'services_line_exec_banner_remove',
+                  'services_line_motd_banner', 'services_line_motd_banner_remove'):
+        entry = state.entity(line)
+        if not entry or not isinstance(entry[0], s.ManagementLine):
+            return
+        item, path = entry
+        if rule == 'services_line_exec_banner':
+            state.assign(item, 'exec_banner', True, path, line, list(v))
+        elif rule == 'services_line_exec_banner_remove':
+            state.assign(item, 'exec_banner', False, path, line, list(v))
+        elif rule == 'services_line_motd_banner':
+            state.assign(item, 'motd_banner', True, path, line, list(v))
+        elif rule == 'services_line_motd_banner_remove':
+            state.assign(item, 'motd_banner', False, path, line, list(v))
     elif rule in ('services_http_on', 'services_http_off', 'services_https_on', 'services_https_off'):
         service = 'https' if 'https' in rule else 'http'
         state.assign(getattr(system.management, service), 'enabled', boolean(v['enabled']), 'system/management/' + service, line)
