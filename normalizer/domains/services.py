@@ -589,8 +589,9 @@ def resolve(state, r):
                         state.bind(f'system/identity/banners/{j}', line, ['type', 'text_present'])
                     break
         else:
-            # Banner body is opaque; inventory provides only header + text_present
-            text_present = v.get('text_present', True)
+            # Banner body is opaque; inventory provides text_present
+            node = state.nodes.get(line)
+            text_present = getattr(node, 'text_present', True) if node else True
             collection(system.identity, 'banners').append(s.Banner(type=v['type'], text_present=text_present))
             state.bind(f'system/identity/banners/{len((system.identity.banners or [])) - 1}', line, list(v))
     elif rule in ('services_banner_incoming', 'services_banner_incoming_remove'):
@@ -603,7 +604,9 @@ def resolve(state, r):
                     state.unbind(f'system/identity/banners/{i}')
                     break
         else:
-            text_present = v.get('text_present', True)
+            # Banner body is opaque; inventory provides text_present
+            node = state.nodes.get(line)
+            text_present = getattr(node, 'text_present', True) if node else True
             collection(system.identity, 'banners').append(s.Banner(type='incoming', text_present=text_present))
             state.bind(f'system/identity/banners/{len((system.identity.banners or [])) - 1}', line, list(v))
     elif rule in ('services_line_exec_banner', 'services_line_exec_banner_remove',
