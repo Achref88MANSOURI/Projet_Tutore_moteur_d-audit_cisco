@@ -1,160 +1,816 @@
 """Identity, AAA, management lines, NTP, syslog and system services."""
 from ipaddress import ip_address
-from schemas import normalized_config as s
+from schemas import router_contract_v1 as s
+from normalizer.common.collections import collection
 from normalizer.common.validation import boolean
+from . import aaa_administration
 
 
-def handle(state,r):
+def handle(state, r):
     rule, v, line = (r['rule'], r['values'], r['source_line'])
-    if rule in ('services_ntp_source','services_logging_trap'):
+    if rule.startswith('admin_') or rule in (
+        'services_ssh_version', 'services_auth_address', 'services_auth_ports',
+        'services_ssh_timeout', 'services_ssh_timeout_remove',
+        'services_ssh_version_remove', 'services_ssh_rsa_keypair',
+        'services_ssh_rsa_keypair_remove', 'services_ssh_source',
+        'services_ssh_source_remove', 'services_ssh_pubkey_chain',
+        'services_ssh_pubkey_chain_remove',
+        'services_user', 'services_user_simple', 'services_user_no_format'):
+        return aaa_administration.handle(state, r)
+
+    if rule in (
+        'services_ntp_global_source', 'services_ntp_global_source_remove', 'services_logging_trap',
+        'services_ntp_authenticate', 'services_ntp_authenticate_remove',
+        'services_ntp_auth_key', 'services_ntp_auth_key_format', 'services_ntp_auth_key_remove',
+        'services_ntp_trusted_key', 'services_ntp_trusted_key_single', 'services_ntp_trusted_key_remove',
+        'services_ntp_master', 'services_ntp_master_no_stratum', 'services_ntp_master_remove',
+        'services_login_block', 'services_login_block_remove',
+        'services_domain_lookup', 'services_domain_lookup_remove',
+        'services_accounting_commands', 'services_accounting_connection', 'services_accounting_exec',
+        'services_accounting_network', 'services_accounting_system',
+        'services_line_accounting_commands', 'services_line_accounting_connection',
+        'services_line_accounting_exec', 'services_line_accounting_system',
+        'services_snmp_group_v3', 'services_snmp_group_v1_v2c', 'services_snmp_group_remove',
+        'services_snmp_user_v3', 'services_snmp_user_v3_remote', 'services_snmp_user_remove',
+        'services_snmp_host_traps', 'services_snmp_host_traps_vrf', 'services_snmp_host_traps_simple',
+        'services_snmp_host_implicit_v1', 'services_snmp_host_implicit_v1_vrf',
+        'services_snmp_host_implicit_v1_vrf_alt', 'services_snmp_host_implicit_v1_udp_vrf',
+        'services_snmp_host_implicit_version', 'services_snmp_host_implicit_version_vrf',
+        'services_snmp_host_implicit_version_vrf_alt', 'services_snmp_host_implicit_version_udp_vrf',
+        'services_snmp_host_traps_implicit', 'services_snmp_host_traps_implicit_vrf',
+        'services_snmp_host_implicit_traps', 'services_snmp_host_implicit_traps_vrf',
+        'services_snmp_host_informs', 'services_snmp_host_informs_vrf', 'services_snmp_host_informs_simple',
+        'services_snmp_host_informs_implicit', 'services_snmp_host_informs_implicit_vrf',
+        'services_snmp_host_informs_implicit_vrf_alt', 'services_snmp_host_informs_implicit_udp_vrf',
+        'services_snmp_host_remove',
+        'services_snmp_enable_traps', 'services_snmp_enable_traps_remove',
+        'services_snmp_engineid', 'services_snmp_engineid_remove',
+        'services_snmp_view', 'services_snmp_view_remove',
+        'services_snmp_source_interface', 'services_snmp_source_interface_remove',
+        'services_snmp_trap_source', 'services_snmp_trap_source_vrf', 'services_snmp_trap_source_remove',
+        'services_snmp_server_enable', 'services_snmp_server_disable',
+        'services_snmp_community_view_acl', 'services_snmp_community_view_acl_simple',
+        'services_aaa_on', 'services_aaa_off',
+        'services_login', 'services_login_plain',
+        'services_login_authentication_remove', 'services_login_authentication_remove_args'):
         state.defer(r)
         return
+
     system = state.c.system
     if rule == 'services_hostname':
-        state.assign(system, 'hostname', v['hostname'], 'system', line)
+        state.assign(system.identity, 'hostname', v['hostname'], 'system/identity', line)
     elif rule == 'services_version':
-        state.structural.add(line)
+        state.assign(state.c.device, 'software_version', v['version'], 'device', line)
     elif rule in ('services_domain', 'services_domain_alt'):
-        state.assign(system, 'domain_name', v['domain'], 'system', line)
+        state.assign(system.identity, 'domain_name', v['domain'], 'system/identity', line)
     elif rule == 'services_dns':
         values = [str(ip_address(value)) for value in v['addresses'].split()]
         for value in values:
-            system.dns_servers.append(value)
-            state.bind(f'system/dns_servers/{len(system.dns_servers) - 1}', line)
-    elif rule.startswith('services_ntp') and rule != 'services_ntp_source':
-        system.ntp_servers.append(s.NTPServer(address=v['address'], prefer=True if rule.endswith('prefer') else None, network_instance=v.get('vrf')))
-        state.bind(f'system/ntp_servers/{len(system.ntp_servers) - 1}', line)
-    elif rule in ('services_logging', 'services_logging_legacy'):
-        system.syslog_destinations.append(s.SyslogDestination(address=v['address']))
-        state.bind(f'system/syslog_destinations/{len(system.syslog_destinations) - 1}', line)
+            collection(system.dns, 'servers').append(value)
+            state.bind(f'system/dns/servers/{len((system.dns.servers or [])) - 1}', line)
+    elif rule.startswith('services_ntp') and rule != 'services_ntp_global_source':
+        is_peer = 'peer' in rule
+        has_source = 'source' in rule and 'global' not in rule
+        has_key = 'key' in rule
+        is_remove = rule.endswith('_remove')
+        source_interface = v.get('source') if has_source else None
+        if is_remove:
+            state.unbind('system/ntp/source_interface')
+        else:
+            collection(system.ntp, 'servers').append(s.NTPServer(
+                address=v['address'],
+                prefer=True if rule.endswith('prefer') else None,
+                network_instance=v.get('vrf'),
+                source_interface=source_interface,
+                association_type='peer' if is_peer else 'server',
+                key_id=v.get('key_id') if has_key else None,
+                version=v.get('version') if 'version' in v else None
+            ))
+            state.bind(f'system/ntp/servers/{len((system.ntp.servers or [])) - 1}', line)
+    elif rule in ('services_logging', 'services_logging_legacy', 'services_logging_update', 'services_logging_remove', 'services_logging_legacy_remove',
+                  'services_logging_vrf', 'services_logging_vrf_transport', 'services_logging_transport',
+                  'services_logging_port', 'services_logging_vrf_port'):
+        syslog_destination(state, r)
+    elif rule in ('services_logging_on', 'services_logging_off'):
+        state.assign(system.logging, 'enabled', v['enabled'], 'system/logging', line, list(v))
     elif rule in ('services_aaa_on', 'services_aaa_off'):
-        state.assign(system.aaa, 'enabled', boolean(v['enabled']), 'system/aaa', line)
-    elif rule.startswith('services_user') and v['credential_type'] in ('secret', 'password'):
-        system.aaa.local_users.append(s.UserAccount(username=v['username'], privilege_level=v.get('privilege'), credential_configured=True, credential_type=v['credential_type'] + ':' + v['credential_format']))
-        state.bind(f'system/aaa/local_users/{len(system.aaa.local_users) - 1}', line)
+        state.assign(system.aaa, 'enabled', v['enabled'], 'system/aaa', line, list(v))
+    elif rule in ('services_logging_buffered', 'services_logging_buffered_severity', 'services_logging_buffered_discriminator'):
+        logging = system.logging
+        if rule == 'services_logging_buffered':
+            logging.buffered_size = v['size']
+            logging.buffered_severity = v['severity']
+        elif rule == 'services_logging_buffered_severity':
+            logging.buffered_severity = v['severity']
+        elif rule == 'services_logging_buffered_discriminator':
+            logging.buffered_discriminator = v['name']
+            logging.buffered_severity = v['severity']
+        state.bind('system/logging/buffered_size', line, list(v))
+        state.bind('system/logging/buffered_severity', line, list(v))
+        state.bind('system/logging/buffered_discriminator', line, list(v))
+    elif rule == 'services_logging_buffered_remove':
+        logging = system.logging
+        logging.buffered_size = None
+        logging.buffered_severity = None
+        logging.buffered_discriminator = None
+        state.unbind('system/logging/buffered_size')
+        state.unbind('system/logging/buffered_severity')
+        state.unbind('system/logging/buffered_discriminator')
+    elif rule in ('services_logging_console',):
+        system.logging.console_severity = v['severity']
+        system.logging.console_logging = True
+        state.bind('system/logging/console_severity', line, list(v))
+        state.bind('system/logging/console_logging', line, list(v))
+    elif rule in ('services_logging_console_remove', 'services_console_off'):
+        system.logging.console_severity = None
+        system.logging.console_logging = False
+        state.unbind('system/logging/console_severity')
+        state.bind('system/logging/console_logging', line, list(v))
+    elif rule in ('services_logging_source', 'services_logging_source_vrf'):
+        if 'vrf' in v:
+            state.assign(system.logging, 'source_vrf', v['vrf'], 'system/logging', line)
+        else:
+            state.assign(system.logging, 'source_interface', v['interface'], 'system/logging', line)
+    elif rule in ('services_crypto_key_generate_rsa', 'services_crypto_key_generate_rsa_general', 'services_crypto_key_generate_rsa_usage', 'services_crypto_key_generate_rsa_label'):
+        crypto = system.management.ssh
+        if crypto.rsa_keys is None:
+            crypto.rsa_keys = []
+        key = s.RSAKey(
+            label=v.get('name'),
+            modulus=v['modulus'],
+            usage=v.get('usage', 'general')
+        )
+        crypto.rsa_keys.append(key)
+        state.bind(f'system/management/ssh/rsa_keys/{len(crypto.rsa_keys) - 1}', line, list(v))
+    elif rule in ('services_crypto_key_zeroize_rsa', 'services_crypto_key_zeroize_rsa_label'):
+        crypto = system.management.ssh
+        if crypto.rsa_keys:
+            if rule == 'services_crypto_key_zeroize_rsa':
+                crypto.rsa_keys = []
+            else:
+                name = v['name']
+                crypto.rsa_keys = [k for k in crypto.rsa_keys if k.label != name]
+    elif rule in ('services_ssh_rsa_keypair', 'services_ssh_rsa_keypair_remove'):
+        if rule == 'services_ssh_rsa_keypair':
+            system.management.ssh.rsa_keypair_name = v['name']
+        else:
+            system.management.ssh.rsa_keypair_name = None
+    elif rule in ('services_ssh_source', 'services_ssh_source_remove'):
+        if rule == 'services_ssh_source':
+            system.management.ssh.source_interface = v['interface']
+        else:
+            system.management.ssh.source_interface = None
+    elif rule in ('services_ssh_pubkey_chain', 'services_ssh_pubkey_chain_remove'):
+        if rule == 'services_ssh_pubkey_chain':
+            system.management.ssh.pubkey_chain_enabled = True
+        else:
+            system.management.ssh.pubkey_chain_enabled = False
+    elif rule in ('services_login_block', 'services_login_block_remove'):
+        if rule == 'services_login_block':
+            state.assign(system.management.ssh, 'login_block_for', s.LoginBlockFor(
+                seconds=v['seconds'],
+                attempts=v['attempts'],
+                within_seconds=v['within']
+            ), 'system/management/ssh', line)
+        else:
+            system.management.ssh.login_block_for = None
+            state.unbind('system/management/ssh/login_block_for')
     elif rule.startswith('services_snmp_community') and v['access'].lower() in ('ro', 'rw'):
-        system.snmp.communities.append(s.SNMPCommunity(name='[REDACTED]', access=v['access'].lower(), access_list=v.get('acl')))
-        state.bind(f'system/snmp/communities/{len(system.snmp.communities) - 1}', line)
+        community = s.SNMPCommunity(identifier_redacted=True, access=v['access'].lower(), access_list=v.get('acl'))
+        if 'view' in v:
+            community.view = v['view']
+        collection(system.snmp, 'communities').append(community)
+        state.bind(f'system/snmp/communities/{len((system.snmp.communities or [])) - 1}', line)
     elif rule in ('services_snmp_location', 'services_snmp_contact'):
         state.assign(system.snmp, 'location' if rule.endswith('location') else 'contact', v['value'], 'system/snmp', line)
-    elif rule == 'services_ssh_version':
-        state.assign(system.management, 'ssh_version', v['version'], 'system/management', line)
-    elif rule in ('services_http_on', 'services_http_off', 'services_https_on', 'services_https_off'):
-        state.assign(system.management, 'https_enabled' if 'https' in rule else 'http_enabled', boolean(v['enabled']), 'system/management', line)
-    elif rule in ('services_transport', 'services_timeout', 'services_timeout_minutes', 'services_access_class', 'services_login', 'services_login_plain'):
+    elif rule in ('services_snmp_group_v3', 'services_snmp_group_v1_v2c'):
+        group = s.SNMPGroup(name=v['name'])
+        if 'params' in v:
+            parts = v['params'].split()
+            i = 0
+            while i < len(parts):
+                if parts[i].lower() == 'read' and i + 1 < len(parts):
+                    group.read_view = parts[i + 1]
+                    i += 2
+                elif parts[i].lower() == 'write' and i + 1 < len(parts):
+                    group.write_view = parts[i + 1]
+                    i += 2
+                elif parts[i].lower() == 'notify' and i + 1 < len(parts):
+                    group.notify_view = parts[i + 1]
+                    i += 2
+                elif parts[i].lower() == 'access' and i + 1 < len(parts):
+                    group.access_list = parts[i + 1]
+                    i += 2
+                else:
+                    i += 1
+        else:
+            if 'read' in v:
+                group.read_view = v['read']
+            if 'write' in v:
+                group.write_view = v['write']
+            if 'notify' in v:
+                group.notify_view = v['notify']
+            if 'access' in v:
+                group.access_list = v['access']
+        if rule == 'services_snmp_group_v3':
+            group.version = 'v3'
+        elif 'version' in v:
+            group.version = v['version']
+        if 'sec_level' in v:
+            group.security_level = v['sec_level']
+        collection(system.snmp, 'groups').append(group)
+        state.bind(f'system/snmp/groups/{len((system.snmp.groups or [])) - 1}', line)
+    elif rule == 'services_snmp_group_remove':
+        name = v['name']
+        version = v.get('version')
+        groups = system.snmp.groups or []
+        for i, g in enumerate(groups):
+            if g.name == name and (version is None or g.version == version):
+                groups.pop(i)
+                state.unbind(f'system/snmp/groups/{i}')
+                break
+
+
+def declare(state, r):
+    rule, v, line = r['rule'], r['values'], r['source_line']
+    if rule == 'services_line':
+        items = collection(state.c.system.management, 'lines')
+        item = next((item for item in items if item.name == v['name']), None)
+        if item is None:
+            item = s.ManagementLine(name=v['name'])
+            items.append(item)
+        path = f'system/management/lines/{items.index(item)}'
+        state.entities[line] = path
+        state.bind(path + '/name', line)
+        state.bind(path, line)
+        return True
+    if rule in ('services_tacacs', 'services_radius'):
+        return aaa_administration.server_declare(state, r)
+    if rule == 'admin_aaa_group':
+        return aaa_administration.group_declare(state, r)
+    return False
+
+
+def resolve(state, r):
+    line, v = r['source_line'], r['values']
+    rule = r['rule']
+    system = state.c.system
+
+    if rule in ('services_accounting_commands', 'services_accounting_connection', 'services_accounting_exec', 'services_accounting_network', 'services_accounting_system', 'services_line_accounting_commands', 'services_line_accounting_connection', 'services_line_accounting_exec', 'services_line_accounting_system'):
         entry = state.entity(line)
         if not entry or not isinstance(entry[0], s.ManagementLine):
             return
         item, path = entry
-        if rule == 'services_transport':
+        service_map = {
+            'services_accounting_commands': 'commands',
+            'services_accounting_connection': 'connection',
+            'services_accounting_exec': 'exec',
+            'services_accounting_system': 'system',
+            'services_line_accounting_commands': 'commands',
+            'services_line_accounting_connection': 'connection',
+            'services_line_accounting_exec': 'exec',
+            'services_line_accounting_system': 'system',
+        }
+        service = service_map[rule]
+        privilege = v.get('privilege')
+        method_list = v.get('method_list')
+        acc = s.AAAAccountingLine(
+            privilege_level=privilege,
+            method_list=method_list,
+            service=service
+        )
+        collection(item, f'accounting_{service}').append(acc)
+        state.bind(f'{path}/accounting_{service}/{len(getattr(item, f"accounting_{service}", [])) - 1}', line, list(v))
+    elif rule == 'services_ntp_global_source':
+        state.assign(system.ntp, 'source_interface', v['source'], 'system/ntp', line)
+    elif rule == 'services_ntp_global_source_remove':
+        state.unbind('system/ntp/source_interface')
+    elif rule == 'services_logging_trap':
+        state.assign(system.logging, 'trap_severity', v['severity'], 'system/logging', line)
+    elif rule in ('services_aaa_on', 'services_aaa_off'):
+        state.assign(system.aaa, 'enabled', v['enabled'], 'system/aaa', line, list(v))
+    elif rule in ('services_ntp_authenticate', 'services_ntp_authenticate_remove'):
+        state.assign(system.ntp, 'authentication_enabled', v.get('enabled', True), 'system/ntp', line)
+    elif rule in ('services_ntp_auth_key', 'services_ntp_auth_key_format'):
+        ntp = system.ntp
+        identifier = v['identifier']
+        credential_format = v.get('credential_format')
+        existing = next((k for k in (ntp.authentication_keys or []) if k.identifier == identifier), None)
+        if existing:
+            idx = (ntp.authentication_keys or []).index(existing)
+        else:
+            idx = len(ntp.authentication_keys or [])
+            collection(ntp, 'authentication_keys').append(s.NTPAuthKey(identifier=identifier))
+            existing = ntp.authentication_keys[idx]
+        existing.algorithm = 'md5'
+        existing.secret_configured = True
+        existing.credential_format = credential_format
+        state.bind(f'system/ntp/authentication_keys/{idx}/identifier', line)
+        state.bind(f'system/ntp/authentication_keys/{idx}/algorithm', line)
+        state.bind(f'system/ntp/authentication_keys/{idx}/credential_format', line)
+    elif rule == 'services_ntp_auth_key_remove':
+        ntp = system.ntp
+        identifier = v['identifier']
+        existing = next((k for k in (ntp.authentication_keys or []) if k.identifier == identifier), None)
+        if existing:
+            idx = (ntp.authentication_keys or []).index(existing)
+            state.unbind(f'system/ntp/authentication_keys/{idx}')
+            ntp.authentication_keys.remove(existing)
+    elif rule in ('services_ntp_trusted_key', 'services_ntp_trusted_key_single'):
+        ntp = system.ntp
+        start = v['start'] if 'start' in v else v['identifier']
+        end = v.get('end')
+        existing = next((tk for tk in (ntp.trusted_keys or []) if tk.identifier == start), None)
+        if existing:
+            if end and end > start:
+                existing.range_end = end
+            state.bind(f'system/ntp/trusted_keys/{(ntp.trusted_keys or []).index(existing)}/identifier', line)
+            if end:
+                state.bind(f'system/ntp/trusted_keys/{(ntp.trusted_keys or []).index(existing)}/range_end', line)
+        else:
+            idx = len(ntp.trusted_keys or [])
+            collection(ntp, 'trusted_keys').append(s.NTPTrustedKey(identifier=start, range_end=end))
+            state.bind(f'system/ntp/trusted_keys/{idx}/identifier', line)
+            if end:
+                state.bind(f'system/ntp/trusted_keys/{idx}/range_end', line)
+    elif rule == 'services_ntp_trusted_key_remove':
+        ntp = system.ntp
+        identifier = v['identifier']
+        existing = next((tk for tk in (ntp.trusted_keys or []) if tk.identifier == identifier), None)
+        if existing:
+            ntp.trusted_keys.remove(existing)
+    elif rule in ('services_ntp_master', 'services_ntp_master_no_stratum', 'services_ntp_master_remove'):
+        state.assign(system.ntp, 'master', v.get('enabled', True), 'system/ntp', line)
+    elif rule in ('services_login_block', 'services_login_block_remove'):
+        if rule == 'services_login_block':
+            state.assign(system.management.ssh, 'login_block_for', s.LoginBlockFor(
+                seconds=v['seconds'],
+                attempts=v['attempts'],
+                within_seconds=v['within']
+            ), 'system/management/ssh', line)
+        else:
+            system.management.ssh.login_block_for = None
+            state.unbind('system/management/ssh/login_block_for')
+    elif rule in ('services_snmp_user_v3', 'services_snmp_user_v3_remote'):
+        params = v.get('params', '')
+        parts = params.split()
+        auth_alg = None
+        priv_alg = None
+        i = 0
+        while i < len(parts):
+            if parts[i].lower() == 'auth' and i + 1 < len(parts):
+                auth_alg = parts[i + 1]
+                i += 2
+            elif parts[i].lower() == 'priv' and i + 1 < len(parts):
+                priv_alg = parts[i + 1]
+                i += 2
+            else:
+                i += 1
+        user = s.SNMPUser(username=v['username'], group_reference=v['group'], version='3')
+        if auth_alg:
+            user.authentication_algorithm = auth_alg
+            user.authentication_secret_configured = True
+        if priv_alg:
+            user.privacy_algorithm = priv_alg
+            user.privacy_secret_configured = True
+        if 'remote_ip' in v:
+            user.remote_ip = v['remote_ip']
+        users_list = collection(system.snmp, 'users')
+        users_list.append(user)
+        state.bind(f'system/snmp/users/{len(users_list) - 1}', line)
+    elif rule == 'services_snmp_user_remove':
+        username = v['username']
+        group = v['group']
+        users = system.snmp.users or []
+        for i, u in enumerate(users):
+            if u.username == username and u.group_reference == group:
+                users.pop(i)
+                state.unbind(f'system/snmp/users/{i}')
+                break
+    elif rule in ('services_snmp_community_view_acl', 'services_snmp_community_view_acl_simple'):
+        community = s.SNMPCommunity(identifier_redacted=True, access=v['access'].lower(), view=v['view'], access_list=v.get('acl'))
+        collection(system.snmp, 'communities').append(community)
+        state.bind(f'system/snmp/communities/{len((system.snmp.communities or [])) - 1}', line)
+    elif rule in ('services_snmp_community_view', 'services_snmp_community_view_simple'):
+        community = s.SNMPCommunity(identifier_redacted=True, access=v['access'].lower(), view=v['view'], access_list=v.get('acl'))
+        collection(system.snmp, 'communities').append(community)
+        state.bind(f'system/snmp/communities/{len((system.snmp.communities or [])) - 1}', line)
+    elif rule in ('services_snmp_community_acl', 'services_snmp_community_acl6', 'services_snmp_community_no_acl'):
+        access = v['access'].lower() if 'access' in v else ('ro' if rule.endswith('no_acl') else 'ro')
+        community = s.SNMPCommunity(identifier_redacted=True, access=access, access_list=v.get('acl'))
+        collection(system.snmp, 'communities').append(community)
+        state.bind(f'system/snmp/communities/{len((system.snmp.communities or [])) - 1}', line)
+    elif rule in ('services_snmp_group_v3', 'services_snmp_group_v1_v2c'):
+        group = s.SNMPGroup(name=v['name'])
+        if 'params' in v:
+            parts = v['params'].split()
+            i = 0
+            while i < len(parts):
+                if parts[i].lower() == 'read' and i + 1 < len(parts):
+                    group.read_view = parts[i + 1]
+                    i += 2
+                elif parts[i].lower() == 'write' and i + 1 < len(parts):
+                    group.write_view = parts[i + 1]
+                    i += 2
+                elif parts[i].lower() == 'notify' and i + 1 < len(parts):
+                    group.notify_view = parts[i + 1]
+                    i += 2
+                elif parts[i].lower() == 'access' and i + 1 < len(parts):
+                    group.access_list = parts[i + 1]
+                    i += 2
+                else:
+                    i += 1
+        else:
+            if 'read' in v:
+                group.read_view = v['read']
+            if 'write' in v:
+                group.write_view = v['write']
+            if 'notify' in v:
+                group.notify_view = v['notify']
+            if 'access' in v:
+                group.access_list = v['access']
+        if rule == 'services_snmp_group_v3':
+            group.version = 'v3'
+        elif 'version' in v:
+            group.version = v['version']
+        if 'sec_level' in v:
+            group.security_level = v['sec_level']
+        collection(system.snmp, 'groups').append(group)
+        state.bind(f'system/snmp/groups/{len((system.snmp.groups or [])) - 1}', line)
+    elif rule == 'services_snmp_group_remove':
+        name = v['name']
+        version = v.get('version')
+        groups = system.snmp.groups or []
+        for i, g in enumerate(groups):
+            if g.name == name and (version is None or g.version == version):
+                groups.pop(i)
+                state.unbind(f'system/snmp/groups/{i}')
+                break
+    elif rule in (
+        'services_snmp_host_traps', 'services_snmp_host_traps_vrf', 'services_snmp_host_traps_simple',
+        'services_snmp_host_implicit_v1', 'services_snmp_host_implicit_v1_vrf',
+        'services_snmp_host_implicit_v1_vrf_alt', 'services_snmp_host_implicit_v1_udp_vrf',
+        'services_snmp_host_implicit_version', 'services_snmp_host_implicit_version_vrf',
+        'services_snmp_host_implicit_version_vrf_alt', 'services_snmp_host_implicit_version_udp_vrf',
+        'services_snmp_host_traps_implicit', 'services_snmp_host_traps_implicit_vrf',
+        'services_snmp_host_implicit_traps', 'services_snmp_host_implicit_traps_vrf',
+        'services_snmp_host_informs', 'services_snmp_host_informs_vrf', 'services_snmp_host_informs_simple',
+        'services_snmp_host_informs_implicit', 'services_snmp_host_informs_implicit_vrf',
+        'services_snmp_host_informs_implicit_vrf_alt', 'services_snmp_host_informs_implicit_udp_vrf'):
+        host_type = 'traps' if 'traps' in rule or 'implicit_v1' in rule or 'implicit_version' in rule else 'informs'
+        host = s.SNMPHost(destination=v['destination'], type=host_type)
+        if 'implicit_v1' in rule:
+            host.version = '1'
+        if 'vrf' in v:
+            host.vrf = v['vrf']
+        if 'version' in v:
+            host.version = v['version']
+        if 'community_user' in v:
+            host.community_or_user = v['community_user']
+        rest = v.get('rest', '')
+        if rest:
+            parts = rest.split()
+            i = 0
+            while i < len(parts):
+                if parts[i] == 'udp-port' and i + 1 < len(parts):
+                    host.udp_port = int(parts[i + 1])
+                    i += 2
+                elif parts[i] == 'version' and i + 1 < len(parts):
+                    host.version = parts[i + 1]
+                    i += 2
+                else:
+                    i += 1
+        if 'vrf' in v:
+            host.vrf = v['vrf']
+        if 'version' in v and not host.version:
+            host.version = v['version']
+        if 'community_user' in v:
+            host.community_or_user = v['community_user']
+        if 'udp_port' in v and not host.udp_port:
+            host.udp_port = int(v['udp_port'])
+        if 'types' in v:
+            host.notification_types = v['types'].split()
+        collection(system.snmp, 'hosts').append(host)
+        state.bind(f'system/snmp/hosts/{len((system.snmp.hosts or [])) - 1}', line)
+    elif rule == 'services_snmp_host_remove':
+        destination = v['destination']
+        hosts = system.snmp.hosts or []
+        for i, h in enumerate(hosts):
+            if h.destination == destination:
+                hosts.pop(i)
+                state.unbind(f'system/snmp/hosts/{i}')
+                break
+    elif rule in ('services_snmp_enable_traps', 'services_snmp_enable_traps_remove'):
+        if system.snmp.trap_config is None:
+            system.snmp.trap_config = s.SNMPTrapConfig()
+        state.unbind('system/snmp/trap_config')
+        if rule == 'services_snmp_enable_traps':
+            system.snmp.trap_config.enabled = True
+            system.snmp.trap_config.notification_types = v['types'].split()
+            state.bind('system/snmp/trap_config', line, list(v))
+        else:
+            system.snmp.trap_config.enabled = False
+            types_to_remove = v['types'].split()
+            if system.snmp.trap_config.notification_types:
+                system.snmp.trap_config.notification_types = [t for t in system.snmp.trap_config.notification_types if t not in types_to_remove]
+            state.bind('system/snmp/trap_config', line, list(v))
+    elif rule in ('services_snmp_engineid', 'services_snmp_engineid_remove'):
+        if rule == 'services_snmp_engineid':
+            system.snmp.engine_id = v['id']
+        else:
+            system.snmp.engine_id = None
+        state.bind('system/snmp/engine_id', line, list(v))
+    elif rule in ('services_snmp_view', 'services_snmp_view_remove'):
+        if rule == 'services_snmp_view':
+            included = v.get('included', 'included')
+            if isinstance(included, str):
+                included = included.lower() == 'included'
+            view = s.SNMPView(name=v['name'], oid=v['oid'], included=included)
+            collection(system.snmp, 'views').append(view)
+            state.bind(f'system/snmp/views/{len((system.snmp.views or [])) - 1}', line)
+        else:
+            name = v['name']
+            oid = v['oid']
+            views = system.snmp.views or []
+            for i, vi in enumerate(views):
+                if vi.name == name and vi.oid == oid:
+                    views.pop(i)
+                    state.unbind(f'system/snmp/views/{i}')
+                    break
+    elif rule in ('services_snmp_source_interface', 'services_snmp_source_interface_remove'):
+        if rule == 'services_snmp_source_interface':
+            system.snmp.trap_source_interface = v['interface']
+        else:
+            system.snmp.trap_source_interface = None
+        state.bind('system/snmp/trap_source_interface', line, list(v))
+    elif rule in ('services_snmp_trap_source', 'services_snmp_trap_source_vrf', 'services_snmp_trap_source_remove'):
+        if rule == 'services_snmp_trap_source_remove':
+            system.snmp.trap_source_interface = None
+            system.snmp.trap_source_vrf = None
+        else:
+            system.snmp.trap_source_interface = v['interface']
+            if 'vrf' in v:
+                system.snmp.trap_source_vrf = v['vrf']
+        state.bind('system/snmp/trap_source_interface', line, list(v))
+        state.bind('system/snmp/trap_source_vrf', line, list(v))
+    elif rule in ('services_snmp_server_enable', 'services_snmp_server_disable'):
+        system.snmp.enabled = v['enabled']
+        state.bind('system/snmp/enabled', line, list(v))
+    elif rule in ('services_snmp_location', 'services_snmp_contact'):
+        state.assign(system.snmp, 'location' if rule.endswith('location') else 'contact', v['value'], 'system/snmp', line)
+    elif rule in ('services_http_on', 'services_http_off', 'services_https_on', 'services_https_off'):
+        service = 'https' if 'https' in rule else 'http'
+        state.assign(getattr(system.management, service), 'enabled', boolean(v['enabled']), 'system/management/' + service, line)
+    elif rule in ('services_transport_output', 'services_transport_output_remove', 'services_access_class', 'services_access_class_vrf', 'services_access_class_out', 'services_access_class_remove', 'services_access_class_remove_all', 'services_exec_on', 'services_exec_off', 'services_exec_default', 'services_login_off', 'services_timeout', 'services_timeout_minutes', 'services_timeout_remove', 'services_timeout_default', 'services_login', 'services_login_plain', 'services_login_authentication_remove', 'services_login_authentication_remove_args'):
+        entry = state.entity(line)
+        if not entry or not isinstance(entry[0], s.ManagementLine):
+            return
+        item, path = entry
+        if rule == 'services_transport_output':
             tokens = v['transports'].split()
-            if any((x not in ('ssh', 'telnet', 'none', 'all') for x in tokens)):
-                return
-            if ('all' in tokens or 'none' in tokens) and len(tokens) != 1:
-                return
-            state.assign(item, 'allowed_transports', [] if tokens == ['none'] else tokens, path, line)
-        elif rule.startswith('services_timeout'):
+            if any(t not in ('ssh', 'telnet') for t in tokens):
+                raise ValueError('Transport protocol')
+            state.assign(item, 'allowed_transports', [] if tokens == ['none'] else tokens, path, line, list(v), explicit_empty=tokens == ['none'])
+        elif rule == 'services_transport_output_remove':
+            item.allowed_transports = None
+            state.unbind(path + '/allowed_transports')
+        elif rule == 'services_access_class':
+            state.assign(item, 'access_list', v['acl'], path, line)
+            state.assign(item, 'access_list_direction', 'in', path, line)
+        elif rule == 'services_access_class_vrf':
+            state.assign(item, 'access_list', v['acl'], path, line)
+            state.assign(item, 'access_list_vrf', True, path, line)
+        elif rule == 'services_access_class_out':
+            state.assign(item, 'access_list', v['acl'], path, line)
+            state.assign(item, 'access_list_direction', 'out', path, line)
+        elif rule == 'services_access_class_remove':
+            item.access_list = None
+            item.access_list_vrf = None
+            item.access_list_direction = None
+            state.unbind(path + '/access_list')
+            state.unbind(path + '/access_list_vrf')
+            state.unbind(path + '/access_list_direction')
+        elif rule == 'services_access_class_remove_all':
+            item.access_list = None
+            item.access_list_vrf = None
+            item.access_list_direction = None
+            state.unbind(path + '/access_list')
+            state.unbind(path + '/access_list_vrf')
+            state.unbind(path + '/access_list_direction')
+        elif rule == 'services_exec_on':
+            item.exec_disabled = False
+            state.bind(path + '/exec_disabled', line, list(v))
+        elif rule == 'services_exec_off':
+            item.exec_disabled = True
+            state.bind(path + '/exec_disabled', line, list(v))
+        elif rule == 'services_exec_default':
+            item.exec_disabled = None
+            state.unbind(path + '/exec_disabled')
+        elif rule == 'services_login_off':
+            item.login_disabled = v.get('login_disabled', True)
+            state.bind(path + '/login_disabled', line, list(v))
+        elif rule == 'services_timeout':
             seconds = v.get('seconds', 0)
             if not 0 <= seconds <= 59:
                 raise ValueError('Invalid timeout')
             state.assign(item, 'idle_timeout_seconds', v['minutes'] * 60 + seconds, path, line)
-        elif rule == 'services_access_class' and v['direction'] == 'in':
-            state.assign(item, 'access_list', v['acl'], path, line)
+        elif rule == 'services_timeout_minutes':
+            state.assign(item, 'idle_timeout_seconds', v['minutes'] * 60, path, line)
+        elif rule in ('services_timeout_remove', 'services_timeout_default'):
+            item.idle_timeout_seconds = None
+            state.unbind(path + '/idle_timeout_seconds')
         elif rule == 'services_login':
             state.assign(item, 'authentication', authentication(v['method']), path, line)
         elif rule == 'services_login_plain':
             state.assign(item, 'authentication', s.Authentication(method='line_password'), path, line)
-    elif rule in ('services_auth_address', 'services_auth_ports'):
-        entry = state.entity(line)
-        if not entry or entry[0] is not None:
-            return
-        _, protocol = entry
-        system.aaa.servers.append(s.AuthServer(protocol=protocol, address=v['address'], port=v.get('auth_port')))
-        state.bind(f'system/aaa/servers/{len(system.aaa.servers) - 1}', line)
-        if 'acct_port' in v:
-            state.mapped.discard(line)
-            state.consumed[line].clear()
-    else:
-        pass
-    fields = {'services_login_logging': ('login_success_logging', 'enabled'), 'services_logging_source': ('syslog_source_interface', 'interface'), 'services_console_off': ('console_logging', 'enabled'), 'services_source_route_off': ('source_routing', 'enabled'), 'services_lookup_off': ('dns_lookup_enabled', 'enabled'), 'services_password_encryption_off': ('password_encryption_service', 'enabled'), 'services_ipv6_routing': ('ipv6_unicast_routing', 'enabled')}
-    if r['rule'] in fields:
-        field, key = fields[r['rule']]
-        state.assign(state.c.system, field, r['values'][key], 'system', r['source_line'], list(r['values']))
-    v = r['values']
-    line = r['source_line']
-    rule = r['rule']
-    if rule.startswith('services_timestamp'):
-        obj = s.TimestampPolicy(category=v['category'], format=v['format'], options=v.get('options', '').split())
-        state.c.system.timestamps.append(obj)
-        if 'options' in v:
-            state.validation[line]['fields']['options'] = 'validated'
-        state.bind('system/timestamps', line, list(v))
-    elif rule == 'services_banner':
-        state.c.system.banners.append(s.Banner(type=v['type']))
-        state.bind('system/banners', line, list(v))
-    elif rule == 'services_http_auth':
-        state.assign(state.c.system, 'http_authentication', v['method'], 'system', line, list(v))
-    elif rule.startswith('services_line_'):
-        root = state.root(r)
-        if root is None or root['rule'] != 'services_line':
-            return
-        obj = next((o for o in state.c.system.management.lines if o.name == root['values']['name']))
-        path = f'system/management/lines/{state.c.system.management.lines.index(obj)}'
-        pair = {'services_line_synchronous': ('logging_synchronous', 'enabled'), 'services_line_privilege': ('privilege_level', 'level'), 'services_line_stopbits': ('stopbits', 'bits'), 'services_line_length': ('screen_length', 'length')}.get(rule)
-        if pair:
-            state.assign(obj, pair[0], v[pair[1]], path, line, list(v))
-        elif rule == 'services_line_preferred':
-            tokens = v['transports'].split()
-            if any((t not in ('none', 'all', 'ssh', 'telnet') for t in tokens)):
-                raise ValueError('Transport protocol')
-            state.assign(obj, 'preferred_transports', tokens, path, line, list(v))
-    elif rule == 'services_community_expanded':
-        obj = next((c for c in state.c.cisco.community_lists if c.name == v['name']), None)
-        if obj is None:
-            obj = s.CommunityList(name=v['name'],dialect='cisco_expanded_regex')
-            state.c.cisco.community_lists.append(obj)
-        obj.entries.append(s.CommunityListEntry(action=v['action'], expression=v['expression']))
-        state.bind(f'cisco/community_lists/{state.c.cisco.community_lists.index(obj)}', line, list(v))
-    elif rule == 'services_flow_source':
-        state.assign(state.c.system.flow_export, 'source_interface', v['interface'], 'system/flow_export', line, list(v))
-    elif rule == 'services_flow_version':
-        state.c.system.flow_export.version = v['version']
-        state.c.system.flow_export.as_mode = v['as_mode']
-        state.bind('system/flow_export', line, list(v))
-    elif rule == 'services_flow_timeout':
-        field = {'active': 'cache_timeout_active_minutes', 'inactive': 'cache_timeout_inactive_seconds'}.get(v['type'])
-        if field is None:
-            raise ValueError('Flow timeout mode')
-        state.assign(state.c.system.flow_export, field, v['timeout'], 'system/flow_export', line, list(v))
-
-
-
-def declare(state,r):
-    rule,v,line=r['rule'],r['values'],r['source_line']
-    if rule == 'services_line':
-        item = s.ManagementLine(name=v['name'])
-        state.c.system.management.lines.append(item)
-        path = f'system/management/lines/{len(state.c.system.management.lines) - 1}'
-        state.entities[line] = path
-        state.bind(path + '/name', line)
-        return True
-    if rule in ('services_tacacs', 'services_radius'):
-        state.entities[line] = (None, 'tacacs' if rule == 'services_tacacs' else 'radius')
-        return True
-    return False
+        elif rule in ('services_login_authentication_remove', 'services_login_authentication_remove_args'):
+            item.authentication = None
+            state.unbind(path + '/authentication')
+        elif rule == 'services_login_off':
+            item.login_disabled = v.get('login_disabled', True)
+            state.bind(path + '/login_disabled', line, list(v))
+    elif rule in ('services_crypto_key_generate_rsa', 'services_crypto_key_generate_rsa_general', 'services_crypto_key_generate_rsa_usage', 'services_crypto_key_generate_rsa_label'):
+        crypto = system.management.ssh
+        if crypto.rsa_keys is None:
+            crypto.rsa_keys = []
+        key = s.RSAKey(
+            label=v.get('name'),
+            modulus=v['modulus'],
+            usage=v.get('usage', 'general')
+        )
+        crypto.rsa_keys.append(key)
+        state.bind(f'system/management/ssh/rsa_keys/{len(crypto.rsa_keys) - 1}', line, list(v))
+    elif rule in ('services_crypto_key_zeroize_rsa', 'services_crypto_key_zeroize_rsa_label'):
+        crypto = system.management.ssh
+        if crypto.rsa_keys:
+            if rule == 'services_crypto_key_zeroize_rsa':
+                crypto.rsa_keys = []
+            else:
+                name = v['name']
+                crypto.rsa_keys = [k for k in crypto.rsa_keys if k.label != name]
+    elif rule in ('services_ssh_rsa_keypair', 'services_ssh_rsa_keypair_remove'):
+        if rule == 'services_ssh_rsa_keypair':
+            system.management.ssh.rsa_keypair_name = v['name']
+        else:
+            system.management.ssh.rsa_keypair_name = None
+    elif rule in ('services_ssh_source', 'services_ssh_source_remove'):
+        if rule == 'services_ssh_source':
+            system.management.ssh.source_interface = v['interface']
+        else:
+            system.management.ssh.source_interface = None
+    elif rule in ('services_ssh_pubkey_chain', 'services_ssh_pubkey_chain_remove'):
+        if rule == 'services_ssh_pubkey_chain':
+            system.management.ssh.pubkey_chain_enabled = True
+        else:
+            system.management.ssh.pubkey_chain_enabled = False
+    elif rule in ('services_login_block', 'services_login_block_remove'):
+        if rule == 'services_login_block':
+            state.assign(system.management.ssh, 'login_block_for', s.LoginBlockFor(
+                seconds=v['seconds'],
+                attempts=v['attempts'],
+                within_seconds=v['within']
+            ), 'system/management/ssh', line)
+        else:
+            system.management.ssh.login_block_for = None
+            state.unbind('system/management/ssh/login_block_for')
 
 
 def authentication(value):
-    if value=='local':return s.Authentication(method='local')
-    if value.startswith('authentication '):return s.Authentication(method='aaa',method_list=value[len('authentication '):])
+    if value == 'local':
+        return s.Authentication(method='local')
+    if value.startswith('authentication '):
+        return s.Authentication(method='aaa', method_list=value[len('authentication '):])
     return None
 
 
-def resolve(state,r):
-    line=r['source_line'];v=r['values']
-    if r['rule']=='services_ntp_source':
-        for i,obj in enumerate(state.c.system.ntp_servers):
-            state.assign(obj,'source_interface',v['source'],f'system/ntp_servers/{i}',line)
-    elif r['rule']=='services_logging_trap':
-        for i,obj in enumerate(state.c.system.syslog_destinations):
-            state.assign(obj,'severity',v['severity'],f'system/syslog_destinations/{i}',line)
+def syslog_destination(state, r):
+    rule, v, line = r['rule'], r['values'], r['source_line']
+    is_remove = rule.endswith('_remove')
+    is_legacy = 'legacy' in rule
+    is_vrf = 'vrf' in rule
+    has_transport = 'transport' in rule
+    has_port = 'port' in rule
+
+    if is_remove:
+        address = v.get('address') or v.get('target')
+        vrf = v.get('vrf')
+        path = 'system/logging/destinations'
+        owner = state.c.system.logging
+        entries = []
+        previous = None
+        for index, destination in enumerate(owner.destinations or []):
+            source = next(b.record for b in state.bindings if b.path == f'/{path}/{index}/address')
+            if destination.address == address and destination.vrf == vrf:
+                previous = destination
+            else:
+                entries.append((destination, source))
+
+        state.unbind(path)
+        state.absences.confirmed_empty.discard('/' + path)
+        owner.destinations = [entry for entry, _ in entries] or None
+        for index, (destination, source) in enumerate(entries):
+            for field in ('address', 'port', 'transport', 'vrf'):
+                if getattr(destination, field) is not None:
+                    state.bind(f'{path}/{index}/{field}', source)
+        return
+
+    if is_vrf:
+        address, vrf, transport, port = _logging_target_vrf(v)
+    else:
+        address, vrf, transport, port = _logging_target(v)
+
+    removed = False
+    supported = True
+
+    if rule in ('services_logging', 'services_logging_legacy'):
+        address = v.get('address') or v.get('target')
+
+    owner = state.c.system.logging
+    path = 'system/logging/destinations'
+    entries = []
+    previous = None
+    for index, destination in enumerate(owner.destinations or []):
+        source = next(b.record for b in state.bindings if b.path == f'/{path}/{index}/address')
+        if destination.address == address and destination.vrf == vrf:
+            previous = destination
+        else:
+            entries.append((destination, source))
+
+    if not removed and supported:
+        if previous and (previous.transport, previous.port, previous.vrf) != (transport, port, vrf):
+            transport = port = vrf = None
+        entries.append((s.SyslogDestination(address=address, transport=transport, port=port, vrf=vrf, severity=None), line))
+
+    state.unbind(path)
+    state.absences.confirmed_empty.discard('/' + path)
+    owner.destinations = [entry for entry, _ in entries] or None
+    for index, (destination, source) in enumerate(entries):
+        for field in ('address', 'port', 'transport', 'vrf'):
+            if getattr(destination, field) is not None:
+                state.bind(f'{path}/{index}/{field}', source)
+
+
+def _logging_target(values):
+    target = values.get('target', '')
+    address = values.get('address', '')
+    vrf = values.get('vrf')
+    transport = values.get('transport')
+    port = values.get('port')
+
+    if address and (vrf or transport or port):
+        return address, vrf, transport, port
+
+    if target:
+        tokens = target.split()
+        if tokens:
+            address = tokens[0]
+            i = 1
+            while i < len(tokens):
+                if tokens[i] == 'vrf' and i + 1 < len(tokens):
+                    vrf = tokens[i + 1]
+                    i += 2
+                elif tokens[i] == 'transport' and i + 1 < len(tokens):
+                    transport = tokens[i + 1]
+                    i += 2
+                elif tokens[i] == 'port' and i + 1 < len(tokens):
+                    try:
+                        port = int(tokens[i + 1])
+                    except ValueError:
+                        pass
+                    i += 2
+                else:
+                    i += 1
+    return address, vrf, transport, port
+
+
+def _logging_target_vrf(values):
+    target = values.get('target', '')
+    address = values.get('address', '')
+    vrf = values.get('vrf')
+    transport = values.get('transport')
+    port = values.get('port')
+
+    if address and (vrf or transport or port):
+        return address, vrf, transport, port
+
+    if target:
+        tokens = target.split()
+        if tokens:
+            address = tokens[0]
+            i = 1
+            while i < len(tokens):
+                if tokens[i] == 'vrf' and i + 1 < len(tokens):
+                    vrf = tokens[i + 1]
+                    i += 2
+                elif tokens[i] == 'transport' and i + 1 < len(tokens):
+                    transport = tokens[i + 1]
+                    i += 2
+                elif tokens[i] == 'port' and i + 1 < len(tokens):
+                    try:
+                        port = int(tokens[i + 1])
+                    except ValueError:
+                        pass
+                    i += 2
+                else:
+                    i += 1
+    return address, vrf, transport, port

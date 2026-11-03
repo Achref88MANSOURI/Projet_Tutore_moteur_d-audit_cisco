@@ -18,3 +18,215 @@
 {{ source_line | DIGIT | to_int }} snmp ifmib ifindex persist
 </group>
 
+<!-- F05 SNMP Additional Rules -->
+
+<group name="services_snmp_community_view*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} view {{ view }} {{ access }} {{ acl }}
+</group>
+
+<group name="services_snmp_community_view_simple*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} view {{ view }} {{ access }}
+</group>
+
+<group name="services_snmp_community_acl6*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }} ipv6 {{ acl }}
+</group>
+
+<group name="services_snmp_community_acl6_simple*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }} ipv6 {{ acl }}
+</group>
+
+<group name="services_snmp_group_v3*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server group {{ name }} v3 {{ sec_level }} {{ params | ORPHRASE }}
+</group>
+
+<group name="services_snmp_group_v1_v2c*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server group {{ name }} {{ version }} {{ params | ORPHRASE }}
+</group>
+
+<group name="services_snmp_group_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server group {{ name }} {{ version }}
+</group>
+
+<group name="services_snmp_user_v3*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server user {{ username }} {{ group }} v3 {{ params | ORPHRASE }}
+</group>
+
+<group name="services_snmp_user_v3_remote*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server user {{ username }} {{ group }} remote {{ remote_ip }} v3 {{ params | ORPHRASE }}
+</group>
+
+<group name="services_snmp_user_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server user {{ username }} {{ group }}
+</group>
+
+<group name="services_snmp_host_traps*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} traps {{ version }} {{ community_user }} {{ udp_port }} {{ types }}
+</group>
+
+<group name="services_snmp_host_traps_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} traps {{ version }} {{ community_user }} {{ udp_port }} {{ types }}
+</group>
+
+<group name="services_snmp_host_traps_simple*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} traps {{ version }} {{ community_user }}
+</group>
+
+<!-- Simple implicit traps (version 1, no traps/informs keyword) -->
+<group name="services_snmp_host_implicit_v1*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_implicit_v1_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} {{ community_user }}
+</group>
+
+<!-- VRF after community (alternative syntax) -->
+<group name="services_snmp_host_implicit_v1_vrf_alt*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} {{ community_user }} vrf {{ vrf }}
+</group>
+
+<group name="services_snmp_host_implicit_v1_udp_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} {{ community_user }} udp-port {{ udp_port }} vrf {{ vrf }}
+</group>
+
+<!-- Explicit version without traps/informs keyword -->
+<group name="services_snmp_host_implicit_version*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} version {{ version }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_implicit_version_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} version {{ version }} {{ community_user }}
+</group>
+
+<!-- VRF after community for explicit version -->
+<group name="services_snmp_host_implicit_version_vrf_alt*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} version {{ version }} {{ community_user }} vrf {{ vrf }}
+</group>
+
+<group name="services_snmp_host_implicit_version_udp_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} version {{ version }} {{ community_user }} udp-port {{ udp_port }} vrf {{ vrf }}
+</group>
+
+<group name="services_snmp_host_implicit_traps_simple*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} {{ version }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_traps_implicit*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} {{ version }} {{ community_user }} udp-port {{ udp_port }}
+</group>
+
+<group name="services_snmp_host_traps_implicit_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} {{ version }} {{ community_user }} udp-port {{ udp_port }}
+</group>
+
+<group name="services_snmp_host_implicit_traps*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} version {{ version }} {{ community_user }} {{ rest | ORPHRASE }}
+</group>
+
+<group name="services_snmp_host_implicit_traps_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} version {{ version }} {{ community_user }} {{ rest | ORPHRASE }}
+</group>
+
+<group name="services_snmp_host_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }}
+</group>
+
+<group name="services_snmp_host_informs*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} informs version {{ version }} {{ community_user }} {{ udp_port }} {{ types }}
+</group>
+
+<group name="services_snmp_host_informs_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} informs version {{ version }} {{ community_user }} {{ udp_port }} {{ types }}
+</group>
+
+<group name="services_snmp_host_informs_simple*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} informs version {{ version }} {{ community_user | ORPHRASE }}
+</group>
+
+<group name="services_snmp_host_informs_implicit*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} {{ version }} {{ community_user }} udp-port {{ udp_port }} {{ types }}
+</group>
+
+<group name="services_snmp_host_informs_implicit_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} {{ version }} {{ community_user }} udp-port {{ udp_port }} {{ types }}
+</group>
+
+<!-- Informs with VRF after community (alternative syntax) -->
+<group name="services_snmp_host_informs_implicit_vrf_alt*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} informs version {{ version }} {{ community_user }} vrf {{ vrf }}
+</group>
+
+<group name="services_snmp_host_informs_implicit_udp_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} informs version {{ version }} {{ community_user }} udp-port {{ udp_port }} vrf {{ vrf }}
+</group>
+
+<group name="services_snmp_enable_traps*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server enable traps {{ types | ORPHRASE }}
+</group>
+
+<group name="services_snmp_enable_traps_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server enable traps {{ types | ORPHRASE }}
+</group>
+
+<group name="services_snmp_engineid*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server engineID local {{ id }}
+</group>
+
+<group name="services_snmp_engineid_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server engineID local
+</group>
+
+<group name="services_snmp_view*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server view {{ name }} {{ oid }} {{ included }}
+</group>
+
+<group name="services_snmp_view_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server view {{ name }} {{ oid }}
+</group>
+
+<group name="services_snmp_source_interface*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server source-interface traps {{ interface }}
+</group>
+
+<group name="services_snmp_source_interface_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server source-interface traps
+</group>
+
+<group name="services_snmp_community_no_acl*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }}
+</group>
+
+<group name="services_snmp_community_acl*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }} {{ acl }}
+</group>
+
+<!-- Community with view (access/acl before view) -->
+<group name="services_snmp_community_view_acl*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }} {{ acl }} view {{ view }}
+</group>
+
+<group name="services_snmp_community_view_acl_simple*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }} view {{ view }}
+</group>
+
+<group name="services_snmp_trap_source*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server trap-source {{ interface }}
+</group>
+
+<group name="services_snmp_trap_source_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server trap-source vrf {{ vrf }} {{ interface }}
+</group>
+
+<group name="services_snmp_trap_source_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server trap-source
+</group>
+
+<group name="services_snmp_server_enable*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} snmp-server
+</group>
+
+<group name="services_snmp_server_disable*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no snmp-server
+</group>
+

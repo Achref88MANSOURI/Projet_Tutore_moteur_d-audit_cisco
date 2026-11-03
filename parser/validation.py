@@ -2,6 +2,7 @@
 from ipaddress import ip_address,ip_network
 import re
 from normalizer.common.addresses import asn,prefix_length
+from .eigrp_commands import validate as validate_eigrp
 
 PROTOCOLS={'ip','ipv6','tcp','udp','icmp','icmp6','icmpv6','gre','esp','ahp','ospf','eigrp','igmp','pim','sctp','ipinip'}
 OPAQUE_FIELDS={'options','member','subject','value','method','expression'}
@@ -48,15 +49,22 @@ def validate_record(record):
             if key=='protocol' and rule=='advanced_qos_match_protocol' and value not in ('dns','vofr','icmp','ftp','http','sip','rtp','tcp','udp'):state='unvalidated'
             if key=='prefix' and rule.startswith('prefix_'):ip_network(value,strict=False)
             if key=='peer' and ':' in str(value):ip_address(value)
+            if key=='key_id' and rule.startswith('auth_if_ospf_md5') and not 1 <= value <= 255:raise ValueError('OSPF key ID range')
             if key in OPAQUE_FIELDS:state='unvalidated'
             if key=='value' and (not isinstance(value,str) or rule=='if_description' or rule in ('services_snmp_location','services_snmp_contact')):state='validated'
             if key=='options' and rule.startswith('acl_') and value=='log':state='validated'
-            if key=='method' and rule=='services_login' and value in ('local','authentication default'):state='validated'
+            if key=='method' and rule=='services_login' and (value in ('local','authentication default') or value.startswith('authentication ')):state='validated'
             if key=='method' and rule=='services_http_auth' and value in ('local','aaa','enable'):state='validated'
             if key=='method' and rule=='advanced_pki_enrollment' and value in ('selfsigned','terminal','pkcs12'):state='validated'
             if key=='method' and rule=='advanced_pki_revocation' and value in ('none','crl','ocsp'):state='validated'
             if key=='subject' and '=' in str(value):state='validated'
+            if key=='enabled' and rule in ('services_console_off', 'services_aaa_on', 'services_aaa_off', 'services_password_encryption_on', 'services_password_encryption_off', 'services_ipv6_routing', 'services_lookup_off', 'services_source_route_off', 'services_login_logging', 'services_logging_on', 'services_logging_off'):state='validated'
         except (ValueError,TypeError):
             state='invalid';errors.append(key)
         fields[key]=state
+    try:
+        validate_eigrp(rule, v)
+    except (ValueError, TypeError, KeyError):
+        fields = {key: 'invalid' for key in v}
+        errors = list(v)
     return dict(valid=not errors,fields=fields,invalid_fields=errors)
