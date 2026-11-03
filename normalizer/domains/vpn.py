@@ -25,12 +25,34 @@ def handle(state, record):
     if not entry or entry[0].kind != 'tunnel':
         return
     interface = entry[0]
-    if record['rule'] == 'if_tunnel_source':
+    rule = record['rule']
+    if rule == 'if_tunnel_source':
         state.defer(record)
         return
     obj = ensure_tunnel(state, interface, record['source_line'])
     path = f'vpn/tunnels/{(state.c.vpn.tunnels or []).index(obj)}'
-    state.assign(obj, 'remote_endpoint', str(ip_address(record['values']['destination'])), path, record['source_line'])
+    if rule == 'if_tunnel_destination':
+        state.assign(obj, 'remote_endpoint', str(ip_address(record['values']['destination'])), path, record['source_line'])
+    elif rule == 'if_tunnel_mode':
+        state.assign(obj, 'mode', record['values']['mode'], path, record['source_line'])
+    elif rule == 'if_tunnel_mode_off':
+        obj.mode = None
+        state.unbind(path + '/mode')
+    elif rule == 'if_tunnel_protection':
+        state.assign(obj, 'ipsec_profile_reference', record['values']['profile'], path, record['source_line'])
+        # Set technology to ipsec when protection is configured
+        if obj.technology == 'unknown':
+            obj.technology = 'ipsec'
+            state.bind(path + '/technology', record['source_line'])
+    elif rule == 'if_tunnel_protection_off':
+        obj.ipsec_profile_reference = None
+        state.unbind(path + '/ipsec_profile_reference')
+    elif rule == 'if_tunnel_path_mtu':
+        # path-mtu-discovery enable|disable
+        # Not directly modeled in VPNTunnel, could add if needed
+        pass
+    elif rule == 'if_tunnel_path_mtu_off':
+        pass
 
 
 def resolve(state, record):

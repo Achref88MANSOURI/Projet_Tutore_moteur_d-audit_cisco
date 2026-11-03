@@ -165,7 +165,7 @@ def handle(state,r):
     elif rule == 'if_urpf_legacy_off':
         obj.urpf.mode = None
         state.unbind(path + '/urpf/mode')
-    elif rule in ('if_ipv6_urpf_rx', 'if_ipv6_urpf_any', 'if_ipv6_urpf_off'):
+    elif rule in ('if_ipv6_urpf_rx', 'if_ipv6_urpf_any', 'if_ipv6_urpf_off', 'if_ipv6_urpf_rx_params', 'if_ipv6_urpf_any_params'):
         rest = v.get('rest', '')
         if rule == 'if_ipv6_urpf_off':
             obj.ipv6_urpf.mode = None

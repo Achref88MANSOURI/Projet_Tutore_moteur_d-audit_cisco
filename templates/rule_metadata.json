@@ -887,5 +887,29 @@
   },
   "eigrp_af_interface_auth_mode_remove": {
     "scope": "root:router eigrp"
+  },
+  "if_tunnel_source": {
+    "scope": "root:interface"
+  },
+  "if_tunnel_destination": {
+    "scope": "root:interface"
+  },
+  "if_tunnel_mode": {
+    "scope": "root:interface"
+  },
+  "if_tunnel_mode_off": {
+    "scope": "root:interface"
+  },
+  "if_tunnel_protection": {
+    "scope": "root:interface"
+  },
+  "if_tunnel_protection_off": {
+    "scope": "root:interface"
+  },
+  "if_tunnel_path_mtu": {
+    "scope": "root:interface"
+  },
+  "if_tunnel_path_mtu_off": {
+    "scope": "root:interface"
   }
 }
