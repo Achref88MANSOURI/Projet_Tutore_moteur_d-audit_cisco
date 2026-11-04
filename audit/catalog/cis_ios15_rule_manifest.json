@@ -1,0 +1,549 @@
+{
+  "metadata": {
+    "benchmark_id": "cis-cisco-ios-15-v4.1.1-archive",
+    "number_of_rule_stubs": 90,
+    "purpose": "Track implementation of audit evaluators, not evidence of compliance.",
+    "status": "PARTIAL_IMPLEMENTATION_12_OF_90",
+    "last_updated": "2026-11-04",
+    "implemented_count": 12,
+    "verified_count": 12
+  },
+  "rules": [
+    {
+      "control_id": "1.1.1",
+      "family": "F01",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_1_1_1",
+      "verified_contract_paths": [
+        "/system/aaa/enabled"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/aaa/enabled"
+      ],
+      "dependency_ids": [
+        "F01-R001",
+        "F01-R012",
+        "F01-R023",
+        "F01-R107",
+        "F01-R118",
+        "F01-R129"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 13,
+        "pdf_page_end": 14,
+        "printed_page_start": 12,
+        "printed_page_end": 13
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    },
+    {
+      "control_id": "1.1.2",
+      "family": "F01",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_1_1_2",
+      "verified_contract_paths": [
+        "/system/aaa/authentication_method_lists"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/aaa/authentication_method_lists"
+      ],
+      "dependency_ids": [
+        "F01-R002",
+        "F01-R013",
+        "F01-R024",
+        "F01-R108",
+        "F01-R119",
+        "F01-R130"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 14,
+        "pdf_page_end": 15,
+        "printed_page_start": 13,
+        "printed_page_end": 14
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    },
+    {
+      "control_id": "1.2.2",
+      "family": "F01",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_1_2_2",
+      "verified_contract_paths": [
+        "/system/management/lines/*/allowed_transports"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/management/lines/*/allowed_transports"
+      ],
+      "dependency_ids": [
+        "F01-R003",
+        "F01-R014",
+        "F01-R025",
+        "F01-R109",
+        "F01-R120",
+        "F01-R131"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 15,
+        "pdf_page_end": 16,
+        "printed_page_start": 14,
+        "printed_page_end": 15
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    },
+    {
+      "control_id": "1.2.6",
+      "family": "F01",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_1_2_6",
+      "verified_contract_paths": [
+        "/system/management/lines/*/idle_timeout_seconds"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/management/lines/*/idle_timeout_seconds"
+      ],
+      "dependency_ids": [
+        "F01-R004",
+        "F01-R015",
+        "F01-R026",
+        "F01-R110",
+        "F01-R121",
+        "F01-R132"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 16,
+        "pdf_page_end": 17,
+        "printed_page_start": 15,
+        "printed_page_end": 16
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    },
+    {
+      "control_id": "1.4.1",
+      "family": "F04",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED_WITH_LIMITATIONS",
+      "evaluator_import_path": "audit.cis._eval_1_4_1",
+      "verified_contract_paths": [
+        "/system/aaa/enable_secrets"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/aaa/enable_secrets"
+      ],
+      "dependency_ids": [
+        "F04-R001",
+        "F04-R016",
+        "F04-R027",
+        "F04-R111",
+        "F04-R122",
+        "F04-R133"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 17,
+        "pdf_page_end": 18,
+        "printed_page_start": 16,
+        "printed_page_end": 17
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true,
+      "limitation": "Normalizer does not parse 'enable secret' - enable_secrets is null"
+    },
+    {
+      "control_id": "1.4.2",
+      "family": "F04",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED_WITH_LIMITATIONS",
+      "evaluator_import_path": "audit.cis._eval_1_4_2",
+      "verified_contract_paths": [
+        "/system/password_encryption_service"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/password_encryption_service"
+      ],
+      "dependency_ids": [
+        "F04-R002",
+        "F04-R017",
+        "F04-R028",
+        "F04-R112",
+        "F04-R123",
+        "F04-R134"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 18,
+        "pdf_page_end": 19,
+        "printed_page_start": 17,
+        "printed_page_end": 18
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true,
+      "limitation": "Normalizer does not parse 'service password-encryption' - field is null"
+    },
+    {
+      "control_id": "1.5.4",
+      "family": "F05",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_1_5_4",
+      "verified_contract_paths": [
+        "/system/snmp/communities/*/access"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/snmp/communities/*/access"
+      ],
+      "dependency_ids": [
+        "F05-R003",
+        "F05-R018",
+        "F05-R029",
+        "F05-R113",
+        "F05-R124",
+        "F05-R135"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 19,
+        "pdf_page_end": 20,
+        "printed_page_start": 18,
+        "printed_page_end": 19
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    },
+    {
+      "control_id": "1.5.9",
+      "family": "F05",
+      "profile_level": "Level 2",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED_WITH_LIMITATIONS",
+      "evaluator_import_path": "audit.cis._eval_1_5_9",
+      "verified_contract_paths": [
+        "/system/snmp/groups/*/security_level"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/snmp/groups/*/security_level"
+      ],
+      "dependency_ids": [
+        "F05-R004",
+        "F05-R019",
+        "F05-R030",
+        "F05-R114",
+        "F05-R125",
+        "F05-R136"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 20,
+        "pdf_page_end": 21,
+        "printed_page_start": 19,
+        "printed_page_end": 20
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true,
+      "limitation": "Normalizer does not parse SNMPv3 group security_level - field is null"
+    },
+    {
+      "control_id": "2.1.1.2",
+      "family": "F06",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_2_1_1_2",
+      "verified_contract_paths": [
+        "/system/management/ssh/version"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/management/ssh/version"
+      ],
+      "dependency_ids": [
+        "F06-R001",
+        "F06-R016",
+        "F06-R027",
+        "F06-R111",
+        "F06-R122",
+        "F06-R133"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 21,
+        "pdf_page_end": 22,
+        "printed_page_start": 20,
+        "printed_page_end": 21
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    },
+    {
+      "control_id": "2.1.6",
+      "family": "F07",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_2_1_6",
+      "verified_contract_paths": [
+        "/system/ip_services/tcp_keepalives_in"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/ip_services/tcp_keepalives_in"
+      ],
+      "dependency_ids": [
+        "F07-R001",
+        "F07-R016",
+        "F07-R027",
+        "F07-R111",
+        "F07-R122",
+        "F07-R133"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 22,
+        "pdf_page_end": 23,
+        "printed_page_start": 21,
+        "printed_page_end": 22
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    },
+    {
+      "control_id": "2.2.4",
+      "family": "F08",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_2_2_4",
+      "verified_contract_paths": [
+        "/system/logging/destinations"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/logging/destinations"
+      ],
+      "dependency_ids": [
+        "F08-R001",
+        "F08-R016",
+        "F08-R027",
+        "F08-R111",
+        "F08-R122",
+        "F08-R133"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 23,
+        "pdf_page_end": 24,
+        "printed_page_start": 22,
+        "printed_page_end": 23
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    },
+    {
+      "control_id": "2.3.1.1",
+      "family": "F09",
+      "profile_level": "Level 2",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_2_3_1_1",
+      "verified_contract_paths": [
+        "/system/ntp/authentication_enabled"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/ntp/authentication_enabled"
+      ],
+      "dependency_ids": [
+        "F09-R001",
+        "F09-R016",
+        "F09-R027",
+        "F09-R111",
+        "F09-R122",
+        "F09-R133"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 24,
+        "pdf_page_end": 25,
+        "printed_page_start": 23,
+        "printed_page_end": 24
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    },
+    {
+      "control_id": "3.1.1",
+      "family": "F11",
+      "profile_level": "Level 1",
+      "benchmark_assessment": "Automated",
+      "implementation_status": "IMPLEMENTED",
+      "evaluator_import_path": "audit.cis._eval_3_1_1",
+      "verified_contract_paths": [
+        "/system/ip_services/source_routing"
+      ],
+      "candidate_v1_paths_from_2026_11_01_baseline": [
+        "/system/ip_services/source_routing"
+      ],
+      "dependency_ids": [
+        "F11-R001",
+        "F11-R016",
+        "F11-R027",
+        "F11-R111",
+        "F11-R122",
+        "F11-R133"
+      ],
+      "evidence_hints": [
+        "running_configuration"
+      ],
+      "evaluation_results_allowed": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW",
+        "NOT_APPLICABLE"
+      ],
+      "source_pages": {
+        "file": "CIS_Cisco_IOS_15_Benchmark_v4.1.1_ARCHIVE(3) (1).pdf",
+        "pdf_page_start": 25,
+        "pdf_page_end": 26,
+        "printed_page_start": 24,
+        "printed_page_end": 25
+      },
+      "review_required_before_automation": false,
+      "verified_in_codebase": true,
+      "tested": true
+    }
+  ]
+}

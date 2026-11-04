@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CIS Cisco IOS 15 v4.1.1 catalogue (source-derived metadata)",
+  "type": "object",
+  "required": [
+    "metadata",
+    "controls"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "catalogue_id",
+        "benchmark_version",
+        "total_controls",
+        "total_dependencies"
+      ]
+    },
+    "controls": {
+      "type": "array",
+      "minItems": 90,
+      "maxItems": 90,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "profile_level",
+          "assessment",
+          "family",
+          "dependency_ids",
+          "dependency_count",
+          "audit",
+          "remediation",
+          "source",
+          "catalogue_integration_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[123](?:\\.\\d+){2,6}$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "profile_level": {
+            "enum": [
+              "Level 1",
+              "Level 2"
+            ]
+          },
+          "assessment": {
+            "enum": [
+              "Automated",
+              "Manual"
+            ]
+          },
+          "family": {
+            "type": "string",
+            "pattern": "^F(?:0[1-9]|1[0-6])$"
+          },
+          "dependency_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "dependency_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "audit": {
+            "type": "string"
+          },
+          "remediation": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "required": [
+              "pdf_page_start",
+              "pdf_page_end",
+              "printed_page_start",
+              "printed_page_end"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
