@@ -255,6 +255,7 @@ def extract(text, *, official=True):
                                 continue
                             if rule=='services_login' and not (record.get('method')=='local' or re.fullmatch(r'authentication \S+',record.get('method',''))):continue
                         if rule.startswith('services_line_') and not nodes[nodes[line].root].text.startswith('line '):continue
+                        if rule.startswith('services_timeout') and not nodes[nodes[line].root].text.startswith('line '):continue
                         global_rules={'services_login_logging','services_timestamp','services_timestamp_plain','services_console_off','services_source_route_off',
                             'services_lookup_off','services_password_encryption_off','services_ipv6_routing','services_http_auth','services_community_expanded',
                             'services_flow_source','services_flow_version','services_flow_timeout',

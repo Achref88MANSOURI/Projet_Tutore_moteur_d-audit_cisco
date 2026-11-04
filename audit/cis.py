@@ -228,14 +228,14 @@ def _eval_1_2_2(raw: dict, control: dict) -> tuple[AuditStatus, list[str], str]:
 
 
 def _eval_1_2_6(raw: dict, control: dict) -> tuple[AuditStatus, list[str], str]:
-    """1.2.6 Set 'exec-timeout' <= 10 minutes for vty lines"""
-    lines = raw.get("system", {}).get("management", {}).get("lines", [])
+    """1.2.6 Set 'exec-timeout' <= 10 minutes for 'line aux 0'"""
+    lines = raw.get("system", {}).get("management", {}).get("lines", []) or []
     for line in lines:
-        if line.get("name", "").startswith("vty"):
+        if line.get("name", "") == "aux 0":
             timeout = line.get("idle_timeout_seconds")
             if timeout is not None and timeout <= 600:
                 return AuditStatus.PASS, ["system", "management", "lines"], ""
-    return AuditStatus.FAIL, ["system", "management", "lines"], "No VTY line with exec-timeout <= 10 minutes"
+    return AuditStatus.FAIL, ["system", "management", "lines"], "No 'line aux 0' with exec-timeout <= 10 minutes"
 
 
 def _eval_1_4_1(raw: dict, control: dict) -> tuple[AuditStatus, list[str], str]:

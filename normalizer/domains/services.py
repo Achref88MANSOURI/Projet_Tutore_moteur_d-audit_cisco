@@ -64,7 +64,8 @@ def handle(state, r):
         'services_bootp_server', 'services_bootp_server_off', 'services_dhcp_bootp_ignore', 'services_dhcp_bootp_ignore_off',
         'services_dhcp', 'services_dhcp_off', 'services_ident', 'services_ident_off',
         'services_finger', 'services_finger_off', 'services_pad', 'services_pad_off',
-        'services_tcp_keepalives_in', 'services_tcp_keepalives_in_off', 'services_tcp_keepalives_out', 'services_tcp_keepalives_out_off'):
+        'services_tcp_keepalives_in', 'services_tcp_keepalives_in_off', 'services_tcp_keepalives_out', 'services_tcp_keepalives_out_off',
+        'services_timeout', 'services_timeout_minutes', 'services_timeout_remove', 'services_timeout_default'):
         state.defer(r)
         return
 
@@ -311,6 +312,16 @@ def resolve(state, r):
     line, v = r['source_line'], r['values']
     rule = r['rule']
     system = state.c.system
+    if rule == 'services_timeout':
+        seconds = v.get('seconds', 0)
+        if not 0 <= seconds <= 59:
+            raise ValueError('Invalid timeout')
+        entry = state.entity(line)
+        if not entry or not isinstance(entry[0], s.ManagementLine):
+            return
+        item, path = entry
+        state.assign(item, 'idle_timeout_seconds', v['minutes'] * 60 + seconds, path, line)
+        return
 
     if rule in ('services_accounting_commands', 'services_accounting_connection', 'services_accounting_exec', 'services_accounting_network', 'services_accounting_system', 'services_line_accounting_commands', 'services_line_accounting_connection', 'services_line_accounting_exec', 'services_line_accounting_system'):
         entry = state.entity(line)
@@ -665,7 +676,7 @@ def resolve(state, r):
     elif rule in ('services_http_on', 'services_http_off', 'services_https_on', 'services_https_off'):
         service = 'https' if 'https' in rule else 'http'
         state.assign(getattr(system.management, service), 'enabled', boolean(v['enabled']), 'system/management/' + service, line)
-    elif rule in ('services_transport_output', 'services_transport_output_remove', 'services_access_class', 'services_access_class_vrf', 'services_access_class_out', 'services_access_class_remove', 'services_access_class_remove_all', 'services_exec_on', 'services_exec_off', 'services_exec_default', 'services_login_off', 'services_timeout', 'services_timeout_minutes', 'services_timeout_remove', 'services_timeout_default', 'services_login', 'services_login_plain', 'services_login_authentication_remove', 'services_login_authentication_remove_args'):
+    elif rule in ('services_transport_output', 'services_transport_output_remove', 'services_access_class', 'services_access_class_vrf', 'services_access_class_out', 'services_access_class_remove', 'services_access_class_remove_all', 'services_exec_on', 'services_exec_off', 'services_exec_default', 'services_login_off', 'services_timeout_minutes', 'services_timeout_remove', 'services_timeout_default', 'services_login', 'services_login_plain', 'services_login_authentication_remove', 'services_login_authentication_remove_args'):
         entry = state.entity(line)
         if not entry or not isinstance(entry[0], s.ManagementLine):
             return
@@ -717,7 +728,12 @@ def resolve(state, r):
             seconds = v.get('seconds', 0)
             if not 0 <= seconds <= 59:
                 raise ValueError('Invalid timeout')
+            entry = state.entity(line)
+            if not entry or not isinstance(entry[0], s.ManagementLine):
+                return
+            item, path = entry
             state.assign(item, 'idle_timeout_seconds', v['minutes'] * 60 + seconds, path, line)
+            return
         elif rule == 'services_timeout_minutes':
             state.assign(item, 'idle_timeout_seconds', v['minutes'] * 60, path, line)
         elif rule in ('services_timeout_remove', 'services_timeout_default'):
@@ -822,6 +838,7 @@ def resolve(state, r):
             system.management.ssh.login_block_for = None
             state.unbind('system/management/ssh/login_block_for')
 
+    print(f"DEBUG resolve END: rule={rule}")
 
 def authentication(value):
     if value == 'local':

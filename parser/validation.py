@@ -57,8 +57,9 @@ def validate_record(record):
             if key=='method' and rule=='services_http_auth' and value in ('local','aaa','enable'):state='validated'
             if key=='method' and rule=='advanced_pki_enrollment' and value in ('selfsigned','terminal','pkcs12'):state='validated'
             if key=='method' and rule=='advanced_pki_revocation' and value in ('none','crl','ocsp'):state='validated'
+            if key in ('minutes', 'seconds') and rule in ('services_timeout', 'services_timeout_minutes') and str(value).isdigit() and 0 <= int(value) <= 59: state='validated'
             if key=='subject' and '=' in str(value):state='validated'
-            if key=='enabled' and rule in ('services_console_off', 'services_aaa_on', 'services_aaa_off', 'services_password_encryption_on', 'services_password_encryption_off', 'services_ipv6_routing', 'services_lookup_off', 'services_source_route_off', 'services_login_logging', 'services_logging_on', 'services_logging_off'):state='validated'
+            if key=='enabled' and rule in ('services_console_off', 'services_aaa_on', 'services_aaa_off', 'services_password_encryption_on', 'services_password_encryption_off', 'services_ipv6_routing', 'services_lookup_off', 'services_source_route_off', 'services_login_logging', 'services_logging_on', 'services_logging_off', 'services_timeout', 'services_timeout_minutes'):state='validated'
         except (ValueError,TypeError):
             state='invalid';errors.append(key)
         fields[key]=state
