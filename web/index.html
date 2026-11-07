@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Config Studio — CIS Cisco Audit Dashboard</title><link rel="icon" href="data:,">
+<style>
+:root{
+  --ink:#182e30; --muted:#647577; --green:#136d57; --green-light:#eef5ef;
+  --border:#dbe3df; --red:#b33a3a; --red-light:#fae9e5; --amber:#b37400;
+  --amber-light:#fff2d8; --blue:#1a5fb4; --blue-light:#e8f0fa;
+  --bg:#f4f6f2; --panel:#fff; --panel-dark:#16292c;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",Arial,sans-serif}
+button,select,textarea,input{font:inherit}
+button{cursor:pointer;transition:background .15s}button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #77bca8;outline-offset:3px}
+header{height:64px;border-bottom:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 5%}
+.brand{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:700;letter-spacing:-.5px}
+.logo{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--green);color:#fff;font:700 16px Consolas,monospace}
+.badge{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:30px;background:var(--green-light);font-size:11px;color:#3e6354}
+.dot{height:7px;width:7px;background:#4b9473;border-radius:50%}
+main{max-width:1600px;margin:auto;padding:28px 5% 24px}
+.eyebrow{color:var(--green);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+h1{font-size:clamp(24px,3vw,34px);font-weight:650;letter-spacing:-1.2px;line-height:1.2;margin:0 0 8px}
+.intro{color:var(--muted);margin:0;max-width:650px;font-size:14px}
+.panel{border:1px solid var(--border);border-radius:12px;background:var(--panel);overflow:hidden;box-shadow:0 4px 18px #203d3104;display:flex;flex-direction:column}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border);min-height:56px;flex-wrap:wrap}
+h2{margin:0;font-size:14px;font-weight:650;display:flex;align-items:center;gap:10px}
+.step{color:#81918a;font-size:10px;font-weight:500;border:1px solid #dfe6e1;border-radius:6px;padding:2px 6px}
+.tag{font:10px Consolas,monospace;color:#6d7e77;background:#f1f4ef;padding:3px 7px;border-radius:4px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:2px}.tab{border:0;border-radius:4px;background:transparent;color:var(--muted);padding:4px 8px;font-size:11px;font-weight:500}.tab[aria-selected=true]{color:var(--ink);background:var(--green-light)}
+.actions{display:flex;gap:4px}.secondary{border:1px solid var(--border);background:transparent;color:var(--ink);border-radius:6px;padding:4px 8px;font-size:10px}.secondary:hover:not(:disabled){background:var(--green-light);border-color:var(--green)}
+.output-area{flex:1;min-height:300px;position:relative;overflow:auto;max-height:550px}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;min-height:300px;color:var(--muted)}
+.empty-symbol{display:grid;place-items:center;border:1px solid var(--border);border-radius:14px;width:56px;height:56px;font:22px Consolas,monospace;color:var(--green);margin-bottom:16px}
+.empty strong{font-weight:500;color:var(--ink);font-size:14px}.empty p{max-width:260px;font-size:11px;line-height:1.7;margin:6px 0 0}
+pre{margin:0;padding:14px;font:11px/1.7 Consolas,"Courier New",monospace;white-space:pre;tab-size:2;overflow:auto}
+.tree{padding:12px 14px;font:11px/1.7 Consolas,"Courier New",monospace;overflow-wrap:anywhere}.tree details{margin-left:14px}.tree>details{margin-left:0}.tree summary{cursor:pointer;color:#5a8a7a}.tree-leaf{margin-left:16px}
+.key{color:#5a8a7a}.string{color:#b8860b}.number{color:#4a5fc3}.literal{color:#c05a8a}.count{color:#7d9b93;font-size:9px;margin-left:6px}
+.result-foot{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-top:1px solid var(--border);font-size:9px;color:var(--muted)}
+.message{margin-top:12px;padding:10px 14px;border-radius:8px;font-size:12px;background:var(--green-light);color:#2b6149}.message.error{background:var(--red-light);color:var(--red)}.message.warning{background:var(--amber-light);color:var(--amber)}.message.info{background:var(--blue-light);color:var(--blue)}
+[hidden]{display:none!important}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 12px;text-align:center}
+.kpi-value{font-size:28px;font-weight:700;line-height:1.1}.kpi-pass{color:var(--green)}.kpi-fail{color:var(--red)}.kpi-review{color:var(--amber)}.kpi-na{color:var(--muted)}.kpi-total{color:var(--ink)}.kpi-unimpl{color:#8a4a8a}
+.kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;align-items:center}
+.filters select,.filters input{border:1px solid var(--border);background:#fff;color:var(--ink);border-radius:6px;padding:6px 28px 6px 10px;font-size:11px;min-width:140px}
+.filters input{padding:6px 10px;flex:1;min-width:200px}
+.findings-table{width:100%;border-collapse:collapse;font-size:11px}
+.findings-table th,.findings-table td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+.findings-table th{background:#f8faf7;font-weight:600;color:var(--muted);font-size:10px;white-space:nowrap;position:sticky;top:0;z-index:1}
+.findings-table tr:hover{background:#fbfdfb}
+.findings-table td.status{font-weight:600;white-space:nowrap}
+.status-PASS{color:var(--green)}.status-FAIL{color:var(--red)}.status-NEEDS_REVIEW{color:var(--amber)}.status-NOT_APPLICABLE{color:var(--muted)}.status-UNKNOWN{color:#8a4a8a}
+.badge-sm{display:inline-block;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
+.badge-l1{background:#e8f0fa;color:var(--blue)}.badge-l2{background:#f3e8fa;color:#7b3fa3}
+.badge-auto{background:var(--green-light);color:var(--green)}.badge-manual{background:#fff2d8;color:var(--amber)}
+.detail-panel{border:1px solid var(--border);border-radius:10px;background:#fff;margin-top:16px;padding:16px}
+.detail-row{display:flex;gap:16px;margin-bottom:12px;flex-wrap:wrap}
+.detail-label{font-weight:600;color:var(--muted);min-width:160px;font-size:11px}
+.detail-value{flex:1;font-family:Consolas,monospace;font-size:11px;color:var(--ink);word-break:break-word}
+.detail-value code{background:#f1f4ef;padding:2px 4px;border-radius:3px}
+.evidence-list{margin-top:8px;font-size:10px}
+.evidence-item{display:flex;gap:8px;padding:6px 8px;background:#f8faf7;border-radius:4px;margin-bottom:4px;font-family:Consolas,monospace}
+.evidence-pointer{color:#5a8a7a;font-weight:600}.evidence-value{color:var(--ink);flex:1;word-break:break-all}
+.correction-box{background:#f8faf7;border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:12px}
+.correction-title{font-weight:600;margin-bottom:8px;color:var(--ink)}
+.diff{font-family:Consolas,monospace;font-size:10px;line-height:1.6;background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;overflow:auto;white-space:pre}
+.diff-del{color:#f88}.diff-add{color:#8f8}.diff-ctx{color:#999}
+.chart-container{height:200px;display:flex;align-items:flex-end;gap:4px;padding:16px;background:#fff;border:1px solid var(--border);border-radius:10px}
+.chart-bar{flex:1;background:var(--green);border-radius:2px 2px 0 0;min-height:4px;transition:height .3s;position:relative;cursor:pointer}
+.chart-bar.fail{background:var(--red)}.chart-bar.review{background:var(--amber)}.chart-bar.na{background:var(--muted)}.chart-bar.unimpl{background:#8a4a8a}
+.chart-label{writing-mode:vertical-lr;text-orientation:mixed;font-size:8px;color:var(--muted);height:60px;display:flex;align-items:flex-end}
+.chart-tooltip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:4px 8px;border-radius:4px;font-size:9px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s}
+.chart-bar:hover .chart-tooltip{opacity:1}
+.source-link{color:var(--blue);text-decoration:none;font-size:11px}.source-link:hover{text-decoration:underline}
+.progress-ring{width:48px;height:48px;transform:rotate(-90deg)}
+.progress-bg{fill:none;stroke:#e1e5e3;stroke-width:4}
+.progress-fill{fill:none;stroke:var(--green);stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .5s}
+@media(max-width:900px){main{padding:20px 16px}header{padding:0 16px}.workspace{grid-template-columns:1fr}.filters{flex-direction:column;align-items:stretch}.filters select,.filters input{width:100%}.kpi-grid{grid-template-columns:repeat(2,1fr)}.detail-label{min-width:100px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="brand"><span class="logo" aria-hidden="true">{ }</span>Config Studio</div><span class="badge" id="server-badge"><span class="dot" id="server-dot"></span><span id="server-status">Vérification du serveur…</span></span></header>
+<main>
+<div class="eyebrow">Cisco IOS/IOS-XE → CIS Benchmark Audit</div>
+<h1>Dashboard de normalisation et conformité</h1>
+<p class="intro">Chargez une configuration Cisco, obtenez le RouterContractV1 normalisé, lancez l'audit CIS Level 1/2, et visualisez les corrections suggérées.</p>
+
+<div id="message" class="message" hidden></div>
+
+<!-- Section 1: Upload & Normalize -->
+<section class="panel" aria-labelledby="upload-title" style="margin-bottom:20px">
+<div class="panel-head"><h2 id="upload-title"><span class="step">01</span>Configuration source</h2><span class="tag">Cisco IOS / IOS-XE</span></div>
+<div style="padding:18px;display:flex;flex-direction:column;gap:14px">
+<input type="file" id="file" accept=".cfg,.conf,.config,.txt,text/plain" hidden>
+<div class="drop" id="drop" type="button"><span style="font-size:22px;line-height:1;display:block;color:var(--green);margin-bottom:8px">↥</span><strong id="filename">Glissez votre fichier ici ou parcourez les fichiers</strong><small>.cfg, .conf, .config, .txt · UTF-8 · 2 Mio maximum</small></div>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+<label for="family" style="font-size:11px;font-weight:600">Système d'exploitation</label>
+<select id="family"><option value="ios">Cisco IOS</option><option value="iosxe">Cisco IOS-XE</option></select>
+<label for="profile" style="font-size:11px;font-weight:600">Profil CIS</label>
+<select id="profile"><option value="1">Level 1</option><option value="2">Level 2 (inclut Level 1)</option></select>
+</div>
+<div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;flex:1;display:flex;flex-direction:column;min-height:180px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;background:#f8faf7;border-bottom:1px solid var(--border);font-size:10px;color:var(--muted)">
+<label for="source" style="margin:0">Contenu modifiable</label><span id="lines">0 ligne</span>
+</div>
+<textarea id="source" spellcheck="false" autocomplete="off" placeholder="! Collez votre configuration ici
+hostname Router-01
+!
+interface GigabitEthernet0/0
+ description LAN
+ ip address 192.0.2.1 255.255.255.0
+ no shutdown
+!" style="display:block;width:100%;flex:1;min-height:180px;resize:vertical;border:0;border-radius:0;padding:12px;font:11px/1.7 Consolas,'Courier New',monospace;color:#344b49;background:#fff;tab-size:2"></textarea>
+</div>
+<button class="primary" id="normalize" disabled style="width:100%;border:0;border-radius:8px;padding:12px 16px;color:white;background:var(--green);font-weight:600">Normaliser la configuration →</button>
+<div style="text-align:center;font-size:9px;color:#83918a;margin-top:-6px">Ctrl + Entrée pour normaliser</div>
+</div></section>
+
+<!-- Section 2: Normalized Config -->
+<section class="panel" aria-labelledby="norm-title" style="margin-bottom:20px" hidden>
+<div class="panel-head"><h2 id="norm-title"><span class="step">02</span>RouterContractV1 normalisé</h2><span class="tag">JSON</span></div>
+<div class="toolbar">
+<div class="tabs" role="tablist" aria-label="Vue du résultat"><button class="tab" id="code-tab" role="tab" aria-selected="true" aria-controls="code">Code</button><button class="tab" id="tree-tab" role="tab" aria-selected="false" aria-controls="tree">Arborescence</button></div>
+<div class="actions"><button class="secondary" id="copy" disabled>Copier</button><button class="secondary" id="download" disabled>Télécharger ↓</button></div>
+</div>
+<div class="output-area">
+<div class="empty" id="norm-empty"><div class="empty-symbol" aria-hidden="true">{ }</div><strong id="norm-empty-title">Votre JSON apparaîtra ici</strong><p id="norm-empty-desc">Lancez la normalisation pour explorer le résultat.</p></div>
+<pre id="code" role="tabpanel" aria-labelledby="code-tab" tabindex="0" hidden></pre>
+<div class="tree" id="tree" role="tabpanel" aria-labelledby="tree-tab" tabindex="0" hidden></div>
+</div>
+<div class="result-foot"><span id="norm-status" role="status">En attente</span><span id="norm-size">normalized.json</span></div>
+</section>
+
+<!-- Section 3: CIS Audit -->
+<section class="panel" aria-labelledby="audit-title" style="margin-bottom:20px" hidden>
+<div class="panel-head"><h2 id="audit-title"><span class="step">03</span>Audit CIS Cisco IOS 15</h2><span class="tag" id="audit-profile-tag">Level 1</span></div>
+
+<!-- KPI Summary -->
+<div style="padding:16px 18px;border-bottom:1px solid var(--border)">
+<div class="kpi-grid">
+<div class="kpi"><div class="kpi-value kpi-total" id="kpi-total">0</div><div class="kpi-label">Contrôles du profil</div></div>
+<div class="kpi"><div class="kpi-value kpi-pass" id="kpi-pass">0</div><div class="kpi-label">PASS</div></div>
+<div class="kpi"><div class="kpi-value kpi-fail" id="kpi-fail">0</div><div class="kpi-label">FAIL</div></div>
+<div class="kpi"><div class="kpi-value kpi-review" id="kpi-review">0</div><div class="kpi-label">NEEDS_REVIEW</div></div>
+<div class="kpi"><div class="kpi-value kpi-na" id="kpi-na">0</div><div class="kpi-label">NOT_APPLICABLE</div></div>
+<div class="kpi"><div class="kpi-value kpi-unimpl" id="kpi-unimpl">0</div><div class="kpi-label">Sans évaluateur</div></div>
+</div>
+<div style="font-size:10px;color:var(--muted);margin-top:8px">
+<strong>Conformité déterminable : </strong><span id="compliance-rate">0%</span> (PASS / (PASS + FAIL)) — Les contrôles NEEDS_REVIEW et Non implémentés sont exclus du calcul.
+</div>
+<div id="coverage-summary" style="font-size:10px;color:var(--muted);margin-top:4px"></div>
+</div>
+
+<!-- Filters -->
+<div class="filters" style="padding:12px 18px;border-bottom:1px solid var(--border)">
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+<select id="filter-status" title="Filtrer par statut ou disponibilité"><option value="">Tous les statuts</option><option value="PASS">PASS</option><option value="FAIL">FAIL</option><option value="NEEDS_REVIEW">NEEDS_REVIEW</option><option value="NOT_APPLICABLE">NOT_APPLICABLE</option><option value="NO_EVALUATOR">Sans évaluateur</option></select>
+<select id="filter-family" title="Filtrer par famille"><option value="">Toutes les familles</option></select>
+<select id="filter-level" title="Filtrer par niveau"><option value="">Tous les niveaux</option><option value="Level 1">Level 1</option><option value="Level 2">Level 2</option></select>
+<input type="text" id="filter-search" placeholder="Rechercher ID, titre, famille…" style="min-width:220px">
+<button class="secondary" id="filter-reset" style="padding:4px 10px;font-size:10px">Réinitialiser</button>
+</div>
+</div>
+
+<!-- Findings Table -->
+<div class="output-area" style="min-height:350px;max-height:500px;overflow:auto">
+<table class="findings-table" id="findings-table" role="grid">
+<thead>
+<tr>
+<th style="width:80px">Control ID</th>
+<th>Titre</th>
+<th style="width:70px">Famille</th>
+<th style="width:70px">Niveau</th>
+<th style="width:70px">Assessment</th>
+<th style="width:90px">Disponibilité</th>
+<th style="width:90px">Statut</th>
+<th style="width:40px">Détail</th>
+</tr>
+</thead>
+<tbody id="findings-body"></tbody>
+</table>
+</div>
+
+<!-- Detail Panel (hidden by default) -->
+<div id="detail-panel" class="detail-panel" hidden>
+<button type="button" id="detail-close" style="position:absolute;right:16px;top:12px;background:none;border:none;font-size:18px;color:var(--muted);cursor:pointer;line-height:1" aria-label="Fermer">×</button>
+<h3 style="margin:0 0 12px;font-size:14px" id="detail-title"></h3>
+<div class="detail-row"><span class="detail-label">Control ID</span><span class="detail-value" id="d-control-id"></span></div>
+<div class="detail-row"><span class="detail-label">Famille / Niveau</span><span class="detail-value" id="d-family-level"></span></div>
+<div class="detail-row"><span class="detail-label">Assessment</span><span class="detail-value" id="d-assessment"></span></div>
+<div class="detail-row"><span class="detail-label">Exigence CIS</span><span class="detail-value" id="d-requirements"></span></div>
+<div class="detail-row"><span class="detail-label">Disponibilité évaluateur</span><span class="detail-value" id="d-availability"></span></div>
+<div class="detail-row"><span class="detail-label">Statut</span><span class="detail-value"><span class="badge-sm" id="d-status-badge"></span></span></div>
+<div class="detail-row"><span class="detail-label">Justification</span><span class="detail-value" id="d-reason"></span></div>
+<div class="detail-row"><span class="detail-label">Preuves (JSON Pointer)</span><span class="detail-value" id="d-evidence"></span></div>
+<div class="detail-row"><span class="detail-label">Limitation</span><span class="detail-value" id="d-limitation"></span></div>
+<div class="detail-row"><span class="detail-label">Recommandation</span><span class="detail-value" id="d-recommendation"></span></div>
+<div class="detail-row"><span class="detail-label">Références CIS</span><span class="detail-value" id="d-references"></span></div>
+<div class="detail-row"><span class="detail-label">Configuration source</span><span class="detail-value" id="d-source-link"><a class="source-link" id="d-source-anchor" href="#" hidden>Voir dans la configuration source</a><span id="d-source-na" style="color:var(--muted)">Ligne source non déterminée</span></span></div>
+<div class="correction-box" id="d-correction" hidden>
+<div class="correction-title">Correction suggérée</div>
+<pre class="diff" id="d-diff"></pre>
+<p style="margin:8px 0 0;font-size:10px;color:var(--muted)">Aucune commande n’est appliquée. Un diff réel exige une correspondance source fiable (Phase 6B).</p>
+</div>
+</div>
+
+<!-- Family Chart -->
+<div style="padding:16px 18px;border-top:1px solid var(--border)">
+<h4 style="margin:0 0 12px;font-size:12px">Répartition par famille (F01–F16)</h4>
+<div class="chart-container" id="family-chart" role="img" aria-label="Graphique par famille"></div>
+</div>
+</section>
+
+<!-- Section 4: Exports -->
+<section class="panel" aria-labelledby="export-title" style="margin-bottom:20px" hidden>
+<div class="panel-head"><h2 id="export-title"><span class="step">04</span>Exports</h2></div>
+<div style="padding:18px;display:flex;flex-wrap:wrap;gap:10px">
+<button class="secondary" id="export-report" style="flex:1;min-width:180px">Exporter AuditReport JSON</button>
+<button class="secondary" id="export-findings" style="flex:1;min-width:180px">Exporter Findings CSV</button>
+<button class="secondary" id="export-normalized" style="flex:1;min-width:180px">Exporter RouterContractV1 JSON</button>
+<button class="secondary" id="export-html" style="flex:1;min-width:180px">Exporter rapport HTML</button>
+</div>
+</section>
+
+<div class="message" id="global-message" role="status" hidden></div>
+<footer style="display:flex;justify-content:space-between;gap:20px;margin-top:22px;color:#7a8881;font-size:10px"><span>Valeurs : null = indéterminé · false = désactivation établie · [] = collection confirmée vide. Le JSON restitue les éléments reconnus par le moteur.</span><span>Aucun fichier importé n'est enregistré sur le serveur. Les remédiations sont proposées, jamais exécutées.</span></footer>
+</main>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const source = $('source');
+let normalized = null, report = null, manifest = null, catalogMeta = null;
+let busy = false, view = 'code', version = 0, fileRead = 0, auditRun = 0;
+const maxBytes = 2 * 1024 * 1024;
+
+// Example configuration
+const example = `! Exemple fictif — routeur de laboratoire
+hostname LAB-R01
+aaa new-model
+aaa authentication login VTY local
+ip ssh version 2
+ip ssh time-out 45
+ip ssh authentication-retries 2
+!
+interface GigabitEthernet0/0
+ description LAN utilisateurs
+ ip address 192.0.2.1 255.255.255.0
+ no shutdown
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+!
+interface Loopback0
+ ip address 198.51.100.1 255.255.255.255
+!
+ip route 0.0.0.0 0.0.0.0 192.0.2.254
+!
+router ospf 1
+ router-id 198.51.100.1
+ area 0 authentication message-digest
+ network 192.0.2.0 0.0.0.255 area 0
+!
+line vty 0 4
+ login authentication VTY
+ transport input ssh
+!
+end
+`;
+
+function message(text, kind = '') {
+  const el = $('global-message') || $('message');
+  el.textContent = text; el.className = 'message ' + kind; el.hidden = !text;
+}
+
+function updateNormalizeButton() {
+  $('normalize').disabled = busy || !source.value.trim();
+}
+
+function resetNormalized() {
+  normalized = null; report = null; auditRun++;
+  $('code').replaceChildren(); $('tree').replaceChildren(); $('code').hidden = $('tree').hidden = true;
+  $('norm-empty').hidden = false; $('norm-empty-title').textContent = 'Votre JSON apparaîtra ici';
+  $('norm-empty-desc').textContent = 'Lancez la normalisation pour afficher le résultat de cette configuration.';
+  $('norm-status').textContent = 'En attente de normalisation'; $('norm-size').textContent = 'normalized.json';
+  $('copy').disabled = $('download').disabled = true;
+  const panels = document.querySelectorAll('[aria-labelledby="audit-title"], [aria-labelledby="export-title"]');
+  panels.forEach(p => p.hidden = true);
+  $('findings-body').replaceChildren(); $('family-chart').replaceChildren(); $('detail-panel').hidden = true;
+}
+
+function changed() {
+  version++; resetNormalized(); message(''); updateNormalizeButton();
+  const lines = source.value ? source.value.split('\n').length : 0;
+  $('lines').textContent = lines + (lines > 1 ? ' lignes' : ' ligne');
+}
+
+source.addEventListener('input', () => { fileRead++; changed(); });
+$('family').addEventListener('change', changed);
+$('profile').addEventListener('change', () => {
+  $('audit-profile-tag').textContent = $('profile').value === '1' ? 'Level 1' : 'Level 2';
+  report = null; $('findings-body').replaceChildren(); $('family-chart').replaceChildren(); $('detail-panel').hidden = true;
+  renderKPIs(null); if (normalized) void runAudit();
+});
+
+$('example').addEventListener('click', () => {
+  fileRead++; source.value = example;
+  $('filename').textContent = 'exemple-laboratoire.cfg'; $('file').value = ''; changed();
+});
+
+$('drop').addEventListener('click', () => $('file').click());
+
+async function loadFile(file) {
+  if (!file || busy) return;
+  const ticket = ++fileRead;
+  version++; resetNormalized();
+  if (file.size > maxBytes) { source.value = ''; changed(); message('Ce fichier dépasse 2 Mio.', 'error'); return; }
+  try {
+    const text = new TextDecoder('utf-8', {fatal:true}).decode(await file.arrayBuffer());
+    if (ticket !== fileRead) return;
+    if (text.includes('\u0000')) throw new Error('binary');
+    source.value = text; $('filename').textContent = file.name; changed();
+    if (!text.trim()) message('Ce fichier est vide.', 'warning');
+  } catch { if (ticket === fileRead) { source.value = ''; changed(); message('Lecture impossible : utilisez un fichier texte UTF-8.', 'error'); } }
+}
+$('file').addEventListener('change', event => { loadFile(event.target.files[0]); event.target.value = ''; });
+
+for (const name of ['dragenter','dragover']) $('drop').addEventListener(name, event => { event.preventDefault(); if (!busy) $('drop').classList.add('drag'); });
+for (const name of ['dragleave','drop']) $('drop').addEventListener(name, event => { event.preventDefault(); $('drop').classList.remove('drag'); });
+$('drop').addEventListener('drop', event => {
+  if (event.dataTransfer.files.length !== 1) { message('Déposez un seul fichier à la fois.', 'error'); return; }
+  loadFile(event.dataTransfer.files[0]);
+});
+window.addEventListener('dragover', event => event.preventDefault());
+window.addEventListener('drop', event => event.preventDefault());
+
+function setBusy(value) {
+  busy = value; source.readOnly = value;
+  for (const id of ['family','profile','drop','example','file','normalize']) $(id).disabled = value;
+  $('normalize').textContent = value ? 'Normalisation en cours…' : 'Normaliser la configuration →';
+  updateNormalizeButton();
+}
+
+function span(text, className) { const el = document.createElement('span'); el.className = className; el.textContent = text; return el; }
+
+async function fetchJson(url, options = {}) {
+  let response;
+  try { response = await fetch(url, options); }
+  catch { throw new Error('Serveur local inaccessible. Relancez webapp.py.'); }
+  let payload;
+  try { payload = await response.json(); }
+  catch { throw new Error(`Réponse invalide du serveur (HTTP ${response.status}).`); }
+  if (!response.ok) throw new Error(payload?.error || `La requête a échoué (HTTP ${response.status}).`);
+  return payload;
+}
+
+function renderCode(text) {
+  if (text.length > 500000) { $('code').textContent = text; return; }
+  const fragment = document.createDocumentFragment();
+  const tokens = /"(?:\\.|[^"\\])*"\s*:|"(?:\\.|[^"\\])*"|\b(?:true|false|null)\b|-?\b\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\b/g;
+  let last = 0;
+  for (const match of text.matchAll(tokens)) {
+    fragment.append(document.createTextNode(text.slice(last, match.index)));
+    const value = match[0];
+    fragment.append(span(value, value.endsWith(':') ? 'key' : value.startsWith('"') ? 'string' : /^(true|false|null)$/.test(value) ? 'literal' : 'number'));
+    last = match.index + value.length;
+  }
+  fragment.append(document.createTextNode(text.slice(last))); $('code').replaceChildren(fragment);
+}
+
+function treeNode(key, value, depth = 0) {
+  if (value !== null && typeof value === 'object') {
+    const details = document.createElement('details'), summary = document.createElement('summary');
+    const entries = Object.entries(value);
+    summary.append(document.createTextNode(key), span((Array.isArray(value) ? '[ ]' : '{ }') + ' · ' + entries.length, 'count')); details.append(summary);
+    let populated = false;
+    const populate = () => { if (!populated) { populated = true; for (const [name, child] of entries) details.append(treeNode(name, child, depth + 1)); } };
+    details.addEventListener('toggle', () => { if (details.open) populate(); });
+    if (depth < 1) { populate(); details.open = true; }
+    return details;
+  }
+  const line = document.createElement('div'); line.className = 'tree-leaf';
+  line.append(span(key + ': ', 'key'), span(JSON.stringify(value), typeof value === 'string' ? 'string' : typeof value === 'number' ? 'number' : 'literal'));
+  return line;
+}
+
+function switchView(next) {
+  view = next;
+  for (const tab of ['code','tree']) { $(tab + '-tab').setAttribute('aria-selected', String(view === tab)); $(tab).hidden = normalized === null || view !== tab; }
+}
+$('code-tab').addEventListener('click', () => switchView('code'));
+$('tree-tab').addEventListener('click', () => switchView('tree'));
+for (const name of ['code','tree']) $(name + '-tab').addEventListener('keydown', event => {
+  if (['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) {
+    event.preventDefault(); const next = event.key === 'Home' ? 'code' : event.key === 'End' ? 'tree' : view === 'code' ? 'tree' : 'code';
+    switchView(next); $(next + '-tab').focus();
+  }
+});
+
+async function runNormalize() {
+  if (busy || !source.value.trim()) return;
+  fileRead++;
+  if (new TextEncoder().encode(source.value).length > maxBytes) { resetNormalized(); message('La configuration dépasse 2 Mio.', 'error'); return; }
+  const currentVersion = version;
+  resetNormalized(); message(''); setBusy(true);
+  $('norm-empty-title').textContent = 'Normalisation en cours…';
+  $('norm-empty-desc').textContent = 'Lecture des commandes et construction du modèle JSON.';
+  $('norm-status').textContent = 'Traitement en cours…';
+  try {
+    const payload = await fetchJson('/api/normalize', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({configuration:source.value, os_family:$('family').value})});
+    if (currentVersion !== version) return;
+    normalized = payload.normalized;
+    renderCode(JSON.stringify(normalized, null, 2) + '\n');
+    $('tree').replaceChildren(treeNode('configuration', normalized));
+    $('norm-empty').hidden = true; switchView(view); $('copy').disabled = $('download').disabled = false;
+    $('norm-status').textContent = 'V1 · Terminé · ' + (payload.duration_ms / 1000).toLocaleString('fr-FR', {maximumFractionDigits:2}) + ' s';
+    $('norm-size').textContent = new TextEncoder().encode(JSON.stringify(normalized, null, 2)).length.toLocaleString('fr-FR') + ' octets';
+    const populated = Object.entries(normalized).some(([k, v]) => k !== 'contract_version' && v !== null && v !== false && !(Array.isArray(v) && v.length === 0));
+    message(populated ? 'Configuration normalisée. Prêt pour l\'audit CIS.' : 'Aucune donnée normalisée (contrat V1 valide).', populated ? '' : 'warning');
+    // Show audit and export panels
+    document.querySelector('[aria-labelledby="audit-title"]').hidden = false;
+    document.querySelector('[aria-labelledby="export-title"]').hidden = false;
+    // Load manifest and catalog metadata for dashboard
+    await loadManifestAndCatalog();
+    // Auto-run audit
+    await runAudit();
+  } catch (error) {
+    resetNormalized(); $('norm-status').textContent = 'Échec de la normalisation';
+    message(error instanceof TypeError ? 'Serveur local inaccessible. Relancez webapp.py.' : error.message, 'error');
+  } finally { setBusy(false); }
+}
+
+async function loadManifestAndCatalog() {
+  try {
+    const [m, c] = await Promise.all([fetchJson('/api/manifest'), fetchJson('/api/catalog')]);
+    manifest = m; catalogMeta = c;
+    // Populate family filter
+    const famSel = $('filter-family');
+    const families = Object.keys(c.families || {}).sort();
+    famSel.replaceChildren(new Option('Toutes', ''));
+    families.forEach(f => { const o = document.createElement('option'); o.value = f; o.textContent = f; famSel.append(o); });
+  } catch (error) { throw new Error(`Catalogue CIS indisponible : ${error.message}`); }
+}
+
+async function runAudit() {
+  if (!normalized) return;
+  const run = ++auditRun, currentVersion = version, currentDocument = normalized;
+  const profileLevel = Number($('profile').value);
+  setBusy(true);
+  message('Audit CIS en cours…', 'info');
+  try {
+    const payload = await fetchJson('/api/audit', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({normalized:currentDocument, profile_level: profileLevel, include_lower: true})});
+    if (run !== auditRun || currentVersion !== version || currentDocument !== normalized || profileLevel !== Number($('profile').value)) return;
+    report = payload;
+    renderFindings();
+    renderKPIs();
+    renderFamilyChart();
+    message('Audit terminé.', '');
+  } catch (error) {
+    if (run === auditRun && currentVersion === version) { report = null; renderKPIs(null); message(error.message, 'error'); }
+  } finally { if (run === auditRun) setBusy(false); }
+}
+
+function renderFindings() {
+  if (!report || !manifest) return;
+  const body = $('findings-body');
+  body.innerHTML = '';
+  const statusFilter = $('filter-status').value;
+  const familyFilter = $('filter-family').value;
+  const levelFilter = $('filter-level').value;
+  const searchFilter = $('filter-search').value.toLowerCase();
+
+  // Build lookup for manifest info
+  const manifestLookup = {};
+  manifest.rules.forEach(r => { manifestLookup[r.control_id] = r; });
+
+  let visible = 0;
+  report.findings.forEach(f => {
+    const cid = f.check_id.replace('CIS-', '');
+    const man = manifestLookup[cid] || {};
+    const family = man.family || '';
+    const level = man.profile_level || '';
+    const assessment = man.benchmark_assessment || '';
+    const evaluatorIds = catalogMeta?.registered_evaluator_ids || [];
+    const availability = evaluatorIds.includes(cid) ? 'Évaluateur disponible' : 'Sans évaluateur';
+    const status = f.status;
+
+    if (statusFilter === 'NO_EVALUATOR' && evaluatorIds.includes(cid)) return;
+    if (statusFilter && statusFilter !== 'NO_EVALUATOR' && status !== statusFilter) return;
+    if (familyFilter && family !== familyFilter) return;
+    if (levelFilter && level !== levelFilter) return;
+    const searchText = `${cid} ${f.title} ${family}`.toLowerCase();
+    if (searchFilter && !searchText.includes(searchFilter)) return;
+
+    visible++;
+    const tr = document.createElement('tr');
+    tr.style.cursor = 'pointer';
+    tr.innerHTML = `
+      <td><code style="font-size:10px">${escapeHtml(cid)}</code></td>
+      <td>${escapeHtml(f.title)}</td>
+      <td><span class="badge-sm" style="background:#e8f0fa;color:#1a5fb4">${escapeHtml(family)}</span></td>
+      <td><span class="badge-sm ${level === 'Level 1' ? 'badge-l1' : 'badge-l2'}">${escapeHtml(level)}</span></td>
+      <td><span class="badge-sm ${assessment === 'Automated' ? 'badge-auto' : 'badge-manual'}">${escapeHtml(assessment)}</span></td>
+      <td>${escapeHtml(availability)}</td>
+      <td class="status status-${status}">${escapeHtml(status)}</td>
+      <td><button class="secondary" style="padding:2px 6px;font-size:9px">Voir</button></td>
+    `;
+    tr.querySelector('button').addEventListener('click', (e) => { e.stopPropagation(); showDetail(f, man); });
+    tr.addEventListener('click', () => showDetail(f, man));
+    body.append(tr);
+  });
+  $('filter-reset').onclick = () => { $('filter-status').value = ''; $('filter-family').value = ''; $('filter-level').value = ''; $('filter-search').value = ''; renderFindings(); };
+  $('filter-status').onchange = renderFindings;
+  $('filter-family').onchange = renderFindings;
+  $('filter-level').onchange = renderFindings;
+  $('filter-search').oninput = renderFindings;
+}
+
+function showDetail(finding, man) {
+  const d = $('detail-panel');
+  const cid = finding.check_id.replace('CIS-', '');
+  $('detail-title').textContent = `${cid} — ${finding.title}`;
+  $('d-control-id').textContent = cid;
+  $('d-family-level').textContent = `${man.family || '—'} / ${man.profile_level || '—'}`;
+  $('d-assessment').textContent = man.benchmark_assessment || '—';
+  const control = (catalogMeta?.controls || []).find(item => item.id === cid) || {};
+  $('d-requirements').textContent = [control.description, control.rationale].filter(Boolean).join('\n\n') || 'Exigence détaillée indisponible dans le catalogue.';
+  const evaluatorAvailable = (catalogMeta?.registered_evaluator_ids || []).includes(cid);
+  const avail = evaluatorAvailable ? 'Évaluateur enregistré' : 'Aucun évaluateur enregistré; verdict du rapport conservé tel quel';
+  $('d-availability').textContent = avail + (man.limitation ? ` - Limitation documentée: ${man.limitation}` : '');
+  const status = finding.status;
+  const badge = $('d-status-badge');
+  badge.textContent = status; badge.className = 'badge-sm status-' + status;
+  $('d-reason').textContent = finding.reason || '—';
+  // Evidence
+  const evDiv = $('d-evidence');
+  evDiv.innerHTML = '';
+  if (finding.evidence && finding.evidence.length) {
+    finding.evidence.forEach(e => {
+      const item = document.createElement('div');
+      item.className = 'evidence-item';
+      item.innerHTML = `<span class="evidence-pointer">${escapeHtml(e.json_pointer)}</span><span class="evidence-value">${escapeHtml(String(e.observed_value ?? 'null'))}</span>`;
+      evDiv.append(item);
+    });
+  } else {
+    evDiv.textContent = 'Aucune preuve jointe';
+  }
+  $('d-limitation').textContent = man.limitation || 'Aucune';
+  $('d-recommendation').textContent = [control.audit, control.remediation].filter(Boolean).join('\n\n') || finding.recommendation || '-';
+  // References
+  const refDiv = $('d-references');
+  refDiv.innerHTML = '';
+  if (finding.references && finding.references.length) {
+    finding.references.forEach(r => {
+      const p = document.createElement('p');
+      p.style.margin = '2px 0'; p.fontSize = '10px';
+      p.textContent = `${r.framework} ${r.platform} ${r.version} — ${r.control_id} (${r.relationship})`;
+      refDiv.append(p);
+    });
+  } else {
+    refDiv.textContent = 'Aucune';
+  }
+  // Source link (placeholder - would need source mapping)
+  const srcAnchor = $('d-source-anchor'), srcNa = $('d-source-na');
+  srcAnchor.hidden = true; srcNa.hidden = false;
+  // Correction
+  const corrBox = $('d-correction'), diffDiv = $('d-diff');
+  if (status === 'FAIL') {
+    corrBox.hidden = false;
+    diffDiv.textContent = generateCorrectionDiff(cid, finding, normalized);
+  } else {
+    corrBox.hidden = true;
+  }
+  d.hidden = false;
+  d.scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+$('detail-close').onclick = () => { $('detail-panel').hidden = true; };
+
+function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+function renderKPIs() {
+  const findings = report?.findings || [], counts = report?.counts || {};
+  const pass = counts.PASS || 0, fail = counts.FAIL || 0;
+  const evaluated = findings.filter(f => (catalogMeta?.registered_evaluator_ids || []).includes(f.check_id.replace('CIS-', ''))).length;
+  const denominator = pass + fail;
+  $('kpi-total').textContent = findings.length;
+  $('kpi-pass').textContent = pass; $('kpi-fail').textContent = fail;
+  $('kpi-review').textContent = counts.NEEDS_REVIEW || 0; $('kpi-na').textContent = counts.NOT_APPLICABLE || 0;
+  $('kpi-unimpl').textContent = findings.length - evaluated;
+  $('compliance-rate').textContent = denominator ? `${Math.round(pass / denominator * 100)}% (${pass}/${denominator})` : 'Non déterminable (0/0)';
+  $('coverage-summary').textContent = `Évaluateurs enregistrés : ${catalogMeta?.evaluator_count ?? 'indisponible'} / ${catalogMeta?.total_controls ?? '?'} contrôles au catalogue. Avec évaluateur dans ce profil : ${evaluated}/${findings.length}.`;
+}
+
+function renderFamilyChart() {
+  if (!report || !manifest || !catalogMeta) return;
+  const container = $('family-chart');
+  container.innerHTML = '';
+  const families = Object.keys(catalogMeta.families || {}).sort();
+  const manifestLookup = {}; manifest.rules.forEach(r => { manifestLookup[r.control_id] = r; });
+  families.forEach(fam => {
+    const famControls = catalogMeta.families[fam] || {count:0, level1:0, level2:0};
+    const findings = report.findings.filter(f => {
+      const man = manifestLookup[f.check_id.replace('CIS-', '')];
+      return man.family === fam;
+    });
+    const pass = findings.filter(f => f.status === 'PASS').length;
+    const fail = findings.filter(f => f.status === 'FAIL').length;
+    const review = findings.filter(f => f.status === 'NEEDS_REVIEW').length;
+    const na = findings.filter(f => f.status === 'NOT_APPLICABLE').length;
+    const unimpl = findings.filter(f => !(catalogMeta?.registered_evaluator_ids || []).includes(f.check_id.replace('CIS-', ''))).length;
+    const total = findings.length || 1;
+    const bar = document.createElement('div');
+    bar.style.display = 'flex'; bar.style.flexDirection = 'column'; bar.style.alignItems = 'center'; bar.style.flex = '1'; bar.style.minWidth = '30px';
+    const chartBar = document.createElement('div');
+    chartBar.className = 'chart-bar';
+    chartBar.style.height = Math.max(4, (pass/total)*100) + '%';
+    const tooltip = document.createElement('div');
+    tooltip.className = 'chart-tooltip';
+    tooltip.textContent = `${fam}: ${pass} PASS, ${fail} FAIL, ${review} REVIEW, ${na} NA, ${unimpl} unimpl`;
+    chartBar.append(tooltip);
+    const label = document.createElement('div');
+    label.className = 'chart-label';
+    label.textContent = fam;
+    bar.append(chartBar); bar.append(label);
+    container.append(bar);
+  });
+}
+
+function generateCorrectionDiff(cid, finding, norm) {
+  return 'Aucun diff contextuel disponible. La configuration source n’est pas reliée de façon certaine à ce contrôle. La navigation source et les corrections comparées nécessitent le SourceMap prévu en Phase 6B.';
+}
+
+// Exports
+$('export-report').onclick = () => downloadJSON(report, 'audit-report.json');
+$('export-normalized').onclick = () => downloadJSON(normalized, 'normalized.json');
+$('export-findings').onclick = () => {
+  if (!report) return;
+  const headers = ['Control ID','Title','Family','Level','Assessment','Availability','Status','Reason','Recommendation'];
+  const manifestLookup = {}; manifest.rules.forEach(r => { manifestLookup[r.control_id] = r; });
+  const rows = report.findings.map(f => {
+    const cid = f.check_id.replace('CIS-', '');
+    const man = manifestLookup[cid] || {};
+    const available = (catalogMeta?.registered_evaluator_ids || []).includes(cid) ? 'Évaluateur disponible' : 'Sans évaluateur';
+    return [cid, f.title, man.family||'', man.profile_level||'', man.benchmark_assessment||'', available, f.status, f.reason, f.recommendation].map(escapeCsv);
+  });
+  downloadCSV(headers, rows, 'findings.csv');
+};
+$('export-html').onclick = () => {
+  if (!report || !normalized) return;
+  const html = generateHTMLReport();
+  const url = URL.createObjectURL(new Blob([html], {type:'text/html;charset=utf-8'}));
+  const link = document.createElement('a'); link.href = url; link.download = 'audit-report.html'; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+
+function escapeCsv(s) { const value = String(s ?? ''); return '"' + (/^[\s]*[=+\-@\t\r]/.test(value) ? "'" + value : value).replace(/"/g, '""') + '"'; }
+
+function downloadJSON(obj, filename) {
+  if (!obj) return;
+  const url = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 2)], {type:'application/json;charset=utf-8'}));
+  const link = document.createElement('a'); link.href = url; link.download = filename; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function downloadCSV(headers, rows, filename) {
+  const lines = [headers.join(',')].concat(rows.map(r => r.join(',')));
+  const url = URL.createObjectURL(new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8'}));
+  const link = document.createElement('a'); link.href = url; link.download = filename; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function generateHTMLReport() {
+  const now = new Date().toLocaleString('fr-FR');
+  const hostname = (normalized?.system?.identity?.hostname) || 'Unknown';
+  const counts = report.counts || {};
+  const pass = counts.PASS || 0, fail = counts.FAIL || 0, review = counts.NEEDS_REVIEW || 0, na = counts.NOT_APPLICABLE || 0;
+  const compliance = (pass + fail) > 0 ? `${Math.round((pass / (pass + fail)) * 100)}% (${pass}/${pass + fail})` : 'Non déterminable (0/0)';
+  const manifestLookup = {}; manifest.rules.forEach(r => { manifestLookup[r.control_id] = r; });
+  let rows = '';
+  report.findings.forEach(f => {
+    const cid = f.check_id.replace('CIS-', '');
+    const man = manifestLookup[cid] || {};
+    const status = f.status; const statusClass = 'status-' + status;
+    rows += `<tr><td>${cid}</td><td>${escapeHtml(f.title)}</td><td>${escapeHtml(man.family||'')}</td><td>${escapeHtml(man.profile_level||'')}</td><td class="${statusClass}">${escapeHtml(status)}</td><td>${escapeHtml(f.reason||'')}</td></tr>`;
+  });
+  return `<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>CIS Audit Report - ${escapeHtml(hostname)}</title><style>body{font:13px/1.5 Arial,sans-serif;margin:20px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px;font-size:11px}th{background:#f0f0f0}.status-PASS{color:#136d57;font-weight:bold}.status-FAIL{color:#b33a3a;font-weight:bold}.status-NEEDS_REVIEW{color:#b37400;font-weight:bold}.status-NOT_APPLICABLE{color:#647577}.status-UNKNOWN{color:#8a4a8a}</style></head><body><h1>Rapport d'audit CIS Cisco IOS 15</h1><p><strong>Équipement:</strong> ${escapeHtml(hostname)}<br><strong>Date:</strong> ${escapeHtml(now)}<br><strong>Profil:</strong> Level ${$('profile').value}<br><strong>Conformité déterminable:</strong> ${compliance}</p><h2>Résumé</h2><p>PASS: ${pass} | FAIL: ${fail} | NEEDS_REVIEW: ${review} | NOT_APPLICABLE: ${na}</p><h2>Détails</h2><table><thead><tr><th>Control ID</th><th>Titre</th><th>Famille</th><th>Niveau</th><th>Statut</th><th>Justification</th></tr></thead><tbody>${rows}</tbody></table></body></html>`;
+}
+
+async function checkServer() {
+  const badge = $('server-badge'), dot = $('server-dot'), status = $('server-status');
+  try {
+    const response = await fetch('/api/health', {cache: 'no-store'});
+    if (!response.ok) throw new Error('Unhealthy backend');
+    const data = await response.json();
+    if (data.status !== 'ok' || !data.ready || data.contract !== 'RouterContractV1') throw new Error('Backend or CLI unavailable');
+    status.textContent = 'Serveur local connecté';
+    badge.title = 'Normaliseur RouterContractV1 + Audit CIS connectés';
+    dot.style.background = '#4b9473';
+  } catch {
+    status.textContent = 'Serveur non connecté';
+    badge.title = 'Ouvrez cette page à partir de http://127.0.0.1:8000';
+    dot.style.background = '#c25146';
+  }
+}
+checkServer();
+$('normalize').addEventListener('click', runNormalize);
+document.addEventListener('keydown', event => { if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') { event.preventDefault(); runNormalize(); } });
+$('copy').addEventListener('click', async () => {
+  if (normalized === null) return;
+  try { await navigator.clipboard.writeText(JSON.stringify(normalized, null, 2) + '\n'); message('JSON copié.'); }
+  catch { message('Copie indisponible. Utilisez Télécharger.', 'warning'); }
+});
+$('download').addEventListener('click', () => {
+  if (normalized === null) return;
+  const url = URL.createObjectURL(new Blob([JSON.stringify(normalized, null, 2)], {type:'application/json;charset=utf-8'}));
+  const link = document.createElement('a'); link.href = url; link.download = 'normalized.json'; document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+</script>
+</body></html>
