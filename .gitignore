@@ -1,7 +1,89 @@
 .venv/
-cache/
 __pycache__/
+*.py[cod]
 .pytest_cache/
-*.pyc
-vendor/*/.git/
-dist/
+.coverage
+htmlcov/
+
+# Local archive of tests, reports, corpora and development-only artefacts.
+# This directory is intentionally excluded from publication and runtime use.
+/à exclu/
+
+# Generated caches, reports and local validation outputs
+/cache/
+/dist/
+/outputs/
+/baseline/
+/tmp/
+/hors/
+
+# Local or third-party Cisco corpora. They may contain credentials,
+# internal addressing or material whose publication rights are unverified.
+/configs/
+
+# Dependency source checkouts are development-only. Reproducible runtime
+# dependencies are supplied by requirements.lock and wheelhouse/.
+/vendor/
+
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Editors, operating systems and transient logs
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*~
+
+# Historical validation workspaces under docs are retained locally but are
+# not part of the public application distribution.
+/docs/audit_phase1_validation/
+/docs/audit_phase1_finalization/
+/docs/audit_phase2_validation/
+/docs/audit_phase2a_validation/
+/docs/audit_phase2b_validation/
+/docs/audit_phase2c_validation/
+/docs/audit_phase2d_validation/
+/docs/audit_phase2e_validation/
+/docs/audit_phase2f_validation/
+/docs/audit_phase2g_validation/
+/docs/audit_phase2h_validation/
+/docs/current_dependency_validation/
+/docs/sourcemap_phase6b/
+/docs/routing_foundation_r1_r2/
+/docs/audit_architecture_study/
+/docs/audit_dependency_mapping/
+/docs/cis_level1_validation/
+/docs/cis_level2_technical_audit/
+/docs/cis_semantic_validation/
+/docs/diagnostic_17_tests/
+/docs/router_contract_v1/
+
+# Keep only the two current public Level 2 documents by default. Other files
+# in this tree are research inputs, validation evidence or historical reports.
+/docs/cis_level2_validation/*
+!/docs/cis_level2_validation/DOCUMENTATION_ARCHITECTURE_MOTEUR_AUDIT_CIS.md
+!/docs/cis_level2_validation/AUDIT_CIS_PROFIL_CUMULATIF_OBLIGATOIRE.md
+
+# Historical integration/dashboard reports retained locally.
+/docs/cis_catalog_integration/PHASE5*.md
+/docs/dashboard/ARCHITECTURE.md
+/docs/dashboard/PHASE6_VALIDATION.md
+/docs/audit_phase1_oracle.md
+/docs/audit_phase2_normalization_review.md
+
+# Keep the small maintained toolset already tracked plus the schema builder.
+# Phase-specific reporting and campaign scripts remain local development aids.
+/tools/*
+!/tools/build_router_contract_v1_schema.py

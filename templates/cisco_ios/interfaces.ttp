@@ -46,6 +46,14 @@
 {{ source_line | DIGIT | to_int }} no ip address
 </group>
 
+<group name="if_no_ipv4_specific*" method="table">
+{{ source_line | DIGIT | to_int }} no ip address {{ address | IP }} {{ mask | IP }}
+</group>
+
+<group name="if_no_ipv4_secondary_specific*" method="table">
+{{ source_line | DIGIT | to_int }} no ip address {{ address | IP }} {{ mask | IP }} secondary
+</group>
+
 <group name="if_unnumbered*" method="table">
 {{ source_line | DIGIT | to_int }} ip unnumbered {{ interface }}
 </group>
@@ -140,6 +148,10 @@
 
 <group name="if_qinq*" method="table">
 {{ source_line | DIGIT | to_int }} encapsulation dot1Q {{ vlan | DIGIT | to_int }} second-dot1q {{ inner_vlan | DIGIT | to_int }}
+</group>
+
+<group name="if_ppp*" method="table" functions="set('ppp', kind)">
+{{ source_line | DIGIT | to_int }} encapsulation ppp
 </group>
 
 <group name="if_speed*" method="table">
@@ -350,6 +362,10 @@
 {{ source_line | DIGIT | to_int }} ip ospf message-digest-key {{ key_id | DIGIT | to_int }} md5 __ROUTING_SECRET_PRESENT__
 </group>
 
+<group name="auth_if_ospf_md5_key_format*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} ip ospf message-digest-key {{ key_id | DIGIT | to_int }} md5 {{ credential_format }} __ROUTING_SECRET_PRESENT__
+</group>
+
 <group name="auth_if_ospf_md5_remove*" method="table" functions="set(True, removed)">
 {{ source_line | DIGIT | to_int }} no ip ospf message-digest-key {{ key_id | DIGIT | to_int }}
 </group>
@@ -412,4 +428,20 @@
 
 <group name="auth_if_rip_chain_remove_name*" method="table" functions="set(True, removed)">
 {{ source_line | DIGIT | to_int }} no ip rip authentication key-chain {{ key_chain }}
+</group>
+
+<group name="rip_if_send_version*" method="table">
+{{ source_line | DIGIT | to_int }} ip rip send version {{ versions | ORPHRASE }}
+</group>
+
+<group name="rip_if_send_version_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip rip send version
+</group>
+
+<group name="rip_if_receive_version*" method="table">
+{{ source_line | DIGIT | to_int }} ip rip receive version {{ versions | ORPHRASE }}
+</group>
+
+<group name="rip_if_receive_version_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip rip receive version
 </group>

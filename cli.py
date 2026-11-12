@@ -24,6 +24,56 @@ def normalize(text, *, os_family='ios', official=True):
     return to_dict(_normalize_model(text,os_family=os_family,official=official))
 
 
+def normalize_with_provenance(text, *, os_family='ios', official=True, limits=None, on_provenance_error='raise', _evidence_sink=None):
+    """Opt-in Python result: unchanged normalized dict and a sealed SourceMap.
+
+    No sidecar is written, no HTTP/CLI response format is changed. Credentials
+    and unknown source lines are never copied into the provenance result.
+    """
+    from normalizer.engine import NormalizationEngine
+    from normalizer.provenance import Collector, Limits, NormalizationResult, ProvenanceError, check_input
+    try:
+        limits = Limits() if limits is None else limits
+        if not isinstance(limits, Limits):
+            raise ProvenanceError('Invalid provenance limits')
+        if on_provenance_error not in ('raise', 'unavailable'):
+            raise ProvenanceError('Invalid provenance error policy')
+        limits.check()
+        unavailable = False
+        try:
+            check_input(text, limits)
+        except Exception:
+            if on_provenance_error == 'raise':
+                raise
+            unavailable = True
+        if unsupported_platform(text):
+            raise ProvenanceError('Unsupported non-IOS platform signature')
+        categories = {} if _evidence_sink is not None else None
+        extracted = extract(text, official=official, **({'community_categories': categories} if categories is not None else {}))
+        collector = None
+        if not unavailable:
+            try:
+                collector = Collector(text, extracted, limits=limits)
+            except Exception:
+                if on_provenance_error == 'raise':
+                    raise
+                unavailable = True
+        engine = NormalizationEngine(extracted, os_family=os_family, provenance=collector,
+                                     provenance_errors=on_provenance_error)
+        normalized = to_dict(engine.run())
+        if _evidence_sink is not None:
+            from normalizer.common.sensitive import community_facts
+            _evidence_sink.update(community_facts(engine, categories))
+        if unavailable or engine.provenance_error or collector is None or collector.sidecar is None:
+            return NormalizationResult(normalized=normalized, source_map=None,
+                                       provenance_error='PROVENANCE_UNAVAILABLE')
+        return NormalizationResult(normalized=normalized, source_map=collector.sidecar)
+    except ProvenanceError:
+        raise
+    except Exception:
+        raise ProvenanceError('Normalization with provenance failed') from None
+
+
 def convert_file(source, output, *, os_family='ios', official=True):
     """Normalize a Cisco file, write normalized.json, return its business dict."""
     source,output=Path(source),Path(output)
@@ -36,6 +86,17 @@ def convert_file(source, output, *, os_family='ios', official=True):
 
 
 export_file=convert_file
+
+
+def analyze_with_evidence(text, *, os_family='ios', official=True, profile_level=2, include_lower=True):
+    """Configuration-only Python transaction, including safe pre-redaction facts.
+
+    Supplementary SHOW artifacts are not accepted. Historical profile arguments
+    are retained, while the application transaction is always cumulative.
+    """
+    from cis_operation import analyze
+    return analyze(text, os_family=os_family, official=official,
+                   profile_level=profile_level, include_lower=include_lower)
 
 
 def main(argv=None):

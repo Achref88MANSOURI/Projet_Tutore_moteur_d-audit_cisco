@@ -1,0 +1,13 @@
+{
+  "AAA-01": [{
+    "framework": "CIS Cisco IOS XE Benchmark",
+    "platform": "Cisco IOS XE 17.x",
+    "version": "2.1.0",
+    "control_id": "1.1.1",
+    "relationship": "direct",
+    "source": "cisco-ios-security-auditor-main/cisco-ios-security-auditor-main/mappings/cis_ios_xe_benchmark.json, checks.AAA-01",
+    "provenance": "Local mapping inspected; tools/generate_mappings.py lines 422-433 states search-result snippets were used. No full benchmark supplied.",
+    "verification_status": "upstream_claim_only",
+    "limitation": "Local provenance verified only. Normative wording and equivalence not independently verified. Applicable benchmark platform/version must be confirmed by the reviewer; not certified compliance."
+  }]
+}

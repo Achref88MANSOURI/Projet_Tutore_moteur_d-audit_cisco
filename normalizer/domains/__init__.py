@@ -22,19 +22,25 @@ FAMILIES = {'interfaces': interfaces, 'bgp': bgp, 'ospf': ospf, 'eigrp': eigrp, 
     'policies': policies, 'services': services, 'advanced': cisco_features}
 DECLARATIONS = {'if_header', 'bgp_header', 'ospf_header', 'ospf_header_vrf',
     'vrf_header', 'vrf_legacy_header', 'policy_header', 'services_line', 'eigrp_header', 'eigrp_header6',
-    'services_tacacs', 'services_radius', 'admin_aaa_group',
-    'services_snmp_enable_traps', 'services_snmp_enable_traps_remove'}
+    }
 
 
 def handler_for(record):
     rule = record['rule']
+    if rule == 'if_header':
+        return interfaces
+    if rule.startswith('lifecycle_'):
+        from normalizer import lifecycle
+        return lifecycle
+    if rule.startswith('services_acl_'):
+        return acl
     if rule.startswith('eigrp_'):
         return eigrp
     if rule.startswith('auth_key_'):
         return key_chains
     if rule.startswith('catalogue_rip'):
         return rip
-    if rule.startswith('auth_if_rip_'):
+    if rule.startswith(('auth_if_rip_', 'rip_if_')):
         return rip
     if rule in ('if_tunnel_source', 'if_tunnel_destination'):
         return vpn

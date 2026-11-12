@@ -7,7 +7,7 @@ from schemas import router_contract_v1 as s
 from normalizer.common.addresses import asn
 
 
-def _rip_interface_target(state, record):
+def _rip_interface_target(state, record, *, version=False):
     """Find or create RIP interface settings for the given interface."""
     interface, _ = state.entity(record['source_line'])
     if not isinstance(interface, s.Interface):
@@ -15,7 +15,9 @@ def _rip_interface_target(state, record):
     
     # Check if there's an explicitly declared RIP process
     rip_procs = state.c.routing.rip or []
-    declared_proc = next((p for p in rip_procs if p.declared), None)
+    declared_proc = next((p for p in rip_procs if p.declared and
+        (p.network_instance is None if interface.vrf is None else
+         any(f.network_instance==interface.vrf for f in p.address_families or []))), None)
     
     if declared_proc:
         # Use protocol-specific interface settings on the declared process
@@ -28,9 +30,9 @@ def _rip_interface_target(state, record):
             # VRF-specific: find or create address family
             families = proc.address_families or []
             family = next((f for f in families if f.network_instance == vrf), None)
-            if family is None:
-                family = s.RIPFamily(afi='ipv4', network_instance=vrf)
-                collection(proc, 'address_families').append(family)
+            # Only an explicitly declared family authorizes this association.
+            # Otherwise the existing generic interface-authentication container
+            # below preserves the local fact without inventing a RIP AF.
             family_idx = (proc.address_families or []).index(family)
             
             # Interface settings on the address family
@@ -51,6 +53,13 @@ def _rip_interface_target(state, record):
         
         return obj, path
     else:
+        if version:
+            items = collection(state.c.routing, 'rip_interfaces')
+            obj = next((i for i in items if i.interface == interface.name and i.network_instance == interface.vrf), None)
+            if obj is None:
+                obj = s.RIPInterfaceSettings(interface=interface.name, network_instance=interface.vrf)
+                items.append(obj)
+            return obj, f'routing/rip_interfaces/{items.index(obj)}'
         # No declared RIP process: use generic interface_authentication
         auth_items = collection(state.c.routing, 'interface_authentication')
         obj = next((i for i in auth_items if i.interface == interface.name and i.protocol == 'rip' and i.network_instance == interface.vrf), None)
@@ -137,9 +146,31 @@ def handle(state, r):
             put(proc, 'declared', v['declared'], 'routing/rip/0')
         elif rule == 'catalogue_rip_family':
             bind(path)
-        elif rule == 'catalogue_rip_network':
-            collection(obj, 'network_statements').append(IPv4Address(v['network']))
-            bind(path + '/network_statements')
+        elif rule in ('catalogue_rip_network', 'catalogue_rip_network_remove'):
+            from normalizer.common.collections import owned_entries, publish_entries
+            target = IPv4Address(v['network'])
+            entries = owned_entries(state, obj, 'network_statements', path + '/network_statements')
+            entries = [(item, owners) for item, owners in entries if item != target]
+            if not v.get('removed'):
+                entries.append((target, {'': line}))
+            publish_entries(state, obj, 'network_statements', path + '/network_statements', entries)
+            state.consumed[line].update(v)
+        elif rule in ('catalogue_rip_passive', 'catalogue_rip_active'):
+            if v['interface'] == 'default':
+                put(obj, 'passive_default', v['passive'], path)
+            else:
+                from normalizer.common.collections import owned_entries, publish_entries
+                target = path + '/passive_interfaces'
+                entries = [(item, owners) for item, owners in owned_entries(state, obj, 'passive_interfaces', target) if item.interface != v['interface']]
+                entries.append((s.RIPInterfaceSettings(interface=v['interface'], passive=v['passive']), {'interface': line, 'passive': line}))
+                publish_entries(state, obj, 'passive_interfaces', target, entries)
+        elif rule in ('catalogue_rip_version', 'catalogue_rip_version_remove'):
+            if v.get('removed'):
+                obj.version = None
+                state.unbind(path + '/version')
+            else:
+                put(obj, 'version', v['version'], path)
+            put(obj, 'version_setting', 'reset' if v.get('removed') else 'configured', path)
         elif rule == 'catalogue_rip_no_summary':
             put(obj, 'auto_summary', v['enabled'], path)
         elif rule == 'catalogue_rip_redistribute':
@@ -150,6 +181,22 @@ def handle(state, r):
         obj, path = _rip_interface_target(state, r)
         if obj:
             local_interface(state, r, obj, path)
+        return True
+    if rule.startswith('rip_if_'):
+        obj, path = _rip_interface_target(state, r, version=True)
+        if obj:
+            direction = 'send' if rule.startswith('rip_if_send_') else 'receive'
+            field = direction + '_versions'
+            setting = direction + '_version_setting'
+            if v.get('removed'):
+                setattr(obj, field, None)
+                state.unbind(path + '/' + field)
+                put(obj, setting, 'reset', path)
+            else:
+                versions = sorted({int(value) for value in str(v['versions']).split()})
+                put(obj, field, versions, path)
+                put(obj, setting, 'configured', path)
+            publish(state, path, r)
         return True
     return False
 

@@ -67,10 +67,15 @@ def handle(state, r):
         state.validation[line]['fields']['options'] = 'validated'
         state.bind(path + '/default_origination', line, list(v))
     if rule == 'ospf_network':
+        from normalizer.common.collections import owned_entries, publish_entries
         wildcard = IPv4Address(v['wildcard'])
         mask = int(wildcard) ^ 0xffffffff
         bits = f'{mask:032b}'
         prefix = None if '01' in bits else IPv4Network(f"{v['address']}/{bits.count('1')}", strict=False)
+        target = path + '/network_statements'
+        entries = owned_entries(state, proc, 'network_statements', target)
+        publish_entries(state, proc, 'network_statements', target,
+                        [(item, owners) for item, owners in entries if not (str(item.address) == v['address'] and str(item.wildcard_mask) == v['wildcard'])])
         collection(proc, 'network_statements').append(s.OSPFNetworkStatement(
             prefix=prefix, area=area_id(v['area']), address=v['address'], wildcard_mask=wildcard))
         state.bind(path + f'/network_statements/{len((proc.network_statements or [])) - 1}', line)

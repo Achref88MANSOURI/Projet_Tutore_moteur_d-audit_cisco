@@ -1,0 +1,31 @@
+<group name="bgp_session_template*" method="table">
+{{ source_line | DIGIT | to_int }} template peer-session {{ name }}
+</group>
+
+<group name="bgp_session_password*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} password __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="bgp_session_password_format*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} password {{ credential_format }} __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="bgp_session_password_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no password
+</group>
+
+<group name="bgp_session_parent*" method="table">
+{{ source_line | DIGIT | to_int }} inherit peer-session {{ name }}
+</group>
+
+<group name="bgp_session_neighbor*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ peer }} inherit peer-session {{ name }}
+</group>
+
+<group name="bgp_session_neighbor_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no neighbor {{ peer }} inherit peer-session {{ name }}
+</group>
+
+<group name="bgp_session_exit*" method="table" functions="set(True, structural)">
+{{ source_line | DIGIT | to_int }} exit-peer-session
+</group>

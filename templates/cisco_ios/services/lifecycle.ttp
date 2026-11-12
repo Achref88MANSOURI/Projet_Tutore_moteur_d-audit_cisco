@@ -1,0 +1,47 @@
+<group name="lifecycle_eigrp*" method="table">
+{{ source_line | DIGIT | to_int }} no router eigrp {{ identifier }}
+</group>
+
+<group name="lifecycle_eigrp6*" method="table">
+{{ source_line | DIGIT | to_int }} no ipv6 router eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="lifecycle_ospf*" method="table">
+{{ source_line | DIGIT | to_int }} no router ospf {{ process }}
+</group>
+
+<group name="lifecycle_ospf_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} no router ospf {{ process }} vrf {{ vrf }}
+</group>
+
+<group name="lifecycle_ospf6*" method="table">
+{{ source_line | DIGIT | to_int }} no ipv6 router ospf {{ process }}
+</group>
+
+<group name="lifecycle_bgp*" method="table">
+{{ source_line | DIGIT | to_int }} no router bgp {{ local_as }}
+</group>
+
+<group name="lifecycle_rip*" method="table">
+{{ source_line | DIGIT | to_int }} no router rip {{ removed | set(True) }}
+</group>
+
+<group name="lifecycle_interface*" method="table">
+{{ source_line | DIGIT | to_int }} no interface {{ name }}
+</group>
+
+<group name="lifecycle_interface_default*" method="table">
+{{ source_line | DIGIT | to_int }} default interface {{ name }}
+</group>
+
+<group name="lifecycle_key_chain*" method="table">
+{{ source_line | DIGIT | to_int }} no key chain {{ name }}
+</group>
+
+<group name="lifecycle_key*" method="table">
+{{ source_line | DIGIT | to_int }} no key {{ key_id | DIGIT | to_int }}
+</group>
+
+<group name="lifecycle_rip_af*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} vrf {{ vrf }}
+</group>

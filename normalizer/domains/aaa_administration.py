@@ -5,11 +5,12 @@ from schemas import router_contract_v1 as s
 
 PROTOCOL = {'radius': 'radius', 'tacacs+': 'tacacs'}
 SIMPLE = {
-    ('authentication','login'): {'local','local-case','enable','line','none','krb5','krb5-telnet','passwd-expiry'},
+    ('authentication','login'): {'local','local-case','enable','line','none','krb5','krb5-telnet'},
     ('authentication','enable'): {'enable','line','none'},
     ('authorization','exec'): {'local','none','if-authenticated'},
     ('authorization','commands'): {'local','none','if-authenticated'},
     ('accounting','exec'): set(), ('accounting','commands'): set(), ('accounting','system'): set(),
+    ('accounting','connection'): set(), ('accounting','network'): set(),
 }
 
 
@@ -55,21 +56,29 @@ def invalidate_method_list(state, path, record, item):
     item.methods = None
     item.accounting_mode = None
     item.local_setting = None
+    item.password_expiry = None
+    state.uncertain.add(record['source_line'])
     _publish(state, path, record)
 
 
 def method_list(state, record):
-    _, category, service, *_ = record['rule'].split('_')
+    if record['rule']=='services_aaa_authentication_enable_remove':category,service='authentication','enable'
+    else:_, category, service, *_ = record['rule'].split('_')
     values = record['values']
     mode = values.get('accounting_mode', 'none' if record['rule'].endswith('_none') else None)
     field = category + '_method_lists'
-    key = values['name'], service, values.get('level')
+    key = values.get('name','default'), service, values.get('level')
     items = collection(state.c.system.aaa, field)
     index = next((n for n, item in enumerate(items) if (item.name,item.service,item.privilege_level) == key), len(items))
     removed = values.get('removed', False)
+    method_text = values.get('methods', '')
+    expiry = None
+    if category == 'authentication' and service == 'login' and method_text.split()[:1] == ['passwd-expiry']:
+        expiry = True
+        method_text = method_text.partition(' ')[2]
     try:
-        parsed = methods(values.get('methods', ''), category, service)
-        if not parsed and not (category == 'accounting' and mode == 'none'):
+        parsed = [] if removed else methods(method_text, category, service)
+        if not removed and not parsed and not (category == 'accounting' and mode == 'none'):
             raise ValueError('An AAA method list must not be silently empty')
     except ValueError:
         # Nothing was interpreted: a removal keeps its documented effect, but a
@@ -80,6 +89,7 @@ def method_list(state, record):
     item = s.AAAMethodList(name=key[0], service=service, privilege_level=key[2],
                           accounting_mode=None if removed else mode,
                           methods=None if removed else parsed,
+                          password_expiry=None if removed else expiry,
                           local_setting='removed' if removed else 'configured')
     if index == len(items):items.append(item)
     else:items[index] = item
@@ -92,11 +102,22 @@ def method_list(state, record):
 def server_declare(state, record):
     values = record['values']
     protocol = 'radius' if record['rule'] == 'services_radius' else 'tacacs'
+    legacy = record['rule'].startswith('services_tacacs_legacy_host')
+    name = None if legacy else values['name']
+    address = values.get('address') if legacy else None
     items = collection(state.c.system.aaa, 'servers')
-    item = next((server for server in items if server.protocol == protocol and server.name == values['name']), None)
+    item = next((server for server in items
+                 if server.protocol == protocol and server.name == name
+                 and (not legacy or server.address == address)), None)
     if item is None:
-        item = s.AuthServer(protocol=protocol, name=values['name'])
+        item = s.AuthServer(protocol=protocol, name=name, address=address)
         items.append(item)
+    if legacy:
+        item.address = address
+        if values.get('key_configured') is True:
+            item.key_configured = True
+            item.key_setting = 'configured'
+            item.key_format = values.get('credential_format')
     path = f'system/aaa/servers/{items.index(item)}'
     state.entities[record['source_line']] = path
     _publish(state, path, record)
@@ -134,6 +155,45 @@ def server_update(state, record):
     _publish(state, path, record)
 
 
+def source_interface(state, record):
+    """Project global and server-group AAA source-interface settings.
+
+    Group-local settings remain on their declared group and therefore do not
+    overwrite the global fallback.  A negation removes only the setting in its
+    own scope.
+    """
+    rule = record['rule']
+    values = record['values']
+    removed = values.get('removed', False)
+    local = rule.startswith('admin_aaa_group_')
+    protocol = 'radius' if 'radius' in rule else 'tacacs'
+    if local:
+        entry = state.entity(record['source_line'])
+        if entry is None or not isinstance(entry[0], s.AAAServerGroup):
+            return
+        owner, path = entry
+        if owner.protocol != protocol:
+            return
+        if removed:
+            owner.source_interface = None
+            state.unbind(path + '/source_interface')
+            state.consumed[record['source_line']].update(values)
+        else:
+            state.assign(owner, 'source_interface', values['interface'], path,
+                         record['source_line'], ['interface'])
+        return
+    aaa = state.c.system.aaa
+    field = protocol + '_source_interface'
+    path = 'system/aaa'
+    if removed:
+        setattr(aaa, field, None)
+        state.unbind(path + '/' + field)
+        state.consumed[record['source_line']].update(values)
+    else:
+        state.assign(aaa, field, values['interface'], path,
+                     record['source_line'], ['interface'])
+
+
 def ssh(state, record):
     item = state.c.system.management.ssh
     values = record['values']
@@ -148,11 +208,17 @@ def ssh(state, record):
     elif rule == 'services_ssh_version_remove':
         item.version = None
         item.version_setting = 'removed'
+    elif rule == 'services_ssh_version_default':
+        item.version = None
+        item.version_setting = None
+        state.unbind(path + '/version')
+        state.unbind(path + '/version_setting')
+        return
     elif rule == 'admin_ssh_timeout':
         item.timeout_seconds = values['seconds']
     elif rule == 'services_ssh_timeout':
         item.timeout_seconds = values['seconds']
-    elif rule == 'services_ssh_timeout_remove':
+    elif rule in ('services_ssh_timeout_remove', 'admin_ssh_timeout_remove'):
         item.timeout_seconds = None
     elif rule == 'admin_ssh_retries':
         item.authentication_retries = values['retries']
@@ -170,21 +236,95 @@ def ssh(state, record):
         item.pubkey_chain_enabled = True
     elif rule == 'services_ssh_pubkey_chain_remove':
         item.pubkey_chain_enabled = False
+    if rule in ('admin_ssh_timeout','services_ssh_timeout','services_ssh_timeout_remove','admin_ssh_timeout_remove'):
+        item.timeout_setting = 'removed' if rule.endswith('_remove') else 'configured'
+    _publish(state, path, record)
+
+
+def enable_secret(state, record):
+    """Publish presence/format only; plaintext never enters the contract."""
+    if record['context_lines']:
+        return
+    values = record['values']
+    level = values.get('level', 15)  # IOS enable-secret command's explicit syntax default.
+    items = collection(state.c.system.aaa, 'enable_secrets')
+    index = next((i for i, item in enumerate(items) if item.level == level), len(items))
+    removed = values.get('removed') is True
+    item = s.EnableSecret(level=level, secret_configured=not removed, removed=removed,
+                          secret_type=values.get('secret_type'), algorithm_type=values.get('algorithm_type'))
+    if index == len(items): items.append(item)
+    else: items[index] = item
+    path = f'system/aaa/enable_secrets/{index}'
+    state.unbind(path)
+    _publish(state, path, record)
+
+
+def enable_password(state, record):
+    """Publish only presence, level and format for the weaker IOS password."""
+    if record['context_lines']:
+        return
+    values = record['values']
+    level = values.get('level', 15)
+    items = collection(state.c.system.aaa, 'enable_passwords')
+    index = next((i for i, item in enumerate(items) if item.level == level), len(items))
+    removed = values.get('removed') is True
+    item = s.EnablePassword(
+        level=level,
+        credential_format=None if removed else values.get('credential_format'),
+        secret_configured=not removed,
+        removed=removed,
+    )
+    if index == len(items):
+        items.append(item)
+    else:
+        items[index] = item
+    path = f'system/aaa/enable_passwords/{index}'
+    state.unbind(path)
     _publish(state, path, record)
 
 
 def handle(state, record):
     rule = record['rule']
+    if rule in ('services_radius','services_tacacs') or rule.startswith('services_tacacs_legacy_host'):
+        if rule == 'services_tacacs_legacy_host_remove':
+            from normalizer.common.collections import owned_entries, publish_entries
+            address = record['values']['address']
+            aaa = state.c.system.aaa
+            publish_entries(state, aaa, 'servers', 'system/aaa/servers', [
+                (item, owners) for item, owners in owned_entries(state, aaa, 'servers', 'system/aaa/servers')
+                if not (item.protocol == 'tacacs' and item.name is None and item.address == address)
+            ])
+            return
+        return server_declare(state,record)
+    if rule=='admin_aaa_group':return group_declare(state,record)
+    if rule in (
+            'services_radius_source', 'services_radius_source_remove',
+            'services_tacacs_source', 'services_tacacs_source_remove',
+            'admin_aaa_group_radius_source', 'admin_aaa_group_radius_source_remove',
+            'admin_aaa_group_tacacs_source', 'admin_aaa_group_tacacs_source_remove'):
+        return source_interface(state, record)
+    if rule in ('admin_radius_remove','admin_tacacs_remove','admin_aaa_group_remove'):
+        from normalizer.common.collections import owned_entries,publish_entries
+        v=record['values'];aaa=state.c.system.aaa
+        field='server_groups' if rule=='admin_aaa_group_remove' else 'servers'
+        protocol=PROTOCOL[v['protocol']] if field=='server_groups' else 'radius' if rule=='admin_radius_remove' else 'tacacs'
+        path='system/aaa/'+field
+        publish_entries(state,aaa,field,path,[(item,owners) for item,owners in owned_entries(state,aaa,field,path) if not (item.name==v['name'] and item.protocol==protocol)])
+        return
     if rule.startswith(('admin_authentication_','admin_authorization_','admin_accounting_')):
         return method_list(state, record)
     if rule.startswith('admin_ssh_') or rule == 'services_ssh_version' or rule.startswith('services_ssh_'):
         return ssh(state, record)
     if rule in ('services_accounting_commands', 'services_accounting_connection', 'services_accounting_exec', 'services_accounting_network', 'services_accounting_system'):
         return method_list(state, record)
-    if rule in ('admin_aaa_group_member', 'services_aaa_group_member'):
+    if rule in ('admin_aaa_group_member', 'services_aaa_group_member','admin_aaa_group_member_remove'):
         entry = state.entity(record['source_line'])
         if entry is None or not isinstance(entry[0], s.AAAServerGroup):return
         group, path = entry
+        if record['values'].get('removed'):
+            from normalizer.common.collections import owned_entries,publish_entries
+            publish_entries(state,group,'servers',path+'/servers',[(item,owners) for item,owners in owned_entries(state,group,'servers',path+'/servers') if item.name!=record['values']['name']])
+            return
         refs = collection(group, 'servers')
         if not any(ref.name == record['values']['name'] for ref in refs):
             refs.append(s.AAAServerReference(name=record['values']['name']))
@@ -203,24 +343,43 @@ def handle(state, record):
     if rule in ('services_aaa_authentication_enable_remove',):
         state.c.system.aaa.authentication_enable = None
         state.unbind('system/aaa/authentication_enable')
+        return method_list(state,record)
     if rule in ('services_auth_address', 'services_auth_ports'):
         return server_update(state, record)
     if rule in ('admin_server_key_format', 'admin_server_key', 'admin_server_key_remove', 'admin_server_key_remove_format'):
         return server_update(state, record)
-    if rule in ('services_user', 'services_user_simple', 'services_user_no_format'):
-        v = record['values']
-        users = collection(state.c.system.aaa, 'local_users')
-        cred_configured = True
-        cred_type = v.get('credential_type')
-        cred_format = v.get('credential_format')
-        if rule == 'services_user_no_format':
-            cred_configured = True
-            cred_type = v.get('credential_type', 'secret')
-            cred_format = 'not_specified'
-        users.append(s.UserAccount(
-            username=v['username'],
-            privilege_level=v.get('privilege'),
-            credential_configured=cred_configured,
-            credential_type=f'{cred_type}:{cred_format}' if cred_type and cred_format else None
-        ))
-        _publish(state, f'system/aaa/local_users/{len(users) - 1}', record)
+    if rule.startswith('services_enable_password'):
+        return enable_password(state, record)
+    if rule in ('services_user', 'services_user_simple', 'services_user_no_format', 'services_user_privilege_no_format',
+                'services_user_privilege', 'services_user_remove', 'services_user_algorithm', 'services_user_nopassword'):
+        return user(state,record)
+
+
+def user(state,record):
+    """Update one public username identity; credentials never enter V1."""
+    from normalizer.common.collections import owned_entries,publish_entries
+    if record['context_lines']:return
+    rule=record['rule'];v=record['values'];line=record['source_line']
+    aaa=state.c.system.aaa
+    if rule=='services_user_remove':
+        entries=owned_entries(state,aaa,'local_users','system/aaa/local_users')
+        publish_entries(state,aaa,'local_users','system/aaa/local_users',[(u,o) for u,o in entries if u.username!=v['username']])
+        return
+    users=collection(aaa,'local_users');item=next((u for u in users if u.username==v['username']),None)
+    if item is None:item=s.UserAccount(username=v['username']);users.append(item)
+    path=f'system/aaa/local_users/{users.index(item)}'
+    def assign(field,value):
+        if value is None:
+            setattr(item,field,None);state.unbind(path+'/'+field)
+        else:state.assign(item,field,value,path,line)
+    assign('username',v['username'])
+    if 'privilege' in v:assign('privilege_level',v['privilege'])
+    if rule=='services_user_privilege':return
+    if rule=='services_user_nopassword':
+        assign('credential_configured',False);assign('nopassword',True)
+        assign('credential_type',None);assign('algorithm_type',None)
+        return
+    kind=v.get('credential_type','secret');fmt=v.get('credential_format','not_specified')
+    assign('credential_configured',True);assign('credential_type',kind+':'+str(fmt))
+    assign('algorithm_type',v.get('algorithm_type'))
+    if item.nopassword is True:assign('nopassword',False)

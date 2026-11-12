@@ -1,0 +1,13 @@
+* text=auto
+*.py text eol=lf
+*.ttp text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.csv text eol=lf
+*.html text eol=lf
+*.js text eol=lf
+*.cjs text eol=lf
+*.ps1 text eol=crlf
+*.whl binary
+*.png binary
+*.pdf binary

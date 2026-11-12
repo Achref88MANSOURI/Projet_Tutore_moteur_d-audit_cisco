@@ -17,6 +17,43 @@ def validate_record(record):
     for key,value in v.items():
         state='validated'
         try:
+            if rule == 'lifecycle_eigrp' and key == 'identifier':
+                from .eigrp_context import header
+                if header('router eigrp ' + value) is None or value.isdigit() and not 1 <= int(value) <= 65535:
+                    raise ValueError('Invalid removed EIGRP identity')
+            if rule.startswith('lifecycle_eigrp') and key == 'autonomous_system' and not 1 <= value <= 65535:
+                raise ValueError('EIGRP autonomous-system range')
+            if key == 'key_id' and rule in ('auth_key_id', 'lifecycle_key') and not 0 <= value <= 2147483647:
+                raise ValueError('IOS key-chain key ID range')
+            if key == 'process' and rule in ('ospf_header', 'ospf_header_vrf', 'ospf3_header', 'lifecycle_ospf', 'lifecycle_ospf_vrf', 'lifecycle_ospf6'):
+                if not str(value).isdigit() or not 1 <= int(value) <= 65535:
+                    raise ValueError('OSPF process identifier')
+            if key == 'credential_format' and rule == 'bgp_session_password_format' and value not in ('0', '7'):
+                raise ValueError('Unsupported peer-session credential format')
+            if rule == 'catalogue_rip_version' and key == 'version' and value not in (1, 2):
+                raise ValueError('RIP version')
+            if rule in ('rip_if_send_version', 'rip_if_receive_version') and key == 'versions':
+                versions = str(value).split()
+                if not versions or len(versions) > 2 or len(set(versions)) != len(versions) or any(v not in ('1', '2') for v in versions):
+                    raise ValueError('RIP interface versions')
+                state = 'validated'
+            if key == 'specification' and rule.startswith('auth_key_'):
+                from .key_lifetimes import validate as validate_lifetime
+                validate_lifetime(value)
+            if rule == 'services_hostname' and key == 'hostname' and len(value) > 63:raise ValueError('Hostname length domain')
+            if rule == 'services_logging_buffered':
+                if key == 'size' and not 4096 <= value <= 2147483647:raise ValueError('Buffer size domain')
+                if key == 'severity' and value not in ('emergencies','alerts','critical','errors','warnings','notifications','informational','debugging','0','1','2','3','4','5','6','7'):raise ValueError('Buffer severity domain')
+            if rule == 'catalogue_synwait' and key == 'seconds' and not 5 <= value <= 300:raise ValueError('SYN wait range')
+            if rule == 'catalogue_pim_bsr' and key == 'hash_mask' and not 0 <= value <= 32:raise ValueError('BSR mask range')
+            if rule == 'catalogue_pim_ssm' and key == 'range' and value != 'default':raise ValueError('Unsupported SSM selector')
+            if rule == 'catalogue_cache_export' and key == 'port' and not 1 <= value <= 65535:raise ValueError('Collector port range')
+            limits = {'services_line_privilege': ('level', 0, 15), 'services_line_stopbits': ('bits', 1, 2),
+                      'services_line_length': ('length', 0, 512), 'services_flow_version': ('version', 1, 10)}
+            if rule in limits:
+                operand, low, high = limits[rule]
+                if key == operand and not low <= value <= high:raise ValueError('Contract operand range')
+            if rule == 'services_flow_version' and key == 'as_mode' and value not in ('origin-as', 'peer-as'):raise ValueError('Unsupported AS mode')
             if isinstance(value,str) and (not value or '\n' in value or '\r' in value):raise ValueError('Empty or multiline scalar')
             if key in ('local_as','remote_as'):asn(value)
             if key in ('address','inside','outside','router_id') and rule not in ('advanced_l2_rid',):
@@ -51,6 +88,7 @@ def validate_record(record):
             if key=='peer' and ':' in str(value):ip_address(value)
             if key=='key_id' and rule.startswith('auth_if_ospf_md5') and not 1 <= value <= 255:raise ValueError('OSPF key ID range')
             if key in OPAQUE_FIELDS:state='unvalidated'
+            if key == 'versions' and rule in ('rip_if_send_version', 'rip_if_receive_version'):state='validated'
             if key=='value' and (not isinstance(value,str) or rule=='if_description' or rule in ('services_snmp_location','services_snmp_contact')):state='validated'
             if key=='options' and rule.startswith('acl_') and value=='log':state='validated'
             if key=='method' and rule=='services_login' and (value in ('local','authentication default') or value.startswith('authentication ')):state='validated'

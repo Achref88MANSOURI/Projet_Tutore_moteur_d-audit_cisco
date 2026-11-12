@@ -6,6 +6,22 @@
 {{ source_line | DIGIT | to_int }} ntp server {{ address }}
 </group>
 
+<group name="services_ntp_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp server {{ address }}
+</group>
+
+<group name="services_ntp_vrf_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp server vrf {{ vrf }} {{ address }}
+</group>
+
+<group name="services_ntp_peer_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp peer {{ address }}
+</group>
+
+<group name="services_ntp_peer_vrf_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp peer vrf {{ vrf }} {{ address }}
+</group>
+
 <group name="services_ntp_source*" method="table">
 {{ source_line | DIGIT | to_int }} ntp server {{ address }} source {{ source }}
 </group>
@@ -112,6 +128,14 @@
 
 <group name="services_ntp_master*" method="table" functions="set(True, enabled)">
 {{ source_line | DIGIT | to_int }} ntp master {{ stratum | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_trusted_key_remove_range*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp trusted-key {{ start | DIGIT | to_int }} - {{ end | DIGIT | to_int }}
+</group>
+
+<group name="services_ntp_trusted_key_remove_all*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ntp trusted-key
 </group>
 
 <group name="services_ntp_master_no_stratum*" method="table" functions="set(True, enabled)">

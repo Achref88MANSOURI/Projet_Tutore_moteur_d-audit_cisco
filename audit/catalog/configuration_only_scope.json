@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "scope_id": "CIS_IOS15_V4_1_1_RUNNING_CONFIG",
+  "source": "running-config only; no operational outputs or device access",
+  "excluded_controls": [
+    {
+      "control_id": "1.5.1",
+      "status": "NOT_AUDITABLE_FROM_RUNNING_CONFIG",
+      "reason": "The entire recommendation depends on whether SNMP is unused and on the agent state. Neither business usage nor current operational state is established by a supplied running-config.",
+      "reference_pages": "70-71"
+    },
+    {
+      "control_id": "2.1.1.1.3",
+      "status": "NOT_AUDITABLE_FROM_RUNNING_CONFIG",
+      "reason": "A configured key name or historical generation command cannot demonstrate the effective size of a present RSA key selected for SSH.",
+      "reference_pages": "95-96"
+    }
+  ]
+}

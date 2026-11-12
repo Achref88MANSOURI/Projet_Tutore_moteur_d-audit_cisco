@@ -1,0 +1,167 @@
+<group name="eigrp_if_hello_interval4*" method="table">
+{{ source_line | DIGIT | to_int }} ip hello-interval eigrp {{ autonomous_system | DIGIT | to_int }} {{ hello_interval_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_hello_interval4_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip hello-interval eigrp {{ autonomous_system | DIGIT | to_int }} {{ hello_interval_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_hold_time4*" method="table">
+{{ source_line | DIGIT | to_int }} ip hold-time eigrp {{ autonomous_system | DIGIT | to_int }} {{ hold_time_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_hold_time4_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip hold-time eigrp {{ autonomous_system | DIGIT | to_int }} {{ hold_time_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_bandwidth_percent4*" method="table">
+{{ source_line | DIGIT | to_int }} ip bandwidth-percent eigrp {{ autonomous_system | DIGIT | to_int }} {{ bandwidth_percent | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_bandwidth_percent4_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip bandwidth-percent eigrp {{ autonomous_system | DIGIT | to_int }} {{ bandwidth_percent | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_split_horizon4*" method="table" functions="set(True, split_horizon)">
+{{ source_line | DIGIT | to_int }} ip split-horizon eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_split_horizon4_off*" method="table" functions="set(False, split_horizon)">
+{{ source_line | DIGIT | to_int }} no ip split-horizon eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_next_hop_self4*" method="table" functions="set(True, next_hop_self)">
+{{ source_line | DIGIT | to_int }} ip next-hop-self eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_next_hop_self4_off*" method="table" functions="set(False, next_hop_self)">
+{{ source_line | DIGIT | to_int }} no ip next-hop-self eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_authentication_md54*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip authentication mode eigrp {{ autonomous_system | DIGIT | to_int }} md5
+</group>
+
+<group name="eigrp_if_authentication_key_chain4*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip authentication key-chain eigrp {{ autonomous_system | DIGIT | to_int }} {{ key_chain }}
+</group>
+
+<group name="eigrp_if_summary4*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip summary-address eigrp {{ autonomous_system | DIGIT | to_int }} {{ address }} {{ mask }}
+</group>
+
+<group name="eigrp_if_summary4_options*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ip summary-address eigrp {{ autonomous_system | DIGIT | to_int }} {{ address }} {{ mask }} {{ options | ORPHRASE }}
+</group>
+
+<group name="eigrp_if_authentication_md54_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip authentication mode eigrp {{ autonomous_system | DIGIT | to_int }} md5
+</group>
+
+<group name="eigrp_if_authentication_key_chain4_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip authentication key-chain eigrp {{ autonomous_system | DIGIT | to_int }} {{ key_chain }}
+</group>
+
+<group name="eigrp_if_summary4_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip summary-address eigrp {{ autonomous_system | DIGIT | to_int }} {{ address }} {{ mask }}
+</group>
+
+<group name="eigrp_if_summary4_options_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip summary-address eigrp {{ autonomous_system | DIGIT | to_int }} {{ address }} {{ mask }} {{ options | ORPHRASE }}
+</group>
+
+<group name="eigrp_if_enable6*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} ipv6 eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_enable6_off*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} no ipv6 eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_hello_interval6*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 hello-interval eigrp {{ autonomous_system | DIGIT | to_int }} {{ hello_interval_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_hello_interval6_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ipv6 hello-interval eigrp {{ autonomous_system | DIGIT | to_int }} {{ hello_interval_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_hold_time6*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 hold-time eigrp {{ autonomous_system | DIGIT | to_int }} {{ hold_time_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_hold_time6_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ipv6 hold-time eigrp {{ autonomous_system | DIGIT | to_int }} {{ hold_time_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_bandwidth_percent6*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 bandwidth-percent eigrp {{ autonomous_system | DIGIT | to_int }} {{ bandwidth_percent | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_bandwidth_percent6_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ipv6 bandwidth-percent eigrp {{ autonomous_system | DIGIT | to_int }} {{ bandwidth_percent | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_split_horizon6*" method="table" functions="set(True, split_horizon)">
+{{ source_line | DIGIT | to_int }} ipv6 split-horizon eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_split_horizon6_off*" method="table" functions="set(False, split_horizon)">
+{{ source_line | DIGIT | to_int }} no ipv6 split-horizon eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_next_hop_self6*" method="table" functions="set(True, next_hop_self)">
+{{ source_line | DIGIT | to_int }} ipv6 next-hop-self eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_next_hop_self6_off*" method="table" functions="set(False, next_hop_self)">
+{{ source_line | DIGIT | to_int }} no ipv6 next-hop-self eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_authentication_md56*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ipv6 authentication mode eigrp {{ autonomous_system | DIGIT | to_int }} md5
+</group>
+
+<group name="eigrp_if_authentication_key_chain6*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ipv6 authentication key-chain eigrp {{ autonomous_system | DIGIT | to_int }} {{ key_chain }}
+</group>
+
+<group name="eigrp_if_summary6*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ipv6 summary-address eigrp {{ autonomous_system | DIGIT | to_int }} {{ prefix }}
+</group>
+
+<group name="eigrp_if_summary6_options*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} ipv6 summary-address eigrp {{ autonomous_system | DIGIT | to_int }} {{ prefix }} {{ options | ORPHRASE }}
+</group>
+
+<group name="eigrp_if_authentication_md56_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ipv6 authentication mode eigrp {{ autonomous_system | DIGIT | to_int }} md5
+</group>
+
+<group name="eigrp_if_authentication_key_chain6_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ipv6 authentication key-chain eigrp {{ autonomous_system | DIGIT | to_int }} {{ key_chain }}
+</group>
+
+<group name="eigrp_if_summary6_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ipv6 summary-address eigrp {{ autonomous_system | DIGIT | to_int }} {{ prefix }}
+</group>
+
+<group name="eigrp_if_summary6_options_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ipv6 summary-address eigrp {{ autonomous_system | DIGIT | to_int }} {{ prefix }} {{ options | ORPHRASE }}
+</group>
+
+<group name="eigrp_if_bandwidth*" method="table">
+{{ source_line | DIGIT | to_int }} bandwidth {{ interface_bandwidth_kbps | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_bandwidth_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no bandwidth
+</group>
+
+<group name="eigrp_if_delay*" method="table">
+{{ source_line | DIGIT | to_int }} delay {{ interface_delay_tens_of_microseconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_if_delay_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no delay
+</group>

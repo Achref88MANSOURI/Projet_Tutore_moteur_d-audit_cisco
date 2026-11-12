@@ -155,3 +155,12 @@
 {{ source_line | DIGIT | to_int }} no service tcp-keepalives-out
 </group>
 
+
+<group name="services_cdp_run_default*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default cdp run
+</group>
+
+<!-- Reviewed global reset identities are restricted by rule_metadata.json. -->
+<group name="services_scalar_default*" method="table">
+{{ source_line | DIGIT | to_int }} default {{ command | ORPHRASE }}
+</group>

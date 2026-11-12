@@ -1,4 +1,175 @@
 {
+  "services_enable_password_type": {
+    "scope": "global",
+    "choices": {
+      "credential_format": [
+        "0",
+        "7"
+      ]
+    }
+  },
+  "services_enable_password_level_type": {
+    "scope": "global",
+    "choices": {
+      "credential_format": [
+        "0",
+        "7"
+      ]
+    }
+  },
+  "services_line_password_type": {
+    "scope": "root:line",
+    "choices": {
+      "credential_format": [
+        "0",
+        "7"
+      ]
+    }
+  },
+  "services_line_password": {
+    "scope": "root:line"
+  },
+  "services_line_password_remove": {
+    "scope": "root:line"
+  },
+  "services_tacacs_legacy_host_key_format": {
+    "scope": "global",
+    "choices": {
+      "credential_format": [
+        "0",
+        "6",
+        "7"
+      ]
+    }
+  },
+  "services_tacacs_legacy_host_key": {
+    "scope": "global"
+  },
+  "services_tacacs_legacy_host": {
+    "scope": "global"
+  },
+  "services_tacacs_legacy_host_remove": {
+    "scope": "global"
+  },
+  "services_enable_secret_level_type": {
+    "scope": "global",
+    "choices": {
+      "secret_type": [
+        "0",
+        "5",
+        "7",
+        "8",
+        "9"
+      ]
+    }
+  },
+  "services_user_privilege": {
+    "scope": "global"
+  },
+  "services_user_remove": {
+    "scope": "global"
+  },
+  "services_user_algorithm": {
+    "scope": "global",
+    "choices": {
+      "algorithm_type": [
+        "md5",
+        "sha256",
+        "scrypt"
+      ]
+    }
+  },
+  "services_user_nopassword": {
+    "scope": "global"
+  },
+  "services_scalar_default": {
+    "scope": "global",
+    "choices": {
+      "command": [
+        "hostname",
+        "ip domain-name",
+        "ip domain name",
+        "ip ssh time-out",
+        "ip ssh timeout",
+        "ip ssh authentication-retries",
+        "ip bootp server",
+        "ip dhcp bootp ignore",
+        "service dhcp",
+        "ip identd",
+        "service tcp-keepalives-in",
+        "service tcp-keepalives-out",
+        "service pad",
+        "logging on",
+        "logging buffered",
+        "logging console",
+        "logging trap",
+        "service timestamps",
+        "service timestamps debug",
+        "service timestamps log",
+        "banner exec",
+        "banner login",
+        "banner motd"
+      ]
+    }
+  },
+  "admin_ssh_timeout_remove": {
+    "scope": "global"
+  },
+  "services_domain_alt_remove": {
+    "scope": "global"
+  },
+  "services_logging_trap_remove": {
+    "scope": "global"
+  },
+  "services_hostname": {
+    "scope": "global"
+  },
+  "services_hostname_remove": {
+    "scope": "global"
+  },
+  "services_domain": {
+    "scope": "global"
+  },
+  "services_domain_alt": {
+    "scope": "global"
+  },
+  "services_domain_remove": {
+    "scope": "global"
+  },
+  "services_ssh_timeout": {
+    "scope": "global"
+  },
+  "services_ssh_timeout_remove": {
+    "scope": "global"
+  },
+  "services_banner": {
+    "scope": "global",
+    "choices": {
+      "type": [
+        "exec",
+        "login",
+        "motd",
+        "incoming"
+      ]
+    }
+  },
+  "services_banner_remove": {
+    "scope": "global",
+    "choices": {
+      "type": [
+        "exec",
+        "login",
+        "motd",
+        "incoming"
+      ]
+    }
+  },
+  "services_banner_incoming": {
+    "scope": "global"
+  },
+  "services_banner_incoming_remove": {
+    "scope": "global"
+  },
   "if_mop_off": {
     "choices": {
       "feature": [
@@ -294,6 +465,15 @@
   "auth_if_ospf_md5_key": {
     "scope": "root:interface"
   },
+  "auth_if_ospf_md5_key_format": {
+    "scope": "root:interface",
+    "choices": {
+      "credential_format": [
+        "0",
+        "7"
+      ]
+    }
+  },
   "auth_if_ospf_md5_remove": {
     "scope": "root:interface"
   },
@@ -467,6 +647,18 @@
   "auth_if_rip_chain_remove_name": {
     "scope": "root:interface"
   },
+  "rip_if_send_version": {
+    "scope": "root:interface"
+  },
+  "rip_if_send_version_remove": {
+    "scope": "root:interface"
+  },
+  "rip_if_receive_version": {
+    "scope": "root:interface"
+  },
+  "rip_if_receive_version_remove": {
+    "scope": "root:interface"
+  },
   "auth_key_chain": {
     "scope": "global"
   },
@@ -584,6 +776,9 @@
   },
   "admin_ssh_timeout": {
     "scope": "global"
+  },
+  "if_ppp": {
+    "scope": "root:interface"
   },
   "admin_ssh_retries": {
     "scope": "global"
@@ -873,9 +1068,6 @@
   "services_ntp_peer_vrf_source": {
     "scope": "global"
   },
-  "services_ntp_global_source": {
-    "scope": "global"
-  },
   "services_ntp_global_source_remove": {
     "scope": "global"
   },
@@ -974,5 +1166,741 @@
   },
   "services_tcp_keepalives_out_off": {
     "scope": "global"
+  },
+  "services_user_privilege_no_format": {
+    "scope": "global",
+    "choices": {
+      "credential_type": [
+        "secret",
+        "password"
+      ]
+    }
+  },
+  "services_login_authentication_default": {
+    "scope": "root:line"
+  },
+  "services_logging_buffered_size": {
+    "scope": "global"
+  },
+  "services_logging_buffered_severity": {
+    "choices": {
+      "severity": [
+        "emergencies",
+        "alerts",
+        "critical",
+        "errors",
+        "warnings",
+        "notifications",
+        "informational",
+        "debugging",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ]
+    }
+  },
+  "services_acl_resequence": {
+    "scope": "global"
+  },
+  "services_acl_no_extended": {
+    "scope": "global"
+  },
+  "services_acl_no_numbered": {
+    "scope": "global"
+  },
+  "services_ntp_prefer": {
+    "scope": "global"
+  },
+  "services_ntp": {
+    "scope": "global"
+  },
+  "services_ntp_remove": {
+    "scope": "global"
+  },
+  "services_ntp_vrf_remove": {
+    "scope": "global"
+  },
+  "services_ntp_peer_remove": {
+    "scope": "global"
+  },
+  "services_ntp_peer_vrf_remove": {
+    "scope": "global"
+  },
+  "services_ntp_key": {
+    "scope": "global"
+  },
+  "services_ntp_vrf_key": {
+    "scope": "global"
+  },
+  "services_ntp_key_remove": {
+    "scope": "global"
+  },
+  "services_ntp_vrf_prefer": {
+    "scope": "global"
+  },
+  "services_ntp_vrf": {
+    "scope": "global"
+  },
+  "services_ntp_peer_key": {
+    "scope": "global"
+  },
+  "services_ntp_peer_vrf_key": {
+    "scope": "global"
+  },
+  "services_ntp_peer_key_remove": {
+    "scope": "global"
+  },
+  "services_ntp_authenticate": {
+    "scope": "global"
+  },
+  "services_ntp_authenticate_remove": {
+    "scope": "global"
+  },
+  "services_ntp_auth_key": {
+    "scope": "global"
+  },
+  "services_ntp_auth_key_format": {
+    "scope": "global"
+  },
+  "services_ntp_auth_key_remove": {
+    "scope": "global"
+  },
+  "services_ntp_trusted_key": {
+    "scope": "global"
+  },
+  "services_ntp_trusted_key_single": {
+    "scope": "global"
+  },
+  "services_ntp_trusted_key_remove": {
+    "scope": "global"
+  },
+  "services_ntp_master": {
+    "scope": "global"
+  },
+  "services_ntp_master_no_stratum": {
+    "scope": "global"
+  },
+  "services_ntp_master_remove": {
+    "scope": "global"
+  },
+  "services_snmp_community": {
+    "scope": "global"
+  },
+  "services_snmp_community_simple": {
+    "scope": "global"
+  },
+  "services_snmp_location": {
+    "scope": "global"
+  },
+  "services_snmp_contact": {
+    "scope": "global"
+  },
+  "services_snmp_community_view": {
+    "scope": "global"
+  },
+  "services_snmp_community_view_simple": {
+    "scope": "global"
+  },
+  "services_snmp_community_acl6": {
+    "scope": "global"
+  },
+  "services_snmp_community_acl6_simple": {
+    "scope": "global"
+  },
+  "services_snmp_group_v3": {
+    "scope": "global"
+  },
+  "services_snmp_group_v3_plain": {
+    "scope": "global"
+  },
+  "services_snmp_community_remove": {
+    "scope": "global"
+  },
+  "services_snmp_group_v1_v2c": {
+    "scope": "global"
+  },
+  "services_snmp_group_remove": {
+    "scope": "global"
+  },
+  "services_snmp_user_v3": {
+    "scope": "global"
+  },
+  "services_snmp_user_v3_remote": {
+    "scope": "global"
+  },
+  "services_snmp_user_remove": {
+    "scope": "global"
+  },
+  "services_snmp_host_traps": {
+    "scope": "global"
+  },
+  "services_snmp_host_traps_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_host_traps_simple": {
+    "scope": "global"
+  },
+  "services_snmp_host_traps_v2c": {
+    "scope": "global"
+  },
+  "services_snmp_host_informs_v2c": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_v1": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_v1_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_v1_vrf_alt": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_v1_udp_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_version": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_version_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_version_vrf_alt": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_version_udp_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_traps_simple": {
+    "scope": "global"
+  },
+  "services_snmp_host_traps_implicit": {
+    "scope": "global"
+  },
+  "services_snmp_host_traps_implicit_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_traps": {
+    "scope": "global"
+  },
+  "services_snmp_host_implicit_traps_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_host_remove": {
+    "scope": "global"
+  },
+  "services_snmp_host_informs": {
+    "scope": "global"
+  },
+  "services_snmp_host_informs_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_host_informs_simple": {
+    "scope": "global"
+  },
+  "services_snmp_host_informs_implicit": {
+    "scope": "global"
+  },
+  "services_snmp_host_informs_implicit_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_host_informs_implicit_vrf_alt": {
+    "scope": "global"
+  },
+  "services_snmp_host_informs_implicit_udp_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_enable_traps": {
+    "scope": "global"
+  },
+  "services_snmp_enable_traps_remove": {
+    "scope": "global"
+  },
+  "services_snmp_enable_traps_remove_all": {
+    "scope": "global"
+  },
+  "services_snmp_engineid": {
+    "scope": "global"
+  },
+  "services_snmp_engineid_remove": {
+    "scope": "global"
+  },
+  "services_snmp_view": {
+    "scope": "global"
+  },
+  "services_snmp_view_remove": {
+    "scope": "global"
+  },
+  "services_snmp_source_interface": {
+    "scope": "global"
+  },
+  "services_snmp_source_interface_remove": {
+    "scope": "global"
+  },
+  "services_snmp_community_no_acl": {
+    "scope": "global"
+  },
+  "services_snmp_community_acl": {
+    "scope": "global"
+  },
+  "services_snmp_community_view_acl": {
+    "scope": "global"
+  },
+  "services_snmp_community_view_acl_simple": {
+    "scope": "global"
+  },
+  "services_snmp_trap_source": {
+    "scope": "global"
+  },
+  "services_snmp_trap_source_vrf": {
+    "scope": "global"
+  },
+  "services_snmp_trap_source_remove": {
+    "scope": "global"
+  },
+  "services_snmp_server_enable": {
+    "scope": "global"
+  },
+  "services_snmp_server_disable": {
+    "scope": "global"
+  },
+  "services_snmp_host_v3": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ]
+    }
+  },
+  "services_snmp_host_v3_vrf": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ]
+    }
+  },
+  "admin_authentication_login_remove_plain": {
+    "scope": "global"
+  },
+  "admin_authentication_enable_remove_plain": {
+    "scope": "global"
+  },
+  "admin_radius_remove": {
+    "scope": "global"
+  },
+  "admin_tacacs_remove": {
+    "scope": "global"
+  },
+  "admin_aaa_group_remove": {
+    "scope": "global",
+    "choices": {
+      "protocol": [
+        "radius",
+        "tacacs+"
+      ]
+    }
+  },
+  "services_snmp_user_remove_version": {
+    "scope": "global",
+    "choices": {
+      "version": [
+        "v3"
+      ]
+    }
+  },
+  "services_snmp_user_remove_remote": {
+    "scope": "global",
+    "choices": {
+      "version": [
+        "v3"
+      ]
+    }
+  },
+  "if_no_ipv4_specific": {
+    "scope": "root:interface"
+  },
+  "if_no_ipv4_secondary_specific": {
+    "scope": "root:interface"
+  },
+  "services_snmp_community_bare": {
+    "scope": "global"
+  },
+  "services_snmp_host_v3_options": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ]
+    }
+  },
+  "services_snmp_host_v3_notification": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ],
+      "notification": [
+        "traps",
+        "informs"
+      ]
+    }
+  },
+  "services_snmp_host_v3_notification_options": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ],
+      "notification": [
+        "traps",
+        "informs"
+      ]
+    }
+  },
+  "services_snmp_host_v3_vrf_options": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ]
+    }
+  },
+  "services_snmp_host_v3_vrf_notification": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ],
+      "notification": [
+        "traps",
+        "informs"
+      ]
+    }
+  },
+  "services_snmp_host_v3_vrf_notification_options": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ],
+      "notification": [
+        "traps",
+        "informs"
+      ]
+    }
+  },
+  "services_access_class_ipv6": {
+    "scope": "root:line",
+    "choices": {
+      "direction": [
+        "in",
+        "out"
+      ]
+    }
+  },
+  "services_access_class_ipv6_remove_all": {
+    "scope": "root:line"
+  },
+  "services_access_class_default": {
+    "scope": "root:line"
+  },
+  "services_access_class_ipv6_default": {
+    "scope": "root:line"
+  },
+  "services_snmp_traps_default": {
+    "scope": "global"
+  },
+  "services_snmp_traps_default_types": {
+    "scope": "global"
+  },
+  "services_snmp_user_v3_plain": {
+    "scope": "global"
+  },
+  "services_snmp_host_v3_remove": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ]
+    }
+  },
+  "services_snmp_host_v3_remove_options": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ]
+    }
+  },
+  "services_snmp_host_v3_remove_notification": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ],
+      "notification": [
+        "traps",
+        "informs"
+      ]
+    }
+  },
+  "services_snmp_host_v3_remove_notification_options": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ],
+      "notification": [
+        "traps",
+        "informs"
+      ]
+    }
+  },
+  "services_snmp_host_v3_remove_vrf": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ]
+    }
+  },
+  "services_snmp_host_v3_remove_vrf_options": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ]
+    }
+  },
+  "services_snmp_host_v3_remove_vrf_notification": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ],
+      "notification": [
+        "traps",
+        "informs"
+      ]
+    }
+  },
+  "services_snmp_host_v3_remove_vrf_notification_options": {
+    "scope": "global",
+    "choices": {
+      "sec_level": [
+        "noauth",
+        "auth",
+        "priv"
+      ],
+      "notification": [
+        "traps",
+        "informs"
+      ]
+    }
+  },
+  "services_timestamp_bare": {
+    "scope": "global"
+  },
+  "admin_accounting_connection": {
+    "scope": "global",
+    "choices": {
+      "accounting_mode": [
+        "start-stop",
+        "stop-only",
+        "none"
+      ]
+    }
+  },
+  "admin_accounting_connection_none": {
+    "scope": "global"
+  },
+  "admin_accounting_network": {
+    "scope": "global",
+    "choices": {
+      "accounting_mode": [
+        "start-stop",
+        "stop-only",
+        "none"
+      ]
+    }
+  },
+  "admin_accounting_network_none": {
+    "scope": "global"
+  },
+  "admin_accounting_commands_remove": {
+    "scope": "global"
+  },
+  "admin_accounting_exec_remove": {
+    "scope": "global"
+  },
+  "admin_accounting_connection_remove": {
+    "scope": "global"
+  },
+  "admin_accounting_network_remove": {
+    "scope": "global"
+  },
+  "admin_accounting_system_remove": {
+    "scope": "global"
+  },
+  "lifecycle_eigrp": {
+    "scope": "global"
+  },
+  "lifecycle_eigrp6": {
+    "scope": "global"
+  },
+  "lifecycle_ospf": {
+    "scope": "global"
+  },
+  "lifecycle_ospf_vrf": {
+    "scope": "global"
+  },
+  "lifecycle_ospf6": {
+    "scope": "global"
+  },
+  "lifecycle_bgp": {
+    "scope": "global"
+  },
+  "lifecycle_rip": {
+    "scope": "global"
+  },
+  "lifecycle_interface": {
+    "scope": "global"
+  },
+  "lifecycle_interface_default": {
+    "scope": "global"
+  },
+  "lifecycle_key_chain": {
+    "scope": "global"
+  },
+  "lifecycle_key": {
+    "scope": "root:key chain"
+  },
+  "lifecycle_rip_af": {
+    "scope": "root:router rip"
+  },
+  "lifecycle_eigrp_af": {
+    "scope": "root:router eigrp"
+  },
+  "lifecycle_eigrp_af_safi": {
+    "scope": "root:router eigrp"
+  },
+  "lifecycle_eigrp_af_vrf": {
+    "scope": "root:router eigrp"
+  },
+  "lifecycle_eigrp_af_safi_vrf": {
+    "scope": "root:router eigrp"
+  },
+  "lifecycle_bgp_af": {
+    "scope": "root:router bgp"
+  },
+  "lifecycle_bgp_af_safi": {
+    "scope": "root:router bgp"
+  },
+  "lifecycle_bgp_af_vrf": {
+    "scope": "root:router bgp"
+  },
+  "lifecycle_bgp_af_safi_vrf": {
+    "scope": "root:router bgp"
+  },
+  "lifecycle_bgp_neighbor": {
+    "scope": "root:router bgp"
+  },
+  "lifecycle_eigrp_af_legacy": {
+    "scope": "root:router eigrp"
+  },
+  "lifecycle_eigrp_af_legacy_safi": {
+    "scope": "root:router eigrp"
+  },
+  "lifecycle_eigrp_network": {
+    "scope": "root:router eigrp"
+  },
+  "lifecycle_eigrp_network_classful": {
+    "scope": "root:router eigrp"
+  },
+  "lifecycle_bgp_group": {
+    "scope": "root:router bgp"
+  },
+  "lifecycle_bgp_member": {
+    "scope": "root:router bgp"
+  },
+  "lifecycle_ospf_network": {
+    "scope": "root:router ospf"
+  },
+  "lifecycle_bgp_template": {
+    "scope": "root:router bgp"
+  },
+  "catalogue_rip_version": {
+    "scope": "root:router rip"
+  },
+  "catalogue_rip_version_remove": {
+    "scope": "root:router rip"
+  },
+  "catalogue_rip_passive": {
+    "scope": "root:router rip"
+  },
+  "catalogue_rip_active": {
+    "scope": "root:router rip"
+  },
+  "catalogue_rip_network_remove": {
+    "scope": "root:router rip"
+  },
+  "bgp_session_template": {
+    "scope": "root:router bgp"
+  },
+  "bgp_session_password": {
+    "scope": "root:router bgp"
+  },
+  "bgp_session_password_format": {
+    "scope": "root:router bgp"
+  },
+  "bgp_session_password_remove": {
+    "scope": "root:router bgp"
+  },
+  "bgp_session_parent": {
+    "scope": "root:router bgp"
+  },
+  "bgp_session_neighbor": {
+    "scope": "root:router bgp"
+  },
+  "bgp_session_neighbor_remove": {
+    "scope": "root:router bgp"
+  },
+  "bgp_session_exit": {
+    "scope": "root:router bgp"
   }
 }

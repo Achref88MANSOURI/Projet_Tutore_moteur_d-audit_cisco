@@ -1,6 +1,6 @@
 """Literal ACL operands, ordered entries and port constraints."""
 from ipaddress import ip_address, ip_network, IPv4Address
-from normalizer.common.collections import collection
+from normalizer.common.collections import collection, owned_entries, publish_entries
 from schemas import router_contract_v1 as s
 
 
@@ -39,6 +39,10 @@ def handle(state, r):
     if not name:
         return
     family = 'ipv6' if root and root['rule'] == 'acl_header_ipv6' else 'ipv4'
+    if r['rule'] in ('acl_no_extended','services_acl_no_extended','acl_no_numbered','services_acl_no_numbered'):
+        entries=[entry for entry in owned_entries(state,state.c.security,'acls','security/acls') if not (entry[0].name==name and entry[0].family==family)]
+        publish_entries(state,state.c.security,'acls','security/acls',entries)
+        return
     obj = next((a for a in (state.c.security.acls or []) if a.name == name and a.family == family), None)
     if obj is None:
         obj = s.ACLSet(name=name, family=family)

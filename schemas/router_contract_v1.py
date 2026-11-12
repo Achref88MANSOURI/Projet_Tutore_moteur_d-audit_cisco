@@ -122,6 +122,8 @@ class SNMPCommunity(Contract):
     access_list_v6: Name | None = None
     view: Name | None = None
     identifier_redacted: Literal[True] = True
+    acl_restriction: Literal['present', 'absent'] | None = Field(default=None, exclude_if=lambda v: v is None,
+        description='Source ACL syntax of the complete recognized declaration; None is unknown, not absence. Views are not source ACLs.')
 
 
 class SNMPGroup(Contract):
@@ -153,6 +155,8 @@ class SNMPHost(Contract):
     community_or_user: Name | None = None
     udp_port: Annotated[StrictInt, Field(ge=1, le=65535)] | None = None
     notification_types: list[Name] | None = None
+    security_level: Literal['noauth', 'auth', 'priv'] | None = Field(default=None, exclude_if=lambda v: v is None,
+        description='Explicit requested v3 destination level, independent of its group level; no implicit level inferred.')
 
 
 class SNMPView(Contract):
@@ -164,6 +168,16 @@ class SNMPView(Contract):
 class SNMPTrapConfig(Contract):
     enabled: StrictBool | None = None
     notification_types: list[Name] | None = None
+    disabled_notification_types: list[Literal['authentication','linkup','linkdown','coldstart','warmstart']] | None = Field(
+        default=None, exclude_if=lambda v: v is None,
+        description='Explicit negative generic notification facts; omission is unknown, not enabled.')
+
+    @model_validator(mode='after')
+    def coherent_notification_states(self):
+        negative = self.disabled_notification_types or []
+        if len(set(negative)) != len(negative) or set(negative) & set(self.notification_types or []):
+            raise ValueError('Conflicting SNMP notification states')
+        return self
 
 
 class OSPFArea(Contract):
@@ -357,6 +371,10 @@ class RIPRedistribution(Contract):
 
 
 class RIPScope(Contract):
+    passive_default: StrictBool | None = Field(default=None, exclude_if=lambda value: value is None)
+    passive_interfaces: list[RIPInterfaceSettings] | None = Field(default=None, exclude_if=lambda value: value is None)
+    version: Literal[1, 2] | None = Field(default=None, exclude_if=lambda value: value is None)
+    version_setting: Literal['configured', 'reset'] | None = Field(default=None, exclude_if=lambda value: value is None)
     network_statements: list[IPv4Address] | None = None
     auto_summary: StrictBool | None = None
     redistributions: list[RIPRedistribution] | None = None
@@ -408,7 +426,7 @@ class Ethernet(Contract):
 
 
 class Encapsulation(Contract):
-    kind: Literal['dot1q', 'qinq', 'untagged']
+    kind: Literal['dot1q', 'qinq', 'untagged', 'ppp']
     outer_vlan: StrictInt | None = Field(default=None, ge=1, le=4094)
     inner_vlan: StrictInt | None = Field(default=None, ge=1, le=4094)
 
@@ -416,8 +434,8 @@ class Encapsulation(Contract):
     def coherent(self):
         if self.kind in ('dot1q', 'qinq') and self.outer_vlan is None:
             raise ValueError('Tagged encapsulation needs outer VLAN')
-        if self.kind == 'untagged' and (self.outer_vlan is not None or self.inner_vlan is not None):
-            raise ValueError('Untagged encapsulation cannot carry VLAN tags')
+        if self.kind in ('untagged', 'ppp') and (self.outer_vlan is not None or self.inner_vlan is not None):
+            raise ValueError('Untagged or PPP encapsulation cannot carry VLAN tags')
         if self.kind != 'qinq' and self.inner_vlan is not None:
             raise ValueError('Inner VLAN requires QinQ')
         if self.kind == 'qinq' and self.inner_vlan is None:
@@ -524,6 +542,8 @@ class PrefixList(Contract):
 class TimestampPolicy(Contract):
     category: Literal['debug', 'log']
     format: Literal['datetime', 'uptime']
+    format_basis: Literal['EXPLICIT', 'COMMAND_IMPLIED'] | None = Field(default=None, exclude_if=lambda v: v is None,
+        description='Optional origin qualifier; COMMAND_IMPLIED is the documented explicit bare-command form, not a guessed absent platform default.')
     options: list[Literal['msec', 'localtime', 'show-timezone', 'year']] | None = None
 
 
@@ -655,6 +675,7 @@ class Multicast(Contract):
 
 
 class BGPPeer(Contract):
+    session_template: Name | None = Field(default=None, exclude_if=lambda value: value is None)
     peer: StrictStr = Field(min_length=1)
     kind: Literal['neighbor', 'group']
     remote_as: StrictInt | None = Field(default=None, ge=1, le=4294967295)
@@ -675,6 +696,7 @@ class BGPPeer(Contract):
 
 
 class BGPNeighbor(Contract):
+    session_template: Name | None = Field(default=None, exclude_if=lambda value: value is None)
     peer: StrictStr = Field(min_length=1)
     kind: Literal['neighbor', 'group'] = 'neighbor'
     remote_as: StrictInt | None = Field(default=None, ge=1, le=4294967295)
@@ -852,14 +874,38 @@ class EnablePassword(Contract):
     removed: StrictBool | None = None
 
 
+class LineAccessClass(Contract):
+    family: Literal['ipv4', 'ipv6']
+    direction: Literal['in', 'out']
+    setting: Literal['configured', 'removed', 'default']
+    name: Name | None = None
+    vrf_also: StrictBool | None = None
+
+    @model_validator(mode='after')
+    def configured_name(self):
+        if (self.setting == 'configured') != (self.name is not None):
+            raise ValueError('ACL name must correspond to a configured relation')
+        return self
+
+
 class ManagementLine(Contract):
     name: StrictStr = Field(min_length=1, description='Native management line, e.g. vty 0 4')
     allowed_transports: list[StrictStr] | None = None
     idle_timeout_seconds: StrictInt | None = Field(default=None, ge=0)
+    timeout_setting: Literal['configured','removed','default'] | None = Field(default=None, exclude_if=lambda v: v is None,
+        description='Observed timeout setter/reset, distinct from its effective value; no platform default inferred.')
+    transport_input_setting: Literal['configured','removed','default'] | None = Field(default=None, exclude_if=lambda v: v is None)
+    authentication_setting: Literal['configured','removed','default'] | None = Field(default=None, exclude_if=lambda v: v is None)
     access_list: StrictStr | None = None
     access_list_vrf: StrictBool | None = None
     access_list_direction: Literal['in', 'out'] | None = None
+    access_classes: list[LineAccessClass] | None = Field(default=None, exclude_if=lambda v: v is None,
+        description='Independent observed family/direction relations, including explicit removal/reset; no device inventory claim. Legacy scalar mirrors IPv4 IN preferentially.')
     authentication: Authentication | None = None
+    line_password_configured: StrictBool | None = Field(default=None, exclude_if=lambda v: v is None,
+        description='Presence/removal of a line password; the credential value is never retained.')
+    line_password_format: Literal['0', '7'] | None = Field(default=None, exclude_if=lambda v: v is None,
+        description='Observed IOS line-password format, without credential material.')
     logging_synchronous: StrictBool | None = None
     privilege_level: StrictInt | None = Field(default=None, ge=0, le=15)
     stopbits: StrictInt | None = Field(default=None, ge=1, le=2)
@@ -879,6 +925,9 @@ class ManagementLine(Contract):
 
     @model_validator(mode='after')
     def transport_selection(self):
+        identities = [(a.family, a.direction) for a in self.access_classes or []]
+        if len(identities) != len(set(identities)):
+            raise ValueError('Duplicate directed management-line ACL identity')
         for selection in (self.allowed_transports, self.preferred_transports):
             if selection is not None and any(t in ('all', 'none') for t in selection) and len(selection) != 1:
                 raise ValueError('all/none must stand alone')
@@ -993,7 +1042,14 @@ class BGPAddressFamily(Contract):
     native_safi: Name | None = None
 
 
+class BGPPeerSessionTemplate(Contract):
+    name: Name
+    parent_template: Name | None = None
+    authentication: BGPAuthentication | None = None
+
+
 class BGPProcess(Contract):
+    peer_session_templates: list[BGPPeerSessionTemplate] | None = Field(default=None, exclude_if=lambda value: value is None)
     local_as: StrictInt = Field(ge=1, le=4294967295)
     network_instance: StrictStr | None = None
     router_id: IPv4Address | None = None
@@ -1036,6 +1092,7 @@ class SSH(Contract):
     enabled: StrictBool | None = None
     version: Literal[1, 2] | None = None
     timeout_seconds: Annotated[StrictInt, Field(ge=0)] | None = None
+    timeout_setting: Literal['configured','removed','default'] | None = Field(default=None, exclude_if=lambda v: v is None)
     session_limit: Annotated[StrictInt, Field(ge=1)] | None = None
     rsa_keypair_name: Name | None = None
     source_interface: Name | None = None
@@ -1094,6 +1151,8 @@ class AAAMethodList(Contract):
     name: Name
     service: Name
     methods: list[AAAMethod] | None = None
+    password_expiry: StrictBool | None = Field(default=None, exclude_if=lambda v: v is None,
+        description='Explicit passwd-expiry login modifier; not an authentication method or proof that expiry operates.')
     accounting_mode: Literal['start-stop', 'stop-only', 'wait-start', 'none', 'other'] | None = None
 
 
@@ -1163,7 +1222,13 @@ class NTPAuthKey(Contract):
 
 class NTPTrustedKey(Contract):
     identifier: StrictInt = Field(ge=1, le=65535)
-    range_end: StrictInt | None = None  # For ranges like 1-5
+    range_end: StrictInt | None = Field(default=None, ge=1, le=65535)
+
+    @model_validator(mode='after')
+    def ordered(self):
+        if self.range_end is not None and self.range_end < self.identifier:
+            raise ValueError('Reversed NTP trust interval')
+        return self
 
 
 class Logging(Contract):
@@ -1172,6 +1237,10 @@ class Logging(Contract):
     source_vrf: Name | None = None
     trap_severity: StrictStr | None = None  # Syslog configuration level, not audit severity.
     timestamps: list[TimestampPolicy] | None = None
+    timestamps_disabled: list[Literal['debug', 'log']] | None = Field(
+        default=None, exclude_if=lambda value: value is None,
+        description='Categories explicitly disabled by configuration. None means unknown; '
+                    'not a completeness claim. A positive/default command clears only its category.')
     console_logging: StrictBool | None = None
     console_severity: StrictStr | None = None
     login_success_logging: StrictBool | None = None
@@ -1179,6 +1248,13 @@ class Logging(Contract):
     buffered_size: StrictInt | None = None
     buffered_severity: StrictStr | None = None
     buffered_discriminator: Name | None = None
+
+    @model_validator(mode='after')
+    def consistent_timestamp_states(self):
+        disabled = self.timestamps_disabled or []
+        if len(disabled) != len(set(disabled)) or any(p.category in disabled for p in self.timestamps or []):
+            raise ValueError('Conflicting timestamp configuration states')
+        return self
 
 
 class FlowExporter(Contract):
@@ -1352,8 +1428,11 @@ class ISISInterfaceSettings(Contract):
 
 class RIPInterfaceSettings(Contract):
     interface: Name
+    network_instance: Name | None = None
     send_versions: list[Literal[1, 2]] | None = None
     receive_versions: list[Literal[1, 2]] | None = None
+    send_version_setting: Literal['configured', 'reset'] | None = None
+    receive_version_setting: Literal['configured', 'reset'] | None = None
     passive: StrictBool | None = None
     authentication: RoutingAuthentication | None = None
 
@@ -1449,11 +1528,33 @@ class Extensions(Contract):
     cisco: CiscoExtensions | None = None
 
 
+class KeyLifetime(Contract):
+    setting: Literal['configured', 'reset']
+    # Validated non-secret date/time grammar, never credential contents.
+    specification: StrictStr | None = None
+    temporal_status: Literal['indeterminate'] = 'indeterminate'
+
+    @model_validator(mode='after')
+    def coherent(self):
+        if self.setting == 'reset':
+            if self.specification is not None:
+                raise ValueError('A reset has no configured lifetime specification')
+        else:
+            if self.specification is None:
+                raise ValueError('A configured lifetime needs a specification')
+            from parser.key_lifetimes import validate
+            validate(self.specification)
+        return self
+
+
 class KeyChainKey(Contract):
     identifier: Annotated[StrictInt, Field(ge=0)]
     secret_configured: StrictBool | None = None
+    secret_setting: LocalSetting | None = Field(default=None, exclude_if=lambda value: value is None)
     credential_format: Literal['0', '6', '7'] | None = None
     cryptographic_algorithm: Literal['hmac-sha-1', 'hmac-sha-256', 'hmac-sha-384', 'hmac-sha-512', 'md5'] | None = None
+    accept_lifetime: KeyLifetime | None = Field(default=None, exclude_if=lambda value: value is None)
+    send_lifetime: KeyLifetime | None = Field(default=None, exclude_if=lambda value: value is None)
 
 
 class KeyChain(Contract):
@@ -1683,7 +1784,14 @@ class EIGRPProcess(EIGRPInstanceSettings):
         return self
 
 
+class RoutingIntegrityIssue(Contract):
+    protocol: Literal['eigrp', 'ospf', 'rip', 'bgp', 'key_chain', 'interface']
+    source_line: Annotated[StrictInt, Field(ge=1)]
+    reason: Literal['UNRECOGNIZED', 'INVALID', 'UNMAPPED', 'UNSUPPORTED_OPERATION']
+
+
 class Routing(Contract):
+    integrity_issues: list[RoutingIntegrityIssue] | None = Field(default=None, exclude_if=lambda value: value is None)
     eigrp: list[EIGRPProcess] | None = None
     eigrp_interfaces: list[EIGRPClassicInterface] | None = None
     key_chains: list[KeyChain] | None = None
@@ -1716,7 +1824,15 @@ class Routing(Contract):
         return self
 
 
+class ConfigurationChange(Contract):
+    operation: Literal['removed', 'reset', 'unsupported', 'platform_dependent']
+    kind: Name
+    identity: list[StrictStr] | None = None
+    selector: dict[str, StrictStr | StrictInt | StrictBool] | None = None
+
+
 class RouterContractV1(Contract):
+    configuration_changes: list[ConfigurationChange] | None = Field(default=None, exclude_if=lambda value: value is None)
     contract_version: Literal['1.0.0']
     device: Device
     system: System

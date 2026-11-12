@@ -1,0 +1,31 @@
+<group name="lifecycle_bgp_af*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }}
+</group>
+
+<group name="lifecycle_bgp_af_safi*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} {{ safi }}
+</group>
+
+<group name="lifecycle_bgp_af_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} vrf {{ vrf }}
+</group>
+
+<group name="lifecycle_bgp_af_safi_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} {{ safi }} vrf {{ vrf }}
+</group>
+
+<group name="lifecycle_bgp_neighbor*" method="table">
+{{ source_line | DIGIT | to_int }} no neighbor {{ peer }}
+</group>
+
+<group name="lifecycle_bgp_group*" method="table">
+{{ source_line | DIGIT | to_int }} no neighbor {{ peer }} peer-group
+</group>
+
+<group name="lifecycle_bgp_member*" method="table">
+{{ source_line | DIGIT | to_int }} no neighbor {{ peer }} peer-group {{ group }}
+</group>
+
+<group name="lifecycle_bgp_template*" method="table">
+{{ source_line | DIGIT | to_int }} no template peer-session {{ name }}
+</group>

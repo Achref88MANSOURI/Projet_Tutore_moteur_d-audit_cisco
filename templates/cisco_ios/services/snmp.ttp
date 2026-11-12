@@ -6,6 +6,10 @@
 {{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }} {{ access }}
 </group>
 
+<group name="services_snmp_community_bare*" method="table" functions="set('ro', access)">
+{{ source_line | DIGIT | to_int }} snmp-server community {{ _ignore_ }}
+</group>
+
 <group name="services_snmp_location*" method="table">
 {{ source_line | DIGIT | to_int }} snmp-server location {{ value | ORPHRASE }}
 </group>
@@ -40,6 +44,14 @@
 {{ source_line | DIGIT | to_int }} snmp-server group {{ name }} v3 {{ sec_level }} {{ params | ORPHRASE }}
 </group>
 
+<group name="services_snmp_group_v3_plain*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server group {{ name }} v3 {{ sec_level }}
+</group>
+
+<group name="services_snmp_community_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server community {{ _ignore_ }}
+</group>
+
 <group name="services_snmp_group_v1_v2c*" method="table">
 {{ source_line | DIGIT | to_int }} snmp-server group {{ name }} {{ version }} {{ params | ORPHRASE }}
 </group>
@@ -60,6 +72,14 @@
 {{ source_line | DIGIT | to_int }} no snmp-server user {{ username }} {{ group }}
 </group>
 
+<group name="services_snmp_user_remove_version*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server user {{ username }} {{ group }} {{ version }}
+</group>
+
+<group name="services_snmp_user_remove_remote*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server user {{ username }} {{ group }} remote {{ remote_ip }} {{ version }}
+</group>
+
 <group name="services_snmp_host_traps*" method="table">
 {{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} traps {{ version }} {{ community_user }} {{ udp_port }} {{ types }}
 </group>
@@ -70,6 +90,17 @@
 
 <group name="services_snmp_host_traps_simple*" method="table">
 {{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} traps {{ version }} {{ community_user }}
+</group>
+
+<!-- Literal v2c forms are kept separate from the legacy greedy tables.  TTP
+     otherwise drops the redacted community operand when several host
+     syntaxes coexist in the same template. -->
+<group name="services_snmp_host_traps_v2c*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} traps version 2c {{ community_user }}
+</group>
+
+<group name="services_snmp_host_informs_v2c*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} informs version 2c {{ community_user }}
 </group>
 
 <!-- Simple implicit traps (version 1, no traps/informs keyword) -->
@@ -132,6 +163,14 @@
 {{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }}
 </group>
 
+<group name="services_snmp_host_v3*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} version 3 {{ sec_level }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_v3_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} version 3 {{ sec_level }} {{ community_user }}
+</group>
+
 <group name="services_snmp_host_informs*" method="table">
 {{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} informs version {{ version }} {{ community_user }} {{ udp_port }} {{ types }}
 </group>
@@ -167,6 +206,10 @@
 
 <group name="services_snmp_enable_traps_remove*" method="table" functions="set(True, removed)">
 {{ source_line | DIGIT | to_int }} no snmp-server enable traps {{ types | ORPHRASE }}
+</group>
+
+<group name="services_snmp_enable_traps_remove_all*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server enable traps
 </group>
 
 <group name="services_snmp_engineid*" method="table">
@@ -230,3 +273,72 @@
 {{ source_line | DIGIT | to_int }} no snmp-server
 </group>
 
+
+<!-- Explicit v3 notification variants: no legacy operand shifting. -->
+<group name="services_snmp_host_v3_options*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} version 3 {{ sec_level }} {{ community_user }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_snmp_host_v3_notification*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} {{ notification }} version 3 {{ sec_level }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_v3_notification_options*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} {{ notification }} version 3 {{ sec_level }} {{ community_user }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_snmp_host_v3_vrf_options*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} version 3 {{ sec_level }} {{ community_user }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_snmp_host_v3_vrf_notification*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} {{ notification }} version 3 {{ sec_level }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_v3_vrf_notification_options*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server host {{ destination }} vrf {{ vrf }} {{ notification }} version 3 {{ sec_level }} {{ community_user }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_snmp_traps_default*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default snmp-server enable traps
+</group>
+
+<group name="services_snmp_traps_default_types*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default snmp-server enable traps {{ types | ORPHRASE }}
+</group>
+
+<group name="services_snmp_user_v3_plain*" method="table">
+{{ source_line | DIGIT | to_int }} snmp-server user {{ username }} {{ group }} v3
+</group>
+
+<group name="services_snmp_host_v3_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }} version 3 {{ sec_level }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_v3_remove_options*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }} version 3 {{ sec_level }} {{ community_user }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_snmp_host_v3_remove_notification*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }} {{ notification }} version 3 {{ sec_level }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_v3_remove_notification_options*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }} {{ notification }} version 3 {{ sec_level }} {{ community_user }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_snmp_host_v3_remove_vrf*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }} vrf {{ vrf }} version 3 {{ sec_level }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_v3_remove_vrf_options*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }} vrf {{ vrf }} version 3 {{ sec_level }} {{ community_user }} {{ options | ORPHRASE }}
+</group>
+
+<group name="services_snmp_host_v3_remove_vrf_notification*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }} vrf {{ vrf }} {{ notification }} version 3 {{ sec_level }} {{ community_user }}
+</group>
+
+<group name="services_snmp_host_v3_remove_vrf_notification_options*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no snmp-server host {{ destination }} vrf {{ vrf }} {{ notification }} version 3 {{ sec_level }} {{ community_user }} {{ options | ORPHRASE }}
+</group>

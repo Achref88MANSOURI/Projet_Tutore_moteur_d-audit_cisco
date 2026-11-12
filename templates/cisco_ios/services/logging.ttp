@@ -15,11 +15,11 @@
 </group>
 
 <group name="services_logging_port*" method="table">
-{{ source_line | DIGIT | to_int }} logging host {{ address }} transport {{ transport }} port {{ port | DIGIT | to_int }}
+{{ source_line | DIGIT | to_int }} logging host {{ address }} transport {{ transport }} port {{ port }}
 </group>
 
 <group name="services_logging_vrf_port*" method="table">
-{{ source_line | DIGIT | to_int }} logging host {{ address }} vrf {{ vrf }} transport {{ transport }} port {{ port | DIGIT | to_int }}
+{{ source_line | DIGIT | to_int }} logging host {{ address }} vrf {{ vrf }} transport {{ transport }} port {{ port }}
 </group>
 
 <group name="services_logging_update*" method="table">
@@ -40,6 +40,10 @@
 
 <group name="services_logging_trap*" method="table">
 {{ source_line | DIGIT | to_int }} logging trap {{ severity }}
+</group>
+
+<group name="services_logging_trap_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no logging trap
 </group>
 
 <group name="services_logging_source*" method="table">
@@ -64,6 +68,10 @@
 
 <group name="services_logging_buffered_severity*" method="table">
 {{ source_line | DIGIT | to_int }} logging buffered {{ severity }}
+</group>
+
+<group name="services_logging_buffered_size*" method="table">
+{{ source_line | DIGIT | to_int }} logging buffered {{ size | re("[0-9]{4,10}") | to_int }}
 </group>
 
 <group name="services_logging_buffered_discriminator*" method="table">
@@ -98,3 +106,19 @@
 {{ source_line | DIGIT | to_int }} service timestamps {{ category }} {{ format }}
 </group>
 
+
+<group name="services_logging_source_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no logging source-interface
+</group>
+
+<group name="services_timestamp_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no service timestamps {{ category }}
+</group>
+
+<group name="services_timestamp_remove_all*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no service timestamps
+</group>
+
+<group name="services_timestamp_bare*" method="table" functions="set(True, bare)">
+{{ source_line | DIGIT | to_int }} service timestamps
+</group>

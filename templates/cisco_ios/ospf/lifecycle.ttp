@@ -1,0 +1,3 @@
+<group name="lifecycle_ospf_network*" method="table">
+{{ source_line | DIGIT | to_int }} no network {{ address | IP }} {{ wildcard | IP }} area {{ area }}
+</group>

@@ -1,0 +1,44 @@
+
+<group name="auth_key_chain*" method="table">
+{{ source_line | DIGIT | to_int }} key chain {{ name }}
+</group>
+
+<group name="auth_key_string_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no key-string
+</group>
+
+<group name="auth_key_string_remove_value*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no key-string __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_key_accept_lifetime*" method="table">
+{{ source_line | DIGIT | to_int }} accept-lifetime {{ specification | ORPHRASE }}
+</group>
+
+<group name="auth_key_send_lifetime*" method="table">
+{{ source_line | DIGIT | to_int }} send-lifetime {{ specification | ORPHRASE }}
+</group>
+
+<group name="auth_key_accept_lifetime_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no accept-lifetime
+</group>
+
+<group name="auth_key_send_lifetime_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no send-lifetime
+</group>
+
+<group name="auth_key_id*" method="table">
+{{ source_line | DIGIT | to_int }} key {{ key_id | DIGIT | to_int }}
+</group>
+
+<group name="auth_key_string*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} key-string __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_key_string_format*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} key-string {{ credential_format }} __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="auth_key_algorithm*" method="table">
+{{ source_line | DIGIT | to_int }} cryptographic-algorithm {{ algorithm }}
+</group>

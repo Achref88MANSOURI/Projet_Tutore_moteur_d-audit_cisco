@@ -1,0 +1,31 @@
+<group name="lifecycle_eigrp_af*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} autonomous-system {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="lifecycle_eigrp_af_safi*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} {{ safi }} autonomous-system {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="lifecycle_eigrp_af_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} vrf {{ vrf }} autonomous-system {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="lifecycle_eigrp_af_safi_vrf*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} {{ safi }} vrf {{ vrf }} autonomous-system {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="lifecycle_eigrp_af_legacy*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} vrf {{ vrf }}
+</group>
+
+<group name="lifecycle_eigrp_af_legacy_safi*" method="table">
+{{ source_line | DIGIT | to_int }} no address-family {{ afi }} {{ safi }} vrf {{ vrf }}
+</group>
+
+<group name="lifecycle_eigrp_network*" method="table">
+{{ source_line | DIGIT | to_int }} no network {{ address | IP }} {{ wildcard_mask | IP }}
+</group>
+
+<group name="lifecycle_eigrp_network_classful*" method="table">
+{{ source_line | DIGIT | to_int }} no network {{ address | IP }}
+</group>

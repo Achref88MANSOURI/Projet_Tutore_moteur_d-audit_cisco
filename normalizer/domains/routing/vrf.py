@@ -42,9 +42,12 @@ def handle(state,r):
 def declare(state,r):
     rule,v,line=r['rule'],r['values'],r['source_line']
     if rule in ('vrf_header', 'vrf_legacy_header'):
-        item = s.NetworkInstance(name=v['name'], kind='L3VRF')
-        collection(state.c, 'network_instances').append(item)
-        path = f'network_instances/{len((state.c.network_instances or [])) - 1}'
+        items = collection(state.c, 'network_instances')
+        item = next((current for current in items if current.name == v['name']), None)
+        if item is None:
+            item = s.NetworkInstance(name=v['name'], kind='L3VRF')
+            items.append(item)
+        path = f'network_instances/{items.index(item)}'
         state.entities[line] = path
         state.bind(path + '/name', line)
         state.bind(path + '/kind', line)

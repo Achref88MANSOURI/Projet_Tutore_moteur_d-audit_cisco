@@ -1,0 +1,355 @@
+<group name="eigrp_header*" method="table">
+{{ source_line | DIGIT | to_int }} router eigrp {{ identifier }}
+</group>
+
+<group name="eigrp_header6*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 router eigrp {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_af_001*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} autonomous-system {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_af_010*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} vrf {{ vrf }}
+</group>
+
+<group name="eigrp_af_011*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} vrf {{ vrf }} autonomous-system {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_af_101*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} {{ safi }} autonomous-system {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_af_110*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} {{ safi }} vrf {{ vrf }}
+</group>
+
+<group name="eigrp_af_111*" method="table">
+{{ source_line | DIGIT | to_int }} address-family {{ afi }} {{ safi }} vrf {{ vrf }} autonomous-system {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_autonomous_system*" method="table">
+{{ source_line | DIGIT | to_int }} autonomous-system {{ autonomous_system | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_af_interface*" method="table">
+{{ source_line | DIGIT | to_int }} af-interface {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_topology*" method="table">
+{{ source_line | DIGIT | to_int }} topology {{ name }}
+</group>
+
+<group name="eigrp_topology_named*" method="table">
+{{ source_line | DIGIT | to_int }} topology {{ name }} tid {{ topology_id | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_exit_exit_address_family*" method="table" functions="set(True, exited)">
+{{ source_line | DIGIT | to_int }} exit-address-family
+</group>
+
+<group name="eigrp_exit_exit_af_interface*" method="table" functions="set(True, exited)">
+{{ source_line | DIGIT | to_int }} exit-af-interface
+</group>
+
+<group name="eigrp_exit_exit_af_topology*" method="table" functions="set(True, exited)">
+{{ source_line | DIGIT | to_int }} exit-af-topology
+</group>
+
+<group name="eigrp_router_id*" method="table">
+{{ source_line | DIGIT | to_int }} eigrp router-id {{ router_id }}
+</group>
+
+<group name="eigrp_network*" method="table">
+{{ source_line | DIGIT | to_int }} network {{ address }}
+</group>
+
+<group name="eigrp_network_wildcard*" method="table">
+{{ source_line | DIGIT | to_int }} network {{ address }} {{ wildcard_mask }}
+</group>
+
+<group name="eigrp_neighbor*" method="table">
+{{ source_line | DIGIT | to_int }} neighbor {{ address }} {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_passive*" method="table">
+{{ source_line | DIGIT | to_int }} passive-interface {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_active*" method="table">
+{{ source_line | DIGIT | to_int }} no passive-interface {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_stub*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} eigrp stub
+</group>
+
+<group name="eigrp_stub_options*" method="table">
+{{ source_line | DIGIT | to_int }} eigrp stub {{ options | ORPHRASE }}
+</group>
+
+<group name="eigrp_stub_remove*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} no eigrp stub
+</group>
+
+<group name="eigrp_metric_weights*" method="table">
+{{ source_line | DIGIT | to_int }} metric weights {{ tos | DIGIT | to_int }} {{ k1 | DIGIT | to_int }} {{ k2 | DIGIT | to_int }} {{ k3 | DIGIT | to_int }} {{ k4 | DIGIT | to_int }} {{ k5 | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_metric_weights6*" method="table">
+{{ source_line | DIGIT | to_int }} metric weights {{ tos | DIGIT | to_int }} {{ k1 | DIGIT | to_int }} {{ k2 | DIGIT | to_int }} {{ k3 | DIGIT | to_int }} {{ k4 | DIGIT | to_int }} {{ k5 | DIGIT | to_int }} {{ k6 | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_metric_weights_remove*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} no metric weights
+</group>
+
+<group name="eigrp_router_id_remove*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} no eigrp router-id
+</group>
+
+<group name="eigrp_shutdown_on*" method="table" functions="set(False, enabled)">
+{{ source_line | DIGIT | to_int }} shutdown
+</group>
+
+<group name="eigrp_shutdown_off*" method="table" functions="set(True, enabled)">
+{{ source_line | DIGIT | to_int }} no shutdown
+</group>
+
+<group name="eigrp_auto_summary_on*" method="table" functions="set(True, auto_summary)">
+{{ source_line | DIGIT | to_int }} auto-summary
+</group>
+
+<group name="eigrp_auto_summary_off*" method="table" functions="set(False, auto_summary)">
+{{ source_line | DIGIT | to_int }} no auto-summary
+</group>
+
+<group name="eigrp_eigrp_log_neighbor_changes_on*" method="table" functions="set(True, log_neighbor_changes)">
+{{ source_line | DIGIT | to_int }} eigrp log-neighbor-changes
+</group>
+
+<group name="eigrp_eigrp_log_neighbor_changes_off*" method="table" functions="set(False, log_neighbor_changes)">
+{{ source_line | DIGIT | to_int }} no eigrp log-neighbor-changes
+</group>
+
+<group name="eigrp_log_neighbor_changes_on*" method="table" functions="set(True, log_neighbor_changes)">
+{{ source_line | DIGIT | to_int }} log-neighbor-changes
+</group>
+
+<group name="eigrp_log_neighbor_changes_off*" method="table" functions="set(False, log_neighbor_changes)">
+{{ source_line | DIGIT | to_int }} no log-neighbor-changes
+</group>
+
+<group name="eigrp_split_horizon_on*" method="table" functions="set(True, split_horizon)">
+{{ source_line | DIGIT | to_int }} split-horizon
+</group>
+
+<group name="eigrp_split_horizon_off*" method="table" functions="set(False, split_horizon)">
+{{ source_line | DIGIT | to_int }} no split-horizon
+</group>
+
+<group name="eigrp_next_hop_self_on*" method="table" functions="set(True, next_hop_self)">
+{{ source_line | DIGIT | to_int }} next-hop-self
+</group>
+
+<group name="eigrp_next_hop_self_off*" method="table" functions="set(False, next_hop_self)">
+{{ source_line | DIGIT | to_int }} no next-hop-self
+</group>
+
+<group name="eigrp_variance*" method="table">
+{{ source_line | DIGIT | to_int }} variance {{ variance | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_variance_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no variance
+</group>
+
+<group name="eigrp_maximum_paths*" method="table">
+{{ source_line | DIGIT | to_int }} maximum-paths {{ maximum_paths | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_maximum_paths_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no maximum-paths
+</group>
+
+<group name="eigrp_metric_maximum_hops*" method="table">
+{{ source_line | DIGIT | to_int }} metric maximum-hops {{ maximum_hops | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_metric_maximum_hops_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no metric maximum-hops
+</group>
+
+<group name="eigrp_timers_active_time*" method="table">
+{{ source_line | DIGIT | to_int }} timers active-time {{ active_time_minutes | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_timers_active_time_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no timers active-time
+</group>
+
+<group name="eigrp_hello_interval*" method="table">
+{{ source_line | DIGIT | to_int }} hello-interval {{ hello_interval_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_hello_interval_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no hello-interval
+</group>
+
+<group name="eigrp_hold_time*" method="table">
+{{ source_line | DIGIT | to_int }} hold-time {{ hold_time_seconds | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_hold_time_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no hold-time
+</group>
+
+<group name="eigrp_bandwidth_percent*" method="table">
+{{ source_line | DIGIT | to_int }} bandwidth-percent {{ bandwidth_percent | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_bandwidth_percent_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no bandwidth-percent
+</group>
+
+<group name="eigrp_active_time_disabled*" method="table" functions="set(True, disabled)">
+{{ source_line | DIGIT | to_int }} timers active-time disabled
+</group>
+
+<group name="eigrp_distance*" method="table">
+{{ source_line | DIGIT | to_int }} distance eigrp {{ internal_distance | DIGIT | to_int }} {{ external_distance | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_distance_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no distance eigrp
+</group>
+
+<group name="eigrp_default_metric*" method="table">
+{{ source_line | DIGIT | to_int }} default-metric {{ bandwidth | DIGIT | to_int }} {{ delay | DIGIT | to_int }} {{ reliability | DIGIT | to_int }} {{ load | DIGIT | to_int }} {{ mtu | DIGIT | to_int }}
+</group>
+
+<group name="eigrp_default_metric_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no default-metric
+</group>
+
+<group name="eigrp_redistribute*" method="table">
+{{ source_line | DIGIT | to_int }} redistribute {{ protocol }}
+</group>
+
+<group name="eigrp_redistribute_options*" method="table">
+{{ source_line | DIGIT | to_int }} redistribute {{ protocol }} {{ options | ORPHRASE }}
+</group>
+
+<group name="eigrp_authentication_md5*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} authentication mode md5
+</group>
+
+<group name="eigrp_authentication_key_chain*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} authentication key-chain {{ key_chain }}
+</group>
+
+<group name="eigrp_filter_acl*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} distribute-list {{ reference }} {{ direction }}
+</group>
+
+<group name="eigrp_filter_acl_interface*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} distribute-list {{ reference }} {{ direction }} {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_filter_prefix*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} distribute-list prefix {{ reference }} {{ direction }}
+</group>
+
+<group name="eigrp_filter_prefix_interface*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} distribute-list prefix {{ reference }} {{ direction }} {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_filter_route_map*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} distribute-list route-map {{ reference }} {{ direction }}
+</group>
+
+<group name="eigrp_summary4*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} summary-address {{ address }} {{ mask }}
+</group>
+
+<group name="eigrp_summary4_options*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} summary-address {{ address }} {{ mask }} {{ options | ORPHRASE }}
+</group>
+
+<group name="eigrp_authentication_key_chain_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no authentication key-chain {{ key_chain }}
+</group>
+
+<group name="eigrp_af_interface_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no af-interface {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_af_interface_auth_key_chain_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no authentication key-chain
+</group>
+
+<group name="eigrp_af_interface_auth_mode_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no authentication mode
+</group>
+
+<group name="eigrp_filter_acl_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no distribute-list {{ reference }} {{ direction }}
+</group>
+
+<group name="eigrp_filter_acl_interface_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no distribute-list {{ reference }} {{ direction }} {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_filter_prefix_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no distribute-list prefix {{ reference }} {{ direction }}
+</group>
+
+<group name="eigrp_filter_prefix_interface_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no distribute-list prefix {{ reference }} {{ direction }} {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_filter_route_map_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no distribute-list route-map {{ reference }} {{ direction }}
+</group>
+
+<group name="eigrp_summary4_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no summary-address {{ address }} {{ mask }}
+</group>
+
+<group name="eigrp_summary4_options_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no summary-address {{ address }} {{ mask }} {{ options | ORPHRASE }}
+</group>
+
+<group name="eigrp_authentication_sha*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} authentication mode hmac-sha-256 {{ credential_format }} __ROUTING_SECRET_PRESENT__
+</group>
+
+<group name="eigrp_authentication_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no authentication mode
+</group>
+
+<group name="eigrp_interface_passive_on*" method="table" functions="set(True, passive)">
+{{ source_line | DIGIT | to_int }} passive-interface
+</group>
+
+<group name="eigrp_interface_passive_off*" method="table" functions="set(False, passive)">
+{{ source_line | DIGIT | to_int }} no passive-interface
+</group>
+
+<group name="eigrp_filter_prefix_list*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} distribute-list prefix-list {{ reference }} {{ direction }}
+</group>
+
+<group name="eigrp_filter_prefix_list_interface*" method="table" functions="set(True, configured)">
+{{ source_line | DIGIT | to_int }} distribute-list prefix-list {{ reference }} {{ direction }} {{ interface | ORPHRASE }}
+</group>
+
+<group name="eigrp_filter_prefix_list_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no distribute-list prefix-list {{ reference }} {{ direction }}
+</group>
+
+<group name="eigrp_filter_prefix_list_interface_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no distribute-list prefix-list {{ reference }} {{ direction }} {{ interface | ORPHRASE }}
+</group>

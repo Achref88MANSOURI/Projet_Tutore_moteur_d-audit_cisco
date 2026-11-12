@@ -2,6 +2,26 @@
 {{ source_line | DIGIT | to_int }} router rip
 </group>
 
+<group name="catalogue_rip_version*" method="table">
+{{ source_line | DIGIT | to_int }} version {{ version | DIGIT | to_int }}
+</group>
+
+<group name="catalogue_rip_version_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no version
+</group>
+
+<group name="catalogue_rip_passive*" method="table" functions="set(True, passive)">
+{{ source_line | DIGIT | to_int }} passive-interface {{ interface }}
+</group>
+
+<group name="catalogue_rip_active*" method="table" functions="set(False, passive)">
+{{ source_line | DIGIT | to_int }} no passive-interface {{ interface }}
+</group>
+
+<group name="catalogue_rip_network_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no network {{ network | IP }}
+</group>
+
 <group name="catalogue_rip_network*" method="table">
 {{ source_line | DIGIT | to_int }} network {{ network | IP }}
 </group>

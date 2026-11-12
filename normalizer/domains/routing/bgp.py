@@ -14,9 +14,9 @@ def process(state, r):
     if obj is None:
         obj = s.BGPProcess(local_as=local)
         collection(state.c.routing, 'bgp').append(obj)
-        path = f'routing/bgp/{(state.c.routing.bgp or []).index(obj)}'
-        state.bind(path + '/local_as', root['source_line'], list(root['values']))
-    return obj, f'routing/bgp/{(state.c.routing.bgp or []).index(obj)}', family
+    path = f'routing/bgp/{(state.c.routing.bgp or []).index(obj)}'
+    state.bind(path + '/local_as', root['source_line'], list(root['values']))
+    return obj, path, family
 
 
 def family(proc, values):
@@ -40,7 +40,9 @@ def peer(state, r, proc, path, af):
         identity, kind = str(ip_address(value)), 'neighbor'
     except ValueError:
         identity, kind = value, 'group'
-        if not any(rec['root_line'] == r['root_line'] and rec['rule'] == 'bgp_group_definition' and rec['values']['peer'] == value for rec in state.records.values()):
+        if not any(rec['rule'] == 'bgp_group_definition' and rec['values']['peer'] == value and
+                   state.records.get(rec['root_line'], {}).get('values', {}).get('local_as') == state.root(r)['values']['local_as']
+                   for rec in state.records.values()):
             raise ValueError('A native peer identity cannot be guessed to be a group')
     if af:
         owner = family(proc, af)
@@ -70,6 +72,8 @@ def peer(state, r, proc, path, af):
 def handle(state, r):
     proc, path, af = process(state, r)
     values, rule, line = r['values'], r['rule'], r['source_line']
+    if rule.startswith('bgp_session_'):
+        return session_template(state, r, proc, path, af)
     if rule.startswith('auth_bgp_'):
         authentication.bgp(state, r, proc, path, peer)
         return
@@ -84,6 +88,10 @@ def handle(state, r):
         state.assign(proc, 'router_id', IPv4Address(values['router_id']), path, line)
         return
     if rule == 'bgp_group_definition':
+        if af:
+            obj, group_path = peer(state, r, proc, path, af)
+            state.bind(group_path, line)
+            return
         # Declaration is global to this process. Address-family options live separately.
         obj = next((g for g in (proc.peer_groups or []) if g.name == values['peer']), None)
         if obj is None:
@@ -169,3 +177,41 @@ PEER_RULES = {
     'bgp_shutdown': ('enabled', 'enabled'), 'bgp_no_shutdown': ('enabled', 'enabled'), 'bgp_reflector': ('route_reflector_client', 'enabled'),
     'bgp_next_hop': ('next_hop_self', 'enabled'), 'bgp_advertise_additional': ('additional_paths_advertise_selection', 'selection'),
 }
+
+
+def session_template(state, record, proc, path, af):
+    """Bounded IOS peer-session templates, kept distinct from peer-groups."""
+    rule, v, line = record['rule'], record['values'], record['source_line']
+    if rule == 'bgp_session_exit':
+        state.structural.add(line)
+        return
+    if rule in ('bgp_session_neighbor', 'bgp_session_neighbor_remove'):
+        if len(record['context_lines']) not in (1, 2) or (len(record['context_lines']) == 2 and af is None):
+            return
+        obj, target_path = peer(state, record, proc, path, af)
+        for field in ('peer', 'kind'):
+            state.bind(target_path + '/' + field, line)
+        if v.get('removed'):
+            obj.session_template = None
+            state.unbind(target_path + '/session_template')
+            state.consumed[line].update(v)
+        else:
+            state.assign(obj, 'session_template', v['name'], target_path, line)
+        return
+    parent = record if rule == 'bgp_session_template' else state.records.get(record['context_lines'][-1])
+    if not parent or parent['rule'] != 'bgp_session_template' or len(record['context_lines']) != (1 if rule == 'bgp_session_template' else 2):
+        return
+    templates = collection(proc, 'peer_session_templates')
+    item = next((t for t in templates if t.name == parent['values']['name']), None)
+    if item is None:
+        item = s.BGPPeerSessionTemplate(name=parent['values']['name'])
+        templates.append(item)
+    target_path = f'{path}/peer_session_templates/{templates.index(item)}'
+    state.bind(target_path + '/name', parent['source_line'])
+    if rule == 'bgp_session_parent':
+        state.assign(item, 'parent_template', v['name'], target_path, line)
+    elif rule.startswith('bgp_session_password'):
+        removed = v.get('removed', False)
+        authentication.publish(state, item, 'authentication', target_path, record,
+            dict(local_setting='removed' if removed else 'configured', secret_configured=not removed,
+                 method=None if removed else 'tcp_md5', algorithm=None if removed else 'md5', credential_format=v.get('credential_format')), s.BGPAuthentication)

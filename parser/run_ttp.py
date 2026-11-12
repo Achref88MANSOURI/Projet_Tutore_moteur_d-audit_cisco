@@ -10,6 +10,7 @@ from xml.etree import ElementTree
 from ttp import ttp
 from ttp_templates import get_template
 from .inventory import inventory, ancestors
+from .logging_commands import target as logging_target
 from .routing_secrets import redact_routing_secrets
 from .admin_secrets import redact_admin_secrets
 from .admin_context import allowed as admin_context_allowed
@@ -191,6 +192,9 @@ def routing_auth_context(rule, node, nodes):
     if not rule.startswith('auth_'):
         return True
     parents = ancestors(node, nodes)
+    if rule.startswith('auth_bgp_'):
+        return (len(parents) == 1 and parents[0].text.startswith('router bgp ') or
+                len(parents) == 2 and parents[0].text.startswith('router bgp ') and parents[1].text.startswith('address-family '))
     if rule == 'auth_key_chain':
         return not parents
     if rule.startswith('auth_key_'):
@@ -225,8 +229,9 @@ def flatten_records(value):
                 yield from flatten_records(item)
 
 
-def extract(text, *, official=True):
-    text = redact_admin_secrets(redact_routing_secrets(text))
+def extract(text, *, official=True, community_categories=None):
+    identities = {}
+    text = redact_admin_secrets(redact_routing_secrets(text), identities=identities, community_categories=community_categories)
     nodes = inventory(text)
     definitions, templates = load_templates()
     grouped = defaultdict(list)
@@ -245,6 +250,12 @@ def extract(text, *, official=True):
                     for record in flatten_records(values):
                         line = record['source_line']
                         definition = definitions[rule]
+                        # Generic legacy host tables must not reinterpret the
+                        # literal 'version' token or a v3 security level as a
+                        # community/port. Specific v3 TTP groups own that syntax.
+                        if rule.startswith('services_snmp_host') and not rule.startswith('services_snmp_host_remove'):
+                            if 'version' in record and record['version'] not in ('1', '2c'):
+                                continue
                         if any(record.get(k) not in allowed for k,allowed in definition.get('choices',{}).items()):continue
                         if not scope_allowed(definition,nodes[line],nodes) or not complete_line(definition['pattern'],nodes[line].text):continue
                         if not routing_auth_context(rule,nodes[line],nodes):continue
@@ -256,10 +267,16 @@ def extract(text, *, official=True):
                             if rule=='services_login' and not (record.get('method')=='local' or re.fullmatch(r'authentication \S+',record.get('method',''))):continue
                         if rule.startswith('services_line_') and not nodes[nodes[line].root].text.startswith('line '):continue
                         if rule.startswith('services_timeout') and not nodes[nodes[line].root].text.startswith('line '):continue
+                        if rule.startswith(('services_logging', 'services_password_encryption', 'services_timestamp')) or rule in ('services_http_on', 'services_http_off', 'services_https_on', 'services_https_off'):
+                            if nodes[line].parent is not None: continue
+                        if rule in {'services_logging', 'services_logging_vrf', 'services_logging_vrf_transport', 'services_logging_transport', 'services_logging_port', 'services_logging_vrf_port'}:
+                            continue  # canonical update retains malformed suffixes for invalidation
+                        if rule in ('services_logging_update', 'services_logging_remove', 'services_logging_legacy', 'services_logging_legacy_remove'):
+                            record.update(logging_target(record))
                         global_rules={'services_login_logging','services_timestamp','services_timestamp_plain','services_console_off','services_source_route_off',
                             'services_lookup_off','services_password_encryption_off','services_ipv6_routing','services_http_auth','services_community_expanded',
                             'services_flow_source','services_flow_version','services_flow_timeout',
-                            'services_aaa_on','services_aaa_off'}
+                            'services_aaa_on','services_aaa_off','services_aaa_default','services_cdp_run_default'}
                         if rule in global_rules and nodes[line].parent is not None:continue
                         if rule in ('if_bridge_domain','if_encap_untagged') and not any(nodes[a.line].text.startswith('service instance ') for a in ancestors(nodes[line],nodes)):continue
                         # Specific fixed keywords take precedence over greedy text.
@@ -289,6 +306,8 @@ def extract(text, *, official=True):
         records[line] = {'rule': rule, 'values': values, 'source_line': line,
                          'root_line': node.root, 'family': node.family,
                          'context_lines': [x.line for x in ancestors(node, nodes)]}
+        if line in identities:
+            records[line]['identity_ref'] = identities[line]
     official_results = {}
     if official:
         for name, filename in OFFICIAL.items():

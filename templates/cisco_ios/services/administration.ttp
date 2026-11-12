@@ -19,7 +19,7 @@
 </group>
 
 <group name="services_line*" method="table">
-{{ source_line | DIGIT | to_int }} line {{ name | ORPHRASE }}
+{{ source_line | DIGIT | to_int }} line {{ name | re(".+") }}
 </group>
 
 <group name="services_transport*" method="table">
@@ -85,6 +85,10 @@
 
 <group name="services_login_authentication_remove*" method="table" functions="set(True, removed)">
 {{ source_line | DIGIT | to_int }} no login authentication
+</group>
+
+<group name="services_login_authentication_default*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default login authentication
 </group>
 
 <group name="services_login_authentication_remove_args*" method="table" functions="set(True, removed)">
@@ -160,6 +164,10 @@
 {{ source_line | DIGIT | to_int }} ip ssh time-out {{ seconds | DIGIT | to_int }}
 </group>
 
+<group name="admin_ssh_timeout_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip ssh time-out
+</group>
+
 <group name="admin_ssh_retries*" method="table">
 {{ source_line | DIGIT | to_int }} ip ssh authentication-retries {{ retries | DIGIT | to_int }}
 </group>
@@ -180,6 +188,10 @@
 {{ source_line | DIGIT | to_int }} enable secret level {{ level | DIGIT | to_int }} {{ credential }}
 </group>
 
+<group name="services_enable_secret_level_type*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} enable secret level {{ level | DIGIT | to_int }} {{ secret_type | DIGIT }} {{ credential }}
+</group>
+
 <group name="services_enable_secret_algorithm*" method="table" functions="set(True, secret_configured)">
 {{ source_line | DIGIT | to_int }} enable algorithm-type {{ algorithm_type }} secret {{ credential }}
 </group>
@@ -197,15 +209,35 @@
 </group>
 
 <group name="services_enable_password*" method="table" functions="set(True, secret_configured)">
-{{ source_line | DIGIT | to_int }} enable password {{ credential }}
+{{ source_line | DIGIT | to_int }} enable password __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="services_enable_password_type*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} enable password {{ credential_format }} __ADMIN_SECRET_PRESENT__
 </group>
 
 <group name="services_enable_password_level*" method="table" functions="set(True, secret_configured)">
-{{ source_line | DIGIT | to_int }} enable password level {{ level | DIGIT | to_int }} {{ credential }}
+{{ source_line | DIGIT | to_int }} enable password level {{ level | DIGIT | to_int }} __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="services_enable_password_level_type*" method="table" functions="set(True, secret_configured)">
+{{ source_line | DIGIT | to_int }} enable password level {{ level | DIGIT | to_int }} {{ credential_format }} __ADMIN_SECRET_PRESENT__
 </group>
 
 <group name="services_enable_password_remove*" method="table" functions="set(True, removed)">
 {{ source_line | DIGIT | to_int }} no enable password
+</group>
+
+<group name="services_line_password_type*" method="table" functions="set(True, password_configured)">
+{{ source_line | DIGIT | to_int }} password {{ credential_format }} __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="services_line_password*" method="table" functions="set(True, password_configured)">
+{{ source_line | DIGIT | to_int }} password __ADMIN_SECRET_PRESENT__
+</group>
+
+<group name="services_line_password_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no password
 </group>
 
 <group name="services_user_algorithm*" method="table" functions="set(True, secret_configured)">
@@ -236,7 +268,7 @@
 {{ source_line | DIGIT | to_int }} default exec
 </group>
 
-<group name="services_login_off*" method="table" functions="set(False, login_disabled)">
+<group name="services_login_off*" method="table" functions="set(True, login_disabled)">
 {{ source_line | DIGIT | to_int }} no login
 </group>
 
@@ -270,6 +302,10 @@
 
 <group name="services_domain_remove*" method="table" functions="set(True, removed)">
 {{ source_line | DIGIT | to_int }} no ip domain-name
+</group>
+
+<group name="services_domain_alt_remove*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ip domain name
 </group>
 
 
@@ -327,7 +363,7 @@
 </group>
 
 <group name="services_ssh_version_remove*" method="table" functions="set(True, removed)">
-{{ source_line | DIGIT | to_int }} no ip ssh version
+{{ source_line | DIGIT | to_int }} no ip ssh version {{ version }}
 </group>
 
 <group name="services_ssh_source*" method="table">
@@ -443,4 +479,24 @@
 
 <group name="services_acl_no_numbered*" method="table" functions="set(True, removed)">
 {{ source_line | DIGIT | to_int }} no access-list {{ acl_name | DIGIT }}
+</group>
+
+<group name="services_ssh_version_default*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default ip ssh version
+</group>
+
+<group name="services_access_class_ipv6*" method="table">
+{{ source_line | DIGIT | to_int }} ipv6 access-class {{ acl }} {{ direction }}
+</group>
+
+<group name="services_access_class_ipv6_remove_all*" method="table" functions="set(True, removed)">
+{{ source_line | DIGIT | to_int }} no ipv6 access-class
+</group>
+
+<group name="services_access_class_default*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default access-class
+</group>
+
+<group name="services_access_class_ipv6_default*" method="table" functions="set(True, reset)">
+{{ source_line | DIGIT | to_int }} default ipv6 access-class
 </group>
